@@ -10,12 +10,14 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button MinimumWidthRequest="10"
-                            BorderColor="{Binding TestColor}" 
-                            BackgroundColor="{Binding TestColor}" 
-                            TextColor="{Binding TestColor}" 
-                            Text="XXXXX"
-                            />
+                    <Button 
+                    MinimumWidthRequest="10"
+                    BorderColor="Red" 
+                    BackgroundColor="Red" 
+                    TextColor="Blue" 
+                    Text="Test"
+                    Command="{Binding SomeCommand}"/>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -10,12 +10,13 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Button 
-                              MinimumWidthRequest="10"
-                              BackgroundColor="{Binding ButtonColor}"
-                              BorderWidth="{Binding ButtonBorder}"
-                              Command="{Binding Path=BindingContext.SelectColorCommand, Source={RelativeSource AncestorType={x:Type ContentView}}}"
-                              CommandParameter="{Binding .}"
-                              Margin="1"/>
+                    BackgroundColor="{Binding ButtonColor}"
+                        MinimumWidthRequest="10"
+                        BorderWidth="{Binding ButtonBorder}"
+                        Command="{Binding Path=BindingContext.SelectColorCommand, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                        CommandParameter="{Binding .}"
+                        Margin="1"/>
+
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

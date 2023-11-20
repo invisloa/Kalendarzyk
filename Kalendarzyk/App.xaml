@@ -9,6 +9,80 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Define custom Fields -->
+
+            <x:Int32 x:Key="EventTitleFontSize">20</x:Int32>
+
+            <Color x:Key="MainTextColor">#fff</Color>
+            <Color x:Key="MainPlaceholderTextColor">#ccc</Color>
+            <Color x:Key="MainBackgroundColor">#3b78d4</Color>
+            <Color x:Key="MainButtonBackgroundColor">#062e9c</Color>
+            <Color x:Key="MainFrameBackgroundColor">#2a4ebd</Color>
+            <Color x:Key="MainTextboxesBackgroundColor">#273567</Color>
+            <Color x:Key="DeselectedBackgroundColor">#8198B2</Color>
+            <Color x:Key="MainMicroTaskBackgroundColor">#069</Color>
+            <Color x:Key="MainEventDeselectedBackgroundColor">#000</Color>
+
+
+            <!-- Define the style for labels -->
+            <!--
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="MyNormalFont" />
+                <Setter Property="FontSize" Value="16" />
+
+            </Style>-->
+
+            <Style x:Key="DangerButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#E74C3C" />
+                <!-- Red background color -->
+                <Setter Property="TextColor" Value="White" />
+                <!-- White text color -->
+                <Setter Property="CornerRadius" Value="10" />
+                <!-- Rounded corners -->
+                <Setter Property="Padding" Value="10" />
+                <!-- Padding for content -->
+                <Setter Property="HeightRequest" Value="50" />
+                <!-- Button height -->
+                <Setter Property="WidthRequest" Value="200" />
+                <!-- Button width -->
+                <Setter Property="FontAttributes" Value="Bold" />
+                <!-- Bold text -->
+                <Setter Property="FontSize" Value="18" />
+                <!-- Font size -->
+                <Setter Property="BorderWidth" Value="1" />
+                <!-- Border width -->
+                <Setter Property="BorderColor" Value="#C0392B" />
+                <!-- Border color -->
+
+            </Style>
+            <!-- Define the style for buttons -->
+            <Style x:Name="SelectableButtonStyle" x:Key="MyButtonStyle" TargetType="Button">
+                <Setter Property="MinimumHeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{DynamicResource MainTextColor}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource MainButtonBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                    <!-- or any other color you prefer -->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
