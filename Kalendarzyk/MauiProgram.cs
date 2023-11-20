@@ -4,6 +4,7 @@ using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.EventsViewModels;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 
 namespace Kalendarzyk
 {
@@ -24,7 +25,7 @@ namespace Kalendarzyk
 				.UseMauiApp<App>()
 
 				.UseMauiCommunityToolkit()
-				// turned off for now... not working- some strange bug..			.UseLocalNotification()
+				.UseLocalNotification()
 
 				.ConfigureFonts(fonts =>
 				{

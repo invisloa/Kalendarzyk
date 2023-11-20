@@ -12,57 +12,14 @@ public partial class ViewAllEventsPage : ContentPage
 	{
 		// Retrieve the view model from DI container
 
+		 var viewModel = MauiProgram.Current.Services.GetService<AllEventsViewModel>();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		//TODOJO var viewModel = MauiProgram.Current.Services.GetService<AllEventsViewModel>();
-
-		//TODOJO BindingContext = viewModel;
+		BindingContext = viewModel;
 		InitializeComponent();
-		//TODOJO viewModel.OnEventsToShowListUpdated += () =>
-		//TODOJO {
-		//TODOJO viewModel.BindDataToScheduleList();
-		//TODOJO };
+		viewModel.OnEventsToShowListUpdated += () =>
+		{
+		viewModel.BindDataToScheduleList();
+		};
 	}
 	// for viewing specific type of events
 	public ViewAllEventsPage(IEventRepository eventRepository, ISubEventTypeModel eventTypeModel)
