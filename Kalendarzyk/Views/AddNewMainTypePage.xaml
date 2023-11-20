@@ -58,58 +58,43 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <Button 
+                            <Button BackgroundColor="Transparent"
                                 Command="{Binding Path=BindingContext.ExactIconSelectedCommand, Source={x:Reference AddNewMainTypePageName}}" 
                                 CommandParameter="{Binding .}"
                                 HorizontalOptions="FillAndExpand" 
                                 VerticalOptions="FillAndExpand"/>
-                            <Label 
-                                    Text="{Binding .}"
-                                    Style="{StaticResource GoogleFont}"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"/>
+                            <Label Text="{Binding .}"
+                                       Style="{StaticResource GoogleFont}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center">
+                               <Label.GestureRecognizers>
+                                   <TapGestureRecognizer 
+                                    Command="{Binding Path=BindingContext.ExactIconSelectedCommand, Source={x:Reference AddNewMainTypePageName}}" 
+                                    CommandParameter="{Binding .}" 
+                                   />
+                                </Label.GestureRecognizers>
+                            </Label>
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-        <CollectionView ItemsSource="{Binding BgColorsButtonsOC}"  IsVisible="{Binding IsBgColorsTabSelected}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                     Span="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Button 
-                              MinimumWidthRequest="10"
-                              BackgroundColor="{Binding ButtonColor}"
-                              BorderWidth="{Binding ButtonBorder}"
-                              Command="{Binding Path=BindingContext.BgColorsCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                              CommandParameter="{Binding .}"
-                              Margin="1"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
+        
+        <!--Background Colors--> 
+        <customControls:ColorButtonsSelectorCC Margin="5"
+            ItemsSource="{Binding BgColorsButtonsOC}" 
+            Command="{Binding Path=BindingContext.BgColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
+            BindingContext="{Binding}"  IsVisible="{Binding IsBgColorsTabSelected}"/>
 
-        <CollectionView ItemsSource="{Binding TextColorsButtonsOC}" IsVisible="{Binding IsTextColorsTabSelected}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                     Span="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Button 
-                              MinimumWidthRequest="10"
-                              BackgroundColor="{Binding ButtonColor}"
-                              BorderWidth="{Binding ButtonBorder}"
-                              Command="{Binding Path=BindingContext.TextColorsCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                              CommandParameter="{Binding .}"
-                              Margin="1"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <!--Icon Colors--> 
+        <customControls:ColorButtonsSelectorCC Margin="5"
+            ItemsSource="{Binding TextColorsButtonsOC}" 
+            Command="{Binding Path=BindingContext.TextColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
+            BindingContext="{Binding}"  IsVisible="{Binding IsTextColorsTabSelected}"/>
 
+        
         <!--Down of the screen buttons-->
         <Button Text="DELETE SELECTED MAIN TYPE" IsVisible="{Binding IsEdit}" Command="{Binding DeleteAsyncSelectedMainEventTypeCommand}"/>
         <Button Margin="5" Text="{Binding SubmitMainTypeButtonText}" Command="{Binding SubmitAsyncMainTypeCommand}" HorizontalOptions="Center"/>

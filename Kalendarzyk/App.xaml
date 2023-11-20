@@ -57,7 +57,7 @@
 
             </Style>
             <!-- Define the style for buttons -->
-            <Style x:Name="SelectableButtonStyle" x:Key="MyButtonStyle" TargetType="Button">
+            <Style x:Name="MyCustomButtonStyle" x:Key="MyCustomButtonStyle" TargetType="Button">
                 <Setter Property="MinimumHeightRequest" Value="40" />
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="FontAttributes" Value="Bold" />

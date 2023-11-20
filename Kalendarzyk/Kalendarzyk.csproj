@@ -73,9 +73,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="TestPageNet8.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\AddNewMainTypePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

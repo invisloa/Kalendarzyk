@@ -10,7 +10,7 @@
 
     <BindableLayout.ItemTemplate>
         <DataTemplate>
-            <Button Text="{Binding ButtonText}" 
+            <Button Style="{StaticResource MyCustomButtonStyle}" Text="{Binding ButtonText}" 
             BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type local:SelectableButtonFlexLayoutCC}}, Path=ButtonBackground}"
             BorderWidth="{Binding ButtonBorder}"
             Command="{Binding ButtonCommand}"
