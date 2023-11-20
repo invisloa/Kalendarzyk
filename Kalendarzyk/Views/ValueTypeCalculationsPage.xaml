@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             x:Name="ValueTypeCalculationsP"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.ValueTypeCalculationsPage"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             Title="ValueTypeCalculationsPage">
+    <VerticalStackLayout  BackgroundColor="{DynamicResource MainBackgroundColor}">
+
+        <!--Date Filtering CustomControl-->
+        <customControls:DateFilteringCC/>
+
+        <!--All User Types CustomControl-->
+        <customControls:EventTypesCustomControl/>
+
+        <Button Text="DO BASIC CALCULATIONS" Command="{Binding DoBasicCalculationsCommand}"/>
+
+        <StackLayout IsVisible="{Binding BasicOperationsVisibility}">
+            <HorizontalStackLayout Margin="10">
+                <Label Text="{Binding TotalOfMeasurementsTextAbove}" FontSize="30" HorizontalOptions="Center" />
+                <Label Text="{Binding TotalOfMeasurements}" FontSize="30" HorizontalOptions="Center"  Margin="10,0,10,0"/>
+                <Button Text="->" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
+                <Label Text="{Binding AverageByDayTextAbove}" FontSize="30" HorizontalOptions="Center" />
+                <Label Text="{Binding AverageByDayMeasurements}" FontSize="30" HorizontalOptions="Center"  Margin="10,0,10,0" />
+                <Button Text="->" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
+                <Label Text="{Binding MaxOfMeasurementsTextAbove}" FontSize="30" HorizontalOptions="Center" />
+                <Label Text="{Binding MaxOfMeasurements}" FontSize="30" HorizontalOptions="Center"  Margin="10,0,10,0"/>
+                <Button Text="->" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
+                <Label Text="{Binding MinOfMeasurementsTextAbove}" FontSize="30" HorizontalOptions="Center" />
+                <Label Text="{Binding MinOfMeasurements}" FontSize="30" HorizontalOptions="Center"  Margin="10,0,10,0"/>
+                <Button Text="->" />
+            </HorizontalStackLayout>
+
+        </StackLayout>
+        <!--MAX BY WEEK -->
+        <Button Text="MAX BY WEEK" Command="{Binding MaxByWeekCalculationsCommand}"/>
+        <StackLayout IsVisible="{Binding MaxByWeekOperationsVisibility}">
+            <Label Text="{Binding MaxByWeekCalculationText}" FontSize="30" HorizontalOptions="Center" />
+            <customControls:MeasurementOutputCC/>
+        </StackLayout>
+
+        <!--MIN BY WEEK-->
+        <Button Text="MIN BY WEEK" Command="{Binding MinByWeekCalculationsCommand}"/>
+        <StackLayout IsVisible="{Binding MinByWeekOperationsVisibility}">
+            <Label Text="{Binding MinByWeekCalculationText}" FontSize="30" HorizontalOptions="Center" />
+            <customControls:MeasurementOutputCC/>
+        </StackLayout>
+
+
+    </VerticalStackLayout>
+</ContentPage>

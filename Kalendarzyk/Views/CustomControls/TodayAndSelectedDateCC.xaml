@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.CustomControls.TodayAndSelectedDateCC">
+    <!-- Date layout -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackLayout Grid.Column="0">
+            <Label Text="GO TO TODAY:"/>
+            <Button Text="{Binding CurrentDate, StringFormat='{0:dd MM yyyy}'}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Start" Command="{Binding SelectTodayDateCommand}"/>
+        </StackLayout>
+
+        <Button Grid.Column="1" Text="FILTERS" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Command="{Binding SelectTodayDateCommand}" />
+
+        <StackLayout Grid.Column="2" HorizontalOptions="End" >
+            <Label Text="SELECTED DATE:"/>
+            <DatePicker Date="{Binding CurrentSelectedDate, Mode=TwoWay}" Format="dd MM yyyy" FontAttributes="Bold" FontSize="20" BackgroundColor="{StaticResource MainButtonBackgroundColor}" TextColor="{StaticResource MainTextColor}"/>
+        </StackLayout>
+    </Grid>
+</ContentView>

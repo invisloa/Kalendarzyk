@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Kalendarzyk.ViewModels"
+             xmlns:i="clr-namespace:System.Windows.Input;assembly=System.ObjectModel"
+             xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             x:DataType="local:MonthlyEventsViewModel"
+             x:Class="Kalendarzyk.Views.ViewMonthlyEvents"
+             Title="Monthly events list">
+    <Grid  BackgroundColor="{DynamicResource MainBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Date layout -->
+        <customControls:TodayAndSelectedDateCC Grid.Row="0"/>
+
+
+        <!-- EventPriorities collection -->
+        <customControls:EventTypesCustomControl Grid.Row="1"/>
+
+        <!--Events list layout-->
+        <!--<customControls:AddNewEventAndTypeBtnsCC Grid.Row="2"/>-->
+
+        <!--Events Grid-->
+        <ScrollView Grid.Row="2" Orientation="Vertical" >
+            <customControls:MonthlyEventsControl 
+                x:Name="monthlyEventsControl"
+                AllEventsList="{Binding AllEventsListOC}" 
+                CurrentSelectedDate="{Binding CurrentSelectedDate}"
+                EventSelectedCommand="{Binding SelectEventCommand}" 
+                EventsToShowList="{Binding EventsToShowList, Mode=TwoWay}"
+                GoToSelectedDateCommand="{Binding GoToSelectedDateCommand}"    
+                />
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

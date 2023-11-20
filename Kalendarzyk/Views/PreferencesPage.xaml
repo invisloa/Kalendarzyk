@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.PreferencesPage"
+             Title="PreferencesPage">
+
+    <StackLayout Padding="30">
+        <!-- Language -->
+        <Label Text="{Binding SelectedLanguageText}" />
+        <Switch IsToggled="{Binding SelectedLanguage}" />
+
+        <!--Event Different Times Preferences-->
+        <Label Text="{Binding SubEventTypeTimesDifferentText}" />
+        <Switch IsToggled="{Binding SubEventTypeTimesDifferent}" />
+
+        <Label Text="{Binding MainEventTypeTimesDifferentText}" />
+        <Switch IsToggled="{Binding MainEventTypeTimesDifferent}" />
+
+        <!--WEEKLY PREFERED HOURS SPAN-->
+        <Label Text="{Binding WeeklyHoursSpanText}" />
+        <Switch IsToggled="{Binding WeeklyHoursSpan}" />
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding WeeklyHoursSpan}">
+            <Label Text="FROM"/>
+            <!-- TODO !!!!!!!!!!!! TO CHANGE FOR A NUMERIC CONTROL !!!!!!!!!!!!!!!!-->
+            <Entry Text="{Binding HoursSpanFrom}"/>
+            <Label Text="TO"/>
+            <Entry Text="{Binding HoursSpanTo}"/>
+        </StackLayout>
+
+
+        <Button Text="Save Preferences" Command="{Binding SaveCommand}" />
+
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Kalendarzyk.Models.EventTypesModels"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
+             x:Class="Kalendarzyk.Views.AllSubTypesPage"
+             Title="AllSubTypesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToAlphaConverter x:Key="boolToAlphaConverter" />
+            <converters:BoolToScaleConverter x:Key="boolToScaleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout  BackgroundColor="{DynamicResource MainBackgroundColor}">
+        <FlexLayout BindableLayout.ItemsSource="{Binding AllSubEventTypesOC}"
+                                Wrap="Wrap" 
+            Direction="Row" 
+            AlignItems="Start" 
+            JustifyContent="Start"
+            HorizontalOptions="Center">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:ISubEventTypeModel">
+                    <!--<Grid Margin="3,0,0,0">-->
+                    <Grid Margin="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- For MainType Frame -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- For SubType Button -->
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Sub Type (Button) -->
+                        <Button Grid.Column="1"
+                        Text="{Binding EventTypeName}" Margin="-10, 0, 0, 0"
+
+                        TextColor="White"
+                        BackgroundColor="{Binding BackgroundColor}" 
+                        BorderWidth="5"
+                         Command="{Binding BindingContext.EditSelectedTypeCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                         CommandParameter="{Binding .}">
+
+                            <Button.Shadow>
+                                <Shadow Brush="Black"
+                                Radius="3"
+                                Opacity="1"/>
+                            </Button.Shadow>
+                        </Button>
+
+                        <!-- Main Type -->
+                        <Frame Grid.Column="0"
+                       
+                       BackgroundColor="{Binding MainEventType.SelectedVisualElement.BackgroundColor}" 
+                       Padding="0"
+
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center">
+                            <StackLayout>
+                                <Label 
+                                Text="{Binding  MainEventType.SelectedVisualElement.ElementName}" 
+                                TextColor="{Binding MainEventType.SelectedVisualElement.TextColor}" 
+                                Style="{StaticResource GoogleFont}" 
+                                Opacity="{Binding IsSelectedToFilter, Converter={StaticResource boolToAlphaConverter}}"
+                                Scale="{Binding IsSelectedToFilter, Converter={StaticResource boolToScaleConverter}}"
+                                HorizontalOptions="Center" 
+                                VerticalOptions="Center"/>
+                                <Label Text="{Binding MainEventType.Title}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </VerticalStackLayout>
+</ContentPage>
+    

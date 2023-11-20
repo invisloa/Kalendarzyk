@@ -1,0 +1,37 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.AddNewSubTypePage"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             Title="AddNewSubTypePage"
+             x:Name="AddNewSubTypePageName">
+    <ScrollView BackgroundColor="{DynamicResource MainBackgroundColor}">
+        <StackLayout>
+            <Button Text="ALL TYPES PAGE" Command="{Binding GoToAllSubTypesPageCommand}" BackgroundColor="DarkGoldenrod" 
+                    WidthRequest="150" HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>
+            <!--Textbox for new type name-->
+
+            <Frame Padding="1" HorizontalOptions="CenterAndExpand" WidthRequest="250" >
+
+                <Entry x:Name="TypeNameEntry"  Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body"
+                           HorizontalTextAlignment="Center" BackgroundColor="{Binding SelectedSubTypeColor, Mode=TwoWay}" TextColor="{DynamicResource MainTextColor}" VerticalOptions="Fill"/>
+            </Frame>
+            <!--Main Event Types Custom Control-->
+            <customControls:MainEventTypesSelectorCC BindingContext="{Binding Source={x:Reference AddNewSubTypePageName}, Path=BindingContext}"/>
+
+
+            <!--Possible Colors of events to choose-->
+            <customControls:ColorButtonsSelectorCC Margin="5"
+                BindingContext="{Binding}"
+                SelectColorCommand="{Binding SelectColorCommand}" />
+            <!--UserTypeExtraOptions_TypesCC-->
+
+            <customControls:UserTypeExtraOptions_TypesCC Margin="5" />
+
+
+            <!--Down of the screen buttons-->
+
+            <Button Text="DELETE SELECTED TYPE" IsVisible="{Binding IsEdit}" Command="{Binding DeleteSelectedEventTypeCommand}"/>
+            <Button Margin="5" Text="{Binding SubmitButtonText}" Command="{Binding SubmitTypeCommand}" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

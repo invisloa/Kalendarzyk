@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             x:Class="Kalendarzyk.Views.EventPage"
+             Title="{Binding PageTitle}"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="{DynamicResource MainTextColor}" />
+        </Style>
+    </ContentPage.Resources>
+    <StackLayout  BackgroundColor="{DynamicResource MainBackgroundColor}">
+
+        <StackLayout >
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
+                        StrokeThickness="5">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <Editor 
+                        Placeholder="...EVENT TITLE..." 
+                        AutoSize="TextChanges"
+                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                        Text="{Binding Title, Mode=TwoWay}"
+                        TextColor="{DynamicResource MainTextColor}"
+                        PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
+                        Background="{DynamicResource MainTextboxesBackgroundColor}"
+                        VerticalTextAlignment="Center"
+                        MaximumHeightRequest="100"
+                        WidthRequest="150"
+                         />
+                </Border>
+
+                <StackLayout Orientation="Horizontal" Grid.Column="2" Margin="10"
+                             HorizontalOptions="End" 
+                             VerticalOptions="Center" >
+                    <ImageButton 
+                             CornerRadius="10"
+                             Source="share_icon_small.png"
+                             WidthRequest="30" 
+                             HeightRequest="30"
+                             Margin="10, 0, 0, 0"
+                             Background="{DynamicResource MainButtonBackgroundColor}"
+                             Command="{Binding ShareEventCommand}" 
+                             IsVisible="{Binding EditModeVisibility}" />
+                    <ImageButton 
+                    Source="remove_icon_small.png"
+                        CornerRadius="10"
+                        WidthRequest="30" 
+                        HeightRequest="30"
+                             Margin="10, 0, 0, 0"
+                        Background="{DynamicResource MainButtonBackgroundColor}"
+                        Command="{Binding DeleteEventCommand}" 
+                        IsVisible="{Binding EditModeVisibility}" />
+
+                </StackLayout>
+
+            </Grid>
+
+            <Editor Placeholder="...DESCRIPTION..."
+                        AutoSize="TextChanges"
+                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                        Text="{Binding Description, Mode=TwoWay}"
+                        TextColor="{DynamicResource MainTextColor}"
+                        PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
+                        Background="{DynamicResource MainTextboxesBackgroundColor}"
+                        VerticalTextAlignment="Center"
+                        MaximumHeightRequest="100"
+                        MinimumWidthRequest="350"
+                        Margin="0, 10, 0, 0" />
+            <!--Main Event Types Custom Control-->
+            <customControls:MainEventTypesSelectorCC/>
+
+            <!--User Event Types Custom Control-->
+            <customControls:EventTypesCustomControl/>
+
+
+            <!--Start/End Date and time-->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <!--STARTS AT TIME-->
+                <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0"  MinimumWidthRequest="120">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                            <Label Text="STARTS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
+                            <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}" />
+                        </StackLayout>
+
+
+                        <TimePicker x:Name="StartTimePicker" Format="HH:mm" 
+                        Time="{Binding StartExactTime, Mode=TwoWay}"  TextColor="{DynamicResource MainTextColor}"
+                            HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!--ENDS AT TIME-->
+                <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0" MinimumWidthRequest="120">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                            <Label Text="ENDS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
+                            <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
+                        </StackLayout>
+
+
+                        <TimePicker x:Name="EndTimePicker"  Format="HH:mm" TextColor="{DynamicResource MainTextColor}" 
+                            Time="{Binding EndExactTime, Mode=TwoWay}"
+                            HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--UserExtraControls Timespan Value MicroTasks-->
+            <customControls:UserTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
+
+
+            <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IsCompleteFrameCommand}"/>
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="IS COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
+                    <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" InputTransparent="True"/>
+                </StackLayout>
+            </Frame>
+
+
+            <StackLayout Orientation="Horizontal">
+
+            </StackLayout>
+            <Button Text="{Binding SubmitButtonText}"
+                        Command="{Binding SubmitEventCommand}"   
+                        HorizontalOptions="Center"
+                        Margin="15"/>
+
+
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>

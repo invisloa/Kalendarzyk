@@ -1,0 +1,94 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.ViewAllEventsPage"
+             xmlns:models="clr-namespace:Kalendarzyk.Models.EventModels"
+             xmlns:i="clr-namespace:System.Windows.Input;assembly=System.ObjectModel"
+             xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"
+             xmlns:type_models="clr-namespace:Kalendarzyk.Models.EventTypesModels;assembly=Kalendarzyk"
+             x:DataType="local:AllEventsViewModel"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             Title="View All Events"
+             BackgroundColor="{DynamicResource MainBackgroundColor}">
+
+    <Grid Padding="10" RowSpacing="10">
+
+        <!-- Use a modern color scheme with simple gradients or flat colors -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <!-- CollectionView will take remaining space -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Custom controls with updated styling -->
+        <customControls:MainEventTypesSelectorCC Grid.Row="0" />
+        <customControls:EventTypesCustomControl Grid.Row="1"/>
+        <customControls:DateFilteringCC Grid.Row="2"/>
+
+        <!-- Button layout with modern look -->
+        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+            <Button Text="Save Below" Command="{Binding SaveBelowEventsToFileCommand}"
+                    />
+            <Button Text="Save All" Command="{Binding SaveAllEventsToFileCommand}"
+                    />
+            <Button Text="Load Events" Command="{Binding LoadEventsFromFileCommand}"
+                    />
+        </StackLayout>
+
+        <!-- CollectionView with subtle frame borders and shadows for elevation -->
+        <CollectionView Grid.Row="4" ItemsSource="{Binding EventsToShowList}"
+                        HorizontalScrollBarVisibility="Always" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:IGeneralEventModel">
+                    <Grid Margin="0,5,0,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Updated Frame styling with modern borders and shadow effects -->
+                        <Frame Grid.RowSpan="2" Padding="10"
+                               CornerRadius="10"
+                               BackgroundColor="{Binding EventVisibleColor}"
+                               HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.SelectEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- First column for customControls:EventsTimeCC -->
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- Second column for the StackLayout -->
+                                </Grid.ColumnDefinitions>
+
+                                <customControls:EventsTimeCC Grid.Column="0"/>
+
+                                <StackLayout Grid.Column="1" Margin="20,0,0,0" HorizontalOptions="Center">
+                                    <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Delete actions styled with a more modern approach -->
+        <StackLayout Grid.Row="5" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+            <Button Text="DELETE ABOVE EVENTS" Command="{Binding DeleteAboveEventsCommand}"
+                    Style="{StaticResource DangerButtonStyle}"/>
+            <!--<Button Text="DELETE ALL EVENTS" Command="{Binding DeleteAllEventsCommand}"
+                    Style="{StaticResource DangerButtonStyle}"/>-->
+            <!--<Button Text="Delete Types" Command="{Binding DeleteAllUserTypesCommand}"
+                    Style="{StaticResource DangerButtonStyle}"/>-->
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

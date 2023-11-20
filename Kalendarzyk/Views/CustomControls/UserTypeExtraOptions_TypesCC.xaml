@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             x:Class="Kalendarzyk.Views.CustomControls.UserTypeExtraOptions_TypesCC">
+    <StackLayout Spacing="5">
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="5" >
+            <Button Text="TIMESPAN (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanColor}"   BorderWidth="1" Command="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand}"/>
+            <Button Text="VALUE (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsValueTypeColor}" Command="{Binding UserTypeExtraOptionsHelper.ValueTypeClickCommand}" IsVisible="{Binding UserTypeExtraOptionsHelper.IsNotEditMode}"/>
+            <Button Text="M-TASKS (D)" BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsMicroTasksListTypeColor}" Command="{Binding UserTypeExtraOptionsHelper.IsMicroTaskListTypeSelectedCommand}"/>
+        </StackLayout>
+
+        <!--Not Visible in Edit Mode-->
+        <StackLayout  IsVisible="{Binding UserTypeExtraOptionsHelper.IsNotEditMode}">
+            <customControls:MeasurementSelectorCC IsVisible="{Binding UserTypeExtraOptionsHelper.IsValueTypeSelected}"/>
+        </StackLayout>
+
+        <!--Visible in both Modes-->
+        <customControls:DefaultEventTimespanCC IsVisible="{Binding UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected}"/>
+        <customControls:MicroTasksListCC IsVisible="{Binding UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected}"/>
+
+
+    </StackLayout>
+</ContentView>

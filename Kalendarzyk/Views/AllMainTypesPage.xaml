@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models ="clr-namespace:Kalendarzyk.Models.EventTypesModels"
+             x:Class="Kalendarzyk.Views.AllMainTypesPage"
+             Title="AllMainTypesPage">
+
+
+    <VerticalStackLayout  BackgroundColor="{DynamicResource MainBackgroundColor}" >
+        <FlexLayout BindableLayout.ItemsSource="{Binding AllMainEventTypesOC}" 
+            Wrap="Wrap" 
+            Direction="Row" 
+            AlignItems="Start" 
+            JustifyContent="Start"
+            HorizontalOptions="Center">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:IMainEventType">
+                    <Frame Margin="5"
+                           MinimumWidthRequest="55"
+                           MinimumHeightRequest="55"
+                           MaximumWidthRequest="200"
+                       BackgroundColor="{Binding SelectedVisualElement.BackgroundColor}" 
+                       Padding="0"
+
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.EditSelectedTypeCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                          CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                        <StackLayout >
+
+                            <Label 
+                                Text="{Binding  SelectedVisualElement.ElementName}" 
+                                TextColor="{Binding SelectedVisualElement.TextColor}" 
+                                Style="{StaticResource GoogleFont}" 
+                                HorizontalOptions="Center" 
+                                VerticalOptions="Center">
+                            </Label>
+                            <Label Text="{Binding Title}" HorizontalOptions="Center"  TextColor="{Binding SelectedVisualElement.TextColor}" />
+                        </StackLayout>
+                    </Frame>
+
+
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+        <!--<CollectionView ItemsSource="{Binding AllSubEventTypesOC}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ISubEventTypeModel">
+                    <StackLayout>
+                        <Button BackgroundColor="{Binding MainEventType.MainEventTypeBorderColor}" BorderColor="{Binding BackgroundColor}" Text="{Binding EventTypeName}" FontSize="20" FontAttributes="Bold" BorderWidth="10">
+
+                            <Button.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.EditSelectedTypeCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                     CommandParameter="{Binding .}"/>
+                            </Button.GestureRecognizers>
+                        </Button>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
+    </VerticalStackLayout>
+</ContentPage>
+    

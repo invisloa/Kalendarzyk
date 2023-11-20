@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
+             x:Class="Kalendarzyk.Views.CustomControls.MicroTasksListCC"
+             x:Name="root" >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="boolToColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <StackLayout>
+
+        <!-- Grid for Entry and Button -->
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="-" HorizontalOptions="End" 
+                        BackgroundColor="{Binding MicroTasksCCAdapter.IsSelectMicroTaskOn, Converter={StaticResource boolToColorConverter}}"
+                        CornerRadius="10" Command="{Binding MicroTasksCCAdapter.ToggleDeleteModeCommand}"
+                        Margin="0,0,10,0" MinimumWidthRequest="40"/>
+            <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
+                        StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <Entry 
+                        Placeholder="...MICRO TASK TO ADD..." 
+                        HorizontalOptions="CenterAndExpand"
+                        MinimumWidthRequest="200"
+                        Text="{Binding MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        TextColor="{DynamicResource MainTextColor}"
+                        PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
+                        Background="{DynamicResource MainTextboxesBackgroundColor}" />
+            </Border>
+            <Button Grid.Column="2" HorizontalOptions="Start"  Text="+"  
+                        CornerRadius="10" Command="{Binding MicroTasksCCAdapter.AddMicroTaskEventCommand}"
+                        Margin="10,0,0,0" MinimumWidthRequest="40"
+                />
+        </Grid>
+
+
+        <FlexLayout BindableLayout.ItemsSource="{Binding MicroTasksCCAdapter.MicroTasksOC}" 
+                Direction="Row" 
+                Wrap="Wrap" 
+                AlignItems="Start"
+                JustifyContent="Center">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button Text="{Binding MicroTaskTitle}" 
+                        BackgroundColor="{Binding IsMicroTaskCompleted, Converter={StaticResource boolToColorConverter}}"
+                        Margin="5"
+                            BorderColor="{Binding Path=BindingContext.MicroTasksCCAdapter.IsSelectMicroTaskOn,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
+                        Command="{Binding Path=BindingContext.MicroTasksCCAdapter.CurrentCommand, Source={x:Reference root}}"
+                        CommandParameter="{Binding .}">
+                    </Button>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </StackLayout>
+</ContentView>

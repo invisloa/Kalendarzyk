@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Define the ContentView for a custom control called EventsTimeCC -->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.CustomControls.EventsTimeCC">
+    <!-- Outer Grid for layout -->
+    <Grid Grid.Column="0" VerticalOptions="Center">
+        <!-- Inner Grid with custom styling and background color -->
+        <Grid Grid.Column="0" VerticalOptions="Center" BackgroundColor="{Binding EventVisibleColor}">
+            <!-- Label to display the day of the month -->
+            <Label Text="{Binding StartDateTime, StringFormat='{0:dd/MM}'}" FontSize="17" Margin="5, -3, 0, 0" FontAttributes="Bold"/>
+            <!-- Label to display the year -->
+            <Label Text="{Binding StartDateTime, StringFormat='{0:yyyy}'}" FontSize="17" Margin="10, 15, 0, 0" FontAttributes="Bold"/>
+            <!-- Label to display the hour -->
+            <Label Text="{Binding StartDateTime, StringFormat='{0: hh }'}" Margin="55, 5, 0, 0" FontSize="25" FontAttributes="Bold"/>
+            <!-- Label to display the minute -->
+            <Label Text="{Binding StartDateTime, StringFormat='{0: mm}'}" FontSize="15" FontAttributes="Bold" Margin="85, 0, 0, 0"/>
+            <!-- Label to display AM/PM -->
+            <Label Text="{Binding StartDateTime, StringFormat='{0: tt}'}" FontSize="10" FontAttributes="Bold" Margin="90, 20, 0, 0"/>
+        </Grid>
+    </Grid>
+</ContentView>

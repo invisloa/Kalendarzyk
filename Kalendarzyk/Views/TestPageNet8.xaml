@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.TestPageNet8"
+             Title="TestPageNet8">
+    <VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding SomeTestCollection}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button MinimumWidthRequest="10"
+                            BorderColor="{Binding TestColor}" 
+                            BackgroundColor="{Binding TestColor}" 
+                            TextColor="{Binding TestColor}" 
+                            Text="XXXXX"
+                            />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

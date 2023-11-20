@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<FlexLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Kalendarzyk.Views.CustomControls.SelectableButtonFlexLayoutCC"
+            xmlns:local="clr-namespace:Kalendarzyk.Views.CustomControls"
+            Direction="Row" 
+            Wrap="Wrap"
+            AlignItems="Center"
+            JustifyContent="Center">
+
+    <BindableLayout.ItemTemplate>
+        <DataTemplate>
+            <Button Text="{Binding ButtonText}" 
+            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type local:SelectableButtonFlexLayoutCC}}, Path=ButtonBackground}"
+            BorderWidth="{Binding ButtonBorder}"
+            Command="{Binding ButtonCommand}"
+            Opacity="{Binding ButtonOpacity}"
+            CommandParameter="{Binding .}" />
+        </DataTemplate>
+
+    </BindableLayout.ItemTemplate>
+</FlexLayout>
