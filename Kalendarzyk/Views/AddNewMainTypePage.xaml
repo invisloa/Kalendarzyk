@@ -48,40 +48,67 @@
 
         <!-- TO SHOW ONLY IF ICONS ARE SELECTED !!!-->
         <StackLayout Margin="10">
-            <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding IconsTabsOC, Mode=TwoWay}" AlignItems="Start" JustifyContent="Start" ButtonBackground="DarkViolet" />
+            <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding IconsTabsOC, Mode=TwoWay}" AlignItems="Start" JustifyContent="Start" />
             <!-- Icon Selection UI -->
             <!-- TO SHOW ONLY IF ICONS ARE SELECTED !!!-->
-            <CollectionView ItemsSource="{Binding IconsToShowStringsOC, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Margin="10">
+            <CollectionView ItemsSource="{Binding IconsToShowStringsOC, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Margin="30"  IsVisible="{Binding IsIconsTabSelected}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <Label 
-                    Text="{Binding .}"
-                    Style="{StaticResource GoogleFont}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
                             <Button 
-                    Command="{Binding Path=BindingContext.ExactIconSelectedCommand, Source={x:Reference AddNewMainTypePageName}}" 
-                    CommandParameter="{Binding .}"
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="FillAndExpand" 
-                    VerticalOptions="FillAndExpand"/>
+                                Command="{Binding Path=BindingContext.ExactIconSelectedCommand, Source={x:Reference AddNewMainTypePageName}}" 
+                                CommandParameter="{Binding .}"
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="FillAndExpand"/>
+                            <Label 
+                                    Text="{Binding .}"
+                                    Style="{StaticResource GoogleFont}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
+        <CollectionView ItemsSource="{Binding BgColorsButtonsOC}"  IsVisible="{Binding IsBgColorsTabSelected}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                     Span="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button 
+                              MinimumWidthRequest="10"
+                              BackgroundColor="{Binding ButtonColor}"
+                              BorderWidth="{Binding ButtonBorder}"
+                              Command="{Binding Path=BindingContext.BgColorsCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                              CommandParameter="{Binding .}"
+                              Margin="1"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
 
-        <!-- TO SHOW ONLY IF BGColors or TEXTCOLORS ARE SELECTED !!!-->
-        <customControls:ColorButtonsSelectorCC
-                BindingContext="{Binding}"
-                SelectColorCommand="{Binding SelectColorCommand}" />
-
-
+        <CollectionView ItemsSource="{Binding TextColorsButtonsOC}" IsVisible="{Binding IsTextColorsTabSelected}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                     Span="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button 
+                              MinimumWidthRequest="10"
+                              BackgroundColor="{Binding ButtonColor}"
+                              BorderWidth="{Binding ButtonBorder}"
+                              Command="{Binding Path=BindingContext.TextColorsCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                              CommandParameter="{Binding .}"
+                              Margin="1"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <!--Down of the screen buttons-->
         <Button Text="DELETE SELECTED MAIN TYPE" IsVisible="{Binding IsEdit}" Command="{Binding DeleteAsyncSelectedMainEventTypeCommand}"/>

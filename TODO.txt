@@ -6,7 +6,7 @@
 
 TRY CHANGING BUTTON TO LABEL SINCE THERE IS A FKING MAUI SHIT BUG...
 
-
+make icons tab load once
 
 
 When Edited MainType it doesnt refresh accordingly
