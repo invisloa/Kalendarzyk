@@ -6,7 +6,22 @@
     Title="Kalendarzyk"
         xmlns:local="clr-namespace:Kalendarzyk.Views">
     <!--Shell.FlyoutBehavior="Disabled"-->
-
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Calendars">
+            <ShellContent
+                Title="Monthly"
+                ContentTemplate="{DataTemplate local:ViewMonthlyEvents}"
+                Route="MonthlyEvents" />
+            <ShellContent
+                Title="Weekly"
+                ContentTemplate="{DataTemplate local:ViewWeeklyEvents}"
+                Route="ViewWeeklyEvents" />
+            <ShellContent
+                Title="Daily"
+                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
+                Route="DailyEvents" />
+        </Tab>
+    </FlyoutItem>
 
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
@@ -38,22 +53,7 @@
     </FlyoutItem>
 
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Calendars">
-            <ShellContent
-                Title="Monthly"
-                ContentTemplate="{DataTemplate local:ViewMonthlyEvents}"
-                Route="MonthlyEvents" />
-            <ShellContent
-                Title="Weekly"
-                ContentTemplate="{DataTemplate local:ViewWeeklyEvents}"
-                Route="ViewWeeklyEvents" />
-            <ShellContent
-                Title="Daily"
-                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
-                Route="DailyEvents" />
-        </Tab>
-    </FlyoutItem>
+
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="All Items Lists">

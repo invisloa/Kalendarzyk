@@ -195,7 +195,7 @@
 				{
 					Text = eventItem.EventType.MainEventType.SelectedVisualElement.ElementName,
 					TextColor = eventItem.EventType.MainEventType.SelectedVisualElement.TextColor,
-		// TODOJO			Style = Styles.GoogleFontStyle,
+					Style = Styles.GoogleFontStyle,
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Center,
 				};
@@ -254,7 +254,7 @@
 					Text = eventItem.EventType.MainEventType.SelectedVisualElement.ElementName,
 					FontSize = _TextFontSize,
 					TextColor = eventItem.EventType.MainEventType.SelectedVisualElement.TextColor,
-					//TODOJO			Style = Styles.GoogleFontStyle,
+					Style = Styles.GoogleFontStyle,
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Center,
 				};

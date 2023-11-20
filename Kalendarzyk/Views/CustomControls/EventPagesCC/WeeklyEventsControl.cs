@@ -213,7 +213,7 @@
 					Text = eventItem.EventType.MainEventType.SelectedVisualElement.ElementName,
 					FontSize = 20,
 					TextColor = eventItem.EventType.MainEventType.SelectedVisualElement.TextColor,
-		//TODOJO			Style = Styles.GoogleFontStyle,
+					Style = Styles.GoogleFontStyle,
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Center,
 				};
