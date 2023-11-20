@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
