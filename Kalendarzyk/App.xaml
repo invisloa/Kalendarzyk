@@ -24,15 +24,6 @@
             <Color x:Key="MainMicroTaskBackgroundColor">#069</Color>
             <Color x:Key="MainEventDeselectedBackgroundColor">#000</Color>
 
-
-            <!-- Define the style for labels -->
-            <!--
-            <Style TargetType="Label">
-                <Setter Property="FontFamily" Value="MyNormalFont" />
-                <Setter Property="FontSize" Value="16" />
-
-            </Style>-->
-
             <Style x:Key="DangerButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#E74C3C" />
                 <!-- Red background color -->
@@ -61,11 +52,25 @@
                 <Setter Property="MinimumHeightRequest" Value="40" />
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="FontAttributes" Value="Bold" />
-
+                <Setter Property="TextColor" Value="{DynamicResource MainTextColor}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource MainButtonBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                    <!-- or any other color you prefer -->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
-
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

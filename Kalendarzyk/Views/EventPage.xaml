@@ -138,7 +138,9 @@
             <StackLayout Orientation="Horizontal">
 
             </StackLayout>
-            <Button Text="{Binding SubmitButtonText}"
+            <Button     
+                        Style="{StaticResource MyCustomButtonStyle}"
+                        Text="{Binding SubmitButtonText}"
                         Command="{Binding SubmitEventCommand}"   
                         HorizontalOptions="Center"
                         Margin="15"/>

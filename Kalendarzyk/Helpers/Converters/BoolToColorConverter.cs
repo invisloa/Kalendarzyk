@@ -13,9 +13,16 @@ namespace Kalendarzyk.Helpers.Converters
 		{
 			if (value is bool isTrue && isTrue)
 			{
-				return (Color)Application.Current.Resources["DeselectedBackgroundColor"];
+					return (Color)Application.Current.Resources["DeselectedBackgroundColor"];
 			}
-			return (Color)Application.Current.Resources["MainMicroTaskBackgroundColor"];
+			else
+			{
+				if (parameter?.ToString() == "Dangerous")
+					return Colors.Red;
+				else
+					return (Color)Application.Current.Resources["MainMicroTaskBackgroundColor"];
+
+			}
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -23,4 +30,5 @@ namespace Kalendarzyk.Helpers.Converters
 			throw new NotImplementedException();
 		}
 	}
+
 }

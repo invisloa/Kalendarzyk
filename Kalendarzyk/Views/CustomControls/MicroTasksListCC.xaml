@@ -18,10 +18,15 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Text="-" HorizontalOptions="End" 
-                        BackgroundColor="{Binding MicroTasksCCAdapter.IsSelectMicroTaskOn, Converter={StaticResource boolToColorConverter}}"
-                        CornerRadius="10" Command="{Binding MicroTasksCCAdapter.ToggleDeleteModeCommand}"
-                        Margin="0,0,10,0" MinimumWidthRequest="40"/>
+            <Button 
+                Grid.Column="0" Text="-" HorizontalOptions="End" 
+                BorderColor="Red" BorderWidth="2"
+                BackgroundColor="{Binding MicroTasksCCAdapter.IsSelectMicroTaskOn, 
+                Converter={StaticResource boolToColorConverter}, 
+                ConverterParameter=Dangerous}"
+                CornerRadius="10" Command="{Binding MicroTasksCCAdapter.ToggleDeleteModeCommand}"
+                Margin="0,0,10,0" MinimumWidthRequest="40"/>
+
             <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
                         StrokeThickness="1">
                 <Border.StrokeShape>
@@ -38,9 +43,11 @@
                         PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
                         Background="{DynamicResource MainTextboxesBackgroundColor}" />
             </Border>
-            <Button Grid.Column="2" HorizontalOptions="Start"  Text="+"  
-                        CornerRadius="10" Command="{Binding MicroTasksCCAdapter.AddMicroTaskEventCommand}"
-                        Margin="10,0,0,0" MinimumWidthRequest="40"
+            <Button
+                Style="{DynamicResource MyCustomButtonStyle}"
+                Grid.Column="2" HorizontalOptions="Start"  Text="+"  
+                CornerRadius="10" Command="{Binding MicroTasksCCAdapter.AddMicroTaskEventCommand}"
+                Margin="10,0,0,0" MinimumWidthRequest="40"
                 />
         </Grid>
 

@@ -17,11 +17,6 @@ public partial class WelcomePage : ContentPage
 		_eventRepository = ServiceHelper.GetService<IEventRepository>();
 
 		BindingContext = new WelcomePageViewModel(_eventRepository);
-
-
-		//_eventRepository.ClearAllMainEventTypesAsync();
-		//_eventRepository.ClearAllSubEventTypesAsync();
-		//_eventRepository.ClearAllEventsListAsync();
 	}
 
 	private void Button_Clicked(object sender, EventArgs e)

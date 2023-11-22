@@ -12,8 +12,7 @@
             <converters:BoolToScaleConverter x:Key="boolToScaleConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <StackLayout Margin="5">
-        
+    <StackLayout Margin="5" >
         <FlexLayout BindableLayout.ItemsSource="{Binding AllSubEventTypesOC}" 
             Wrap="Wrap" 
             Direction="Row" 
@@ -33,8 +32,7 @@
 
                         <!-- Sub Type (Button) -->
                         <Button 
-                        IsVisible="False"
-                            Grid.Column="1"
+                        Grid.Column="1"
                         Text="{Binding EventTypeName}" Margin="-10, 0, 0, 0"
                         Opacity="{Binding IsSelectedToFilter, Converter={StaticResource boolToAlphaConverter}}"
                         TextColor="White"
