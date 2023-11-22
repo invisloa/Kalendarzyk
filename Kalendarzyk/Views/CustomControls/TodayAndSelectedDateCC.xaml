@@ -15,7 +15,7 @@
             <Button Text="{Binding CurrentDate, StringFormat='{0:dd MM yyyy}'}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Start" Command="{Binding SelectTodayDateCommand}"/>
         </StackLayout>
 
-        <Button Grid.Column="1" Text="FILTERS" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Command="{Binding SelectTodayDateCommand}" />
+        <Button Grid.Column="1" Text="-------" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Command="{Binding SelectTodayDateCommand}" HeightRequest="10"/>
 
         <StackLayout Grid.Column="2" HorizontalOptions="End" >
             <Label Text="SELECTED DATE:"/>

@@ -17,7 +17,7 @@ namespace Kalendarzyk
 		}
 
 		// it adds data before the app starts and json files are created
-		public void AddDummyData()
+		public void AddDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
 			if (_repository.AllEventsList.Count > 0)
 			{
@@ -66,11 +66,17 @@ namespace Kalendarzyk
 		{
 			_repository = repository;
 
-			// ClearData();
+			if (PreferencesManager.GetIsDeleteAllSelected())
+			{
+				ClearData();
+			}
 
 
-			// it adds data before the app starts and json files are created
-			// AddDummyData();
+
+			if(PreferencesManager.GetIsCreateDummyDataSelected())
+			{
+				AddDummyData();		// it checks for the events before the events are imported so when there are any events added they will be deleted
+			}
 
 			InitializeComponent();
 			MainPage = new AppShell();

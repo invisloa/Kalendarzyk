@@ -5,6 +5,16 @@
              Title="PreferencesPage">
 
     <StackLayout Padding="30">
+        <Label Text="DELETE ALL" />
+        <Switch IsToggled="{Binding IsDeleteAllSelected}" />
+
+        <Label Text="CREATE DUMMY DATA" />
+        <Switch IsToggled="{Binding IsCreateDummyDataSelected}" />
+
+
+
+
+
         <!-- Language -->
         <Label Text="{Binding SelectedLanguageText}" />
         <Switch IsToggled="{Binding SelectedLanguage}" />

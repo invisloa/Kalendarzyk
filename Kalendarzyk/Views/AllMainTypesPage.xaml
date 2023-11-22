@@ -20,7 +20,7 @@
                            MinimumHeightRequest="55"
                            MaximumWidthRequest="200"
                        BackgroundColor="{Binding SelectedVisualElement.BackgroundColor}" 
-                       Padding="0"
+                       Padding="10"
 
                        HorizontalOptions="Start"
                        VerticalOptions="Center">

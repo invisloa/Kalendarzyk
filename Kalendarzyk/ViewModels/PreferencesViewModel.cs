@@ -6,6 +6,31 @@ namespace Kalendarzyk.ViewModels
 {
 	public class PreferencesViewModel : BaseViewModel
 	{
+		public bool IsDeleteAllSelected
+		{
+			get => PreferencesManager.GetIsDeleteAllSelected();
+			set
+			{
+				if (PreferencesManager.GetIsDeleteAllSelected() != value)
+				{
+					PreferencesManager.SetIsDeleteAllSelected(value);
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		public bool IsCreateDummyDataSelected
+		{
+			get => PreferencesManager.GetIsCreateDummyDataSelected();
+			set
+			{
+				if (PreferencesManager.GetIsCreateDummyDataSelected() != value)
+				{
+					PreferencesManager.SetIsCreateDummyDataSelected(value);
+					OnPropertyChanged();
+				}
+			}
+		}
 		public bool SelectedLanguage
 		{
 			get => PreferencesManager.GetSelectedLanguage();
@@ -18,6 +43,7 @@ namespace Kalendarzyk.ViewModels
 				}
 			}
 		}
+
 
 		public bool SubEventTypeTimesDifferent
 		{

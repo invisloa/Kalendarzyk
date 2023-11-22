@@ -7,6 +7,15 @@
         xmlns:local="clr-namespace:Kalendarzyk.Views">
     <!--Shell.FlyoutBehavior="Disabled"-->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Preferences">
+            <ShellContent
+                Title="Preferences"
+                ContentTemplate="{DataTemplate local:PreferencesPage}"
+                Route="PreferencesPage" />
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Calendars">
             <ShellContent
                 Title="Monthly"
@@ -42,18 +51,6 @@
 
         </Tab>
     </FlyoutItem>
-
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Preferences">
-            <ShellContent
-                Title="Preferences"
-                ContentTemplate="{DataTemplate local:PreferencesPage}"
-                Route="PreferencesPage" />
-        </Tab>
-    </FlyoutItem>
-
-
-
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="All Items Lists">

@@ -15,6 +15,18 @@ namespace Kalendarzyk.Services
 		public const string WeeklyHoursSpanKey = "WeeklyHoursSpan";
 		public const string HoursSpanFromKey = "HoursSpanFrom";
 		public const string HoursSpanToKey = "HoursSpanTo";
+		public const string IsDeleteAllSelectedKey = "IsDeleteAllSelected";
+		public const string IsCreateDummyDataSelectedKey = "IsCreateDummyDataSelected";
+
+
+
+		public static bool GetIsDeleteAllSelected() => Preferences.Get(IsDeleteAllSelectedKey, false);
+		public static void SetIsDeleteAllSelected(bool value) => Preferences.Set(IsDeleteAllSelectedKey, value);
+
+		public static bool GetIsCreateDummyDataSelected() => Preferences.Get(IsCreateDummyDataSelectedKey, false);
+		public static void SetIsCreateDummyDataSelected(bool value) => Preferences.Set(IsCreateDummyDataSelectedKey, value);
+
+
 
 		public static bool GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, false);
 		public static void SetSelectedLanguage(bool value) => Preferences.Set(SelectedLanguageKey, value);

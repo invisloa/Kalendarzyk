@@ -17,8 +17,7 @@
 		private readonly double _firstColumnForHoursWidth = 35;
 		private int _hoursSpanFrom = PreferencesManager.GetHoursSpanFrom();
 		private int _hoursSpanTo = PreferencesManager.GetHoursSpanTo();
-		private ScrollView _scrollView;
-		private MauiGrid _grid;
+
 		public void GenerateGrid()
 		{
 			ClearGrid();
