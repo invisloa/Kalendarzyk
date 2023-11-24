@@ -35,8 +35,6 @@
                 <!-- Padding for content -->
                 <Setter Property="HeightRequest" Value="50" />
                 <!-- Button height -->
-                <Setter Property="WidthRequest" Value="200" />
-                <!-- Button width -->
                 <Setter Property="FontAttributes" Value="Bold" />
                 <!-- Bold text -->
                 <Setter Property="FontSize" Value="18" />

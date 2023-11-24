@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Entry for new type name -->
-            <Entry x:Name="TypeNameEntry" Grid.Column="1" 
+            <Entry Grid.Column="1" 
                            Placeholder="{Binding MainTypePlaceholderText}" 
                            Text="{Binding MainTypeName, Mode=TwoWay}" 
                            FontAttributes="Bold" FontSize="Body"
