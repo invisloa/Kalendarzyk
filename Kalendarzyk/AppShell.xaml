@@ -9,6 +9,17 @@
     
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Data WelcomePage">
+            <ShellContent
+                Title="WelcomePage"
+                ContentTemplate="{DataTemplate local:WelcomePage}"
+                Route="WelcomePage" />
+        </Tab>
+    </FlyoutItem>
+
+
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Preferences">
             <ShellContent
@@ -84,6 +95,7 @@
                 Route="ValueTypeCalculationsPage" />
         </Tab>
     </FlyoutItem>
+
 
 
 

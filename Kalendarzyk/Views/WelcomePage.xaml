@@ -8,14 +8,16 @@
 
     <StackLayout Background="White">
 
-        <Expan
         <Label 
-                            Text="{Binding SomeIconToShow.IconName}" 
-                            TextColor="{Binding SomeIconToShow.TextColor}" 
-                            Style="{StaticResource GoogleFont}" 
-                            VerticalOptions="Center" 
-                            HorizontalOptions="Start" />
-
+                            Text="FFFFFFF" 
+>
+            <Label.GestureRecognizers>
+                <DragGestureRecognizer CanDrag="True">
+                    
+                </DragGestureRecognizer>
+            </Label.GestureRecognizers>
+                            </Label>
+<
 
 
         <Button Text="XXXXXXX" Command="{Binding ButtonClickCommand}"/>
