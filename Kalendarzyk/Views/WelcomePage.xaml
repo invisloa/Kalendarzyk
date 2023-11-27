@@ -8,6 +8,7 @@
 
     <StackLayout Background="White">
 
+        <Expan
         <Label 
                             Text="{Binding SomeIconToShow.IconName}" 
                             TextColor="{Binding SomeIconToShow.TextColor}" 
