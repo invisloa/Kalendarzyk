@@ -3,34 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Kalendarzyk.Views.WelcomePage"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             xmlns:local="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:icon="clr-namespace:Kalendarzyk.Helpers"
              Title="WelcomePage">
 
-    <StackLayout Background="White">
-
-        <Label 
-                            Text="FFFFFFF" 
->
-            <Label.GestureRecognizers>
-                <DragGestureRecognizer CanDrag="True">
-                    
-                </DragGestureRecognizer>
-            </Label.GestureRecognizers>
-                            </Label>
-<
-
-
-        <Button Text="XXXXXXX" Command="{Binding ButtonClickCommand}"/>
-        <ImageButton 
-                             CornerRadius="10"
-                             Source="logout.png"
-                             BackgroundColor="Aquamarine"
-                             WidthRequest="40" 
-                             HeightRequest="40"
-                             Margin="10"
-                              />
-
+    <StackLayout>
+        <local:ExpandableCC>
+        </local:ExpandableCC>
     </StackLayout>
-
-
 </ContentPage>

@@ -117,6 +117,9 @@
 	  <MauiXaml Update="Views\CustomControls\EventTypesCustomControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomControls\ExpandableCC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\MainEventTypesSelectorCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
