@@ -24,12 +24,12 @@
                         <StackLayout HorizontalOptions="Center"
                         Orientation="Horizontal" 
                         Spacing="5"  
-                        Padding="10">
+                        >
 
                             <!-- Font Icon -->
                             <Frame BackgroundColor="{Binding MainEventType.SelectedVisualElement.BackgroundColor}" 
                                Scale="{Binding IsSelected, Converter={StaticResource boolToScaleConverter}}"
-                               Opacity="{Binding IsSelected, Converter={StaticResource boolToAlphaConverter}}"
+                               Opacity="{Binding IsSelected, Converter={StaticResource boolToAlphaConverter}}" 
                                >
 
                                 <Frame.GestureRecognizers>

@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Kalendarzyk.Models.EventTypesModels;assembly=Kalendarzyk"
              xmlns:CustomControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
-              x:Name="ThisContentView"
+             x:Name="ThisContentView"
              x:Class="Kalendarzyk.Views.CustomControls.EventTypesCustomControl">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -13,7 +14,21 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <StackLayout Margin="5" >
-        <FlexLayout BindableLayout.ItemsSource="{Binding AllSubEventTypesOC}" 
+        <toolkit:Expander x:Name="MyExpander" Grid.Row="1"
+                  ExpandedChanged="MyExpander_ExpandedChanged">
+            <toolkit:Expander.Header>
+                <Frame HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}" Padding="5">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding EventTypesCCText}" VerticalOptions="Center"/>
+                        <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="ArrowLabel"
+                               Text="_swipe_left" 
+                               TextColor="Black" 
+                               Style="{StaticResource GoogleFont}"/>
+                    </StackLayout>
+
+                </Frame>
+            </toolkit:Expander.Header>
+            <FlexLayout BindableLayout.ItemsSource="{Binding AllSubEventTypesOC}" 
             Wrap="Wrap" 
             Direction="Row" 
             AlignItems="Start" 
@@ -77,6 +92,8 @@
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </FlexLayout>
+        </toolkit:Expander>
+
 
     </StackLayout>
 </ContentView>

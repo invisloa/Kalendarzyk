@@ -1,9 +1,6 @@
-Weekly custom control
 
 
-		//TODOJO var viewModel = MauiProgram.Current.Services.GetService<AllEventsViewModel>();
-
-
+ADD Binding text for evettypesFilterCC 
 
 
 

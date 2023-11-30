@@ -27,6 +27,8 @@ public partial class ViewMonthlyEvents : ContentPage
 		base.OnAppearing();
 		(BindingContext as MonthlyEventsViewModel).BindDataToScheduleList();
 	}
+
+
 }
 
 

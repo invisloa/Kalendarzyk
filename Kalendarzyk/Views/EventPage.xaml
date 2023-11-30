@@ -84,7 +84,7 @@
             <customControls:MainEventTypesSelectorCC/>
 
             <!--User Event Types Custom Control-->
-            <customControls:EventTypesCustomControl/>
+            <customControls:EventTypesCustomControl IsExpanded="True"/>
 
 
             <!--Start/End Date and time-->

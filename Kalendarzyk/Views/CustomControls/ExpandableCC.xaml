@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Kalendarzyk.Views.CustomControls.ExpandableCC"
              xmlns:local="clr-namespace:Kalendarzyk.Views.CustomControls"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters">
-    <ContentView.ControlTemplate>
-        <ControlTemplate>
-            <VerticalStackLayout>
-                <Label Text="Header" BackgroundColor="LightGray" />
-                <ContentView Content="{TemplateBinding Content}" />
-            </VerticalStackLayout>
-        </ControlTemplate>
-    </ContentView.ControlTemplate>
-    <VerticalStackLayout>
-        <Label Text="Content 1" />
-        <Label Text="Content 2" />
-        <Label Text="Content 3" />
-    </VerticalStackLayout>
+    <toolkit:Expander>
+        <toolkit:Expander.Header>
+            <Label Text="Baboon"
+               FontAttributes="Bold"
+               FontSize="Medium" />
+        </toolkit:Expander.Header>
+        <HorizontalStackLayout Padding="10">
+            <Image Source="http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Papio_anubis_%28Serengeti%2C_2009%29.jpg/200px-Papio_anubis_%28Serengeti%2C_2009%29.jpg"
+               Aspect="AspectFill"
+               HeightRequest="120"
+               WidthRequest="120" />
+            <Label Text="Baboons are African and Arabian Old World monkeys belonging to the genus Papio, part of the subfamily Cercopithecinae."
+               FontAttributes="Italic" />
+        </HorizontalStackLayout>
+    </toolkit:Expander>
 </ContentView>

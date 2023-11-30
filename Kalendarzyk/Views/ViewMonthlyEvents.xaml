@@ -5,6 +5,7 @@
              xmlns:i="clr-namespace:System.Windows.Input;assembly=System.ObjectModel"
              xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="local:MonthlyEventsViewModel"
              x:Class="Kalendarzyk.Views.ViewMonthlyEvents"
              Title="Monthly events list">
@@ -19,7 +20,7 @@
 
 
         <!-- EventPriorities collection -->
-        <customControls:EventTypesCustomControl Grid.Row="1"/>
+        <customControls:EventTypesCustomControl IsExpanded="True" Grid.Row="1" />
 
         <!--Events list layout-->
         <!--<customControls:AddNewEventAndTypeBtnsCC Grid.Row="2"/>-->
