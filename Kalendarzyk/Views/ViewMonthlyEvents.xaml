@@ -22,9 +22,6 @@
         <!-- EventPriorities collection -->
         <customControls:EventTypesCustomControl ControlText="EVENT FILTERS"  IsExpanded="True" Grid.Row="1" />
 
-        <!--Events list layout-->
-        <!--<customControls:AddNewEventAndTypeBtnsCC Grid.Row="2"/>-->
-
         <!--Events Grid-->
         <ScrollView Grid.Row="2" Orientation="Vertical" >
             <customControls:MonthlyEventsControl 

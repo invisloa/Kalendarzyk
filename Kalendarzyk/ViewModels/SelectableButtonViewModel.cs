@@ -45,6 +45,10 @@ namespace Kalendarzyk.ViewModels
 			DeselectAllButtons(buttonsToDeselect);
 			clickedButton.IsSelected = true;
 		}
+		public static void MultiButtonSelection(SelectableButtonViewModel clickedButton)
+		{
+			clickedButton.IsSelected = !clickedButton.IsSelected;
+		}
 		public static void DeselectAllButtons(ObservableCollection<SelectableButtonViewModel> buttonsToDeselect)
 		{
 			foreach (var button in buttonsToDeselect)
