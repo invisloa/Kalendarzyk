@@ -19,7 +19,7 @@
             <toolkit:Expander.Header>
                 <Frame HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}" Padding="5">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding EventTypesCCText}" VerticalOptions="Center"/>
+                        <Label Text="{Binding ControlText, Source={RelativeSource AncestorType={x:Type CustomControls:EventTypesCustomControl}}}" VerticalOptions="Center"/>
                         <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="ArrowLabel"
                                Text="_swipe_left" 
                                TextColor="Black" 

@@ -20,7 +20,7 @@
 
 
         <!-- EventPriorities collection -->
-        <customControls:EventTypesCustomControl IsExpanded="True" Grid.Row="1" />
+        <customControls:EventTypesCustomControl ControlText="EVENT FILTERS"  IsExpanded="True" Grid.Row="1" />
 
         <!--Events list layout-->
         <!--<customControls:AddNewEventAndTypeBtnsCC Grid.Row="2"/>-->

@@ -4,6 +4,18 @@ namespace Kalendarzyk.Views.CustomControls;
 
 public partial class EventTypesCustomControl : ContentView
 {
+	public static readonly BindableProperty ControlTextProperty = BindableProperty.Create(
+		nameof(ControlText),
+		typeof(string),
+		typeof(EventTypesCustomControl),
+		string.Empty);
+
+	public string ControlText
+	{
+		get => (string)GetValue(ControlTextProperty);
+		set => SetValue(ControlTextProperty, value);
+	}
+
 	public static readonly BindableProperty IsExpandedProperty = BindableProperty.Create(
 		nameof(IsExpanded),
 		typeof(bool),
@@ -11,6 +23,7 @@ public partial class EventTypesCustomControl : ContentView
 		false,
 		BindingMode.TwoWay,
 		propertyChanged: OnIsExpandedChanged);
+
 
 	public bool IsExpanded
 	{
