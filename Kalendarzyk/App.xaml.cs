@@ -16,6 +16,19 @@ namespace Kalendarzyk
 			_repository.ClearAllMainEventTypesAsync();
 		}
 
+		private void AddQuickNotesTypes()
+		{
+			// QUICK NOTE
+			IMainTypeVisualModel quickNoteVisualModel = new IconModel(IconFont.Quickreply, Colors.Red, Colors.AntiqueWhite);
+			IMainEventType quickNoteMainType = new MainEventType("QNOTE", quickNoteVisualModel);
+			_repository.AddMainEventTypeAsync(quickNoteMainType);
+			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNote", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel> ());
+			_repository.AddSubEventTypeAsync(qNoteSubTypeModel);
+
+		}
+
+
+
 		// it adds data before the app starts and json files are created
 		public void AddDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
@@ -23,6 +36,10 @@ namespace Kalendarzyk
 			{
 				return;
 			}
+
+
+
+			//DummyData
 			IMainTypeVisualModel mainTypeVisualModel = new IconModel(IconFont.Work, Colors.Aquamarine, Colors.AliceBlue);
 			IMainEventType mainEventType = new MainEventType("Invioces", mainTypeVisualModel);
 			_repository.AddMainEventTypeAsync(mainEventType);
@@ -34,6 +51,7 @@ namespace Kalendarzyk
 			IMainTypeVisualModel mainTypeVisualModel3 = new IconModel(IconFont.Traffic, Colors.Red, Colors.BlanchedAlmond);
 			IMainEventType mainEventType3 = new MainEventType("RoadTrip", mainTypeVisualModel3);
 			_repository.AddMainEventTypeAsync(mainEventType3);
+
 
 
 			ISubEventTypeModel subEventTypeModel = Factory.CreateNewEventType(mainEventType, "Dino", Colors.Blue, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 100));
@@ -65,6 +83,7 @@ namespace Kalendarzyk
 		public App(IEventRepository repository)
 		{
 			_repository = repository;
+			AddQuickNotesTypes();
 
 			if (PreferencesManager.GetIsDeleteAllSelected())
 			{

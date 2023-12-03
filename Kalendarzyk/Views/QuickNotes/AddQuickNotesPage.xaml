@@ -5,7 +5,8 @@
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="AddQuickNotesPage"
-             x:Name="AddQuickNotesPageName">
+             x:Name="AddQuickNotesPageName"
+             >
     <VerticalStackLayout>
 
         <!-- Entry for new type name -->
@@ -20,32 +21,29 @@
                            HorizontalOptions="Center"  />
         <Entry             Margin="10"
                            Placeholder="...QUICK NOTE DESCRIPTION..." 
-                           Text="{Binding QuickNoteTitle, Mode=TwoWay}" 
+                           Text="{Binding QuickNoteDescription, Mode=TwoWay}" 
                            FontAttributes="Bold" FontSize="Body"
                            HorizontalTextAlignment="Center" 
                            BackgroundColor="{DynamicResource MainTextboxesBackgroundColor}" 
                            TextColor="{DynamicResource MainTextColor}" 
                            VerticalOptions="Center" 
                            HorizontalOptions="Center" MinimumWidthRequest="200" />
-        <FlexLayout  AlignContent="Center" AlignItems="Center" Direction="Row" Wrap="Wrap"  HorizontalOptions="Center"  >
-            <Button Text="COLOR" BackgroundColor="{Binding QuickNoteLabelColor}" Margin="3" Command="{Binding ColorsSelectedCommand}"/>
-            <Button Text="SUBTYPE" BackgroundColor="{Binding QuickNoteLabelColor}"  Margin="3"  Command="{Binding SubtypeSelected}"/>
-            <Button Text="DATE" BackgroundColor="{Binding QuickNoteLabelColor}"  Margin="3"  Command="{Binding ColorsSelectedCommand}"/>
-
-        </FlexLayout>
 
         <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding QuickNotesButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 
-        <!--Label Colors-->
-        <customControls:ColorButtonsSelectorCC Margin="3"
-            ItemsSource="{Binding QuickNoteLabelColors}" 
-            Command="{Binding Path=BindingContext.QuickNoteLabelColorSeletctionCommand, Source={x:Reference AddQuickNotesPageName}}" 
-            BindingContext="{Binding}"  IsVisible="{Binding IsQuickNoteLabelColors}"/>
+        <!--MicroTasks CC-->
+        <customControls:MicroTasksListCC IsVisible="{Binding IsQuickNoteMicroTasksSelected}" />
+        
+        <!--VALUE CC-->
+        <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteMeasurementSelected}" />
+
+        
+
 
 
 
         <Button  Style="{DynamicResource DangerButtonStyle}" WidthRequest="300" Text="DELETE QUICK NOTE  " IsVisible="{Binding IsEditQuickNote}" Command="{Binding DeleteAsyncSelectedMainEventTypeCommand}"/>
-        <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" Command="{Binding SubmitAsyncMainTypeCommand}" HorizontalOptions="Center"/>
+        <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" FontAttributes="Bold" TextColor="{StaticResource MainTextColor}" Command="{Binding SubmitAsyncQuickNoteCommand}" HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}"/>
 
     </VerticalStackLayout>
 </ContentPage>
