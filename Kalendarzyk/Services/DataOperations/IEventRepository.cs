@@ -42,6 +42,7 @@ namespace Kalendarzyk.Services.DataOperations
 		Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSave = null);
 		Task LoadEventsAndTypesFromFile();
 		Task InitializeAsync();
+		void InitializeData();
 
 	}
 }

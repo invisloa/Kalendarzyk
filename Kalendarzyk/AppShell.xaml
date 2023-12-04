@@ -12,9 +12,15 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Preferences">
             <ShellContent
-                Title="Quick Notes"
+                Title="Add Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:AddQuickNotesPage}"
                 Route="AddQuickNotesPage" />
+            
+            <ShellContent
+                Title="Quick Notes"
+                ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
+                Route="QuickNotesPage" />
+
             <ShellContent
                 Title="Preferences"
                 ContentTemplate="{DataTemplate local:PreferencesPage}"

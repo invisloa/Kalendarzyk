@@ -83,18 +83,16 @@ namespace Kalendarzyk
 		public App(IEventRepository repository)
 		{
 			_repository = repository;
-			AddQuickNotesTypes();
+			// AddQuickNotesTypes();
 
 			if (PreferencesManager.GetIsDeleteAllSelected())
 			{
 				ClearData();
 			}
 
-
-
 			if(PreferencesManager.GetIsCreateDummyDataSelected())
 			{
-				AddDummyData();		// it checks for the events before the events are imported so when there are any events added they will be deleted
+			//	AddDummyData();		// it checks for the events before the events are imported so when there are any events added they will be deleted
 			}
 
 			InitializeComponent();

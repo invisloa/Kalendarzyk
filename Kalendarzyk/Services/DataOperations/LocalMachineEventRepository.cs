@@ -232,6 +232,12 @@ public class LocalMachineEventRepository : IEventRepository
 			OnUserEventTypeListChanged?.Invoke();
 		}
 	}
+	public void InitializeData()
+	{
+		AllEventsList =  GetEventsListAsync().Result;
+		AllMainEventTypesList = GetMainEventTypesListAsync().Result;
+		AllUserEventTypesList = GetSubEventTypesListAsync().Result;
+	}
 	public async Task InitializeAsync()
 	{
 		_allEventsList = await GetEventsListAsync();                          // TO CHECK -  ConfigureAwait
