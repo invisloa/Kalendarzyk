@@ -94,5 +94,10 @@ namespace Kalendarzyk.Services
 		{
 			return new EventTimeConflictChecker(allEventsList);
 		}
+
+		internal static IsCompletedCCViewModel CreateNewIsCompletedCCAdapter()
+		{
+			return new IsCompletedCCViewModel();
+		}
 	}
 }

@@ -93,7 +93,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 		#endregion
 
-		public RelayCommand IsCompleteFrameCommand { get; set; }
 
 		#region Constructors
 		// ctor for creating evnents create event mode
@@ -103,8 +102,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
 			_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
-			IsCompleteFrameCommand = new RelayCommand(() => IsCompleted = !IsCompleted);
-
 		}
 		// ???????????????????????????????????
 		//public EventOperationsViewModel(IEventRepository eventRepository)
@@ -138,7 +135,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			SelectedEventType = _selectedCurrentEvent.EventType;
 			StartExactTime = _selectedCurrentEvent.StartDateTime.TimeOfDay;
 			EndExactTime = _selectedCurrentEvent.EndDateTime.TimeOfDay;
-			IsCompleted = _selectedCurrentEvent.IsCompleted;
+			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
 
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
 
@@ -159,7 +156,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				}
 				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(_selectedCurrentEvent.MicroTasksList);
 			}
-			IsCompleteFrameCommand = new RelayCommand(() => IsValueTypeSelected = !IsValueTypeSelected);
 			MainEventTypeSelectedCommand = null;
 		}
 		#endregion
@@ -207,7 +203,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_selectedCurrentEvent.EventType = SelectedEventType;
 			_selectedCurrentEvent.StartDateTime = StartDateTime.Date + StartExactTime;
 			_selectedCurrentEvent.EndDateTime = EndDateTime.Date + EndExactTime;
-			_selectedCurrentEvent.IsCompleted = IsCompleted;
+			_selectedCurrentEvent.IsCompleted = IsCompletedCCAdapter.IsCompleted;
 			_measurementSelectorHelperClass.QuantityAmount = new QuantityModel(_measurementSelectorHelperClass.SelectedMeasurementUnit.TypeOfMeasurementUnit, _measurementSelectorHelperClass.QuantityValue);
 			_selectedCurrentEvent.QuantityAmount = _measurementSelectorHelperClass.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);

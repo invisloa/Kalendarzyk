@@ -57,7 +57,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		#endregion
-
+		// ctor
 		public EventOperationsBaseViewModel(IEventRepository eventRepository)
 		{
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(eventRepository.AllMainEventTypesList);
@@ -71,6 +71,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
 			_allMeasurementUnitItems = Factory.PopulateMeasurementCollection();
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(EventRepository.AllEventsList);
+			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter();
 		}
 
 		//Fields
@@ -80,13 +81,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected string _submitButtonText;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
 		protected IEventTimeConflictChecker _eventTimeConflictChecker;
+		private IsCompletedCCViewModel _isCompletedCCAdapter;
 
 
 		// normal fields
 		protected IMainEventTypesCCViewModel _mainEventTypesCCHelper;
 		private IEventRepository eventRepository;
 		protected IGeneralEventModel _selectedCurrentEvent;
-		protected bool _isCompleted;
 		protected string _title;
 		protected string _description;
 		protected DateTime _startDateTime = DateTime.Today;
@@ -110,7 +111,14 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected abstract bool IsEditMode { get; }
 		public int FontSize => _fontSize;
 		public abstract string SubmitButtonText { get; set; }
-
+		public IsCompletedCCViewModel IsCompletedCCAdapter
+		{
+			get => _isCompletedCCAdapter;
+			set
+			{
+				_isCompletedCCAdapter = value;
+			}
+		}
 		public string EventTypePickerText { get => "Select event Type"; }
 		public RelayCommand GoToAddEventPageCommand
 		{
@@ -185,15 +193,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				_submitEventCommand.NotifyCanExecuteChanged();
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsEventTypeSelected));
-			}
-		}
-		public bool IsCompleted
-		{
-			get => _isCompleted;
-			set
-			{
-				_isCompleted = value;
-				OnPropertyChanged();
 			}
 		}
 		public string Title
@@ -352,7 +351,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			Title = "";
 			Description = "";
-			IsCompleted = false;
+			IsCompletedCCAdapter.IsCompleted = false;
 			if (SelectedEventType.IsValueType)
 			{
 				DefaultMeasurementSelectorCCHelper.QuantityValue = 0;

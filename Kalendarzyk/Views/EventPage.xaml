@@ -88,8 +88,10 @@
 
 
             <!--Start/End Date and time-->
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <!--STARTS AT TIME-->
+            <customControls:DateStartEndCC/>
+
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                --><!--STARTS AT TIME--><!--
                 <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0"  MinimumWidthRequest="120">
                     <StackLayout>
                         <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
@@ -104,7 +106,7 @@
                     </StackLayout>
                 </Frame>
 
-                <!--ENDS AT TIME-->
+                --><!--ENDS AT TIME--><!--
                 <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0" MinimumWidthRequest="120">
                     <StackLayout>
                         <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
@@ -118,13 +120,14 @@
                             HorizontalOptions="Center"/>
                     </StackLayout>
                 </Frame>
-            </StackLayout>
+            </StackLayout>-->
 
             <!--UserExtraControls Timespan Value MicroTasks-->
             <customControls:UserTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
 
-
-            <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
+            <!--IsComplete Frame-->
+            <customControls:IsCompletedCC/>
+            <!--<Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IsCompleteFrameCommand}"/>
                 </Frame.GestureRecognizers>
@@ -132,7 +135,7 @@
                     <Label Text="IS COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
                     <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" InputTransparent="True"/>
                 </StackLayout>
-            </Frame>
+            </Frame>-->
 
             
             <StackLayout Orientation="Horizontal">

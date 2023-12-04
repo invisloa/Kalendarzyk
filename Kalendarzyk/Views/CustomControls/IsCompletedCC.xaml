@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.CustomControls.IsCompletedCC">
+    <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding IsCompletedCCAdapter.IsCompleteFrameCommand}"/>
+        </Frame.GestureRecognizers>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="IS COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
+            <CheckBox IsChecked="{Binding IsCompletedCCAdapter.IsCompleted, Mode=TwoWay}" InputTransparent="True"/>
+        </StackLayout>
+    </Frame>
+</ContentView>

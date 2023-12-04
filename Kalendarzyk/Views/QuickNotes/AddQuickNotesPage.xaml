@@ -18,7 +18,7 @@
                            BackgroundColor="{DynamicResource MainTextboxesBackgroundColor}" 
                            TextColor="{DynamicResource MainTextColor}" 
                            VerticalOptions="Center" 
-                           HorizontalOptions="Center"  />
+                           HorizontalOptions="Center"/>
         <Entry             Margin="10"
                            Placeholder="...QUICK NOTE DESCRIPTION..." 
                            Text="{Binding QuickNoteDescription, Mode=TwoWay}" 
@@ -29,20 +29,23 @@
                            VerticalOptions="Center" 
                            HorizontalOptions="Center" MinimumWidthRequest="200" />
 
+        <customControls:IsCompletedCC/>
+        
         <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding QuickNotesButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 
         <!--MicroTasks CC-->
-        <customControls:MicroTasksListCC IsVisible="{Binding IsQuickNoteMicroTasksSelected}" />
+        <customControls:MicroTasksListCC IsVisible="{Binding IsQuickNoteMicroTasksType}" />
         
         <!--VALUE CC-->
-        <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteMeasurementSelected}" />
-
-        
+        <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteValueType}" />
 
 
+        <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"/>
 
 
-        <Button  Style="{DynamicResource DangerButtonStyle}" WidthRequest="300" Text="DELETE QUICK NOTE  " IsVisible="{Binding IsEditQuickNote}" Command="{Binding DeleteAsyncSelectedMainEventTypeCommand}"/>
+
+
+        <Button  Style="{DynamicResource DangerButtonStyle}" WidthRequest="300" Text="DELETE QUICK NOTE  " IsVisible="{Binding IsEditQuickNoteMode}" Command="{Binding AsyncDeleteSelectedQuckNoteCommand}"/>
         <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" FontAttributes="Bold" TextColor="{StaticResource MainTextColor}" Command="{Binding SubmitAsyncQuickNoteCommand}" HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}"/>
 
     </VerticalStackLayout>

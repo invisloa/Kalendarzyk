@@ -212,6 +212,22 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task SubmitType()
 		{
+			if(TypeName == "QNOTE")
+			{
+				var action = await App.Current.MainPage.DisplayActionSheet("Tip... Tiri... Poop... Tim... Tiriri....", "Riri", null, "Tiri", "Go to All Events Page");
+				switch (action)
+				{
+					case "Riri":
+						
+						break;
+					case "Tiri":
+
+						break;
+					default:
+						break;
+				}
+				return; 
+			}
 			if (IsEdit)
 			{
 				_currentType.MainEventType = SelectedMainEventType;
