@@ -6,9 +6,10 @@ namespace Kalendarzyk.Views.QuickNotes;
 
 public partial class QuickNotesPage : ContentPage
 {
+	IEventRepository _eventRepository;
 	public QuickNotesPage()
 	{
-		var _eventRepository = ServiceHelper.GetService<IEventRepository>();
+		_eventRepository = ServiceHelper.GetService<IEventRepository>();
 		InitializeComponent();
 		BindingContext = new QuickNotesViewModel(_eventRepository);
 	}
@@ -16,7 +17,6 @@ public partial class QuickNotesPage : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		
-		//BindingContext = new QuickNotesViewModel(_eventRepository);
+		BindingContext = new QuickNotesViewModel(_eventRepository);
 	}
 }

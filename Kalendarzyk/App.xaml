@@ -17,6 +17,7 @@
             <Color x:Key="MainTextColor">#fff</Color>
             <Color x:Key="MainPlaceholderTextColor">#ccc</Color>
             <Color x:Key="MainBackgroundColor">#3b78d4</Color>
+            <Color x:Key="MainBackgroundDarkerColor">#0578d4</Color>
             <Color x:Key="MainButtonBackgroundColor">#062e9c</Color>
             <Color x:Key="MainFrameBackgroundColor">#2a4ebd</Color>
             <Color x:Key="MainTextboxesBackgroundColor">#273567</Color>

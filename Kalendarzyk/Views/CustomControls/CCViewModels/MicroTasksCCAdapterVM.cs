@@ -37,7 +37,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 		private void UpdateCurrentCommand()
 		{
-			if (!IsSelectMicroTaskOn)
+			if (IsSelectedDeleteMode)
 			{
 				CurrentCommand = DeleteMicroTaskCommand;
 			}
@@ -61,16 +61,16 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 		private void OnToggleDeleteMode()
 		{
-			IsSelectMicroTaskOn = !IsSelectMicroTaskOn;
+			IsSelectedDeleteMode = !IsSelectedDeleteMode;
 			UpdateCurrentCommand();
 		}
-		private bool _isSelectMicroTaskOn = true;
-		public bool IsSelectMicroTaskOn
+		private bool _isSelectedDeleteMode = false;
+		public bool IsSelectedDeleteMode
 		{
-			get => _isSelectMicroTaskOn;
+			get => _isSelectedDeleteMode;
 			set
 			{
-				_isSelectMicroTaskOn = value;
+				_isSelectedDeleteMode = value;
 				OnPropertyChanged();
 			}
 		}

@@ -22,7 +22,7 @@ namespace Kalendarzyk
 			IMainTypeVisualModel quickNoteVisualModel = new IconModel(IconFont.Quickreply, Colors.Red, Colors.AntiqueWhite);
 			IMainEventType quickNoteMainType = new MainEventType("QNOTE", quickNoteVisualModel);
 			_repository.AddMainEventTypeAsync(quickNoteMainType);
-			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNote", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel> ());
+			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNOTE", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel> ());
 			_repository.AddSubEventTypeAsync(qNoteSubTypeModel);
 
 		}
@@ -83,19 +83,25 @@ namespace Kalendarzyk
 		public App(IEventRepository repository)
 		{
 			_repository = repository;
-			// AddQuickNotesTypes();
 
-			if (PreferencesManager.GetIsDeleteAllSelected())
-			{
-				ClearData();
-			}
+			/*			if (PreferencesManager.GetIsDeleteAllSelected())
+						{
+							ClearData();
+						}
 
-			if(PreferencesManager.GetIsCreateDummyDataSelected())
-			{
-			//	AddDummyData();		// it checks for the events before the events are imported so when there are any events added they will be deleted
-			}
+						if (PreferencesManager.GetIsCreateDummyDataSelected())
+						{
+							AddQuickNotesTypes();
 
-			InitializeComponent();
+							AddDummyData();     // it checks for the events before the events are imported so when there are any events added they will be deleted
+						}
+			*/
+
+
+/*			AddQuickNotesTypes();
+			AddDummyData();     // it checks for the events before the events are imported so when there are any events added they will be deleted
+
+*/			InitializeComponent();
 			MainPage = new AppShell();
 
 		}

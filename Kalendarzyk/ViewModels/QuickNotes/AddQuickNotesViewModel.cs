@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventModels;
@@ -19,8 +20,6 @@ namespace Kalendarzyk.ViewModels
 	{
 		private AsyncRelayCommand _submitAsyncQuickNoteCommand;
 		public AsyncRelayCommand SubmitAsyncQuickNoteCommand => _submitAsyncQuickNoteCommand;
-		private IGeneralEventModel _editedQuickNote;
-
 		private IEventRepository _eventRepository;
 
 		private IGeneralEventModel _currentQuickNote;
@@ -51,8 +50,10 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private bool _isQuickNoteMicroTasksType;
 
-		[ObservableProperty]
-		private string _submitQuickNoteButtonText = "ADD QUICK NOTE";
+		public string SubmitQuickNoteButtonText
+		{
+			get => IsEditQuickNoteMode ? "Submit changes" : "Add quick note";
+		}
 
 
 		[ObservableProperty]
@@ -82,10 +83,6 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
 
-		[ObservableProperty]
-		private ObservableCollection<MicroTaskModel> _quickNoteMicroTasks= new ObservableCollection<MicroTaskModel>();
-
-
 		//ctor new quick note
 		public AddQuickNotesViewModel(IEventRepository eventRepository)
         {
@@ -99,26 +96,26 @@ namespace Kalendarzyk.ViewModels
 		public AddQuickNotesViewModel(IEventRepository eventRepository, IGeneralEventModel quickNote)
 		{
 			_eventRepository = eventRepository;
-			_editedQuickNote = quickNote;
+			_currentQuickNote = quickNote;
 			InitializeCommon();
 			IsEditQuickNoteMode = true;
+			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsynEditQuickNoteCommand, CanSubmitQuickNoteCommand);
 			QuickNoteTitle = quickNote.Title;
 			QuickNoteDescription = quickNote.Description;
 			StartDateTime = quickNote.StartDateTime;
 			EndDateTime = quickNote.EndDateTime;
 			IsCompletedCCAdapter.IsCompleted = quickNote.IsCompleted;
-			if(quickNote.QuantityAmount != null)
+			if(quickNote.QuantityAmount != null && quickNote.QuantityAmount.Value != 0)
 			{
-				IsQuickNoteValueType = true;
+				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[1]); // TODO refactor this
 				DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == quickNote.QuantityAmount.Unit).First();
 				DefaultMeasurementSelectorCCHelper.QuantityValue = quickNote.QuantityAmount.Value;
 			}
-			if(quickNote.MicroTasksList != null)
+			if(quickNote.MicroTasksList != null && quickNote.MicroTasksList.Count() > 0)
 			{
-				IsQuickNoteMicroTasksType = true;
-				QuickNoteMicroTasks = new ObservableCollection<MicroTaskModel>(quickNote.MicroTasksList);
+				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[0]); // TODO refactor this
+				MicroTasksCCAdapter.MicroTasksOC = quickNote.MicroTasksList.ToObservableCollection();
 			}
-			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsynEditQuickNoteCommand, CanSubmitQuickNoteCommand);
 			AsyncDeleteSelectedQuckNoteCommand = new AsyncRelayCommand(OnAsyncDeleteSelectedQuckNoteCommand);
 
 		}
@@ -128,7 +125,7 @@ namespace Kalendarzyk.ViewModels
 
 			InitializeButtonSelectors();
 			_isCompletedCCAdapter= Factory.CreateNewIsCompletedCCAdapter();
-			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(QuickNoteMicroTasks.ToList());
+			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
 			DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 		}
 
@@ -163,6 +160,7 @@ namespace Kalendarzyk.ViewModels
 		private async Task OnAsyncDeleteSelectedQuckNoteCommand()
 		{
 			await _eventRepository.DeleteFromEventsListAsync(_currentQuickNote);
+			await Shell.Current.GoToAsync("..");
 		}
 		public bool CanSubmitQuickNoteCommand()
 		{
@@ -170,11 +168,11 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
-			var qNoteSubType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNote").First();
-			SetValueAndMicroTasks();
+			var qNoteSubType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First();
 			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC);
 			
 			await _eventRepository.AddEventAsync(_currentQuickNote);
+			CclearFields();
 
 			// go to all quick notes page
 			// await Shell.Current.GoToAsync("//QuickNotesPage");
@@ -183,27 +181,25 @@ namespace Kalendarzyk.ViewModels
 		{
 			_currentQuickNote.Title = QuickNoteTitle;
 			_currentQuickNote.Description = QuickNoteDescription;
-			_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNote").First(); 
+			_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First(); 
 			_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
 			_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
 			_currentQuickNote.IsCompleted = IsCompletedCCAdapter.IsCompleted;
-			SetValueAndMicroTasks();
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 			_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
+			_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
 			await _eventRepository.UpdateEventAsync(_currentQuickNote);
 			await Shell.Current.GoToAsync("..");
 		}
-		private void SetValueAndMicroTasks()
+		private void CclearFields()
 		{
-			if (!IsQuickNoteValueType)
-			{
-				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
-			}
-			if (!IsQuickNoteMicroTasksType)
-			{
-				MicroTasksCCAdapter.MicroTasksOC = null;
-			}
+			_defaultMeasurementSelectorCCHelper.QuantityValue = 0;
+			MicroTasksCCAdapter.MicroTasksOC.Clear();
+			QuickNoteTitle = "";
+			QuickNoteDescription = "";
+			IsCompletedCCAdapter.IsCompleted = false;
+			IsQuickNoteValueType = false;
+			IsQuickNoteMicroTasksType = false;
 		}
-
 	}
 }

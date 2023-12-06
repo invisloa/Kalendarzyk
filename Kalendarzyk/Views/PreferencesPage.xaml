@@ -4,7 +4,9 @@
              x:Class="Kalendarzyk.Views.PreferencesPage"
              Title="PreferencesPage">
 
-    <StackLayout Padding="30">
+    <StackLayout Padding="30"
+  Background="{DynamicResource MainBackgroundColor}"  >
+        
         <Label Text="DELETE ALL" />
         <Switch IsToggled="{Binding IsDeleteAllSelected}" />
 
@@ -38,7 +40,7 @@
         </StackLayout>
 
 
-        <Button Text="Save Preferences" Command="{Binding SaveCommand}" />
+        <!--<Button Text="Save Preferences" Command="{Binding SavePreferencesCommand}" />-->
 
     </StackLayout>
 

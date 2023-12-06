@@ -122,7 +122,7 @@ namespace Kalendarzyk.ViewModels
 		public string WeeklyHoursSpanText { get; set; } = "Weekly Preferred Hours Span";
 
 		// Save command
-		public ICommand SaveCommand { get; }
+		//public ICommand SavePreferencesCommand { get; } = new RelayCommand(() => PreferencesManager.SavePreferences());
 
 		public PreferencesViewModel()
 		{

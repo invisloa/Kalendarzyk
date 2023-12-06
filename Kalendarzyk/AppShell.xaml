@@ -6,7 +6,7 @@
     Title="Kalendarzyk"
         xmlns:local="clr-namespace:Kalendarzyk.Views"
         xmlns:quickNotes="clr-namespace:Kalendarzyk.Views.QuickNotes"
-    
+    Background="{DynamicResource MainBackgroundDarkerColor}"
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">

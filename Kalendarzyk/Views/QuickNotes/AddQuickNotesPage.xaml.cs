@@ -1,4 +1,5 @@
 using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels;
 
@@ -12,4 +13,10 @@ public partial class AddQuickNotesPage : ContentPage
 		InitializeComponent();
 		BindingContext = new AddQuickNotesViewModel(_eventRepository);
 	}
+	public AddQuickNotesPage(IEventRepository eventRepository, IGeneralEventModel quickNoteToEdit)
+	{
+		InitializeComponent();
+		BindingContext = new AddQuickNotesViewModel(eventRepository, quickNoteToEdit);
+	}
+
 }

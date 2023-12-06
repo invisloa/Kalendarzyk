@@ -7,7 +7,7 @@
              Title="AddQuickNotesPage"
              x:Name="AddQuickNotesPageName"
              >
-    <VerticalStackLayout>
+    <VerticalStackLayout Background="{StaticResource MainBackgroundColor}">
 
         <!-- Entry for new type name -->
         <Entry             Margin="10"
