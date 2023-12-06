@@ -138,6 +138,9 @@
 	  <MauiXaml Update="Views\CustomControls\MicroTasksListCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomControls\RoundEntryCC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\SelectableButtonFlexLayoutCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

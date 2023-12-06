@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kalendarzyk.Views.CustomControls.RoundEntryCC"
+             x:Name="ThisControl">
+        <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}"
+            StrokeThickness="5">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15" />
+            </Border.StrokeShape>
+            <Editor Placeholder="{Binding Placeholder, Source={x:Reference ThisControl}}"
+                Text="{Binding Text, Source={x:Reference ThisControl}, Mode=TwoWay}"
+                AutoSize="TextChanges"
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="{DynamicResource MainTextColor}"
+                PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
+                Background="{DynamicResource MainTextboxesBackgroundColor}"
+                VerticalTextAlignment="Center"
+                WidthRequest="{Binding MyWidthRequest, Source={x:Reference ThisControl}}"
+                x:Name="EditorControl" />
+        </Border>
+    </ContentView>
