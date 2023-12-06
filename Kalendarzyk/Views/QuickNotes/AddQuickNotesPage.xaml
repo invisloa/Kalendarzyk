@@ -10,7 +10,7 @@
     <VerticalStackLayout Background="{StaticResource MainBackgroundColor}" Padding="10">
 
         <!-- Entry for new type name -->
-        <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding Title}" HorizontalOptions="Center"/>
+        <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>
 

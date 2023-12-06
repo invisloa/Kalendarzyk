@@ -19,7 +19,7 @@
         <customControls:TodayAndSelectedDateCC Grid.Row="0"/>
 
         <!-- EventTypesCustomControl collection -->
-        <customControls:EventTypesCustomControl IsExpanded="False" Grid.Row="1" />
+        <customControls:EventTypesCustomControl Grid.Row="1" />
 
 
         <!--Events list layout-->

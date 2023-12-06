@@ -6,12 +6,14 @@
 
     <StackLayout Padding="30"
   Background="{DynamicResource MainBackgroundColor}"  >
-        
-        <Label Text="DELETE ALL" />
-        <Switch IsToggled="{Binding IsDeleteAllSelected}" />
 
-        <Label Text="CREATE DUMMY DATA" />
-        <Switch IsToggled="{Binding IsCreateDummyDataSelected}" />
+        <!--<Switch IsToggled="{Binding IsDeleteAllSelected}" />-->
+
+        <Button Text="CREATE DUMMY DATA"  Command ="{Binding CreateDummyDataCommand}"  Background="{StaticResource MainButtonBackgroundColor}"
+                HorizontalOptions="Center"
+                TextColor="{DynamicResource MainTextColor}"/>
+
+        <!--<Button IsToggled="{Binding IsCreateDummyDataSelected}" />-->
 
 
 
@@ -39,6 +41,7 @@
             <Entry Text="{Binding HoursSpanTo}"/>
         </StackLayout>
 
+        <Button Text="DELETE ALL DATA" Command="{Binding DeleteAllDataCommand}" Background="Red" HorizontalOptions="Center"/>
 
         <!--<Button Text="Save Preferences" Command="{Binding SavePreferencesCommand}" />-->
 

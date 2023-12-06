@@ -10,16 +10,22 @@
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Preferences">
+        <Tab Title="QuickNotes">
+
             <ShellContent
                 Title="Add Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:AddQuickNotesPage}"
                 Route="AddQuickNotesPage" />
-            
+
             <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
                 Route="QuickNotesPage" />
+
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Preferences">
 
             <ShellContent
                 Title="Preferences"
@@ -27,8 +33,8 @@
                 Route="PreferencesPage" />
         </Tab>
     </FlyoutItem>
-    
-    
+
+
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Data WelcomePage">
             <ShellContent

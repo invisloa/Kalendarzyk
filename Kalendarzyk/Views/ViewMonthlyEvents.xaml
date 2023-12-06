@@ -20,7 +20,7 @@
 
 
         <!-- EventPriorities collection -->
-        <customControls:EventTypesCustomControl ControlText="EVENT FILTERS"  IsExpanded="True" Grid.Row="1" />
+        <customControls:EventTypesCustomControl Grid.Row="1" />
 
         <!--Events Grid-->
         <ScrollView Grid.Row="2" Orientation="Vertical" >
