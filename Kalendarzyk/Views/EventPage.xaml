@@ -14,7 +14,7 @@
             <Setter Property="TextColor" Value="{DynamicResource MainTextColor}" />
         </Style>
     </ContentPage.Resources>
-    <StackLayout  BackgroundColor="{DynamicResource MainBackgroundColor}">
+    <ScrollView  BackgroundColor="{DynamicResource MainBackgroundColor}">
 
         <StackLayout >
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
@@ -131,6 +131,6 @@
 
         </StackLayout>
 
-    </StackLayout>
+    </ScrollView>
 
 </ContentPage>

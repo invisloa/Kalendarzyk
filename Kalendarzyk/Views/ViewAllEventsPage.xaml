@@ -8,7 +8,9 @@
              x:DataType="local:AllEventsViewModel"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              Title="View All Events"
-             BackgroundColor="{DynamicResource MainBackgroundColor}">
+             BackgroundColor="{DynamicResource MainBackgroundColor}" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
 
     <Grid Padding="10" RowSpacing="10">
 
@@ -23,10 +25,27 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Custom controls with updated styling -->
-        <customControls:MainEventTypesSelectorCC Grid.Row="0" />
-        <customControls:EventTypesCustomControl Grid.Row="1"/>
-        <customControls:DateFilteringCC Grid.Row="2"/>
+        <toolkit:Expander x:Name="MyExpander" Grid.Row="1"
+                  ExpandedChanged="MyExpander_ExpandedChanged">
+            <toolkit:Expander.Header>
+                <Frame HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}" Padding="5">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Filters" VerticalOptions="Center"/>
+                        <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="ArrowLabel"
+                               Text="_swipe_left" 
+                               TextColor="Black" 
+                               Style="{StaticResource GoogleFont}"/>
+                    </StackLayout>
+                </Frame>
+            </toolkit:Expander.Header>
+            <StackLayout Padding="10">
+                <!-- Custom controls with updated styling -->
+                <customControls:MainEventTypesSelectorCC Grid.Row="0" />
+                <customControls:EventTypesCustomControl Grid.Row="1"/>
+                <customControls:DateFilteringCC Grid.Row="2"/>
+            </StackLayout>
+        </toolkit:Expander>
+
 
         <!-- Button layout with modern look -->
         <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">

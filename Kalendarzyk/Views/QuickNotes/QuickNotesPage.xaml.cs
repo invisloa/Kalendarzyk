@@ -14,9 +14,10 @@ public partial class QuickNotesPage : ContentPage
 		BindingContext = new QuickNotesViewModel(_eventRepository);
 	}
 
-	protected override void OnAppearing()
+	protected async override void OnAppearing()
 	{
 		base.OnAppearing();
+		await _eventRepository.InitializeAsync();
 		BindingContext = new QuickNotesViewModel(_eventRepository);
 	}
 }

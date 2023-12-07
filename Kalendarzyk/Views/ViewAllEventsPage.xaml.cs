@@ -45,4 +45,12 @@ public partial class ViewAllEventsPage : ContentPage
 		base.OnAppearing();
 		viewModel.OnAppearing();
 	}
+
+	private async void MyExpander_ExpandedChanged(object sender, CommunityToolkit.Maui.Core.ExpandedChangedEventArgs e)
+	{
+
+		// Increment the current rotation by 180 degrees
+		double newRotation = ArrowLabel.Rotation - 180;
+		await ArrowLabel.RotateTo(newRotation, 350, Easing.CubicInOut);
+	}
 }

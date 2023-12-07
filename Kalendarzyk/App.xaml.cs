@@ -1,4 +1,5 @@
-﻿using Kalendarzyk.Helpers;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Kalendarzyk.Helpers;
 using Kalendarzyk.Models;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
@@ -21,7 +22,6 @@ namespace Kalendarzyk
 		{
 			// Call base method 
 			base.OnStart();
-			await _repository.InitializeAsync();
 
 			// Check or request StorageRead permission
 			var statusStorageRead = await Permissions.CheckStatusAsync<Permissions.StorageRead>();

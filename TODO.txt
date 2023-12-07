@@ -1,20 +1,6 @@
-        <toolkit:Expander x:Name="MyExpander" Grid.Row="1"
-                  ExpandedChanged="MyExpander_ExpandedChanged">
-            <toolkit:Expander.Header>
-                <Frame HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}" Padding="5">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding ControlText, Source={RelativeSource AncestorType={x:Type CustomControls:EventTypesCustomControl}}}" VerticalOptions="Center"/>
-                        <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="ArrowLabel"
-                               Text="_swipe_left" 
-                               TextColor="Black" 
-                               Style="{StaticResource GoogleFont}"/>
-                    </StackLayout>
-
-                </Frame>
-            </toolkit:Expander.Header>
 
 
-
+set quick note as a starting page
 
 Preferences refactoring
 
