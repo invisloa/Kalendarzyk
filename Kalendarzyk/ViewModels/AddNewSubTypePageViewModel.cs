@@ -148,6 +148,8 @@ namespace Kalendarzyk.ViewModels
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);
 			setIsVisibleForExtraControlsInEditMode();
 			UserTypeExtraOptionsHelper.ValueTypeClickCommand = null;
+			DeleteSelectedEventTypeCommand = new AsyncRelayCommand(DeleteSelectedEventType, CanDeleteSelectedEventType);
+
 			// set proper visuals for an edited event type ??
 		}
 
@@ -161,7 +163,6 @@ namespace Kalendarzyk.ViewModels
 			SelectColorCommand = new RelayCommand<SelectableButtonViewModel>(OnSelectColorCommand);
 			GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
 			SubmitTypeCommand = new AsyncRelayCommand(SubmitType, CanExecuteSubmitTypeCommand);
-			DeleteSelectedEventTypeCommand = new AsyncRelayCommand(DeleteSelectedEventType);
 			_mainEventTypesCCHelper.MainEventTypeChanged += OnMainEventTypeChanged;
 
 		}
@@ -265,6 +266,10 @@ namespace Kalendarzyk.ViewModels
 		{
 			ButtonsColorsInitializerHelperClass buttonsColorsInitializerHelperClass = new ButtonsColorsInitializerHelperClass();
 			ButtonsColorsOC = buttonsColorsInitializerHelperClass.ButtonsColorsOC;
+		}
+		private bool CanDeleteSelectedEventType()
+		{
+			return CurrentType.MainEventType.Title != "QNOTE";
 		}
 		public void SetExtraUserControlsValues(ISubEventTypeModel _currentType)
 		{

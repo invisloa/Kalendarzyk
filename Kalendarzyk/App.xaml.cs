@@ -9,13 +9,10 @@ namespace Kalendarzyk
 {
 	public partial class App : Application
 	{
-
-
-
-
-
-		public App()
+		IEventRepository _repository;
+		public App(IEventRepository eventRepository)
 		{
+			_repository = eventRepository;
 			InitializeComponent();
 			MainPage = new AppShell();
 
@@ -24,7 +21,7 @@ namespace Kalendarzyk
 		{
 			// Call base method 
 			base.OnStart();
-
+			await _repository.InitializeAsync();
 
 			// Check or request StorageRead permission
 			var statusStorageRead = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
@@ -43,10 +40,10 @@ namespace Kalendarzyk
 			public static Style GoogleFontStyle = new Style(typeof(Label))
 			{
 				Setters =
-		{
-			new Setter { Property = Label.FontFamilyProperty, Value = "GoogleMaterialFont" },
-			new Setter { Property = Label.FontSizeProperty, Value = 32 }
-		}
+				{
+					new Setter { Property = Label.FontFamilyProperty, Value = "GoogleMaterialFont" },
+					new Setter { Property = Label.FontSizeProperty, Value = 32 }
+				}
 			};
 		}
 	}

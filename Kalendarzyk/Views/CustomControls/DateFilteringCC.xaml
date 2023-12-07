@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Kalendarzyk.Views.CustomControls.DateFilteringCC">
     <!--Date Filters-->
-    <Grid>
+    <Grid HorizontalOptions="Center">
         <!-- Define the columns for the Grid -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -24,8 +24,8 @@
 
         </StackLayout>
 
-        <StackLayout Grid.Column="2"  HorizontalOptions="Center" VerticalOptions="Center" >
-            <Label  Text="DATE FILTERS" TextColor="{DynamicResource MainTextColor}"/>
+        <StackLayout Grid.Column="2"  VerticalOptions="Center" >
+            <Label  Text="DATE FILTERS" TextColor="{DynamicResource MainTextColor}"  />
         </StackLayout>
         <StackLayout Grid.Column="3"  HorizontalOptions="End" VerticalOptions="Center">
             <Label  Text="-&gt;" TextColor="{DynamicResource MainTextColor}"/>
