@@ -12,7 +12,7 @@
 
             <Frame Padding="1" HorizontalOptions="CenterAndExpand" WidthRequest="250" >
 
-                <Entry Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body"
+                <Entry Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body" IsReadOnly="{Binding IsQuickNoteType}"
                            HorizontalTextAlignment="Center" BackgroundColor="{Binding SelectedSubTypeColor, Mode=TwoWay}" TextColor="{DynamicResource MainTextColor}" VerticalOptions="Fill"/>
             </Frame>
             <!--Main Event Types Custom Control-->

@@ -31,7 +31,6 @@ namespace Kalendarzyk.ViewModels
 		public IUserTypeExtraOptionsViewModel UserTypeExtraOptionsHelper { get; set; }
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
-
 		private TimeSpan _defaultEventTime;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
 		private Color _selectedColor = Color.FromRgb(255, 0, 0); // initialize with red
@@ -42,6 +41,10 @@ namespace Kalendarzyk.ViewModels
 		#endregion
 
 		#region Properties
+		public bool IsQuickNoteType
+		{
+			get => CurrentType?.EventTypeName == "QNOTE";
+		}
 		public string QuantityValueText => IsEdit ? "DEFAULT VALUE:" : "Value:";
 		public string PageTitle => IsEdit ? "EDIT TYPE" : "ADD NEW TYPE";
 		public string PlaceholderText => IsEdit ? $"TYPE NEW NAME FOR: {TypeName}" : "...NEW TYPE NAME...";
@@ -213,22 +216,6 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task SubmitType()
 		{
-			if(TypeName == "QNOTE")
-			{
-				var action = await App.Current.MainPage.DisplayActionSheet("Tip... Tiri... Poop... Tim... Tiriri....", "Riri", null, "Tiri", "Go to All Events Page");
-				switch (action)
-				{
-					case "Riri":
-						
-						break;
-					case "Tiri":
-
-						break;
-					default:
-						break;
-				}
-				return; 
-			}
 			if (IsEdit)
 			{
 				_currentType.MainEventType = SelectedMainEventType;
@@ -236,11 +223,14 @@ namespace Kalendarzyk.ViewModels
 				_currentType.EventTypeColor = _selectedColor;
 				SetExtraUserControlsValues(_currentType);
 				await _eventRepository.UpdateSubEventTypeAsync(_currentType);
-				await Shell.Current.GoToAsync("/AllSubTypesPage"); // Absolute route without "///"
+				await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
 			}
 			else
 			{
-				// TODO NOW !!!!!
+				if (!await CanAddNewType())
+				{
+					return;
+				}
 				var timespan = UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDefaultDuration() : TimeSpan.Zero;
 				var quantityAmount = UserTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
 				var microTasks = UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
@@ -295,6 +285,16 @@ namespace Kalendarzyk.ViewModels
 				_currentType.IsMicroTaskType = false;
 				_currentType.MicroTasksList = null;
 			}
+		}
+		private async Task<bool> CanAddNewType()
+		{
+			if (TypeName == "QNOTE")
+			{
+				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
+
+				return false;
+			}
+			return true;
 		}
 	}
 	#endregion

@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kalendarzyk.Models.EventModels;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -144,6 +145,8 @@ namespace Kalendarzyk.ViewModels
 			SelectedVisualElementString = currentMainType.SelectedVisualElement.ElementName;
 			BackgroundColor = currentMainType.SelectedVisualElement.BackgroundColor;
 			TextColor = currentMainType.SelectedVisualElement.TextColor;
+			DeleteAsyncSelectedMainEventTypeCommand = new AsyncRelayCommand(OnDeleteMainTypeCommand, CanDeleteMainEventType);
+
 
 		}
 
@@ -188,7 +191,6 @@ namespace Kalendarzyk.ViewModels
 		{
 			GoToAllMainTypesPageCommand = new RelayCommand(OnGoToAllMainTypesPageCommand);
 			SubmitAsyncMainTypeCommand = new AsyncRelayCommand(OnSubmitMainTypeCommand, CanExecuteSubmitMainTypeCommand);
-			DeleteAsyncSelectedMainEventTypeCommand = new AsyncRelayCommand(OnDeleteMainTypeCommand);
 			ExactIconSelectedCommand = new RelayCommand<string>(OnExactIconSelectedCommand);
 		}
 
@@ -258,10 +260,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				await DeleteMainEventType();
 				await Shell.Current.GoToAsync("..");
-
 			}
-
-
 		}
 		private bool CanExecuteSubmitMainTypeCommand()
 		{
@@ -289,6 +288,10 @@ namespace Kalendarzyk.ViewModels
 			await _eventRepository.SaveSubEventTypesListAsync();
 			_eventRepository.AllMainEventTypesList.Remove(_currentMainType);
 			await _eventRepository.SaveMainEventTypesListAsync();
+		}
+		private bool CanDeleteMainEventType()
+		{
+			return _currentMainType.Title != "QNOTE" ;
 		}
 
 

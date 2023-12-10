@@ -120,7 +120,7 @@ namespace Kalendarzyk.ViewModels
 		public PreferencesViewModel(IEventRepository eventRepository)
 		{
 			_repository = eventRepository;
-			CreateDummyDataCommand = new AsyncRelayCommand(AddDummyData);
+			CreateDummyDataCommand = new AsyncRelayCommand(CreateDummyData);
 			DeleteAllDataCommand = new AsyncRelayCommand(ClearData);
 		}
 
@@ -145,14 +145,11 @@ namespace Kalendarzyk.ViewModels
 			await _repository.AddSubEventTypeAsync(qNoteSubTypeModel);
 
 		}
-		private async Task AddDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
+		private async Task CreateDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
-			await AddQuickNotesTypes();
+			await ClearData();
 
-			if (_repository.AllEventsList.Count > 0)
-			{
-				return;
-			}
+			await AddQuickNotesTypes();
 
 			//DummyData
 			IMainTypeVisualModel mainTypeVisualModel = new IconModel(IconFont.Work, Colors.Aquamarine, Colors.AliceBlue);
