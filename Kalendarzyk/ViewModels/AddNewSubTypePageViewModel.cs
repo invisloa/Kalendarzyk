@@ -217,30 +217,27 @@ namespace Kalendarzyk.ViewModels
 
 			if (IsEdit)
 			{
-				if(CurrentType.EventTypeName != "QNOTE" && TypeName == "QNOTE")
+				if (await CanEditType())
 				{
-					await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
-					return;
+					_currentType.MainEventType = SelectedMainEventType;
+					_currentType.EventTypeName = TypeName;
+					_currentType.EventTypeColor = _selectedColor;
+					SetExtraUserControlsValues(_currentType);
+					await _eventRepository.UpdateSubEventTypeAsync(_currentType);
+					await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
 				}
-				_currentType.MainEventType = SelectedMainEventType;
-				_currentType.EventTypeName = TypeName;
-				_currentType.EventTypeColor = _selectedColor;
-				SetExtraUserControlsValues(_currentType);
-				await _eventRepository.UpdateSubEventTypeAsync(_currentType);
-				await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
 			}
 			else
 			{
-				if (!await CanAddNewType())
+				if (await CanAddNewType())
 				{
-					return;
+					var timespan = UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDefaultDuration() : TimeSpan.Zero;
+					var quantityAmount = UserTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
+					var microTasks = UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
+					var newUserType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, _selectedColor, timespan, quantityAmount, microTasks);
+					await _eventRepository.AddSubEventTypeAsync(newUserType);
+					TypeName = string.Empty;
 				}
-				var timespan = UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDefaultDuration() : TimeSpan.Zero;
-				var quantityAmount = UserTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
-				var microTasks = UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
-				var newUserType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, _selectedColor, timespan, quantityAmount, microTasks);
-				await _eventRepository.AddSubEventTypeAsync(newUserType);
-				TypeName = string.Empty;
 			}
 		}
 		private void OnSelectColorCommand(SelectableButtonViewModel selectedColor)
@@ -296,6 +293,15 @@ namespace Kalendarzyk.ViewModels
 			{
 				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 
+				return false;
+			}
+			return true;
+		}
+		private async Task<bool> CanEditType()
+		{
+			if (CurrentType.EventTypeName != "QNOTE" && TypeName == "QNOTE")
+			{
+				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 				return false;
 			}
 			return true;

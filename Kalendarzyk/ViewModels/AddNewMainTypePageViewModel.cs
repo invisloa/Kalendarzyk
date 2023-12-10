@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kalendarzyk.Models.EventModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -149,10 +150,7 @@ namespace Kalendarzyk.ViewModels
 			BackgroundColor = currentMainType.SelectedVisualElement.BackgroundColor;
 			TextColor = currentMainType.SelectedVisualElement.TextColor;
 			DeleteAsyncSelectedMainEventTypeCommand = new AsyncRelayCommand(OnDeleteMainTypeCommand, CanDeleteMainEventType);
-
-
 		}
-
 		#endregion
 
 		#region public methods
@@ -214,21 +212,46 @@ namespace Kalendarzyk.ViewModels
 			var iconForMainEventType = Factory.CreateIMainTypeVisualElement(SelectedVisualElementString, BackgroundColor, TextColor);
 			if (_isEdit)
 			{
-				var x = _eventRepository.AllMainEventTypesList.Single(x => x.Equals(_currentMainType));
-				_currentMainType.Title = MainTypeName;
-				_currentMainType.SelectedVisualElement = iconForMainEventType;
-				MainTypeName = string.Empty;
-				x = _currentMainType;
-				await _eventRepository.UpdateMainEventTypeAsync(_currentMainType);
-				await Shell.Current.GoToAsync("..");    // TODO CHANGE NOT WORKING!!!
+				if (await CanEditType())
+				{
+					var x = _eventRepository.AllMainEventTypesList.Single(x => x.Equals(_currentMainType));
+					_currentMainType.Title = MainTypeName;
+					_currentMainType.SelectedVisualElement = iconForMainEventType;
+					MainTypeName = string.Empty;
+					x = _currentMainType;
+					await _eventRepository.UpdateMainEventTypeAsync(_currentMainType);
+					await Shell.Current.GoToAsync("..");    // TODO CHANGE NOT WORKING!!!
+				}
 			}
 			else
 			{
-				var newMainType = Factory.CreateNewMainEventType(MainTypeName, iconForMainEventType);
-				MainTypeName = string.Empty;
-				await _eventRepository.AddMainEventTypeAsync(newMainType);
-				await Shell.Current.GoToAsync("..");    // TODO !!!!! CHANGE NOT WORKING!!!
+				if (await CanAddNewType())
+				{
+					var newMainType = Factory.CreateNewMainEventType(MainTypeName, iconForMainEventType);
+					MainTypeName = string.Empty;
+					await _eventRepository.AddMainEventTypeAsync(newMainType);
+					await Shell.Current.GoToAsync("..");    // TODO !!!!! CHANGE NOT WORKING!!!
+				}
 			}
+		}
+		private async Task<bool> CanAddNewType()
+		{
+			if (MainTypeName == "QNOTE")
+			{
+				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
+
+				return false;
+			}
+			return true;
+		}
+		private async Task<bool> CanEditType()
+		{
+			if (_currentMainType.Title != "QNOTE" && MainTypeName == "QNOTE")
+			{
+				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
+				return false;
+			}
+			return true;
 		}
 		private void OnGoToAllMainTypesPageCommand()
 		{
