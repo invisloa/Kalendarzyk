@@ -6,9 +6,9 @@
     <StackLayout Spacing="5">
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="5" >
-            <Button Text="TIMESPAN (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanColor}"   BorderWidth="1" Command="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand}"/>
-            <Button Text="VALUE (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsValueTypeColor}" Command="{Binding UserTypeExtraOptionsHelper.ValueTypeClickCommand}" IsVisible="{Binding UserTypeExtraOptionsHelper.IsNotEditMode}"/>
-            <Button Text="M-TASKS (D)" BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsMicroTasksListTypeColor}" Command="{Binding UserTypeExtraOptionsHelper.IsMicroTaskListTypeSelectedCommand}"/>
+            <Button Text="TIMESPAN (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanColor}"  TextColor="{DynamicResource MainTextColor}"  BorderWidth="1" Command="{Binding UserTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand}"/>
+            <Button Text="VALUE (D)"  BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsValueTypeColor}"  TextColor="{DynamicResource MainTextColor}" Command="{Binding UserTypeExtraOptionsHelper.ValueTypeClickCommand}" IsVisible="{Binding UserTypeExtraOptionsHelper.IsNotEditMode}"/>
+            <Button Text="M-TASKS (D)" BackgroundColor="{Binding UserTypeExtraOptionsHelper.IsMicroTasksListTypeColor}"  TextColor="{DynamicResource MainTextColor}" Command="{Binding UserTypeExtraOptionsHelper.IsMicroTaskListTypeSelectedCommand}"/>
         </StackLayout>
 
         <!--Not Visible in Edit Mode-->

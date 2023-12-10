@@ -31,7 +31,7 @@
             <!--Down of the screen buttons-->
 
             <Button Text="DELETE SELECTED TYPE" BackgroundColor="Red" IsVisible="{Binding IsEdit}" Command="{Binding DeleteSelectedEventTypeCommand}"/>
-            <Button Margin="5" Text="{Binding SubmitButtonText}" Command="{Binding SubmitTypeCommand}" HorizontalOptions="Center"/>
+            <Button Margin="5" Text="{Binding SubmitButtonText}" Command="{Binding SubmitTypeCommand}" HorizontalOptions="Center" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" TextColor="{DynamicResource MainTextColor}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>
