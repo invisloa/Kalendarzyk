@@ -5,6 +5,7 @@
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="AddQuickNotesPage"
+             Shell.TabBarIsVisible="False"
              x:Name="AddQuickNotesPageName"
              >
     <VerticalStackLayout Background="{StaticResource MainBackgroundColor}" Padding="10">

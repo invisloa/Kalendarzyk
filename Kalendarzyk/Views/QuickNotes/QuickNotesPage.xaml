@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
              x:Class="Kalendarzyk.Views.QuickNotes.QuickNotesPage"
              Title="QuickNotesPage"
+             Shell.TabBarIsVisible="False"
              x:Name="root">
     <ContentPage.Resources>
         <ResourceDictionary>

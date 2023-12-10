@@ -44,7 +44,10 @@ namespace Kalendarzyk.ViewModels
 		private MeasurementSelectorCCViewModel _defaultMeasurementSelectorCCHelper;
 
 		[ObservableProperty]
+		[NotifyPropertyChangedFor(nameof(IsNotEditQuickNoteMode))]
 		private bool _isEditQuickNoteMode;
+
+		public bool IsNotEditQuickNoteMode => !_isEditQuickNoteMode;
 
 		[ObservableProperty]
 		private Color _quickNoteLabelColor=  Colors.Red;
@@ -186,7 +189,7 @@ namespace Kalendarzyk.ViewModels
 			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC);
 			
 			await _eventRepository.AddEventAsync(_currentQuickNote);
-			CclearFields();
+			await Shell.Current.GoToAsync("..");
 
 			// go to all quick notes page
 			// await Shell.Current.GoToAsync("//QuickNotesPage");
