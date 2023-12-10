@@ -25,7 +25,7 @@
                            FontAttributes="Bold" FontSize="Body"
                            HorizontalTextAlignment="Center" 
                            BackgroundColor="{DynamicResource MainTextboxesBackgroundColor}" 
-                           TextColor="{DynamicResource MainTextColor}" 
+                           TextColor="{DynamicResource MainTextColor}" IsReadOnly="{Binding IsQuickNoteMainType}"
                            VerticalOptions="Center" 
                            HorizontalOptions="Start"  />
             <!-- Adjust margin as needed to position the icon -->

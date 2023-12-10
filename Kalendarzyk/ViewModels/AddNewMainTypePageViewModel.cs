@@ -32,7 +32,10 @@ namespace Kalendarzyk.ViewModels
 		private bool _isTextColorsTabSelected = false;
 		public ObservableCollection<SelectableButtonViewModel> BgColorsButtonsOC { get; set; }
 		public ObservableCollection<SelectableButtonViewModel> TextColorsButtonsOC { get; set; }
-
+		public bool IsQuickNoteMainType
+		{
+			get => _currentMainType?.Title == "QNOTE";
+		}
 		public bool IsIconsTabSelected
 		{
 			get => _isIconsTabSelected;

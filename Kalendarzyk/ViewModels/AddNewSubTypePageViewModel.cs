@@ -142,9 +142,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(currentType.MicroTasksList);
 			}
-
 			MainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
-
 			//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
 			SelectedSubTypeColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
@@ -216,8 +214,14 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task SubmitType()
 		{
+
 			if (IsEdit)
 			{
+				if(CurrentType.EventTypeName != "QNOTE" && TypeName == "QNOTE")
+				{
+					await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
+					return;
+				}
 				_currentType.MainEventType = SelectedMainEventType;
 				_currentType.EventTypeName = TypeName;
 				_currentType.EventTypeColor = _selectedColor;
