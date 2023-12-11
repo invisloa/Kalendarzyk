@@ -121,7 +121,7 @@ namespace Kalendarzyk.ViewModels
 		}
 
 		public ObservableCollection<string> IconsToShowStringsOC { get; set; }
-		public RelayCommand GoToAllMainTypesPageCommand { get; set; }
+		//public RelayCommand GoToAllMainTypesPageCommand { get; set; }
 		public RelayCommand<string> ExactIconSelectedCommand { get; set; }
 		public AsyncRelayCommand SubmitAsyncMainTypeCommand { get; set; }
 		public AsyncRelayCommand DeleteAsyncSelectedMainEventTypeCommand { get; set; }
@@ -190,7 +190,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private void InitializeCommands()
 		{
-			GoToAllMainTypesPageCommand = new RelayCommand(OnGoToAllMainTypesPageCommand);
+			//GoToAllMainTypesPageCommand = new RelayCommand(OnGoToAllMainTypesPageCommand);
 			SubmitAsyncMainTypeCommand = new AsyncRelayCommand(OnSubmitMainTypeCommand, CanExecuteSubmitMainTypeCommand);
 			ExactIconSelectedCommand = new RelayCommand<string>(OnExactIconSelectedCommand);
 		}
@@ -253,10 +253,12 @@ namespace Kalendarzyk.ViewModels
 			}
 			return true;
 		}
-		private void OnGoToAllMainTypesPageCommand()
-		{
-			Application.Current.MainPage.Navigation.PushAsync(new AllMainTypesPage());
-		}
+		//private void OnGoToAllMainTypesPageCommand()
+		//{
+		//	Shell.Current.GoToAsync("//AllMainTypesPage");
+
+		//	//Application.Current.MainPage.Navigation.PushAsync(new AllMainTypesPage());
+		//}
 		private async Task OnDeleteMainTypeCommand()
 		{
 			var eventTypesInDb = _eventRepository.AllEventsList.Where(x => x.EventType.MainEventType.Equals(_currentMainType)); // to check

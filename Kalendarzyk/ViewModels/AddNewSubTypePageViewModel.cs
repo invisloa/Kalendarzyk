@@ -111,7 +111,7 @@ namespace Kalendarzyk.ViewModels
 		#endregion
 		#region Commands
 		public RelayCommand<MainEventTypeViewModel> MainEventTypeSelectedCommand { get; set; }
-		public RelayCommand GoToAllSubTypesPageCommand { get; private set; }
+		//public RelayCommand GoToAllSubTypesPageCommand { get; private set; }
 		public RelayCommand<SelectableButtonViewModel> SelectColorCommand { get; private set; }
 		public AsyncRelayCommand SubmitTypeCommand { get; private set; }
 		public AsyncRelayCommand DeleteSelectedEventTypeCommand { get; private set; }
@@ -162,7 +162,7 @@ namespace Kalendarzyk.ViewModels
 			bool isEditMode = CurrentType != null;
 			UserTypeExtraOptionsHelper = Factory.CreateNewUserTypeExtraOptionsHelperClass(isEditMode);
 			SelectColorCommand = new RelayCommand<SelectableButtonViewModel>(OnSelectColorCommand);
-			GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
+			//GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
 			SubmitTypeCommand = new AsyncRelayCommand(SubmitType, CanExecuteSubmitTypeCommand);
 			_mainEventTypesCCHelper.MainEventTypeChanged += OnMainEventTypeChanged;
 
@@ -249,10 +249,10 @@ namespace Kalendarzyk.ViewModels
 				button.IsSelected = button.ButtonColor == selectedColor.ButtonColor;
 			}
 		}
-		private void GoToAllSubTypesPage()
-		{
-			Application.Current.MainPage.Navigation.PushAsync(new AllSubTypesPage());
-		}
+		//private void GoToAllSubTypesPage()
+		//{
+		//	Application.Current.MainPage.Navigation.PushAsync(new AllSubTypesPage());
+		//}
 		private void InitializeColorButtons() //TODO ! also to extract as a separate custom control
 		{
 			ButtonsColorsInitializerHelperClass buttonsColorsInitializerHelperClass = new ButtonsColorsInitializerHelperClass();

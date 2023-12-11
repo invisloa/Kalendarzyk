@@ -1,6 +1,5 @@
 
-
-set quick note as a starting page
+ADD SubType/MainType/Event to all lists Page
 
 Preferences refactoring
 

@@ -6,8 +6,13 @@
              x:Name="AddNewSubTypePageName">
     <ScrollView BackgroundColor="{DynamicResource MainBackgroundColor}">
         <StackLayout>
-            <Button Text="ALL TYPES PAGE" Command="{Binding GoToAllSubTypesPageCommand}" BackgroundColor="DarkGoldenrod" 
-                    WidthRequest="150" HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>
+            
+            
+            <!--TEMP REMOOVE -> PROB FOR GOOD-->
+            <!--<Button Text="ALL TYPES PAGE" Command="{Binding GoToAllSubTypesPageCommand}" BackgroundColor="DarkGoldenrod" 
+                    WidthRequest="150" HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>-->
+            
+            
             <!--Textbox for new type name-->
 
             <Frame Padding="1" HorizontalOptions="CenterAndExpand" WidthRequest="250" >

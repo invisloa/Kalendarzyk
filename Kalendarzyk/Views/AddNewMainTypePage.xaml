@@ -7,9 +7,12 @@
              Title="AddNewMainTypePage">
     <ScrollView    BackgroundColor="{DynamicResource MainBackgroundColor}">
         <StackLayout>
-            <!-- Button to go to all MainEvents Page-->
+            
+            
+            <!--TEMP REMOVE -> PROB FOR GOOD
+            --><!-- Button to go to all MainEvents Page--><!--
             <Button Text="ALL Main TYPES PAGE" Command="{Binding GoToAllMainTypesPageCommand}" BackgroundColor="DarkGoldenrod" 
-                         HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>
+                         HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>-->
 
             <!-- Textbox for new type name -->
             <Grid HorizontalOptions="Center" Margin="10">
