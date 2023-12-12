@@ -6,10 +6,8 @@
         <!--STARTS AT TIME-->
         <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0"  MinimumWidthRequest="120">
             <StackLayout>
-                <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
-                    <Label Text="STARTS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
+                    <Label Text="START" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
                     <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}" />
-                </StackLayout>
 
 
                 <TimePicker x:Name="StartTimePicker" Format="HH:mm" 
@@ -21,10 +19,8 @@
         <!--ENDS AT TIME-->
         <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0" MinimumWidthRequest="120">
             <StackLayout>
-                <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
-                    <Label Text="ENDS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
+                    <Label Text="END" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
                     <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
-                </StackLayout>
 
 
                 <TimePicker x:Name="EndTimePicker"  Format="HH:mm" TextColor="{DynamicResource MainTextColor}" 

@@ -37,7 +37,8 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		public QuickNotesViewModel(IEventRepository eventRepository)
 		{
 			_eventRepository = eventRepository;
-			_quickNotesOC = new ObservableCollection<IGeneralEventModel>(eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE"));
+			var quickNotesEvents = eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE");
+			_quickNotesOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);
 			EditSelectedQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnEditSelectedQuickNoteCommand);
 			ToggleDeleteModeCommand = new RelayCommand(OnToggleDeleteMode);

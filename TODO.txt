@@ -1,4 +1,7 @@
 
+hourly limit whyen is set up to 24 the label >24 is generated!!! similar for 0 i guess
+
+Weekly calendar double click as in monthly
 ADD SubType/MainType/Event to all lists Page
 
 Preferences refactoring
@@ -7,7 +10,7 @@ Preferences refactoring
 
 
 
-
+user can set a start page???
 
 
 
