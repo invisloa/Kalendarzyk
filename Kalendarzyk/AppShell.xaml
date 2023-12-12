@@ -10,31 +10,21 @@
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="MainPage">
             <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
                 Route="QuickNotesPage" />
 
-    </FlyoutItem>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-
+            <!--THIS ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
             <ShellContent
-                Title="Preferences"
-                ContentTemplate="{DataTemplate local:PreferencesPage}"
-                Route="PreferencesPage" />
+                Title="Daily"
+                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
+                Route="DailyEvents" />
+            <!--ABOVE ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
+
+        </Tab>
     </FlyoutItem>
-
-
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-            <ShellContent
-                Title="WelcomePage"
-                ContentTemplate="{DataTemplate local:WelcomePage}"
-                Route="WelcomePage" />
-    </FlyoutItem>
-
-
-
-    
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Calendars">
             <ShellContent
@@ -51,19 +41,16 @@
                 Route="DailyEvents" />
         </Tab>
     </FlyoutItem>
-
-
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Adding Data">
-            <ShellContent
-                Title="Add New MainTypes"
-                ContentTemplate="{DataTemplate local:AddNewMainTypePage}"
-                Route="AddNewMainTypePage" />
             <ShellContent
                 Title="Add New Events"
                 ContentTemplate="{DataTemplate local:EventPage}"
                 Route="EventPage" />
-
+            <ShellContent
+                Title="Add New MainTypes"
+                ContentTemplate="{DataTemplate local:AddNewMainTypePage}"
+                Route="AddNewMainTypePage" />
             <ShellContent
                 Title="Add New SubTypes"
                 ContentTemplate="{DataTemplate local:AddNewSubTypePage}"
@@ -71,7 +58,6 @@
 
         </Tab>
     </FlyoutItem>
-
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="All Items Lists">
 
@@ -90,13 +76,15 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Extras">
             <ShellContent
-                Title="ValueTypeCalculationsPage"
+                Title="Preferences"
+                ContentTemplate="{DataTemplate local:PreferencesPage}"
+                Route="PreferencesPage" />
+            <ShellContent
+                Title="Calculations"
                 ContentTemplate="{DataTemplate local:ValueTypeCalculationsPage}"
                 Route="ValueTypeCalculationsPage" />
+        </Tab>
     </FlyoutItem>
-
-
-
-
 </Shell>

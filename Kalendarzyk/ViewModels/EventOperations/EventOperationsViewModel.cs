@@ -37,15 +37,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				OnPropertyChanged();
 			}
 		}
-		protected override bool IsEditMode
-		{
-			get
-			{
-				return _selectedCurrentEvent != null;
-			}
-		}
-		public bool EditModeVisibility => IsEditMode;
-
+		public override bool IsEditMode => _selectedCurrentEvent != null;
 		public IShareEvents ShareEvents
 		{
 			get => _shareEvents;
@@ -90,6 +82,14 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				_submitButtonText = value;
 				OnPropertyChanged();
 			}
+		}
+		public string DeleteButtonText
+		{
+			get
+			{
+					return "DELETE CURRENT EVENT";
+			}
+
 		}
 		#endregion
 

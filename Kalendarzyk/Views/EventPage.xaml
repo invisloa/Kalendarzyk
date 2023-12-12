@@ -25,35 +25,6 @@
                 </Grid.ColumnDefinitions>
 
                 <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
-                <customControls:RoundEntryCC Placeholder="... TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
-                <customControls:RoundEntryCC Placeholder="...EVENT ..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
-
-
-
-                <!--<StackLayout Orientation="Horizontal" Grid.Column="2" Margin="10"
-                             HorizontalOptions="End" 
-                             VerticalOptions="Center" >
-                    <ImageButton 
-                             CornerRadius="10"
-                             Source="share_icon_small.png"
-                             WidthRequest="30" 
-                             HeightRequest="30"
-                             Margin="10, 0, 0, 0"
-                             Background="{DynamicResource MainButtonBackgroundColor}"
-                             Command="{Binding ShareEventCommand}" 
-                             IsVisible="{Binding EditModeVisibility}" />
-                    <ImageButton 
-                    Source="remove_icon_small.png"
-                        CornerRadius="10"
-                        WidthRequest="30" 
-                        HeightRequest="30"
-                             Margin="10, 0, 0, 0"
-                        Background="{DynamicResource MainButtonBackgroundColor}"
-                        Command="{Binding DeleteEventCommand}" 
-                        IsVisible="{Binding EditModeVisibility}" />
-
-                </StackLayout>-->
-
             </Grid>
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"
@@ -70,57 +41,24 @@
             <!--Start/End Date and time-->
             <customControls:DateStartEndCC/>
 
-            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                --><!--STARTS AT TIME--><!--
-                <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0"  MinimumWidthRequest="120">
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
-                            <Label Text="STARTS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
-                            <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}" />
-                        </StackLayout>
-
-
-                        <TimePicker x:Name="StartTimePicker" Format="HH:mm" 
-                        Time="{Binding StartExactTime, Mode=TwoWay}"  TextColor="{DynamicResource MainTextColor}"
-                            HorizontalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-
-                --><!--ENDS AT TIME--><!--
-                <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0" MinimumWidthRequest="120">
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
-                            <Label Text="ENDS AT" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
-                            <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
-                        </StackLayout>
-
-
-                        <TimePicker x:Name="EndTimePicker"  Format="HH:mm" TextColor="{DynamicResource MainTextColor}" 
-                            Time="{Binding EndExactTime, Mode=TwoWay}"
-                            HorizontalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>-->
-
             <!--UserExtraControls Timespan Value MicroTasks-->
             <customControls:UserTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>
-            <!--<Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IsCompleteFrameCommand}"/>
-                </Frame.GestureRecognizers>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="IS COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
-                    <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" InputTransparent="True"/>
-                </StackLayout>
-            </Frame>-->
+
 
             
             <StackLayout Orientation="Horizontal">
 
             </StackLayout>
+            <Button     
+                        BackgroundColor="Red"
+                        IsVisible="{Binding IsEditMode}"
+                        Text="{Binding DeleteButtonText}"
+                        Command="{Binding DeleteEventCommand}"   
+                        HorizontalOptions="Center"
+                        />
             <Button     
                         Style="{StaticResource MyCustomButtonStyle}"
                         Text="{Binding SubmitButtonText}"

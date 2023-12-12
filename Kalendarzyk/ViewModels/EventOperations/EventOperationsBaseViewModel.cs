@@ -108,7 +108,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#endregion
 		//Properties
 		#region Properties
-		protected abstract bool IsEditMode { get; }
+		public abstract bool IsEditMode { get; }
 		public int FontSize => _fontSize;
 		public abstract string SubmitButtonText { get; set; }
 		public IsCompletedCCViewModel IsCompletedCCAdapter
