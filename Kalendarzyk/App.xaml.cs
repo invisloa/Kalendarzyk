@@ -5,6 +5,7 @@ using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.ViewModels;
 
 namespace Kalendarzyk
 {

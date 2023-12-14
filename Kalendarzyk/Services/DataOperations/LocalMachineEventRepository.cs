@@ -235,14 +235,14 @@ public class LocalMachineEventRepository : IEventRepository
 	public void InitializeData()
 	{
 		AllEventsList =  GetEventsListAsync().Result;
-		AllMainEventTypesList = GetMainEventTypesListAsync().Result;
 		AllUserEventTypesList = GetSubEventTypesListAsync().Result;
+		AllMainEventTypesList = GetMainEventTypesListAsync().Result;
 	}
 	public async Task InitializeAsync()
 	{
-		_allEventsList = await GetEventsListAsync();                          // TO CHECK -  ConfigureAwait
-		_allUserEventTypesList = await GetSubEventTypesListAsync();          // TO CHECK -  ConfigureAwait
-		_allMainEventTypesList = await GetMainEventTypesListAsync();          // TO CHECK -  ConfigureAwait
+		AllEventsList = await GetEventsListAsync();                          // TO CHECK -  ConfigureAwait
+		AllUserEventTypesList = await GetSubEventTypesListAsync();          // TO CHECK -  ConfigureAwait
+		AllMainEventTypesList = await GetMainEventTypesListAsync();          // TO CHECK -  ConfigureAwait
 	}
 	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
 	{

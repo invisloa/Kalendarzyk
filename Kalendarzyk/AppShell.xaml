@@ -9,6 +9,23 @@
     Background="{DynamicResource MainBackgroundDarkerColor}"
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="MainPage">
+            <ShellContent
+                Title="Quick Notes"
+                ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
+                Route="QuickNotesPage" />
+
+            <!--THIS ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
+            <ShellContent
+                Title="Daily"
+                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
+                Route="DailyEvents" />
+            <!--ABOVE ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
+
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Calendars">
             <ShellContent
@@ -26,23 +43,6 @@
                 Route="DailyEvents" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="MainPage">
-            <ShellContent
-                Title="Quick Notes"
-                ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
-                Route="QuickNotesPage" />
-
-            <!--THIS ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
-            <ShellContent
-                Title="Daily"
-                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
-                Route="DailyEvents" />
-            <!--ABOVE ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
-
-        </Tab>
-    </FlyoutItem>
-
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Adding Data">
             <ShellContent

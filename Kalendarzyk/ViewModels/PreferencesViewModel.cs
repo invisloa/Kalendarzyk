@@ -131,25 +131,24 @@ namespace Kalendarzyk.ViewModels
 			await _repository.ClearAllMainEventTypesAsync();
 		}
 
-		private async Task AddQuickNotesTypes()
+		public static async Task AddQuickNotesTypes(IEventRepository repository)
 		{
-			if(_repository.AllMainEventTypesList.Where(x => x.Title == "QNOTE").Count() != 0)
+			if(repository.AllMainEventTypesList.Where(x => x.Title == "QNOTE").Count() != 0)
 			{
 				return;
 			}
 			// QUICK NOTE
 			IMainTypeVisualModel quickNoteVisualModel = new IconModel(IconFont.Quickreply, Colors.Red, Colors.AntiqueWhite);
 			IMainEventType quickNoteMainType = new MainEventType("QNOTE", quickNoteVisualModel);
-			await _repository.AddMainEventTypeAsync(quickNoteMainType);
+			await repository.AddMainEventTypeAsync(quickNoteMainType);
 			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNOTE", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
-			await _repository.AddSubEventTypeAsync(qNoteSubTypeModel);
-
+			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
 		}
 		private async Task CreateDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
 			await ClearData();
 
-			await AddQuickNotesTypes();
+			await AddQuickNotesTypes(_repository);
 
 			//DummyData
 			IMainTypeVisualModel mainTypeVisualModel = new IconModel(IconFont.Work, Colors.Aquamarine, Colors.AliceBlue);
