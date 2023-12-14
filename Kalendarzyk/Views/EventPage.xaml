@@ -25,6 +25,18 @@
                 </Grid.ColumnDefinitions>
 
                 <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
+                <Label Grid.Column="2" HorizontalOptions="End" 
+                        Text="_delete_forever" 
+                        TextColor="Red"
+                        FontSize="44"
+                        Style="{StaticResource GoogleFont}"
+                        IsVisible="{Binding IsEditQuickNoteMode}" 
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding AsyncDeleteEventCommand}"/>
+                        </Label.GestureRecognizers>
+                </Label>
+
             </Grid>
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"
@@ -47,18 +59,6 @@
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>
 
-
-            
-            <StackLayout Orientation="Horizontal">
-
-            </StackLayout>
-            <Button     
-                        BackgroundColor="Red"
-                        IsVisible="{Binding IsEditMode}"
-                        Text="{Binding DeleteButtonText}"
-                        Command="{Binding DeleteEventCommand}"   
-                        HorizontalOptions="Center"
-                        />
             <Button     
                         Style="{StaticResource MyCustomButtonStyle}"
                         Text="{Binding SubmitButtonText}"

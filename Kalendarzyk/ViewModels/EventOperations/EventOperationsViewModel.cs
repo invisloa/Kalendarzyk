@@ -1,17 +1,10 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.EventsSharing;
-using Kalendarzyk.Views.CustomControls;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
-using System.Diagnostics;
-using CommunityToolkit;
-using Kalendarzyk.Helpers;
 
 namespace Kalendarzyk.ViewModels.EventOperations
 {
@@ -19,7 +12,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	{
 		#region Fields
 		private IShareEvents _shareEvents;
-		private AsyncRelayCommand _deleteEventCommand;
+		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _shareEventCommand;
 		#endregion
 		#region Properties
@@ -44,10 +37,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			set => _shareEvents = value;
 		}
 
-		public AsyncRelayCommand DeleteEventCommand
+		public AsyncRelayCommand AsyncAsyncDeleteEventCommand
 		{
-			get => _deleteEventCommand;
-			set => _deleteEventCommand = value;
+			get => _asyncDeleteEventCommand;
+			set => _asyncDeleteEventCommand = value;
 		}
 
 		public AsyncRelayCommand ShareEventCommand
@@ -119,7 +112,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			// value measurementType cannot be changed 
 			_submitEventCommand = new AsyncRelayCommand(EditEventAsync, CanExecuteSubmitCommand);
-			DeleteEventCommand = new AsyncRelayCommand(DeleteSelectedEvent);
+			AsyncAsyncDeleteEventCommand = new AsyncRelayCommand(AsyncAsyncDeleteSelectedEvent);
 			ShareEvents = new ShareEventsJson(eventRepository); // Confirm this line if needed
 			ShareEventCommand = new AsyncRelayCommand(ShareEvent);
 			SelectUserEventTypeCommand = null;
@@ -216,7 +209,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
 
-		private async Task DeleteSelectedEvent()
+		private async Task AsyncAsyncDeleteSelectedEvent()
 		{
 			var action = await App.Current.MainPage.DisplayActionSheet($"Delete event {_selectedCurrentEvent.Title}", "Cancel", null, "Delete");
 			switch (action)
