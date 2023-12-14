@@ -9,7 +9,8 @@
         <Setter Property="FontFamily" Value="GoogleMaterialFont" />
         <Setter Property="FontSize" Value="32"/>
     </Style>
-    
+
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

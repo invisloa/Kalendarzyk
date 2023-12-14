@@ -9,9 +9,27 @@
              x:Name="AddQuickNotesPageName"
              >
     <VerticalStackLayout Background="{StaticResource MainBackgroundColor}" Padding="10">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
+            <Label Grid.Column="2" HorizontalOptions="End" 
+                    Text="_delete_forever" 
+                    TextColor="Red"
+                   FontSize="44"
+                    Style="{StaticResource GoogleFont}"
+                    IsVisible="{Binding IsEditQuickNoteMode}" 
+                    >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer  Command="{Binding AsyncDeleteSelectedQuckNoteCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
         <!-- Entry for new type name -->
-        <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>
 
@@ -29,10 +47,6 @@
 
         <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"/>
 
-
-
-
-        <Button  Style="{DynamicResource DangerButtonStyle}" WidthRequest="300" Text="DELETE QUICK NOTE  " IsVisible="{Binding IsEditQuickNoteMode}" Command="{Binding AsyncDeleteSelectedQuckNoteCommand}"/>
         <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" FontAttributes="Bold" TextColor="{StaticResource MainTextColor}" Command="{Binding SubmitAsyncQuickNoteCommand}" HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}"/>
 
     </VerticalStackLayout>
