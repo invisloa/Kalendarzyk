@@ -28,9 +28,8 @@
                 <Label Grid.Column="2" HorizontalOptions="End" 
                         Text="_delete_forever" 
                         TextColor="Red"
-                        FontSize="44"
                         Style="{StaticResource GoogleFont}"
-                        IsVisible="{Binding IsEditQuickNoteMode}" 
+                        IsVisible="{Binding IsEditMode}" 
                         >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer  Command="{Binding AsyncDeleteEventCommand}"/>

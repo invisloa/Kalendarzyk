@@ -37,7 +37,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			set => _shareEvents = value;
 		}
 
-		public AsyncRelayCommand AsyncAsyncDeleteEventCommand
+		public AsyncRelayCommand AsyncDeleteEventCommand
 		{
 			get => _asyncDeleteEventCommand;
 			set => _asyncDeleteEventCommand = value;
@@ -112,7 +112,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			// value measurementType cannot be changed 
 			_submitEventCommand = new AsyncRelayCommand(EditEventAsync, CanExecuteSubmitCommand);
-			AsyncAsyncDeleteEventCommand = new AsyncRelayCommand(AsyncAsyncDeleteSelectedEvent);
+			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			ShareEvents = new ShareEventsJson(eventRepository); // Confirm this line if needed
 			ShareEventCommand = new AsyncRelayCommand(ShareEvent);
 			SelectUserEventTypeCommand = null;
@@ -209,7 +209,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
 
-		private async Task AsyncAsyncDeleteSelectedEvent()
+		private async Task AsyncDeleteSelectedEvent()
 		{
 			var action = await App.Current.MainPage.DisplayActionSheet($"Delete event {_selectedCurrentEvent.Title}", "Cancel", null, "Delete");
 			switch (action)
