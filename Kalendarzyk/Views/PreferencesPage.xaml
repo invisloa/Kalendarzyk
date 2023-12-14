@@ -13,12 +13,6 @@
                 HorizontalOptions="Center"
                 TextColor="{DynamicResource MainTextColor}"/>
 
-        <!--<Button IsToggled="{Binding IsCreateDummyDataSelected}" />-->
-
-
-
-
-
         <!-- Language -->
         <Label Text="{Binding SelectedLanguageText}" />
         <Switch IsToggled="{Binding SelectedLanguage}" />
@@ -43,7 +37,6 @@
 
         <Button Text="DELETE ALL DATA" Command="{Binding DeleteAllDataCommand}" Background="Red" HorizontalOptions="Center"/>
 
-        <!--<Button Text="Save Preferences" Command="{Binding SavePreferencesCommand}" />-->
 
     </StackLayout>
 

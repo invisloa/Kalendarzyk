@@ -15,10 +15,14 @@
 		private readonly int _minimumDayOfWeekWidthRequest = 45;
 		private readonly int _minimumDayOfWeekHeightRequest = 30;
 		private readonly double _firstColumnForHoursWidth = 35;
-		private int _hoursSpanFrom = PreferencesManager.GetHoursSpanFrom();
-		private int _hoursSpanTo = PreferencesManager.GetHoursSpanTo();
+		private int _hoursSpanFrom;
+		private int _hoursSpanTo;
 
-		public void GenerateGrid()
+        public WeeklyEventsControl()
+        {
+			SetCorrectHourlySpanTimes();
+		}
+        public void GenerateGrid()
 		{
 			ClearGrid();
 			GenerateDayLabels();
@@ -33,7 +37,9 @@
 			Children.Clear();
 
 			// Set up column definitions for hours including before and after spans
-			int totalColumns = _hoursSpanTo - _hoursSpanFrom + 3;
+			int extraColumnForLessThen = _hoursSpanFrom > 0 ? 1 : 0;
+			int extraColumnForMoreThen = _hoursSpanTo < 23 ? 1 : 0;
+			int totalColumns = _hoursSpanTo - _hoursSpanFrom + extraColumnForLessThen + extraColumnForMoreThen+1;
 			ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(_firstColumnForHoursWidth) });
 			for (int i = 0; i < totalColumns; i++)
 				ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -73,12 +79,22 @@
 			int currentColumnIndex = 1; // Start from the second column
 
 			// Label for time before _hoursSpanFrom
-			var beforeLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = "<" + _hoursSpanFrom.ToString("D2") };
-			Grid.SetRow(beforeLabel, 0);
-			Grid.SetColumn(beforeLabel, currentColumnIndex++);
-			Children.Add(beforeLabel);
-
-			// Hour labels
+			if(_hoursSpanFrom > 0)
+			{
+				Label beforeLabel;
+				if(_hoursSpanFrom == 1)
+				{
+					beforeLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = "00" };
+				}
+				else
+				{
+					beforeLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = "<" + _hoursSpanFrom.ToString("D2") };
+				}
+				Grid.SetRow(beforeLabel, 0);
+				Grid.SetColumn(beforeLabel, currentColumnIndex++);
+				Children.Add(beforeLabel);
+			}
+			// Hour Header labels
 			for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
 			{
 				var hourLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = hour.ToString("D2") };
@@ -88,10 +104,13 @@
 			}
 			currentColumnIndex++;
 			// Label for time after _hoursSpanTo
-			var afterLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = ">" + _hoursSpanTo.ToString("D2") };
-			Grid.SetRow(afterLabel, 0); // Header row
-			Grid.SetColumn(afterLabel, currentColumnIndex);
-			Children.Add(afterLabel);
+			if (_hoursSpanTo < 23)
+			{
+				var afterLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = ">" + (_hoursSpanTo+1).ToString("D2") };
+				Grid.SetRow(afterLabel, 0); // Header row
+				Grid.SetColumn(afterLabel, currentColumnIndex);
+				Children.Add(afterLabel);
+			}
 		}
 
 		private Frame CreateEventFrame(int hour, int dayOfWeek)
@@ -259,6 +278,14 @@
 
 			return eventItemsStackLayout;
 		}
+		private void SetCorrectHourlySpanTimes()
+		{
+			_hoursSpanFrom = PreferencesManager.GetHoursSpanFrom() > 0 && PreferencesManager.GetHoursSpanFrom() < 23 ? PreferencesManager.GetHoursSpanFrom() : 0;
+			_hoursSpanTo = PreferencesManager.GetHoursSpanTo() < 23 && PreferencesManager.GetHoursSpanTo() > 1 ? PreferencesManager.GetHoursSpanTo() : 23;
 
+			_hoursSpanFrom = _hoursSpanFrom <= _hoursSpanTo ? _hoursSpanFrom : 0;
+
+
+		}
 	}
 }
