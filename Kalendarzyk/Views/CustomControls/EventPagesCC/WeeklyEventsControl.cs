@@ -7,6 +7,7 @@
 	using System;
 	using System.Collections.ObjectModel;
 	using System.Linq;
+	using System.Security.Cryptography;
 	using static Kalendarzyk.App;
 	using MauiGrid = Microsoft.Maui.Controls.Grid;
 
@@ -112,40 +113,73 @@
 				Children.Add(afterLabel);
 			}
 		}
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="hour"></param> 
+		/// <remarks> hour special case: -1 for before span, -2 for after span</remarks>
+		/// <param name="dayOfWeek"></param>
+		/// <returns></returns>
 		private Frame CreateEventFrame(int hour, int dayOfWeek)
 		{
-			// Calculate the date for the current column
-			var date = CurrentSelectedDate.AddDays(dayOfWeek - (int)CurrentSelectedDate.DayOfWeek).Date;
-			IEnumerable<IGeneralEventModel> dayEvents;
+			var date = CalculateEventDate(dayOfWeek);
+			var dayEvents = GetDayEvents(hour, date);
 
-			// Special case for hours before _hoursSpanFrom
+			var frame = InitializeFrame(date);
+			AddEventsToFrame(dayEvents, frame, dayOfWeek);
+
+			return frame;
+		}
+
+		private DateTime CalculateEventDate(int dayOfWeek)
+		{
+			return CurrentSelectedDate.AddDays(dayOfWeek - (int)CurrentSelectedDate.DayOfWeek).Date;
+		}
+
+		private IEnumerable<IGeneralEventModel> GetDayEvents(int hour, DateTime date)
+		{
 			if (hour == -1)
 			{
-				dayEvents = EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour < _hoursSpanFrom);
+				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour < _hoursSpanFrom);
 			}
-			// Special case for hours after _hoursSpanTo
-			else if (hour == -2)
+			if (hour == -2)
 			{
-				dayEvents = EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour >= _hoursSpanTo);
+				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour >= _hoursSpanTo);
 			}
-			// Normal case for hours within the _hoursSpanFrom and _hoursSpanTo
-			else
+			return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour == hour);
+		}
+
+		private Frame InitializeFrame(DateTime date)
+		{
+			var frame = new Frame
 			{
-				dayEvents = EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour == hour);
-			}
+				BorderColor = _frameBorderColor,
+				Padding = 5,
+				BackgroundColor = _emptyLabelColor,
+				MinimumWidthRequest = _minimumDayOfWeekWidthRequest,
+				MinimumHeightRequest = _minimumDayOfWeekHeightRequest
+			};
 
-			var frame = new Frame { BorderColor = _frameBorderColor, Padding = 5, BackgroundColor = _emptyLabelColor, MinimumWidthRequest = _minimumDayOfWeekWidthRequest, MinimumHeightRequest = _minimumDayOfWeekHeightRequest };
+			var tapGestureRecognizerForFrame = new TapGestureRecognizer
+			{
+				NumberOfTapsRequired = 2,
+				Command = GoToSelectedDateCommand,
+				CommandParameter = date
+			};
+			frame.GestureRecognizers.Add(tapGestureRecognizerForFrame);
 
-			// If there are any events for this hour and dayOfWeek, create a stack layout for them
+			return frame;
+		}
+
+		private void AddEventsToFrame(IEnumerable<IGeneralEventModel> dayEvents, Frame frame, int dayOfWeek)
+		{
 			if (dayEvents.Any())
 			{
 				var stackLayout = GenerateEventStackLayout(dayEvents.ToList(), dayOfWeek);
 				frame.Content = stackLayout;
 			}
-
-			return frame;
 		}
+
 		private StackLayout GenerateEventStackLayout(List<IGeneralEventModel> dayEvents, int dayOfWeek)
 		{
 			var stackLayout = new StackLayout();

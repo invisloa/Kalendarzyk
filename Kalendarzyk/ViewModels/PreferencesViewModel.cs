@@ -143,6 +143,8 @@ namespace Kalendarzyk.ViewModels
 			await repository.AddMainEventTypeAsync(quickNoteMainType);
 			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNOTE", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
 			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
+			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel);
+			await repository.AddEventAsync(qNoteEvent);
 		}
 		private async Task ResetToDefaultData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
@@ -177,7 +179,7 @@ namespace Kalendarzyk.ViewModels
 			await _repository.AddSubEventTypeAsync(examsSubEventType);
 
 			await _repository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now-TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new QuantityModel(MeasurementUnit.Money, 100)));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("Mercedes", "Tyre repair", DateTime.Now, DateTime.Now.AddHours(1), mechaniciansSubEventType, new QuantityModel(MeasurementUnit.Money, 300)));
+			await _repository.AddEventAsync(Factory.CreatePropperEvent("Mercedes", "Car Wash", DateTime.Now - TimeSpan.FromDays(2), DateTime.Now - TimeSpan.FromDays(2) + TimeSpan.FromHours(1), mechaniciansSubEventType, new QuantityModel(MeasurementUnit.Money, 25)));
 			await _repository.AddEventAsync(Factory.CreatePropperEvent("Shopping", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType));
 			await _repository.AddEventAsync(Factory.CreatePropperEvent("Math", "Integrals", DateTime.Now+TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(1)+TimeSpan.FromMinutes(60), examsSubEventType));
 

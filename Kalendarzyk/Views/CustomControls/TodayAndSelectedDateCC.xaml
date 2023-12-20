@@ -17,7 +17,7 @@
 
         <StackLayout Grid.Column="2" HorizontalOptions="End" >
             <!--<Label Text="SELECTED DATE:"/>-->
-            <DatePicker Date="{Binding CurrentSelectedDate, Mode=TwoWay}" Format="dd MM yyyy" FontAttributes="Bold" FontSize="20" BackgroundColor="{StaticResource MainButtonBackgroundColor}" TextColor="{StaticResource MainTextColor}"/>
+            <DatePicker Date="{Binding CurrentSelectedDate, Mode=TwoWay}" Format="dd MM yyyy" FontAttributes="Bold" FontSize="20" BackgroundColor="OrangeRed" TextColor="{StaticResource MainTextColor}"/>
         </StackLayout>
     </Grid>
 </ContentView>
