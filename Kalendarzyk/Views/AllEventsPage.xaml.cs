@@ -6,9 +6,9 @@ using Kalendarzyk.ViewModels.EventsViewModels;
 
 namespace Kalendarzyk.Views;
 
-public partial class ViewAllEventsPage : ContentPage
+public partial class AllEventsPage : ContentPage
 {
-	public ViewAllEventsPage()
+	public AllEventsPage()
 	{
 		// Retrieve the view model from DI container
 
@@ -22,7 +22,7 @@ public partial class ViewAllEventsPage : ContentPage
 		};
 	}
 	// for viewing specific type of events
-	public ViewAllEventsPage(IEventRepository eventRepository, ISubEventTypeModel eventTypeModel)
+	public AllEventsPage(IEventRepository eventRepository, ISubEventTypeModel eventTypeModel)
 	{
 		BindingContext = new AllEventsViewModel(eventRepository, eventTypeModel);
 		var viewModel = BindingContext as AllEventsViewModel;

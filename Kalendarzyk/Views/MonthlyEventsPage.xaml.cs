@@ -3,9 +3,9 @@ using Kalendarzyk.ViewModels.EventsViewModels;
 
 namespace Kalendarzyk.Views;
 
-public partial class ViewMonthlyEvents : ContentPage
+public partial class MonthlyEventsPage : ContentPage
 {
-	public ViewMonthlyEvents()
+	public MonthlyEventsPage()
 	{
 		InitializeComponent();
 		var viewModel = ServiceHelper.GetService<MonthlyEventsViewModel>();

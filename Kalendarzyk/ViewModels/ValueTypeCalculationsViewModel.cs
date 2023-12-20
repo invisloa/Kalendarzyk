@@ -279,7 +279,7 @@ namespace Kalendarzyk.ViewModels
 		private void GoToWeeksPageWithSelectedTypes(DateTime weeksDate)
 		{
 			SetIsSelectedAccordingToSelectedTypes();
-			Application.Current.MainPage.Navigation.PushAsync(new ViewWeeklyEvents(weeksDate));
+			Application.Current.MainPage.Navigation.PushAsync(new WeeklyEventsPage(weeksDate));
 		}
 		private void SetIsSelectedAccordingToSelectedTypes()
 		{

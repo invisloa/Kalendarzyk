@@ -5,9 +5,9 @@ using Kalendarzyk.ViewModels.EventsViewModels;
 
 namespace Kalendarzyk.Views;
 
-public partial class ViewDailyEvents : ContentPage
+public partial class DailyEventsPage : ContentPage
 {
-	public ViewDailyEvents()
+	public DailyEventsPage()
 	{
 		var viewModel = ServiceHelper.GetService<DailyEventsViewModel>();
 		BindingContext = viewModel;
@@ -22,7 +22,7 @@ public partial class ViewDailyEvents : ContentPage
 		base.OnDisappearing();
 		(BindingContext as DailyEventsViewModel).OnEventsToShowListUpdated -= (BindingContext as DailyEventsViewModel).BindDataToScheduleList;
 	}
-	public ViewDailyEvents(IEventRepository eventRepository, ISubEventTypeModel eventType)
+	public DailyEventsPage(IEventRepository eventRepository, ISubEventTypeModel eventType)
 	{
 		BindingContext = new DailyEventsViewModel(eventRepository, eventType);
 		InitializeComponent();

@@ -65,7 +65,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		protected void GoToSelectedDatePage(DateTime selectedDate)
 		{
-			var _dailyEventsPage = new ViewDailyEvents();
+			var _dailyEventsPage = new DailyEventsPage();
 			var _dailyEventsPageBindingContext = _dailyEventsPage.BindingContext as DailyEventsViewModel;
 			_dailyEventsPageBindingContext.CurrentSelectedDate = selectedDate;
 			Application.Current.MainPage.Navigation.PushAsync(_dailyEventsPage);

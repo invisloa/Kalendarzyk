@@ -9,7 +9,7 @@
 
         <!--<Switch IsToggled="{Binding IsDeleteAllSelected}" />-->
 
-        <Button Text="CREATE DUMMY DATA"  Command ="{Binding CreateDummyDataCommand}"  Background="{StaticResource MainButtonBackgroundColor}"
+        <Button Text="RESET TO DEFAULT DATA"  Command ="{Binding ResetToDefaultDataCommand}"  Background="{StaticResource MainButtonBackgroundColor}"
                 HorizontalOptions="Center"
                 TextColor="{DynamicResource MainTextColor}"/>
 

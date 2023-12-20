@@ -1,6 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Kalendarzyk.Views.ViewAllEventsPage"
+             x:Class="Kalendarzyk.Views.AllEventsPage"
              xmlns:models="clr-namespace:Kalendarzyk.Models.EventModels"
              xmlns:i="clr-namespace:System.Windows.Input;assembly=System.ObjectModel"
              xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"

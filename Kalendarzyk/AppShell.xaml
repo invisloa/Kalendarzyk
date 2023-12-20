@@ -20,7 +20,7 @@
             <!--THIS ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
             <ShellContent
                 Title="Daily"
-                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
+                ContentTemplate="{DataTemplate local:DailyEventsPage}"
                 Route="DailyEvents" />
             <!--ABOVE ONE IS ADDED ONLY BECAUSE OF THE BUG!!!! USER CANT SELECT IT FROM THIS TAB !!!!-->
 
@@ -30,17 +30,17 @@
         <Tab Title="Calendars">
             <ShellContent
                 Title="Weekly"
-                ContentTemplate="{DataTemplate local:ViewWeeklyEvents}"
-                Route="ViewWeeklyEvents" />
+                ContentTemplate="{DataTemplate local:WeeklyEventsPage}"
+                Route="WeeklyEventsPage" />
             <ShellContent
                 Title="Monthly"
-                ContentTemplate="{DataTemplate local:ViewMonthlyEvents}"
-                Route="MonthlyEvents" />
+                ContentTemplate="{DataTemplate local:MonthlyEventsPage}"
+                Route="MonthlyEventsPage" />
 
             <ShellContent
                 Title="Daily"
-                ContentTemplate="{DataTemplate local:ViewDailyEvents}"
-                Route="DailyEvents" />
+                ContentTemplate="{DataTemplate local:DailyEventsPage}"
+                Route="DailyEventsPage" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
@@ -65,8 +65,8 @@
 
             <ShellContent
                 Title="All Events Page"
-                ContentTemplate="{DataTemplate local:ViewAllEventsPage}"
-                Route="ViewAllEventsPage" />
+                ContentTemplate="{DataTemplate local:AllEventsPage}"
+                Route="AllEventsPage" />
             <ShellContent
                 Title="All Main Types"
                 ContentTemplate="{DataTemplate local:AllMainTypesPage}"

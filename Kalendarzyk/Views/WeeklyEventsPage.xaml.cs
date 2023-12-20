@@ -4,11 +4,11 @@ using Kalendarzyk.ViewModels.EventsViewModels;
 
 namespace Kalendarzyk.Views
 {
-	public partial class ViewWeeklyEvents : ContentPage
+	public partial class WeeklyEventsPage : ContentPage
 	{
 		WeeklyEventsViewModel viewModel = ServiceHelper.GetService<WeeklyEventsViewModel>();
 
-		public ViewWeeklyEvents()
+		public WeeklyEventsPage()
 		{
 			InitializeComponent();
 			BindingContext = viewModel;
@@ -17,7 +17,7 @@ namespace Kalendarzyk.Views
 				weeklyEventsControl.GenerateGrid();
 			};
 		}
-		public ViewWeeklyEvents(DateTime goToDate) : this()
+		public WeeklyEventsPage(DateTime goToDate) : this()
 		{
 			viewModel.CurrentSelectedDate = goToDate;
 		}

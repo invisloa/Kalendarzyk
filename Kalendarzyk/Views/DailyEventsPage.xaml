@@ -8,7 +8,7 @@
              xmlns:type_models="clr-namespace:Kalendarzyk.Models.EventTypesModels;assembly=Kalendarzyk"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:DataType="local:DailyEventsViewModel"
-             x:Class="Kalendarzyk.Views.ViewDailyEvents"
+             x:Class="Kalendarzyk.Views.DailyEventsPage"
              Title="Daily events list">
     <Grid BackgroundColor="{DynamicResource MainBackgroundColor}">
         <Grid.RowDefinitions>

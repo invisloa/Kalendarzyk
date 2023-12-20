@@ -14,7 +14,7 @@ namespace Kalendarzyk.ViewModels
 	{
 
 		IEventRepository _repository;
-		public AsyncRelayCommand CreateDummyDataCommand
+		public AsyncRelayCommand ResetToDefaultDataCommand
 		{
 			get;
 			set;	
@@ -120,7 +120,7 @@ namespace Kalendarzyk.ViewModels
 		public PreferencesViewModel(IEventRepository eventRepository)
 		{
 			_repository = eventRepository;
-			CreateDummyDataCommand = new AsyncRelayCommand(CreateDummyData);
+			ResetToDefaultDataCommand = new AsyncRelayCommand(ResetToDefaultData);
 			DeleteAllDataCommand = new AsyncRelayCommand(ClearData);
 		}
 
@@ -144,47 +144,42 @@ namespace Kalendarzyk.ViewModels
 			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNOTE", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
 			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
 		}
-		private async Task CreateDummyData() // it checks for the events before the events are imported so when there are any events added they will be deleted
+		private async Task ResetToDefaultData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
+
 			await ClearData();
 
 			await AddQuickNotesTypes(_repository);
 
 			//DummyData
-			IMainTypeVisualModel mainTypeVisualModel = new IconModel(IconFont.Work, Colors.Aquamarine, Colors.AliceBlue);
-			IMainEventType mainEventType = new MainEventType("Invioces", mainTypeVisualModel);
+			IMainTypeVisualModel carSpendingMainType = new IconModel(IconFont.Minor_crash, Colors.Aquamarine, Colors.AliceBlue);
+			IMainEventType mainEventType = new MainEventType("Cars", carSpendingMainType);
 			await _repository.AddMainEventTypeAsync(mainEventType);
 
-			IMainTypeVisualModel mainTypeVisualModel2 = new IconModel(IconFont.Home, Colors.AliceBlue, Colors.Aquamarine);
-			IMainEventType mainEventType2 = new MainEventType("Home", mainTypeVisualModel2);
-			await _repository.AddMainEventTypeAsync(mainEventType2);
+			IMainTypeVisualModel mainTypeVisualModel2 = new IconModel(IconFont.List, Colors.AliceBlue, Colors.Aquamarine);
+			IMainEventType homeMTType = new MainEventType("Home", mainTypeVisualModel2);
+			await _repository.AddMainEventTypeAsync(homeMTType);
 
-			IMainTypeVisualModel mainTypeVisualModel3 = new IconModel(IconFont.Traffic, Colors.Red, Colors.BlanchedAlmond);
-			IMainEventType mainEventType3 = new MainEventType("RoadTrip", mainTypeVisualModel3);
-			await _repository.AddMainEventTypeAsync(mainEventType3);
+			IMainTypeVisualModel mainTypeVisualModel3 = new IconModel(IconFont.Notification_important, Colors.Red, Colors.BlanchedAlmond);
+			IMainEventType birthdaysMType = new MainEventType("Important dates", mainTypeVisualModel3);
+			await _repository.AddMainEventTypeAsync(birthdaysMType);
 
 
 
-			ISubEventTypeModel subEventTypeModel = Factory.CreateNewEventType(mainEventType, "Dino", Colors.Blue, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 100));
-			ISubEventTypeModel subEventTypeModel2 = Factory.CreateNewEventType(mainEventType, "Chrupki", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 300));
-			ISubEventTypeModel subEventTypeModel3 = Factory.CreateNewEventType(mainEventType2, "MicroTasker", Colors.MediumPurple, TimeSpan.FromSeconds(0), null, new List<MicroTaskModel> { new MicroTaskModel("Task1"), new MicroTaskModel("Task2") });
-			ISubEventTypeModel subEventTypeModel4 = Factory.CreateNewEventType(mainEventType2, "MicroTasker2", Colors.Purple, TimeSpan.FromSeconds(0), null, new List<MicroTaskModel> { new MicroTaskModel("Task1", false), new MicroTaskModel("Task2", false) });
-			ISubEventTypeModel subEventTypeModel5 = new SubEventTypeModel(mainEventType3, "Plain1", Colors.DarkCyan, TimeSpan.FromSeconds(0));
-			ISubEventTypeModel subEventTypeModel6 = new SubEventTypeModel(mainEventType3, "Plain2", Colors.DarkGoldenrod, TimeSpan.FromSeconds(0));
+			ISubEventTypeModel oilSubEventType = Factory.CreateNewEventType(mainEventType, "Oil", Colors.Blue, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 100));
+			ISubEventTypeModel mechaniciansSubEventType = Factory.CreateNewEventType(mainEventType, "Mechanicians", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0));
+			ISubEventTypeModel shoppingSubEventType = Factory.CreateNewEventType(homeMTType, "Shopping list", Colors.MediumPurple, TimeSpan.FromSeconds(0), null, new List<MicroTaskModel> { new MicroTaskModel("Milk"), new MicroTaskModel("Bread") });
+			ISubEventTypeModel examsSubEventType = new SubEventTypeModel(birthdaysMType, "Exams", Colors.DarkCyan, TimeSpan.FromSeconds(0));
 
-			await _repository.AddSubEventTypeAsync(subEventTypeModel);
-			await _repository.AddSubEventTypeAsync(subEventTypeModel2);
-			await _repository.AddSubEventTypeAsync(subEventTypeModel3);
-			await _repository.AddSubEventTypeAsync(subEventTypeModel4);
-			await _repository.AddSubEventTypeAsync(subEventTypeModel5);
-			await _repository.AddSubEventTypeAsync(subEventTypeModel6);
+			await _repository.AddSubEventTypeAsync(oilSubEventType);
+			await _repository.AddSubEventTypeAsync(mechaniciansSubEventType);
+			await _repository.AddSubEventTypeAsync(shoppingSubEventType);
+			await _repository.AddSubEventTypeAsync(examsSubEventType);
 
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("Dino", "Dino", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel, new QuantityModel(MeasurementUnit.Money, 100)));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("Chrupki", "Chrupki", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel2, new QuantityModel(MeasurementUnit.Money, 300)));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("MicroTasker", "MicroTasker", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel3));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("MicroTasker2", "MicroTasker2", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel4));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("Plain1", "Plain1", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel5));
-			await _repository.AddEventAsync(Factory.CreatePropperEvent("Plain2", "Plain2", DateTime.Now, DateTime.Now.AddHours(1), subEventTypeModel6));
+			await _repository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now-TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new QuantityModel(MeasurementUnit.Money, 100)));
+			await _repository.AddEventAsync(Factory.CreatePropperEvent("Mercedes", "Tyre repair", DateTime.Now, DateTime.Now.AddHours(1), mechaniciansSubEventType, new QuantityModel(MeasurementUnit.Money, 300)));
+			await _repository.AddEventAsync(Factory.CreatePropperEvent("Shopping", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType));
+			await _repository.AddEventAsync(Factory.CreatePropperEvent("Math", "Integrals", DateTime.Now+TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(1)+TimeSpan.FromMinutes(60), examsSubEventType));
 
 		}
 	}

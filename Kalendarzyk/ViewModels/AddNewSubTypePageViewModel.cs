@@ -200,7 +200,7 @@ namespace Kalendarzyk.ViewModels
 						break;
 					case "Go to All Events Page":
 						// Redirect to the All Events Page.
-						await Shell.Current.GoToAsync("ViewAllEventsPage");
+						await Shell.Current.GoToAsync("AllEventsPage");
 						break;
 					default:
 						// Cancel was selected or back button was pressed.
