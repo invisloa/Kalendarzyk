@@ -174,6 +174,8 @@ namespace Kalendarzyk.ViewModels
 			{
 				new SelectableButtonViewModel("Top", true, new RelayCommand(() => OnExactIconsTabCommand("Top"))),
 				new SelectableButtonViewModel("Activities", false, new RelayCommand(() => OnExactIconsTabCommand("Activities"))),
+				new SelectableButtonViewModel("IT", false, new RelayCommand(() => OnExactIconsTabCommand("IT"))),
+				new SelectableButtonViewModel("Travel", false, new RelayCommand(() => OnExactIconsTabCommand("Travel"))),
 				new SelectableButtonViewModel("Others", false, new RelayCommand(() => OnExactIconsTabCommand("Others"))),
 			};
 			RefreshIconsToShowOC();
@@ -183,9 +185,11 @@ namespace Kalendarzyk.ViewModels
 		{
 			_stringToOCMapper = new Dictionary<string, ObservableCollection<string>>
 			{
-				{ "Top", IconsHelperClass.GetTopIcons3() },
-				{ "Activities", IconsHelperClass.GetTopIcons() },
-				{ "Others", IconsHelperClass.GetTopIcons2() }
+				{ "Top", IconsHelperClass.GetTopIcons() },
+				{ "Activities", IconsHelperClass.GetActivitiesIcons() },
+				{ "IT", IconsHelperClass.GetItIcons() },
+				{ "Travel", IconsHelperClass.GetTravelIcons()},
+				{ "Others", IconsHelperClass.GetOthersIcons() }
 			};
 		}
 		private void InitializeCommands()

@@ -1212,6 +1212,7 @@ namespace Kalendarzyk.Helpers
 		public const string Sports_hockey = "\uea2b";
 		public const string Sports_mma = "\uea2c";
 		public const string Sports_motorsports = "\uea2d";
+		public const string Exercise = "\uf6e6";	
 		public const string Sports_rugby = "\uea2e";
 		public const string Sports_soccer = "\uea2f";
 		public const string Sports = "\uea30";
