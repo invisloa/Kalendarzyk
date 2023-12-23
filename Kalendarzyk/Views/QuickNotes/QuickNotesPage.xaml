@@ -47,7 +47,6 @@
                 Margin="10,0,0,0" MinimumWidthRequest="40"
                 />
         </Grid>
-
         <!-- CollectionView -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesOC}">
             <CollectionView.ItemTemplate>
@@ -67,16 +66,9 @@
                                 <Label Text="{Binding StartDateTime, StringFormat='{0: dd-MM yyyy}'}" 
                                    FontSize="20" 
                                    FontAttributes="Bold" 
-                                   
                                    />
-                                <!--<Label Text="{Binding StartDateTime, StringFormat='{0: hh }'}" 
-                                   Margin="-10, 15, 0, 0" 
-                                   FontSize="50" 
-                                   FontAttributes="Bold" 
-                                   />-->
                             </Grid>
                         </Grid>
-
                         <Frame BackgroundColor="{Binding EventVisibleColor}"
                                 Grid.Column="1"
                                 >
@@ -116,21 +108,7 @@
                         </Frame>
                     </Grid>
                 </DataTemplate>
-
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <!-- CollectionView --><!--
-        <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesOC}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Button Text="{Binding Title}" 
-                            BackgroundColor="{Binding IsCompleted, Converter={StaticResource isCompleteToColorConverter}}"
-                            Margin="5"
-                            Command="{Binding Path=BindingContext.CurrentCommand, Source={x:Reference root}}"
-                            CommandParameter="{Binding .}">
-                    </Button>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
     </Grid>
 </ContentPage>
