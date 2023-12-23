@@ -51,6 +51,77 @@
         <!-- CollectionView -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesOC}">
             <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:IGeneralEventModel">
+                    <Grid Margin="10,5,5,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Hourly look-->
+                        <Grid Grid.Column="0" VerticalOptions="Center">
+                            <Grid Grid.Column="0" VerticalOptions="Center">
+                                <Label Text="{Binding StartDateTime, StringFormat='{0: dd-MM yyyy}'}" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold" 
+                                   
+                                   />
+                                <!--<Label Text="{Binding StartDateTime, StringFormat='{0: hh }'}" 
+                                   Margin="-10, 15, 0, 0" 
+                                   FontSize="50" 
+                                   FontAttributes="Bold" 
+                                   />-->
+                            </Grid>
+                        </Grid>
+
+                        <Frame BackgroundColor="{Binding EventVisibleColor}"
+                                Grid.Column="1"
+                                >
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer  
+                                    Command="{Binding Path=BindingContext.CurrentCommand, Source={x:Reference root}}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Spacing="10">
+                                    <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Description}" FontSize="15"/>
+                                </StackLayout>
+
+                                <Frame Grid.Column="1"
+                       
+                                           BackgroundColor="{Binding EventType.MainEventType.SelectedVisualElement.BackgroundColor}" 
+                                           Padding="0"
+                                           WidthRequest="40"
+                                           HeightRequest="40"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           >
+                                    <Label 
+                                Text="{Binding  EventType.MainEventType.SelectedVisualElement.ElementName}" 
+                                TextColor="{Binding EventType.MainEventType.SelectedVisualElement.TextColor}" 
+                                Style="{StaticResource GoogleFont}" 
+                                HorizontalOptions="Center" 
+                                VerticalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- CollectionView --><!--
+        <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesOC}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Button Text="{Binding Title}" 
                             BackgroundColor="{Binding IsCompleted, Converter={StaticResource isCompleteToColorConverter}}"
@@ -60,6 +131,6 @@
                     </Button>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView>-->
     </Grid>
 </ContentPage>
