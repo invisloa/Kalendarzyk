@@ -29,4 +29,5 @@ public partial class QuickNotesPage : ContentPage
 
 		BindingContext = new QuickNotesViewModel(_eventRepository);
 	}
+
 }

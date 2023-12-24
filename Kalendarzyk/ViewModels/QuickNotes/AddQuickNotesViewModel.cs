@@ -19,12 +19,15 @@ namespace Kalendarzyk.ViewModels
 {
 	public partial class AddQuickNotesViewModel : ObservableObject
 	{
+		#region Fields and Properties
 		private AsyncRelayCommand _submitAsyncQuickNoteCommand;
 		private ISubEventTypeModel qNoteSubType;
 		public AsyncRelayCommand SubmitAsyncQuickNoteCommand => _submitAsyncQuickNoteCommand;
 		private IEventRepository _eventRepository;
-
 		private IGeneralEventModel _currentQuickNote;
+
+		public bool IsModified;
+
 		[ObservableProperty]
 		private bool _isQuickNoteDateSelected;
 
@@ -48,7 +51,6 @@ namespace Kalendarzyk.ViewModels
 		private bool _isEditQuickNoteMode;
 
 		public bool IsNotEditQuickNoteMode => !_isEditQuickNoteMode;
-
 		[ObservableProperty]
 		private Color _quickNoteLabelColor=  Colors.Red;
 
@@ -59,45 +61,93 @@ namespace Kalendarzyk.ViewModels
 		{
 			get => IsEditQuickNoteMode ? "Submit changes" : "Add quick note";
 		}
-
-
 		[ObservableProperty]
 		private bool _isQuickNotDatesSelected;
+
 		[ObservableProperty]
 		private bool _isQuickNoteValueType;
 
 		[ObservableProperty]
-		[NotifyCanExecuteChangedFor(nameof(SubmitAsyncQuickNoteCommand))]
-		private string _quickNoteTitle;
-
-		[ObservableProperty]
-		private string _quickNoteDescription;
-
-		[ObservableProperty]
-		private DateTime _startDateTime = DateTime.Today;
-		[ObservableProperty]
-		private DateTime _endDateTime = DateTime.Today;
-		[ObservableProperty]
-		private TimeSpan _startExactTime = DateTime.Now.TimeOfDay;
-		[ObservableProperty]
-		private TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
-
-		[ObservableProperty]
-		private DateTime _quickNoteEndDate = DateTime.Now.AddMinutes(10);
-
-		[ObservableProperty]
 		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
+
+		private string _quickNoteTitle;
+		public string QuickNoteTitle
+		{
+			get => _quickNoteTitle;
+			set
+			{
+				_quickNoteTitle = value;
+				SubmitAsyncQuickNoteCommand.NotifyCanExecuteChanged();
+				IsModified = true;
+				OnPropertyChanged();
+				// Here you might also want to notify changes for the command's CanExecute
+			}
+		}
+		private string _quickNoteDescription;
+		public string QuickNoteDescription
+		{
+			get => _quickNoteDescription;
+			set
+			{
+				SetProperty(ref _quickNoteDescription, value);
+				IsModified = true;
+			}
+		}
+
+		private DateTime _startDateTime = DateTime.Today;
+		public DateTime StartDateTime
+		{
+			get => _startDateTime;
+			set
+			{
+				SetProperty(ref _startDateTime, value);
+				IsModified = true;
+			}
+		}
+
+		private DateTime _endDateTime = DateTime.Today;
+		public DateTime EndDateTime
+		{
+			get => _endDateTime;
+			set
+			{
+				SetProperty(ref _endDateTime, value);
+				IsModified = true;
+			}
+		}
+
+		private TimeSpan _startExactTime = DateTime.Now.TimeOfDay;
+		public TimeSpan StartExactTime
+		{
+			get => _startExactTime;
+			set
+			{
+				SetProperty(ref _startExactTime, value);
+				// this one is not tracked due to this being fired when the page is loaded
+				//IsUnsavedChange = true;
+			}
+		}
+
+		private TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
+		public TimeSpan EndExactTime
+		{
+			get => _endExactTime;
+			set
+			{
+				SetProperty(ref _endExactTime, value);
+				// this one is not tracked due to this being fired when the page is loaded
+				//IsUnsavedChange = true;
+			}
+		}
+		#endregion
 
 		//ctor new quick note
 		public AddQuickNotesViewModel(IEventRepository eventRepository)
         {
 			_eventRepository = eventRepository;
 			InitializeCommon();
-
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
-
 			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
-
 		}
 		//ctor edit quick note
 		public AddQuickNotesViewModel(IEventRepository eventRepository, IGeneralEventModel quickNote)
@@ -124,7 +174,7 @@ namespace Kalendarzyk.ViewModels
 				MicroTasksCCAdapter.MicroTasksOC = quickNote.MicroTasksList.ToObservableCollection();
 			}
 			AsyncDeleteSelectedQuckNoteCommand = new AsyncRelayCommand(OnAsyncDeleteSelectedQuckNoteCommand);
-
+			IsModified = false;
 		}
 		private void SetPropperValueType()
 		{

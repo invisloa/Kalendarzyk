@@ -18,5 +18,15 @@ public partial class AddQuickNotesPage : ContentPage
 		InitializeComponent();
 		BindingContext = new AddQuickNotesViewModel(eventRepository, quickNoteToEdit);
 	}
-
+	protected override bool OnBackButtonPressed()
+	{
+		if (!((AddQuickNotesViewModel)BindingContext).IsModified)
+		{
+			return base.OnBackButtonPressed();
+		}
+		else
+		{
+			return true;
+		}
+	}
 }
