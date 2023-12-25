@@ -386,7 +386,7 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	#endregion
 
-	//FILE SAVE AND LOAD EVENTS AND TYPES
+	//FILE SAVE AND LOAD EVENTS AND TYPES with encryption using _aesService
 	#region FILE SAVE AND LOAD
 	async Task SaveEventsAndTypesToFile(CancellationToken cancellationToken, List<IGeneralEventModel> eventsToSaveList = null)
 	{
@@ -453,11 +453,11 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		var settings = JsonSerializerSettings_All;
 		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-	{
-		{ DevicePlatform.WinUI, new[] { ".cics" } },
-		{ DevicePlatform.Android, new[] { ".cics" } },
-		{ DevicePlatform.iOS, new[] { ".cics" } }
-	});
+		{
+			{ DevicePlatform.WinUI, new[] { ".cics" } },
+			{ DevicePlatform.Android, new[] { ".cics" } },
+			{ DevicePlatform.iOS, new[] { ".cics" } }
+		});
 		var pickOptions = new PickOptions
 		{
 			FileTypes = customFileType

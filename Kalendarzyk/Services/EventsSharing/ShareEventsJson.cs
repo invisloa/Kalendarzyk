@@ -21,18 +21,31 @@ namespace Kalendarzyk.Services.EventsSharing
 			var jsonString = JsonConvert.SerializeObject(eventModel);
 			return jsonString;
 		}
-
 		public async Task ShareEventAsync(IGeneralEventModel eventModel)
 		{
-			// You might want to make sure your eventModel is saved before you share the link.
-			var link = $"myapp://event?id={eventModel.Id}";
+			// Serialize the event to a JSON string
+			var eventJsonString = SerializeEventToJson(eventModel);
 
+
+			// ADD ENCRYPTION???????
+
+			// Share the JSON string using Xamarin.Essentials or .NET MAUI
 			await Share.RequestAsync(new ShareTextRequest
 			{
-				Text = link,
+				Text = eventJsonString,
 				Title = $"Share {eventModel.Title}"
 			});
 		}
+		//public async Task ShareEventAsync(IGeneralEventModel eventModel)
+		//{
+		//	var link = $"myapp://event?id={eventModel.Id}";
+
+		//	await Share.RequestAsync(new ShareTextRequest
+		//	{
+		//		Text = link,
+		//		Title = $"Share {eventModel.Title}"
+		//	});
+		//}
 		public async Task ImportEventAsync(string jsonString)
 		{
 			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(jsonString);
