@@ -20,7 +20,6 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		[ObservableProperty]
 		private bool _isSelectedDeleteMode;
 
-
 		[ObservableProperty]
 		private AsyncRelayCommand<IGeneralEventModel> _deleteQuickNoteCommand;
 
@@ -31,14 +30,25 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		[ObservableProperty]
 		private AsyncRelayCommand<IGeneralEventModel> _editSelectedQuickNoteCommand;
 
-
 		[ObservableProperty]
-		private ObservableCollection<IGeneralEventModel> _quickNotesOC;
+		private ObservableCollection<IGeneralEventModel> _quickNotesToShowOC;
+
+		private string _searchBoxText;
+		public string SearchBoxText
+		{
+			get => _searchBoxText;
+			set
+			{
+				SetProperty(ref _searchBoxText, value);
+				SearchQuickNotes();
+			}
+		}
+
 		public QuickNotesViewModel(IEventRepository eventRepository)
 		{
 			_eventRepository = eventRepository;
 			var quickNotesEvents = eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE");
-			_quickNotesOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
+			_quickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);
 			EditSelectedQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnEditSelectedQuickNoteCommand);
 			ToggleDeleteModeCommand = new RelayCommand(OnToggleDeleteMode);
@@ -63,7 +73,7 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		private async Task OnDeleteQuickNoteCommand(IGeneralEventModel quickNote)
 		{
 			await _eventRepository.DeleteFromEventsListAsync(quickNote);
-			_quickNotesOC.Remove(quickNote);
+			_quickNotesToShowOC.Remove(quickNote);
 		}
 		private async Task OnEditSelectedQuickNoteCommand(IGeneralEventModel quickNote)
 		{
@@ -74,6 +84,9 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		{
 			Application.Current.MainPage.Navigation.PushAsync(new AddQuickNotesPage());
 		}
-
+		private void SearchQuickNotes()
+		{
+			QuickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE" && x.Title.Contains(SearchBoxText)));
+		}
 	}
 }

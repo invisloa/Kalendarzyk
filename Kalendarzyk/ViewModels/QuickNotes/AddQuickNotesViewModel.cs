@@ -93,7 +93,6 @@ namespace Kalendarzyk.ViewModels
 				SubmitAsyncQuickNoteCommand.NotifyCanExecuteChanged();
 				IsModified = true;
 				OnPropertyChanged();
-				// Here you might also want to notify changes for the command's CanExecute
 			}
 		}
 		private string _quickNoteDescription;

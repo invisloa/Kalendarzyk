@@ -16,7 +16,7 @@ ADD SubType/MainType/Event to all lists Page
 Preferences refactoring
 
 
-
+quicknotespage edit quick note back button always displays alert
 
 
 user can set a start page???

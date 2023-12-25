@@ -39,7 +39,18 @@
                 ConverterParameter=Dangerous}"
                 CornerRadius="10" Command="{Binding ToggleDeleteModeCommand}"
                 Margin="0,0,10,0" MinimumWidthRequest="40"/>
-            <Button Text="TODO SEARCHBAR"  Grid.Column="1" CornerRadius="10" />
+
+            <Label  Grid.Column="1" VerticalOptions="Start" VerticalTextAlignment="Start" HorizontalOptions="End" HorizontalTextAlignment="Start"
+                    Text="search" 
+                    TextColor="{StaticResource MainButtonBackgroundColor}"
+                    FontSize="20"
+                    FontFamily="GoogleMaterialFont"
+                    />
+            <Entry Grid.Column="1" Placeholder="..." Text="{Binding SearchBoxText}" BackgroundColor="Transparent" Background="Transparent" Margin="5" MaximumWidthRequest="250"
+                   MinimumWidthRequest="50" HorizontalTextAlignment="Center"
+                   />
+
+
             <Button
                 Style="{DynamicResource MyCustomButtonStyle}"
                 Grid.Column="2" HorizontalOptions="Start"  Text="+"  
@@ -48,7 +59,7 @@
                 />
         </Grid>
         <!-- CollectionView -->
-        <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesOC}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesToShowOC}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:IGeneralEventModel">
                     <Grid Margin="10,5,5,5">
