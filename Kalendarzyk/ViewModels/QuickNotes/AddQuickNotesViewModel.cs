@@ -236,9 +236,12 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
+			if (CanSubmitQuickNoteCommand())
+			{ 
 			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC);
-			
+
 			await _eventRepository.AddEventAsync(_currentQuickNote);
+			}
 			await Shell.Current.GoToAsync("..");
 
 			// go to all quick notes page
@@ -246,16 +249,19 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task OnAsynEditQuickNoteCommand()
 		{
-			_currentQuickNote.Title = QuickNoteTitle;
-			_currentQuickNote.Description = QuickNoteDescription;
-			_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First(); 
-			_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
-			_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
-			_currentQuickNote.IsCompleted = IsCompletedCCAdapter.IsCompleted;
-			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
-			_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
-			_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
-			await _eventRepository.UpdateEventAsync(_currentQuickNote);
+			if (CanSubmitQuickNoteCommand())
+			{
+				_currentQuickNote.Title = QuickNoteTitle;
+				_currentQuickNote.Description = QuickNoteDescription;
+				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First();
+				_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
+				_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
+				_currentQuickNote.IsCompleted = IsCompletedCCAdapter.IsCompleted;
+				_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
+				_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
+				_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
+				await _eventRepository.UpdateEventAsync(_currentQuickNote);
+			}
 			await Shell.Current.GoToAsync("..");
 		}
 		private void CclearFields()

@@ -26,6 +26,18 @@ public partial class AddQuickNotesPage : ContentPage
 		}
 		else
 		{
+			MainThread.BeginInvokeOnMainThread(async () =>
+			{
+				var result = await this.DisplayAlert("Question?", "Do You want to save the changes", "Yes", "No");
+				if (result)
+				{
+					await ((AddQuickNotesViewModel)BindingContext).SubmitAsyncQuickNoteCommand.ExecuteAsync(null);
+				}
+				else
+				{
+					await Navigation.PopAsync();
+				}
+			});
 			return true;
 		}
 	}
