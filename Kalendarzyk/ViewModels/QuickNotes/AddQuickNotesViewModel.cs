@@ -41,9 +41,6 @@ namespace Kalendarzyk.ViewModels
 		private MicroTasksCCAdapterVM _microTasksCCAdapter;
 
 		[ObservableProperty]
-		private bool _isMeasurementSelected;
-
-		[ObservableProperty]
 		private MeasurementSelectorCCViewModel _defaultMeasurementSelectorCCHelper;
 
 		[ObservableProperty]
@@ -54,8 +51,6 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private Color _quickNoteLabelColor=  Colors.Red;
 
-		[ObservableProperty]
-		private bool _isQuickNoteMicroTasksType;
 
 		public string SubmitQuickNoteButtonText
 		{
@@ -65,11 +60,29 @@ namespace Kalendarzyk.ViewModels
 		private bool _isQuickNotDatesSelected;
 
 		[ObservableProperty]
-		private bool _isQuickNoteValueType;
-
-		[ObservableProperty]
 		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
 
+		private bool _isQuickNoteMicroTasksType;
+
+		public bool IsQuickNoteMicroTasksType
+		{
+			get => _isQuickNoteMicroTasksType;
+			set
+			{
+				SetProperty(ref _isQuickNoteMicroTasksType, value);
+				IsModified = true;
+			}
+		}
+		private bool _isQuickNoteValueType;
+		public bool IsQuickNoteValueType
+		{
+			get => _isQuickNoteValueType;
+			set
+			{
+				SetProperty(ref _isQuickNoteValueType, value);
+				IsModified = true;
+			}
+		}
 		private string _quickNoteTitle;
 		public string QuickNoteTitle
 		{

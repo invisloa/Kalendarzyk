@@ -38,6 +38,7 @@
                         Placeholder="...MICRO TASK TO ADD..." 
                         HorizontalOptions="CenterAndExpand"
                         MinimumWidthRequest="200"
+                        MaximumWidthRequest="350"
                         Text="{Binding MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
@@ -64,7 +65,7 @@
                     <Button Text="{Binding MicroTaskTitle}" 
                         BackgroundColor="{Binding IsMicroTaskCompleted, Converter={StaticResource isCompleteToColorConverter}}"
                         Margin="5"
-                            BorderColor="{Binding Path=BindingContext.MicroTasksCCAdapter.IsSelectedDeleteMode,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
+                        BorderColor="{Binding Path=BindingContext.MicroTasksCCAdapter.IsSelectedDeleteMode,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
                         Command="{Binding Path=BindingContext.MicroTasksCCAdapter.CurrentCommand, Source={x:Reference root}}"
                         CommandParameter="{Binding .}">
                     </Button>
