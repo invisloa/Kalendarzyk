@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 
 public class LocalMachineEventRepository : IEventRepository
 {
-	AdvancedEncryptionStandardService _aesService;
+	ILocalDataEncryptionService _aesService = Factory.CreateNewLocalDataEncryptionService();
 
 
 	// File Paths generation code
@@ -77,10 +77,6 @@ public class LocalMachineEventRepository : IEventRepository
 	//CTOR
 	public LocalMachineEventRepository()
 	{
-		// Encryption key and IV
-		string keyBase64 = Convert.ToBase64String(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F });
-		string ivBase64 = "MojeSuperHasloXD";
-		_aesService = new AdvancedEncryptionStandardService(keyBase64, ivBase64);
 	}
 
 	#region Events Repository

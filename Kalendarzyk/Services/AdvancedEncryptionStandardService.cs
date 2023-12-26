@@ -11,15 +11,15 @@ namespace Kalendarzyk.Services
 	/// Encryption and decryption service using AES algorithm
 	/// Used to save events to a file
 	/// </summary>
-	public class AdvancedEncryptionStandardService
+	public class AdvancedEncryptionStandardService : ILocalDataEncryptionService
 	{
 		private readonly string _key;
 		private readonly string _iv;
 
-		public AdvancedEncryptionStandardService(string key, string iv)
-		{
-			_key = key;
-			_iv = iv;
+		public AdvancedEncryptionStandardService()
+		{       // Encryption key and IV
+			_key = Convert.ToBase64String(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F });
+			_iv = "MojeSuperHasloXD";
 		}
 
 		public string EncryptString(string plainText)

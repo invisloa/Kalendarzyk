@@ -53,7 +53,10 @@ namespace Kalendarzyk.Services
 		{
 			return new SubEventTypeModel(mainEventType, eventTypeName, eventTypeColor, defaultEventTime, quantity, microTasksList);
 		}
-
+		public static ILocalDataEncryptionService CreateNewLocalDataEncryptionService()
+		{
+			return new AdvancedEncryptionStandardService();
+		}
 
 		public static IMainEventTypesCCViewModel CreateNewIMainEventTypeViewModelClass(List<IMainEventType> mainEventTypes)
 		{
