@@ -25,16 +25,41 @@
                 </Grid.ColumnDefinitions>
 
                 <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
-                <Label Grid.Column="2" HorizontalOptions="End" 
+                <Label Grid.Column="0" HorizontalOptions="Start" 
                         Text="_delete_forever" 
                         TextColor="Red"
                         Style="{StaticResource GoogleFont}"
                         IsVisible="{Binding IsEditMode}" 
+                        Margin="10"
                         >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer  Command="{Binding AsyncDeleteEventCommand}"/>
                         </Label.GestureRecognizers>
                 </Label>
+                <StackLayout Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End" >
+                    <Label 
+                        Text="share" 
+                        TextColor="Blue"
+                        Style="{StaticResource GoogleFont}"
+                        IsVisible="{Binding IsEditMode}" 
+                        Margin="10"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AsyncShareEventCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label 
+                        Text="save" 
+                        TextColor="Green"
+                        Style="{StaticResource GoogleFont}"
+                        IsVisible="{Binding IsEditMode}"
+                        Margin="10"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubmitEventCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
 
             </Grid>
 
@@ -61,7 +86,6 @@
             <Button     
                         Style="{StaticResource MyCustomButtonStyle}"
                         Text="{Binding SubmitButtonText}"
-                        Command="{Binding SubmitEventCommand}"   
                         HorizontalOptions="Center"
                         Margin="15"/>
 

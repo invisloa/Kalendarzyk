@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using Kalendarzyk.Models;
 using Kalendarzyk.Helpers;
+using Kalendarzyk.Services.EventsSharing;
 
 namespace Kalendarzyk.Services
 {
@@ -101,6 +102,10 @@ namespace Kalendarzyk.Services
 		internal static IsCompletedCCViewModel CreateNewIsCompletedCCAdapter()
 		{
 			return new IsCompletedCCViewModel();
+		}
+		internal static IShareEvents CreateNewShareEventsService(IEventRepository eventRepository)
+		{
+			return new ShareEventsJson(eventRepository);
 		}
 	}
 }

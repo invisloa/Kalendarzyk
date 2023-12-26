@@ -13,7 +13,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#region Fields
 		private IShareEvents _shareEvents;
 		private AsyncRelayCommand _asyncDeleteEventCommand;
-		private AsyncRelayCommand _shareEventCommand;
+		private AsyncRelayCommand _asyncShareEventCommand;
 		#endregion
 		#region Properties
 		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
@@ -31,11 +31,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		public override bool IsEditMode => _selectedCurrentEvent != null;
-		public IShareEvents ShareEvents
-		{
-			get => _shareEvents;
-			set => _shareEvents = value;
-		}
+		public IShareEvents ShareEventsService;
 
 		public AsyncRelayCommand AsyncDeleteEventCommand
 		{
@@ -43,10 +39,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			set => _asyncDeleteEventCommand = value;
 		}
 
-		public AsyncRelayCommand ShareEventCommand
+		public AsyncRelayCommand AsyncShareEventCommand
 		{
-			get => _shareEventCommand;
-			set => _shareEventCommand = value;
+			get => _asyncShareEventCommand;
+			set => _asyncShareEventCommand = value;
 		}
 		public RelayCommand IsDefaultTimespanSelectedCommand
 		{
@@ -80,7 +76,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			get
 			{
-					return "DELETE CURRENT EVENT";
+				return "DELETE CURRENT EVENT";
 			}
 
 		}
@@ -96,27 +92,18 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			EndDateTime = selectedDate;
 			_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
 		}
-		// ???????????????????????????????????
-		//public EventOperationsViewModel(IEventRepository eventRepository)
-		//	: base(eventRepository)
-		//{
-		//	StartDateTime = DateTime.Now;
-		//	EndDateTime = DateTime.Now;
-		//	_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
-		//	IsCompleteFrameCommand = new RelayCommand(() => IsCompleted = !IsCompleted);
 
-		//}
+
 		// ctor for editing events edit event mode
 		public EventOperationsViewModel(IEventRepository eventRepository, IGeneralEventModel eventToEdit)
 		: base(eventRepository)
 		{
 			// value measurementType cannot be changed 
-			_submitEventCommand = new AsyncRelayCommand(EditEventAsync, CanExecuteSubmitCommand);
+			_submitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
-			ShareEvents = new ShareEventsJson(eventRepository); // Confirm this line if needed
-			ShareEventCommand = new AsyncRelayCommand(ShareEvent);
+			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
-
+			ShareEventsService = Factory.CreateNewShareEventsService(eventRepository);
 			// Set properties based on eventToEdit
 			_selectedCurrentEvent = eventToEdit;
 			OnUserEventTypeSelected(eventToEdit.EventType);
@@ -143,7 +130,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			// ADD EVENT MICROTASKS if IsMicroTaskType
 			if (_selectedCurrentEvent.EventType.IsMicroTaskType)
 			{
-				if(_selectedCurrentEvent.MicroTasksList == null)
+				if (_selectedCurrentEvent.MicroTasksList == null)
 				{
 					_selectedCurrentEvent.MicroTasksList = new List<MicroTaskModel>();
 				}
@@ -189,7 +176,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			ClearFields();
 		}
 
-		private async Task EditEventAsync()
+		private async Task AsyncEditEvent()
 		{
 			_selectedCurrentEvent.Title = Title;
 			_selectedCurrentEvent.Description = Description;
@@ -200,6 +187,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_measurementSelectorHelperClass.QuantityAmount = new QuantityModel(_measurementSelectorHelperClass.SelectedMeasurementUnit.TypeOfMeasurementUnit, _measurementSelectorHelperClass.QuantityValue);
 			_selectedCurrentEvent.QuantityAmount = _measurementSelectorHelperClass.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);
+		}
+		private async Task AsyncEditEventAndGoBack()
+		{
+			await AsyncEditEvent();
 			await Shell.Current.GoToAsync("..");
 		}
 		private void FilterAllSubEventTypesOCByMainEventType(IMainEventType value)
@@ -226,13 +217,29 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		}
 
-		private async Task ShareEvent()
+		private async Task AsyncShareEvent()
 		{
-			var action = await App.Current.MainPage.DisplayActionSheet("Not working for now!!!", "Cancel", null, "XXXX");
+			await AsyncEditEvent();
+			await ShareEventsService.ShareEventAsync(_selectedCurrentEvent);
 		}
-
 		#endregion
 
 
 	}
 }
+
+
+
+
+
+
+// ???????????????????????????????????
+//public EventOperationsViewModel(IEventRepository eventRepository)
+//	: base(eventRepository)
+//{
+//	StartDateTime = DateTime.Now;
+//	EndDateTime = DateTime.Now;
+//	_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
+//	IsCompleteFrameCommand = new RelayCommand(() => IsCompleted = !IsCompleted);
+
+//}

@@ -24,18 +24,32 @@ namespace Kalendarzyk.Services.EventsSharing
 		}
 		public async Task ShareEventAsync(IGeneralEventModel eventModel)
 		{
-			// Serialize the event to a JSON string
-			var eventJsonString = SerializeEventToJson(eventModel);
-			var encryptedEventJsonString = _aesService.EncryptString(eventJsonString);
 
-			// ADD ENCRYPTION???????
-
-			// Share the JSON string using Xamarin.Essentials or .NET MAUI
-			await Share.RequestAsync(new ShareTextRequest
+			try
 			{
-				Text = encryptedEventJsonString,
-				Title = $"Share {eventModel.Title}"
-			});
+				// Serialize the event to a JSON string
+				var eventJsonString = SerializeEventToJson(eventModel);
+
+				// Encrypt the JSON string
+				var encryptedEventJsonString = _aesService.EncryptString(eventJsonString);
+
+				var fileName = $"{eventModel.Title}.kics";      // kics stands for Kalendarzyk ICS (ICS is a file extension for iCalendar files) file format
+				var tempFilePath = GetTemporaryFilePath(fileName);
+
+				// Write the encrypted data to the temporary file
+				File.WriteAllText(tempFilePath, encryptedEventJsonString);
+
+				// Share the file using the temporary path
+				await Share.RequestAsync(new ShareFileRequest
+				{
+					Title = $"Share {eventModel.Title}",
+					File = new ShareFile(tempFilePath)
+				});
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("ShareFileError", $"{ex}", "XXX");
+			}
 		}
 
 		public async Task ImportEventAsync(string jsonString)
@@ -51,6 +65,12 @@ namespace Kalendarzyk.Services.EventsSharing
 			{
 				// TODO: Add a message or handle the case when the event already exists
 			}
+		}
+		public string GetTemporaryFilePath(string fileName)
+		{
+			// Ensure the filename is unique to avoid conflicts
+			var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+			return Path.Combine(FileSystem.CacheDirectory, uniqueFileName);
 		}
 
 

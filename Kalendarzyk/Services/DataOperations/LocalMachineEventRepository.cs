@@ -428,7 +428,7 @@ public class LocalMachineEventRepository : IEventRepository
 			var encryptedString = _aesService.EncryptString(jsonString); // Encrypt the jsonString
 			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 or another Encoding as needed.
 
-			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.cics", stream, cancellationToken);
+			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.kics", stream, cancellationToken);
 			if (fileSaverResult.IsSuccessful)
 			{
 				await Toast.Make($"The file was saved successfully to location: {fileSaverResult.FilePath}").Show(cancellationToken);
@@ -450,9 +450,9 @@ public class LocalMachineEventRepository : IEventRepository
 		var settings = JsonSerializerSettings_All;
 		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
-			{ DevicePlatform.WinUI, new[] { ".cics" } },
-			{ DevicePlatform.Android, new[] { ".cics" } },
-			{ DevicePlatform.iOS, new[] { ".cics" } }
+			{ DevicePlatform.WinUI, new[] { ".kics" } },
+			{ DevicePlatform.Android, new[] { ".kics" } },
+			{ DevicePlatform.iOS, new[] { ".kics" } }
 		});
 		var pickOptions = new PickOptions
 		{
