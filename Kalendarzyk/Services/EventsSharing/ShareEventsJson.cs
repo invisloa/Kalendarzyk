@@ -13,10 +13,6 @@ namespace Kalendarzyk.Services.EventsSharing
 			_eventRepository = eventRepository;
 		}
 		private readonly IEventRepository _eventRepository;
-		public async Task AddEventAsync(IGeneralEventModel eventModel)
-		{
-			await _eventRepository.AddEventAsync(eventModel);
-		}
 		public string SerializeEventToJson(IGeneralEventModel eventModel)
 		{
 			var jsonString = JsonConvert.SerializeObject(eventModel);
@@ -54,12 +50,13 @@ namespace Kalendarzyk.Services.EventsSharing
 
 		public async Task ImportEventAsync(string jsonString)
 		{
-			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(jsonString);
+			var decryptedJsonString = _aesService.DecryptString(jsonString);
+			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
 			var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
 
 			if (!eventExists)
 			{
-				await AddEventAsync(eventModel);
+				await _eventRepository.AddEventAsync(eventModel);
 			}
 			else
 			{
