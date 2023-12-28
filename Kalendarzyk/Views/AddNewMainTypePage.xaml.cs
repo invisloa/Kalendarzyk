@@ -12,9 +12,9 @@ public partial class AddNewMainTypePage : ContentPage
 		BindingContext = ServiceHelper.GetService<AddNewMainTypePageViewModel>();
 		InitializeComponent();
 	}
-	public AddNewMainTypePage(IEventRepository eventRepository, IMainEventType mainEventType)
+	public AddNewMainTypePage(IMainEventType mainEventType)
 	{
-		BindingContext = new AddNewMainTypePageViewModel(eventRepository, mainEventType);
+		BindingContext = new AddNewMainTypePageViewModel(mainEventType);
 		InitializeComponent();
 	}
 

@@ -9,14 +9,13 @@ public partial class AddQuickNotesPage : ContentPage
 {
 	public AddQuickNotesPage()
 	{
-		var _eventRepository = ServiceHelper.GetService<IEventRepository>();
 		InitializeComponent();
-		BindingContext = new AddQuickNotesViewModel(_eventRepository);
+		BindingContext = new AddQuickNotesViewModel();
 	}
 	public AddQuickNotesPage(IEventRepository eventRepository, IGeneralEventModel quickNoteToEdit)
 	{
 		InitializeComponent();
-		BindingContext = new AddQuickNotesViewModel(eventRepository, quickNoteToEdit);
+		BindingContext = new AddQuickNotesViewModel(quickNoteToEdit);
 	}
 	protected override bool OnBackButtonPressed()
 	{

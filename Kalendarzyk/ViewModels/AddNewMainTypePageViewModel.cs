@@ -132,17 +132,17 @@ namespace Kalendarzyk.ViewModels
 
 		#region Constructors
 		//Constructor for create mode
-		public AddNewMainTypePageViewModel(IEventRepository eventRepository)
+		public AddNewMainTypePageViewModel()
 		{
 			IsEdit = false;
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			InitializeCommon();
 		}
 		//Constructor for edit mode
-		public AddNewMainTypePageViewModel(IEventRepository eventRepository, IMainEventType currentMainType)
+		public AddNewMainTypePageViewModel(IMainEventType currentMainType)
 		{
 			IsEdit = true;
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			InitializeCommon();
 			_currentMainType = currentMainType;
 			MainTypeName = currentMainType.Title;

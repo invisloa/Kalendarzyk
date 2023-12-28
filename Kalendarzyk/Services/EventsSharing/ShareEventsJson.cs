@@ -52,16 +52,15 @@ namespace Kalendarzyk.Services.EventsSharing
 		{
 			var decryptedJsonString = _aesService.DecryptString(jsonString);
 			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
-			var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
 
-			if (!eventExists)
-			{
-				await _eventRepository.AddEventAsync(eventModel);
-			}
-			else
-			{
-				// TODO: Add a message or handle the case when the event already exists
-			}
+			// at this moment there is no eventrepository
+			// var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
+
+			//just go to editeventpage
+
+			await Shell.Current.GoToAsync("..");
+
+
 		}
 		public string GetTemporaryFilePath(string fileName)
 		{

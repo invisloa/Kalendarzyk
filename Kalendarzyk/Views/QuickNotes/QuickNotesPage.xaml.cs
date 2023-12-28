@@ -1,4 +1,5 @@
 using Kalendarzyk.Helpers;
+using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.QuickNotes;
@@ -10,9 +11,9 @@ public partial class QuickNotesPage : ContentPage
 	IEventRepository _eventRepository;
 	public QuickNotesPage()
 	{
-		_eventRepository = ServiceHelper.GetService<IEventRepository>();
+		_eventRepository = Factory.CreateNewEventRepository();
 		InitializeComponent();
-		BindingContext = new QuickNotesViewModel(_eventRepository);
+		BindingContext = new QuickNotesViewModel();
 	}
 
 	protected async override void OnAppearing()
@@ -22,12 +23,12 @@ public partial class QuickNotesPage : ContentPage
 		//<
 		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
 		await _eventRepository.InitializeAsync();
-		await PreferencesViewModel.AddQuickNotesTypes(_eventRepository);
+		await PreferencesViewModel.AddQuickNotesTypes();
 		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
 		//>
 
 
-		BindingContext = new QuickNotesViewModel(_eventRepository);
+		BindingContext = new QuickNotesViewModel();
 	}
 
 }

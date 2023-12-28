@@ -9,8 +9,7 @@ public partial class AllSubTypesPage : ContentPage
 {
 	public AllSubTypesPage()
 	{
-		var eventRepository = ServiceHelper.GetService<IEventRepository>();
-		BindingContext = new AllSubTypesPageViewModel(eventRepository);
+		BindingContext = new AllSubTypesPageViewModel();
 		InitializeComponent();
 	}
 }

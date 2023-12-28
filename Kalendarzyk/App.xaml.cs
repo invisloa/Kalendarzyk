@@ -12,9 +12,9 @@ namespace Kalendarzyk
 	public partial class App : Application
 	{
 		IEventRepository _repository;
-		public App(IEventRepository eventRepository)
+		public App()
 		{
-			_repository = eventRepository;
+			_repository = Factory.CreateNewEventRepository();
 			InitializeComponent();
 			MainPage = new AppShell();
 

@@ -42,7 +42,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		#region Constructor
 
-		public AbstractEventViewModel(IEventRepository eventRepository) : base(eventRepository)
+		public AbstractEventViewModel() : base()
 		{
 			GoToSelectedDateCommand = new RelayCommand<DateTime>(GoToSelectedDatePage);
 			SelectTodayDateCommand = new RelayCommand(() => CurrentSelectedDate = CurrentDate);
@@ -60,7 +60,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		private void GoToAddEventPage()
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new EventPage(EventRepository, _currentSelectedDate));
+			Application.Current.MainPage.Navigation.PushAsync(new EventPage(_currentSelectedDate));
 		}
 
 		protected void GoToSelectedDatePage(DateTime selectedDate)

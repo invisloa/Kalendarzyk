@@ -20,12 +20,8 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 				}
 			}
 		}
-		public DailyEventsViewModel(IEventRepository eventRepository) : base(eventRepository)
-		{
 
-		}
-
-		public DailyEventsViewModel(IEventRepository eventRepository, ISubEventTypeModel eventType) : base(eventRepository)
+		public DailyEventsViewModel(ISubEventTypeModel eventType) : base()
 		{
 		}
 		protected override void ApplyEventsDatesFilter(DateTime startDate, DateTime endDate)

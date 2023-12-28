@@ -8,9 +8,8 @@ public partial class PreferencesPage : ContentPage
 {
 	public PreferencesPage()
 	{
-		var eventRepository = ServiceHelper.GetService<IEventRepository>();
 
-		var vm = new PreferencesViewModel(eventRepository);
+		var vm = new PreferencesViewModel();
 		BindingContext = vm;
 		InitializeComponent();
 	}

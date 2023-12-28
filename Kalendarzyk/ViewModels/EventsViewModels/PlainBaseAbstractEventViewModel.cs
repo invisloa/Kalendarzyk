@@ -2,6 +2,7 @@
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
+using Kalendarzyk.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,9 +83,9 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		#endregion
 
 		#region Constructor
-		public PlainBaseAbstractEventViewModel(IEventRepository eventRepository)
+		public PlainBaseAbstractEventViewModel()
 		{
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
 			_eventRepository.OnEventListChanged += UpdateAllEventList;
@@ -142,7 +143,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		private void SelectEvent(IGeneralEventModel selectedEvent)
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new EventPage(_eventRepository, selectedEvent));
+			Application.Current.MainPage.Navigation.PushAsync(new EventPage(selectedEvent));
 		}
 
 		#endregion

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views.QuickNotes;
+using Kalendarzyk.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,10 +45,10 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 			}
 		}
 
-		public QuickNotesViewModel(IEventRepository eventRepository)
+		public QuickNotesViewModel()
 		{
-			_eventRepository = eventRepository;
-			var quickNotesEvents = eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE");
+			_eventRepository = Factory.CreateNewEventRepository();
+			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE");
 			_quickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);
 			EditSelectedQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnEditSelectedQuickNoteCommand);

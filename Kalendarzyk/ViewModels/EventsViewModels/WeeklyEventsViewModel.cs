@@ -4,11 +4,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 {
 	public class WeeklyEventsViewModel : AbstractEventViewModel
 	{
-
-		public WeeklyEventsViewModel
-						(IEventRepository eventRepository)
-						: base(eventRepository) { }
-
 		public override void BindDataToScheduleList()
 		{
 			// Start of the Week

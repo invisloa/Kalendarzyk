@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Kalendarzyk.Services;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,10 +40,10 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 		#region Constructor
 		// ctor
 
-		public AllMainTypesPageViewModel(IEventRepository eventRepository)
+		public AllMainTypesPageViewModel()
 		{
-			_eventRepository = eventRepository;
-			AllMainEventTypesOC = new ObservableCollection<IMainEventType>(eventRepository.AllMainEventTypesList);
+			_eventRepository = Factory.CreateNewEventRepository();
+			AllMainEventTypesOC = new ObservableCollection<IMainEventType>(_eventRepository.AllMainEventTypesList);
 			EditSelectedTypeCommand = new RelayCommand<IMainEventType>(EditSelectedType);
 
 		}
@@ -55,7 +56,7 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		private void EditSelectedType(IMainEventType userTypeToEdit)
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new AddNewMainTypePage(_eventRepository, userTypeToEdit));
+			Application.Current.MainPage.Navigation.PushAsync(new AddNewMainTypePage(userTypeToEdit));
 		}
 
 	}

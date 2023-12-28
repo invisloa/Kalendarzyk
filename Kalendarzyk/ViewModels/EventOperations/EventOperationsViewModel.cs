@@ -85,8 +85,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		#region Constructors
 		// ctor for creating evnents create event mode
-		public EventOperationsViewModel(IEventRepository eventRepository, DateTime selectedDate)
-			: base(eventRepository)
+		public EventOperationsViewModel(DateTime selectedDate)
+			: base()
 		{
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
@@ -95,15 +95,15 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 
 		// ctor for editing events edit event mode
-		public EventOperationsViewModel(IEventRepository eventRepository, IGeneralEventModel eventToEdit)
-		: base(eventRepository)
+		public EventOperationsViewModel(IGeneralEventModel eventToEdit)
+		: base()
 		{
 			// value measurementType cannot be changed 
 			_submitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
-			ShareEventsService = Factory.CreateNewShareEventsService(eventRepository);
+			ShareEventsService = Factory.CreateNewShareEventsService();
 			// Set properties based on eventToEdit
 			_selectedCurrentEvent = eventToEdit;
 			OnUserEventTypeSelected(eventToEdit.EventType);
@@ -234,7 +234,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 
 // ???????????????????????????????????
-//public EventOperationsViewModel(IEventRepository eventRepository)
 //	: base(eventRepository)
 //{
 //	StartDateTime = DateTime.Now;

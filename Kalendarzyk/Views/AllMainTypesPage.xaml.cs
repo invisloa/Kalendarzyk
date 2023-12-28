@@ -10,8 +10,7 @@ public partial class AllMainTypesPage : ContentPage
 	IEventRepository _eventRepository;
 	public AllMainTypesPage()
 	{
-		_eventRepository = ServiceHelper.GetService<IEventRepository>();
-		BindingContext = new AllMainTypesPageViewModel(_eventRepository);
+		BindingContext = new AllMainTypesPageViewModel();
 
 		InitializeComponent();
 	}

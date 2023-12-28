@@ -133,20 +133,20 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		#region Constructors
 
 		// All Events MODE
-		public AllEventsViewModel(IEventRepository eventRepository) : base(eventRepository)
+		public AllEventsViewModel() : base()
 		{
 			//DeleteAllEvents();
 			//DeleteAllUserTypes();
-			InitializeCommon(eventRepository);
-			_allUserTypesForVisuals = new List<ISubEventTypeModel>(eventRepository.DeepCopySubEventTypesList());
+			InitializeCommon();
+			_allUserTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelected);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 		}
 
 		// Single Event Type MODE
-		public AllEventsViewModel(IEventRepository eventRepository, ISubEventTypeModel eventType) : base(eventRepository)
+		public AllEventsViewModel(ISubEventTypeModel eventType) : base()
 		{
-			InitializeCommon(eventRepository);
+			InitializeCommon();
 
 			var allTempTypes = new List<ISubEventTypeModel>();
 			foreach (var item in AllSubEventTypesOC)
@@ -155,7 +155,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			}
 		}
 
-		private void InitializeCommon(IEventRepository eventRepository)
+		private void InitializeCommon()
 		{
 			_filterDatesCCHelper.FilterDateFromChanged += OnFilterDateFromChanged;
 			_filterDatesCCHelper.FilterDateToChanged += OnFilterDateToChanged;
@@ -166,7 +166,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			SaveAllEventsToFileCommand = new AsyncRelayCommand(OnSaveEventsAndTypesCommand);
 			LoadEventsFromFileCommand = new AsyncRelayCommand(OnLoadEventsAndTypesCommand);
 			this.SetFilterDatesValues(false); // using extension method
-			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(eventRepository.AllMainEventTypesList);
+			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 		}
 
 		#endregion

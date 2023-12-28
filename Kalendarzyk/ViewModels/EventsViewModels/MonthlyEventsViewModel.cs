@@ -5,9 +5,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 	public class MonthlyEventsViewModel : AbstractEventViewModel
 	{
 
-		public MonthlyEventsViewModel
-						(IEventRepository eventRepository)
-						: base(eventRepository) { }
 		public override void BindDataToScheduleList()
 		{
 			// Start of the month

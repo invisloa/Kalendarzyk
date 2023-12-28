@@ -123,10 +123,10 @@ namespace Kalendarzyk.ViewModels
 
 		#region Constructors
 		// constructor for create mode
-		public AddNewSubTypePageViewModel(IEventRepository eventRepository)
+		public AddNewSubTypePageViewModel()
 		{
-			_eventRepository = eventRepository;
-			InitializeCommon(eventRepository);
+			_eventRepository = Factory.CreateNewEventRepository();
+			InitializeCommon();
 			MainEventTypeSelectedCommand = MainEventTypesCCHelper.MainEventTypeSelectedCommand;
 			DefaultEventTimespanCCHelper.SelectedUnitIndex = 0; // minutes
 			DefaultEventTimespanCCHelper.DurationValue = 30;
@@ -134,10 +134,11 @@ namespace Kalendarzyk.ViewModels
 		}
 
 		// constructor for edit mode
-		public AddNewSubTypePageViewModel(IEventRepository eventRepository, ISubEventTypeModel currentType)
+		public AddNewSubTypePageViewModel(ISubEventTypeModel currentType)
 		{
+			_eventRepository = Factory.CreateNewEventRepository();
 			CurrentType = currentType;
-			InitializeCommon(eventRepository);
+			InitializeCommon();
 			if (currentType.IsMicroTaskType)
 			{
 				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(currentType.MicroTasksList);
@@ -154,9 +155,8 @@ namespace Kalendarzyk.ViewModels
 			// set proper visuals for an edited event type ??
 		}
 
-		private void InitializeCommon(IEventRepository eventRepository)
+		private void InitializeCommon()
 		{
-			_eventRepository = eventRepository;
 			InitializeColorButtons();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;

@@ -266,9 +266,9 @@ namespace Kalendarzyk.ViewModels
 
 
 		// CONSTRUCTOR
-		public ValueTypeCalculationsViewModel(IEventRepository eventRepository) : base(eventRepository)
+		public ValueTypeCalculationsViewModel() : base()
 		{
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(eventRepository.DeepCopySubEventTypesList().Where(x => x.IsValueType).ToList());
+			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList().Where(x => x.IsValueType).ToList());
 			DoBasicCalculationsCommand = new RelayCommand(OnDoBasicCalculationsCommand, _canExecuteCalculationsCommands);
 			MaxByWeekCalculationsCommand = new RelayCommand(OnMaxByWeekCalculationsCommand, _canExecuteCalculationsCommands);
 			MinByWeekCalculationsCommand = new RelayCommand(OnMinByWeekCalculationsCommand, _canExecuteCalculationsCommands);

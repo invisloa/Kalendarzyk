@@ -58,19 +58,19 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 		#endregion
 		// ctor
-		public EventOperationsBaseViewModel(IEventRepository eventRepository)
+		public EventOperationsBaseViewModel()
 		{
-			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(eventRepository.AllMainEventTypesList);
+			_eventRepository = Factory.CreateNewEventRepository();
+			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			UserTypeExtraOptionsHelper = Factory.CreateNewUserTypeExtraOptionsHelperClass(false);
-			EventRepository = eventRepository;
-			_allUserTypesForVisuals = new List<ISubEventTypeModel>(eventRepository.DeepCopySubEventTypesList());
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(eventRepository.DeepCopySubEventTypesList());
-			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(EventRepository.AllEventsList);
+			_allUserTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelected);
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
 			_allMeasurementUnitItems = Factory.PopulateMeasurementCollection();
-			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(EventRepository.AllEventsList);
+			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
 			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter();
 		}
 
@@ -86,7 +86,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		// normal fields
 		protected IMainEventTypesCCViewModel _mainEventTypesCCHelper;
-		private IEventRepository eventRepository;
+		protected IEventRepository _eventRepository;
 		protected IGeneralEventModel _selectedCurrentEvent;
 		protected string _title;
 		protected string _description;
@@ -328,8 +328,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		protected IEventRepository EventRepository
 		{
-			get => eventRepository;
-			set => eventRepository = value;
+			get => _eventRepository;
+			set => _eventRepository = value;
 		}
 		#endregion
 
@@ -343,7 +343,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private void GoToAddEventPage()
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new EventPage(EventRepository, DateTime.Today));
+			Application.Current.MainPage.Navigation.PushAsync(new EventPage(DateTime.Today));
 		}
 
 

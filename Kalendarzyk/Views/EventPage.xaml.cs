@@ -9,28 +9,26 @@ namespace Kalendarzyk.Views
 {
 	public partial class EventPage : ContentPage
 	{
-		private readonly IEventRepository _eventRepository;
 		// For adding events
-		public EventPage(IEventRepository eventRepository, DateTime selcetedDate)
+		public EventPage(DateTime selcetedDate)
 		{
 			InitializeComponent();
 
-			BindingContext = new EventOperationsViewModel(eventRepository, selcetedDate);
+			BindingContext = new EventOperationsViewModel(selcetedDate);
 		}
 		public EventPage()
 		{
 			var today = DateTime.Today;
 			InitializeComponent();
-			_eventRepository = ServiceHelper.GetService<IEventRepository>();
-			BindingContext = new EventOperationsViewModel(_eventRepository, today);
+			BindingContext = new EventOperationsViewModel(today);
 
 		}
 		// For editing events
-		public EventPage(IEventRepository eventRepository, IGeneralEventModel eventModel)
+		public EventPage(IGeneralEventModel eventModel)
 		{
 			InitializeComponent();
 
-			BindingContext = new EventOperationsViewModel(eventRepository, eventToEdit: eventModel);
+			BindingContext = new EventOperationsViewModel(eventToEdit: eventModel);
 
 		}
 

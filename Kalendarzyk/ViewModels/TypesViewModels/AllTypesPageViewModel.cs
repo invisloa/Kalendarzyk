@@ -1,5 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
+using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
 using System;
@@ -59,9 +60,9 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		#region Constructor
 
-		public AllSubTypesPageViewModel(IEventRepository eventRepository)
+		public AllSubTypesPageViewModel()
 		{
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			_eventRepository.OnEventListChanged += UpdateAllEventList;
@@ -89,7 +90,7 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		private void EditSelectedType(ISubEventTypeModel userTypeToEdit)
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new AddNewSubTypePage(EventRepository, userTypeToEdit));
+			Application.Current.MainPage.Navigation.PushAsync(new AddNewSubTypePage(userTypeToEdit));
 		}
 
 		#endregion

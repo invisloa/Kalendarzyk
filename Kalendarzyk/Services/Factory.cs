@@ -17,6 +17,15 @@ namespace Kalendarzyk.Services
 {
 	public static class Factory
 	{
+		// Event Repository Singleton Pattern
+		private static IEventRepository _eventRepository;
+
+		public static IEventRepository CreateNewEventRepository()
+		{
+			if (_eventRepository == null)
+				_eventRepository = new LocalMachineEventRepository();
+			return _eventRepository;
+		}
 
 		// Event Repository
 		public static ObservableCollection<MeasurementUnitItem> PopulateMeasurementCollection()
@@ -103,9 +112,9 @@ namespace Kalendarzyk.Services
 		{
 			return new IsCompletedCCViewModel();
 		}
-		internal static IShareEvents CreateNewShareEventsService(IEventRepository eventRepository)
+		internal static IShareEvents CreateNewShareEventsService()
 		{
-			return new ShareEventsJson(eventRepository);
+			return new ShareEventsJson(CreateNewEventRepository());
 		}
 	}
 }

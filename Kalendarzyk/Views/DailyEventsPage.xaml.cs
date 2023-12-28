@@ -22,9 +22,9 @@ public partial class DailyEventsPage : ContentPage
 		base.OnDisappearing();
 		(BindingContext as DailyEventsViewModel).OnEventsToShowListUpdated -= (BindingContext as DailyEventsViewModel).BindDataToScheduleList;
 	}
-	public DailyEventsPage(IEventRepository eventRepository, ISubEventTypeModel eventType)
+	public DailyEventsPage(ISubEventTypeModel eventType)
 	{
-		BindingContext = new DailyEventsViewModel(eventRepository, eventType);
+		BindingContext = new DailyEventsViewModel(eventType);
 		InitializeComponent();
 	}
 	protected override void OnAppearing()

@@ -154,17 +154,17 @@ namespace Kalendarzyk.ViewModels
 		#endregion
 
 		//ctor new quick note
-		public AddQuickNotesViewModel(IEventRepository eventRepository)
+		public AddQuickNotesViewModel()
         {
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			InitializeCommon();
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
 		}
 		//ctor edit quick note
-		public AddQuickNotesViewModel(IEventRepository eventRepository, IGeneralEventModel quickNote)
+		public AddQuickNotesViewModel(IGeneralEventModel quickNote)
 		{
-			_eventRepository = eventRepository;
+			_eventRepository = Factory.CreateNewEventRepository();
 			_currentQuickNote = quickNote;
 			InitializeCommon();
 			IsEditQuickNoteMode = true;
