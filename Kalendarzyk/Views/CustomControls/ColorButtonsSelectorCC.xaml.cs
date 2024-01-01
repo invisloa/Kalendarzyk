@@ -41,12 +41,6 @@ public partial class ColorButtonsSelectorCC : ContentView
 		get => (ICommand)GetValue(SelectColorCommandProperty);
 		set => SetValue(SelectColorCommandProperty, value);
 	}
-
-	public ColorButtonsSelectorCC()
-	{
-		InitializeComponent();
-	}
-
 	private static void OnSelectColorCommandChanged(BindableObject bindable, object oldValue, object newValue)
 	{
 		var control = (ColorButtonsSelectorCC)bindable;
@@ -56,4 +50,10 @@ public partial class ColorButtonsSelectorCC : ContentView
 			control.Content.BindingContext = bc;
 		};
 	}
+	public ColorButtonsSelectorCC()
+	{
+		InitializeComponent();
+	}
+
+
 }

@@ -30,7 +30,7 @@ public partial class AddQuickNotesPage : ContentPage
 				var result = await this.DisplayAlert("Question?", "Do You want to save the changes", "Yes", "No");
 				if (result)
 				{
-					await ((AddQuickNotesViewModel)BindingContext).SubmitAsyncQuickNoteCommand.ExecuteAsync(null);
+					await ((AddQuickNotesViewModel)BindingContext).AsyncSubmitQuickNoteCommand.ExecuteAsync(null);
 				}
 				else
 				{

@@ -118,6 +118,9 @@
 	  <Compile Update="Views\AllEventsPage.xaml.cs">
 	    <DependentUpon>AllEventsPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomControls\Buttons\ClickableFontButtonCC.xaml.cs">
+	    <DependentUpon>ClickableFontButtonCC.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DailyEventsPage.xaml.cs">
 	    <DependentUpon>DailyEventsPage.xaml</DependentUpon>
 	  </Compile>
@@ -149,6 +152,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\AddNewTypeCC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomControls\Buttons\ClickableFontButtonCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\ColorButton.xaml">

@@ -4,6 +4,7 @@
              x:Class="Kalendarzyk.Views.QuickNotes.AddQuickNotesPage"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
              Title="AddQuickNotesPage"
              Shell.TabBarIsVisible="False"
              x:Name="AddQuickNotesPageName"
@@ -15,22 +16,20 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
+                    IconText="delete_forever" 
+                    IconTextColor="Red"
+                    SubmitCommand="{Binding AsyncDeleteSelectedQuckNoteCommand}" 
+                    IsVisible="{Binding IsEditQuickNoteMode}" 
+                    Margin="10"
+                    FontSize="44"/>
+            
             <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
-            <Label Grid.Column="2" HorizontalOptions="End" 
-                    Text="_delete_forever" 
-                    TextColor="Red"
-                    FontSize="44"
-                    Style="{StaticResource GoogleFont}"
-                    IsVisible="{Binding IsEditQuickNoteMode}" 
-                    >
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer  Command="{Binding AsyncDeleteSelectedQuckNoteCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
+
+            <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSubmitQuickNoteCommand}" IconTextColor="Green" Margin="10" FontSize="44"/>
         </Grid>
         <!-- Entry for new type name -->
-
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>
 
 
@@ -47,7 +46,7 @@
 
         <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"/>
 
-        <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" FontAttributes="Bold" TextColor="{StaticResource MainTextColor}" Command="{Binding SubmitAsyncQuickNoteCommand}" HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}"/>
+        <Button Margin="5" Text="{Binding SubmitQuickNoteButtonText}" FontAttributes="Bold" TextColor="{StaticResource MainTextColor}" Command="{Binding AsyncSubmitQuickNoteCommand}" HorizontalOptions="Center" BackgroundColor="{StaticResource MainButtonBackgroundColor}"/>
 
     </VerticalStackLayout>
 </ContentPage>

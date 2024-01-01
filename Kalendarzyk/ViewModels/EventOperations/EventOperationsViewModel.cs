@@ -90,7 +90,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
-			_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
+			_asyncSubmitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
 		}
 
 
@@ -99,7 +99,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		: base()
 		{
 			// value measurementType cannot be changed 
-			_submitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
+			_asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;

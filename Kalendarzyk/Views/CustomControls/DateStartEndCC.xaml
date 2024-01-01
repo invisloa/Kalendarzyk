@@ -2,12 +2,18 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Kalendarzyk.Views.CustomControls.DateStartEndCC">
-    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+    <FlexLayout 
+            Wrap="Wrap" 
+            Direction="Row"
+            HorizontalOptions="CenterAndExpand">
         <!--STARTS AT TIME-->
-        <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0"  MinimumWidthRequest="120">
+        <Frame BorderColor="GreenYellow" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"  Margin="0, 5">
             <StackLayout>
-                    <Label Text="START" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="START" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold" />
                     <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}" />
+                </StackLayout>
+
 
 
                 <TimePicker x:Name="StartTimePicker" Format="HH:mm" 
@@ -17,16 +23,18 @@
         </Frame>
 
         <!--ENDS AT TIME-->
-        <Frame BorderColor="Azure" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="10" Padding="0" MinimumWidthRequest="120">
+        <Frame BorderColor="BurlyWood" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="0, 5">
             <StackLayout>
-                    <Label Text="END" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Margin="10" />
-                    <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
+                <StackLayout Orientation="Horizontal">
 
+                    <Label Text="END" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold"  />
+                    <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
+                </StackLayout>
 
                 <TimePicker x:Name="EndTimePicker"  Format="HH:mm" TextColor="{DynamicResource MainTextColor}" 
                             Time="{Binding EndExactTime, Mode=TwoWay}"
                             HorizontalOptions="Center"/>
             </StackLayout>
         </Frame>
-    </StackLayout>
+    </FlexLayout>
 </ContentView>

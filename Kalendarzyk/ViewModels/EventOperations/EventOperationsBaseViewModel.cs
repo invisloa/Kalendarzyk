@@ -94,7 +94,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected TimeSpan _startExactTime = DateTime.Now.TimeOfDay;
 		protected DateTime _endDateTime = DateTime.Today;
 		protected TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
-		protected AsyncRelayCommand _submitEventCommand;
+		protected AsyncRelayCommand _asyncSubmitEventCommand;
 		protected Color _mainEventTypeBackgroundColor;
 		protected List<ISubEventTypeModel> _allUserTypesForVisuals;
 		protected ObservableCollection<ISubEventTypeModel> _eventTypesOC;
@@ -190,7 +190,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			{
 				if (_selectedEventType == value) return;
 				_selectedEventType = value;
-				_submitEventCommand.NotifyCanExecuteChanged();
+				_asyncSubmitEventCommand.NotifyCanExecuteChanged();
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsEventTypeSelected));
 			}
@@ -202,7 +202,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			{
 				_title = value;
 				OnPropertyChanged();
-				_submitEventCommand.NotifyCanExecuteChanged();
+				_asyncSubmitEventCommand.NotifyCanExecuteChanged();
 			}
 		}
 		public string Description
@@ -321,7 +321,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#endregion
 
 		// Command
-		public AsyncRelayCommand SubmitEventCommand => _submitEventCommand;
+		public AsyncRelayCommand AsyncSubmitEventCommand => _asyncSubmitEventCommand;
 		public RelayCommand<ISubEventTypeModel> SelectUserEventTypeCommand { get; set; }
 		public RelayCommand<MainEventTypeViewModel> MainEventTypeSelectedCommand { get; set; }
 		public RelayCommand GoToAddNewSubTypePageCommand => _goToAddNewSubTypePageCommand ?? (_goToAddNewSubTypePageCommand = new RelayCommand(GoToAddNewSubTypePage));

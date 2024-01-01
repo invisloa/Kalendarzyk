@@ -101,7 +101,7 @@
         
             <!--Down of the screen buttons-->
             <Button Text="DELETE SELECTED MAIN TYPE" IsVisible="{Binding IsEdit}" Command="{Binding DeleteAsyncSelectedMainEventTypeCommand}" BackgroundColor="Red"/>
-            <Button Margin="5" Text="{Binding SubmitMainTypeButtonText}" Command="{Binding SubmitAsyncMainTypeCommand}" HorizontalOptions="Center"
+            <Button Margin="5" Text="{Binding SubmitMainTypeButtonText}" Command="{Binding AsyncSubmitMainTypeCommand}" HorizontalOptions="Center"
                     TextColor="{DynamicResource MainTextColor}" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"/>
         </StackLayout>
 

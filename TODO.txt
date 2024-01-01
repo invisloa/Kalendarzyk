@@ -1,4 +1,14 @@
+
+BUGS!!!!!!!!!!!
+Go to all events page in deleting subtypes page bug !!!
+Delete sybevent type bug when going to all subtypes page after deleting subtype
+no refresh after changes in subtype and going back to all subtypes page
+BUGS!!!!!!!!!!!
+
+
+
 +
+user selected event types for main page??
 Today with red color frame
 Add different icons
 make notifications for events

@@ -22,11 +22,13 @@ public partial class DailyEventsPage : ContentPage
 		base.OnDisappearing();
 		(BindingContext as DailyEventsViewModel).OnEventsToShowListUpdated -= (BindingContext as DailyEventsViewModel).BindDataToScheduleList;
 	}
+
 	public DailyEventsPage(ISubEventTypeModel eventType)
 	{
 		BindingContext = new DailyEventsViewModel(eventType);
 		InitializeComponent();
 	}
+
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();

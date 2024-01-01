@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.EventPage"
+             xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
              Title="{Binding PageTitle}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
@@ -24,43 +25,30 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <customControls:RoundEntryCC Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Grid.Column="1"/>
-                <Label Grid.Column="0" HorizontalOptions="Start" 
-                        Text="_delete_forever" 
-                        TextColor="Red"
-                        Style="{StaticResource GoogleFont}"
-                        IsVisible="{Binding IsEditMode}" 
-                        Margin="10"
-                        >
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer  Command="{Binding AsyncDeleteEventCommand}"/>
-                        </Label.GestureRecognizers>
-                </Label>
-                <StackLayout Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End" >
-                    <Label 
-                        Text="share" 
-                        TextColor="Blue"
-                        Style="{StaticResource GoogleFont}"
-                        IsVisible="{Binding IsEditMode}" 
-                        Margin="10"
-                        >
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding AsyncShareEventCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                    <Label 
-                        Text="save" 
-                        TextColor="Green"
-                        Style="{StaticResource GoogleFont}"
-                        IsVisible="{Binding IsEditMode}"
-                        Margin="10"
-                        >
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SubmitEventCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
+                <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" />
 
+                <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
+                    IconText="delete_forever" 
+                    IconTextColor="Red"
+                    SubmitCommand="{Binding AsyncDeleteEventCommand}" 
+                    IsVisible="{Binding IsEditMode}" 
+                    Margin="10"
+                    FontSize="44"/>
+                <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
+
+                    <buttons:ClickableFontButtonCC         
+                        IconText="share" 
+                        SubmitCommand="{Binding AsyncShareEventCommand}" IconTextColor="Blue" 
+                        IsVisible="{Binding IsEditMode}" 
+                        Margin="10" FontSize="44"/>
+
+                    <buttons:ClickableFontButtonCC  
+                        IconText="save" 
+                        SubmitCommand="{Binding AsyncSubmitEventCommand}" 
+                        IconTextColor="Green" 
+                        Margin="10" FontSize="44"/>
+
+                </StackLayout>
             </Grid>
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"

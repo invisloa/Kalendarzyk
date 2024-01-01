@@ -80,7 +80,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				_mainTypeName = value;
 				OnPropertyChanged();
-				SubmitAsyncMainTypeCommand.NotifyCanExecuteChanged();
+				AsyncSubmitMainTypeCommand.NotifyCanExecuteChanged();
 			}
 		}
 		public bool IsEdit
@@ -123,7 +123,7 @@ namespace Kalendarzyk.ViewModels
 		public ObservableCollection<string> IconsToShowStringsOC { get; set; }
 		//public RelayCommand GoToAllMainTypesPageCommand { get; set; }
 		public RelayCommand<string> ExactIconSelectedCommand { get; set; }
-		public AsyncRelayCommand SubmitAsyncMainTypeCommand { get; set; }
+		public AsyncRelayCommand AsyncSubmitMainTypeCommand { get; set; }
 		public AsyncRelayCommand DeleteAsyncSelectedMainEventTypeCommand { get; set; }
 		public RelayCommand<SelectableButtonViewModel> BgColorsCommand { get; private set; }
 		public RelayCommand<SelectableButtonViewModel> TextColorsCommand { get; private set; }
@@ -195,7 +195,7 @@ namespace Kalendarzyk.ViewModels
 		private void InitializeCommands()
 		{
 			//GoToAllMainTypesPageCommand = new RelayCommand(OnGoToAllMainTypesPageCommand);
-			SubmitAsyncMainTypeCommand = new AsyncRelayCommand(OnSubmitMainTypeCommand, CanExecuteSubmitMainTypeCommand);
+			AsyncSubmitMainTypeCommand = new AsyncRelayCommand(OnSubmitMainTypeCommand, CanExecuteSubmitMainTypeCommand);
 			ExactIconSelectedCommand = new RelayCommand<string>(OnExactIconSelectedCommand);
 		}
 

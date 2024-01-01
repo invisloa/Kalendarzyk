@@ -6,8 +6,42 @@
              x:Name="AddNewSubTypePageName">
     <ScrollView BackgroundColor="{DynamicResource MainBackgroundColor}">
         <StackLayout>
-            
-            
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Frame Grid.Column="1" Padding="1" HorizontalOptions="CenterAndExpand" WidthRequest="250" >
+
+                    <Entry Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body" IsReadOnly="{Binding IsQuickNoteType}"
+                           HorizontalTextAlignment="Center" BackgroundColor="{Binding SelectedSubTypeColor, Mode=TwoWay}" TextColor="{DynamicResource MainTextColor}" VerticalOptions="Fill"/>
+                </Frame>
+                <Label Grid.Column="0" HorizontalOptions="Start" 
+                        Text="_delete_forever" 
+                        TextColor="Red"
+                        Style="{StaticResource GoogleFont}"
+                        IsVisible="{Binding IsEdit}" 
+                        Margin="10"
+                        >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding DeleteSelectedEventTypeCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label  Grid.Column="2" HorizontalOptions="End" 
+                        Text="save" 
+                        TextColor="Green"
+                        Style="{StaticResource GoogleFont}"
+                        Margin="10"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubmitTypeCommand}" />
+                        </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+
             <!--TEMP REMOOVE -> PROB FOR GOOD-->
             <!--<Button Text="ALL TYPES PAGE" Command="{Binding GoToAllSubTypesPageCommand}" BackgroundColor="DarkGoldenrod" 
                     WidthRequest="150" HorizontalOptions="End" BorderColor="CadetBlue" BorderWidth="3" Margin="10"/>-->
@@ -15,11 +49,7 @@
             
             <!--Textbox for new type name-->
 
-            <Frame Padding="1" HorizontalOptions="CenterAndExpand" WidthRequest="250" >
 
-                <Entry Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body" IsReadOnly="{Binding IsQuickNoteType}"
-                           HorizontalTextAlignment="Center" BackgroundColor="{Binding SelectedSubTypeColor, Mode=TwoWay}" TextColor="{DynamicResource MainTextColor}" VerticalOptions="Fill"/>
-            </Frame>
             <!--Main Event Types Custom Control-->
             <customControls:MainEventTypesSelectorCC BindingContext="{Binding Source={x:Reference AddNewSubTypePageName}, Path=BindingContext}"/>
 
@@ -35,8 +65,6 @@
 
             <!--Down of the screen buttons-->
 
-            <Button Text="DELETE SELECTED TYPE" BackgroundColor="Red" IsVisible="{Binding IsEdit}" Command="{Binding DeleteSelectedEventTypeCommand}"/>
-            <Button Margin="5" Text="{Binding SubmitButtonText}" Command="{Binding SubmitTypeCommand}" HorizontalOptions="Center" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" TextColor="{DynamicResource MainTextColor}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

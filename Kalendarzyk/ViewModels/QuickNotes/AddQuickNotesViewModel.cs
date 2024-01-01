@@ -20,9 +20,9 @@ namespace Kalendarzyk.ViewModels
 	public partial class AddQuickNotesViewModel : ObservableObject
 	{
 		#region Fields and Properties
-		private AsyncRelayCommand _submitAsyncQuickNoteCommand;
+		private AsyncRelayCommand _asyncSubmitQuickNoteCommand;
 		private ISubEventTypeModel qNoteSubType;
-		public AsyncRelayCommand SubmitAsyncQuickNoteCommand => _submitAsyncQuickNoteCommand;
+		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
 
@@ -90,7 +90,7 @@ namespace Kalendarzyk.ViewModels
 			set
 			{
 				_quickNoteTitle = value;
-				SubmitAsyncQuickNoteCommand.NotifyCanExecuteChanged();
+				AsyncSubmitQuickNoteCommand.NotifyCanExecuteChanged();
 				IsModified = true;
 				OnPropertyChanged();
 			}
@@ -159,7 +159,7 @@ namespace Kalendarzyk.ViewModels
 			_eventRepository = Factory.CreateNewEventRepository();
 			InitializeCommon();
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
-			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
+			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
 		}
 		//ctor edit quick note
 		public AddQuickNotesViewModel(IGeneralEventModel quickNote)
@@ -168,7 +168,7 @@ namespace Kalendarzyk.ViewModels
 			_currentQuickNote = quickNote;
 			InitializeCommon();
 			IsEditQuickNoteMode = true;
-			_submitAsyncQuickNoteCommand = new AsyncRelayCommand(OnAsynEditQuickNoteCommand, CanSubmitQuickNoteCommand);
+			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(OnAsynEditQuickNoteCommand, CanSubmitQuickNoteCommand);
 			QuickNoteTitle = quickNote.Title;
 			QuickNoteDescription = quickNote.Description;
 			StartDateTime = quickNote.StartDateTime;
