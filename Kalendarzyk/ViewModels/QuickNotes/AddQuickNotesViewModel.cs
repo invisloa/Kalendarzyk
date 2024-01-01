@@ -27,11 +27,12 @@ namespace Kalendarzyk.ViewModels
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
 		private IShareEvents _shareEventsService;
-
+		
 		public bool IsModified;
 
 		[ObservableProperty]
 		private bool _isQuickNoteDateSelected;
+
 
 		[ObservableProperty]
 		private IsCompletedCCViewModel _isCompletedCCAdapter;
@@ -256,7 +257,7 @@ namespace Kalendarzyk.ViewModels
 		{
 			if (CanSubmitQuickNoteCommand())
 			{ 
-			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC);
+			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
 
 			await _eventRepository.AddEventAsync(_currentQuickNote);
 			}
@@ -283,6 +284,7 @@ namespace Kalendarzyk.ViewModels
 				_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 				_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
 				_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
+				await _eventRepository.UpdateEventAsync(_currentQuickNote);
 			}
 		}
 		//private void ClearFields()
