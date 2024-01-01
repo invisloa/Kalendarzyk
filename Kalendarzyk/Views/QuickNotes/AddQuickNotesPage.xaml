@@ -26,8 +26,18 @@
             
             <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
+            <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
 
-            <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSubmitQuickNoteCommand}" IconTextColor="Green" Margin="10" FontSize="44"/>
+                <buttons:ClickableFontButtonCC         
+                        IconText="share" 
+                        SubmitCommand="{Binding AsyncShareEventCommand}" IconTextColor="Blue" 
+                        IsVisible="{Binding IsEditQuickNoteMode}" 
+                        Margin="10" FontSize="44"/>
+
+                <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSubmitQuickNoteCommand}" IconTextColor="Green" Margin="10" FontSize="44"/>
+
+
+            </StackLayout>
         </Grid>
         <!-- Entry for new type name -->
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>

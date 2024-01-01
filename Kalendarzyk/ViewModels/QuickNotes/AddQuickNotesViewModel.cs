@@ -6,6 +6,7 @@ using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Microsoft.Maui.Graphics.Text;
 using System;
@@ -25,6 +26,7 @@ namespace Kalendarzyk.ViewModels
 		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
+		private IShareEvents _shareEventsService;
 
 		public bool IsModified;
 
@@ -61,6 +63,8 @@ namespace Kalendarzyk.ViewModels
 
 		[ObservableProperty]
 		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
+		[ObservableProperty]
+		private AsyncRelayCommand _asyncShareEventCommand;
 
 		private bool _isQuickNoteMicroTasksType;
 
@@ -164,11 +168,13 @@ namespace Kalendarzyk.ViewModels
 		//ctor edit quick note
 		public AddQuickNotesViewModel(IGeneralEventModel quickNote)
 		{
+			_shareEventsService = Factory.CreateNewShareEventsService();
+			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			_eventRepository = Factory.CreateNewEventRepository();
 			_currentQuickNote = quickNote;
 			InitializeCommon();
 			IsEditQuickNoteMode = true;
-			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(OnAsynEditQuickNoteCommand, CanSubmitQuickNoteCommand);
+			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(AsyncEditQucikNoteAndGoBack, CanSubmitQuickNoteCommand);
 			QuickNoteTitle = quickNote.Title;
 			QuickNoteDescription = quickNote.Description;
 			StartDateTime = quickNote.StartDateTime;
@@ -259,7 +265,12 @@ namespace Kalendarzyk.ViewModels
 			// go to all quick notes page
 			// await Shell.Current.GoToAsync("//QuickNotesPage");
 		}
-		private async Task OnAsynEditQuickNoteCommand()
+		private async Task AsyncEditQucikNoteAndGoBack()
+		{
+			await AsyncEditQuickNote();
+			await Shell.Current.GoToAsync("..");
+		}
+		private async Task AsyncEditQuickNote()
 		{
 			if (CanSubmitQuickNoteCommand())
 			{
@@ -272,19 +283,22 @@ namespace Kalendarzyk.ViewModels
 				_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 				_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
 				_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
-				await _eventRepository.UpdateEventAsync(_currentQuickNote);
 			}
-			await Shell.Current.GoToAsync("..");
 		}
-		private void CclearFields()
+		//private void ClearFields()
+		//{
+		//	_defaultMeasurementSelectorCCHelper.QuantityValue = 0;
+		//	MicroTasksCCAdapter.MicroTasksOC.Clear();
+		//	QuickNoteTitle = "";
+		//	QuickNoteDescription = "";
+		//	IsCompletedCCAdapter.IsCompleted = false;
+		//	IsQuickNoteValueType = false;
+		//	IsQuickNoteMicroTasksType = false;
+		//}
+		private async Task AsyncShareEvent()
 		{
-			_defaultMeasurementSelectorCCHelper.QuantityValue = 0;
-			MicroTasksCCAdapter.MicroTasksOC.Clear();
-			QuickNoteTitle = "";
-			QuickNoteDescription = "";
-			IsCompletedCCAdapter.IsCompleted = false;
-			IsQuickNoteValueType = false;
-			IsQuickNoteMicroTasksType = false;
+			await AsyncEditQuickNote();
+			await _shareEventsService.ShareEventAsync(_currentQuickNote);
 		}
 	}
 }

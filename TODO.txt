@@ -15,6 +15,7 @@ make notifications for events
 languages radio buttons
 
 color for icons button
+consider refactoring quicknotes page to work with event page??
 
 +
 

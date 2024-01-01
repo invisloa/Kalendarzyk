@@ -31,7 +31,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		public override bool IsEditMode => _selectedCurrentEvent != null;
-		public IShareEvents ShareEventsService;
+		private IShareEvents _shareEventsService;	// made private not tested
 
 		public AsyncRelayCommand AsyncDeleteEventCommand
 		{
@@ -103,7 +103,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
-			ShareEventsService = Factory.CreateNewShareEventsService();
+			_shareEventsService = Factory.CreateNewShareEventsService();
 			// Set properties based on eventToEdit
 			_selectedCurrentEvent = eventToEdit;
 			OnUserEventTypeSelected(eventToEdit.EventType);
@@ -220,7 +220,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		private async Task AsyncShareEvent()
 		{
 			await AsyncEditEvent();
-			await ShareEventsService.ShareEventAsync(_selectedCurrentEvent);
+			await _shareEventsService.ShareEventAsync(_selectedCurrentEvent);
 		}
 		#endregion
 
