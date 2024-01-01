@@ -7,6 +7,7 @@ using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Models.EventModels;
+using System;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -126,6 +127,14 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task ClearData()
 		{
+			var action = await App.Current.MainPage.DisplayActionSheet("Delete all current data\nAre You sure??", "Cancel", null, "Restore default data");
+			switch (action)
+			{
+				case "Restore default data":
+					break;      // if ok continue code below
+				default:
+					return;     // if cancel or null stop this method
+			}
 			await _eventRepository.ClearAllEventsListAsync();
 			await _eventRepository.ClearAllSubEventTypesAsync();
 			await _eventRepository.ClearAllMainEventTypesAsync();
@@ -150,7 +159,14 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task ResetToDefaultData() // it checks for the events before the events are imported so when there are any events added they will be deleted
 		{
-
+			var action = await App.Current.MainPage.DisplayActionSheet("Delete all current data\nAre You sure??", "Cancel", null, "Restore default data");
+			switch (action)
+			{
+				case "Restore default data":
+					break;		// if ok continue code below
+				default:
+					return;		// if cancel or null stop this method
+			}
 			await ClearData();
 
 			await AddQuickNotesTypes();
