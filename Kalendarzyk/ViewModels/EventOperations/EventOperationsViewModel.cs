@@ -130,7 +130,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			// ADD EVENT MICROTASKS if IsMicroTaskType
 			if (_selectedCurrentEvent.EventType.IsMicroTaskType)
 			{
-				if (_selectedCurrentEvent.MicroTasksList == null)
+				if (_selectedCurrentEvent.MicroTasksList == null)	// TODO this is a temporary fix for null reference exception need to fix but no time now...
 				{
 					_selectedCurrentEvent.MicroTasksList = new List<MicroTaskModel>();
 				}

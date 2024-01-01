@@ -64,7 +64,7 @@
             </Grid>
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"
-                                         Margin="0, 10, 0, 0" />
+                                         Margin="10, 10, 10, 10" />
 
             
             <!--Main Event Types Custom Control-->
