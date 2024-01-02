@@ -1,8 +1,8 @@
 namespace Kalendarzyk.Views.CustomControls;
 
-public partial class UserTypeExtraOptions_EventCC : ContentView
+public partial class SubTypeExtraOptions_EventCC : ContentView
 {
-	public UserTypeExtraOptions_EventCC()
+	public SubTypeExtraOptions_EventCC()
 	{
 		InitializeComponent();
 	}

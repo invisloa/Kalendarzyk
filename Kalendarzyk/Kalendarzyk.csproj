@@ -205,10 +205,10 @@
 	  <MauiXaml Update="Views\CustomControls\TodayAndSelectedDateCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\UserTypeExtraOptions_EventCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\UserTypeExtraOptions_TypesCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\SubTypeExtraOptions_TypesCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EventPage.xaml">

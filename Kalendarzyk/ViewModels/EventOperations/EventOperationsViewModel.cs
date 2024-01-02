@@ -22,11 +22,11 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			get
 			{
-				return UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected;
+				return SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected;
 			}
 			set
 			{
-				UserTypeExtraOptionsHelper.IsDefaultEventTimespanSelected = value;
+				SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected = value;
 				OnPropertyChanged();
 			}
 		}
@@ -48,7 +48,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			get
 			{
-				return UserTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand;
+				return SubTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand;
 			}
 		}
 		public override string SubmitButtonText

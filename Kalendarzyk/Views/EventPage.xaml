@@ -66,7 +66,7 @@
             <customControls:DateStartEndCC/>
 
             <!--UserExtraControls Timespan Value MicroTasks-->
-            <customControls:UserTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
+            <customControls:SubTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>

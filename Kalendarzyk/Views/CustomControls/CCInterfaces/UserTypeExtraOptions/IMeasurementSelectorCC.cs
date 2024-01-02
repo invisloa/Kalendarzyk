@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions
+namespace Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions
 {
 
 	/// <summary>

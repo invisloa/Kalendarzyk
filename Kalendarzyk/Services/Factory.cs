@@ -6,7 +6,6 @@ using Kalendarzyk.Views.CustomControls;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls.CCHelperClass;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Kalendarzyk.Models;
@@ -83,9 +82,9 @@ namespace Kalendarzyk.Services
 			return new DefaultTimespanCCViewModel();
 		}
 
-		internal static IUserTypeExtraOptionsViewModel CreateNewUserTypeExtraOptionsHelperClass(bool isEditMode)
+		internal static ISubTypeExtraOptionsViewModel CreateNewSubTypeExtraOptionsHelperClass(bool isEditMode)
 		{
-			return new UserTypeExtraOptionsViewModel(isEditMode);
+			return new SubTypeExtraOptionsViewModel(isEditMode);
 		}
 
 		internal static MicroTasksCCAdapterVM CreateNewMicroTasksCCAdapter(List<MicroTaskModel> listToAddMiroTasks)

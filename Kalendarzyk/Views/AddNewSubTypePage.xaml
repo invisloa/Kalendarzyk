@@ -58,9 +58,9 @@
                 ItemsSource="{Binding ButtonsColorsOC}" 
                 BindingContext="{Binding}"
                 Command="{Binding SelectColorCommand}" />
-            <!--UserTypeExtraOptions_TypesCC-->
+            <!--SubTypeExtraOptions_TypesCC-->
 
-            <customControls:UserTypeExtraOptions_TypesCC Margin="5" />
+            <customControls:SubTypeExtraOptions_TypesCC Margin="5" />
 
 
             <!--Down of the screen buttons-->

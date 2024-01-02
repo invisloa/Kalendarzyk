@@ -103,10 +103,6 @@
         <StackLayout Grid.Row="5" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
             <Button Text="DELETE ABOVE EVENTS" Command="{Binding DeleteAboveEventsCommand}"
                     Style="{StaticResource DangerButtonStyle}"/>
-            <!--<Button Text="DELETE ALL EVENTS" Command="{Binding DeleteAllEventsCommand}"
-                    Style="{StaticResource DangerButtonStyle}"/>-->
-            <!--<Button Text="Delete Types" Command="{Binding DeleteAllUserTypesCommand}"
-                    Style="{StaticResource DangerButtonStyle}"/>-->
         </StackLayout>
 
     </Grid>

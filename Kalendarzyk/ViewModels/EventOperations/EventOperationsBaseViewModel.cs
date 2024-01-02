@@ -5,7 +5,7 @@ using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions;
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -40,7 +40,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 		ObservableCollection<MeasurementUnitItem> _allMeasurementUnitItems;
 
-		public IUserTypeExtraOptionsViewModel UserTypeExtraOptionsHelper { get; set; }
+		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }
 
 
 		private bool _isMicroTaskTypeSelected;
@@ -62,8 +62,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			_eventRepository = Factory.CreateNewEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
-			UserTypeExtraOptionsHelper = Factory.CreateNewUserTypeExtraOptionsHelperClass(false);
-			_allUserTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(false);
+			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
@@ -96,7 +96,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
 		protected AsyncRelayCommand _asyncSubmitEventCommand;
 		protected Color _mainEventTypeBackgroundColor;
-		protected List<ISubEventTypeModel> _allUserTypesForVisuals;
+		protected List<ISubEventTypeModel> _allSubTypesForVisuals;
 		protected ObservableCollection<ISubEventTypeModel> _eventTypesOC;
 		protected ObservableCollection<IGeneralEventModel> _allEventsListOC;
 		protected ISubEventTypeModel _selectedEventType;
@@ -141,15 +141,15 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private void FilterAllSubEventTypesOCByMainEventType(IMainEventType value)
 		{
-			var tempFilteredEventTypes = FilterUserTypesForVisuals(value);
+			var tempFilteredEventTypes = FilterSubTypesForVisuals(value);
 
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(tempFilteredEventTypes);
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
 
-		private List<ISubEventTypeModel> FilterUserTypesForVisuals(IMainEventType value)
+		private List<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
 		{
-			var x = _allUserTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
+			var x = _allSubTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
 			return x;
 		}
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC
@@ -362,13 +362,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected void OnUserEventTypeSelected(ISubEventTypeModel selectedEvent)
 		{
 			SelectedEventType = selectedEvent;
-			UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected = selectedEvent.IsMicroTaskType ? true : false;
-			if (UserTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
+			SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected = selectedEvent.IsMicroTaskType ? true : false;
+			if (SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
 			{
 				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
 			}
-			UserTypeExtraOptionsHelper.IsValueTypeSelected = selectedEvent.IsValueType ? true : false;
-			if (UserTypeExtraOptionsHelper.IsValueTypeSelected)
+			SubTypeExtraOptionsHelper.IsValueTypeSelected = selectedEvent.IsValueType ? true : false;
+			if (SubTypeExtraOptionsHelper.IsValueTypeSelected)
 			{
 				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
 				var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
@@ -383,9 +383,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
 			}
 			SetEndExactTimeAccordingToEventType();
-			SetVisualsForSelectedUserType();
+			SetVisualsForSelectedSubType();
 		}
-		protected void SetVisualsForSelectedUserType()
+		protected void SetVisualsForSelectedSubType()
 		{
 			foreach (var eventType in AllSubEventTypesOC)       // it sets colors in a different AllSubEventTypesOC then SelectedEventType is...
 			{

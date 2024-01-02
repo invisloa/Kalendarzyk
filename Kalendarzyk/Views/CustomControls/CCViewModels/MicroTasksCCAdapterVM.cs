@@ -1,6 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.ViewModels;
-using Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions;
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

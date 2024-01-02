@@ -1,5 +1,10 @@
 
+does event repository need this LoadEventsAndTypesFromFile and SaveEventsAndTypesToFile methods??? => some service for it???
+
 BUGS!!!!!!!!!!!
+SHARE EVENT HAS TO SHARE SUB EVENT AND MAIN EVENT DATA !!!
+
+
 Go to all events page in deleting subtypes page bug !!!
 Delete sybevent type bug when going to all subtypes page after deleting subtype
 no refresh after changes in subtype and going back to all subtypes page

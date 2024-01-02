@@ -1,6 +1,6 @@
 ﻿namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
-	public interface IUserTypeExtraOptionsViewModel
+	public interface ISubTypeExtraOptionsViewModel
 	{
 		bool IsDefaultEventTimespanSelected { get; set; }
 		Color IsDefaultTimespanColor { get; }

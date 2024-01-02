@@ -2,7 +2,7 @@
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
-using Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions;
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
-	internal class UserTypeExtraOptionsViewModel : BaseViewModel, IUserTypeExtraOptionsViewModel
+	internal class SubTypeExtraOptionsViewModel : BaseViewModel, ISubTypeExtraOptionsViewModel
 	{
-		public UserTypeExtraOptionsViewModel(bool isEditMode)
+		public SubTypeExtraOptionsViewModel(bool isEditMode)
 		{
 			IsEditMode = isEditMode;
 			ValueTypeClickCommand = new RelayCommand(() => IsValueTypeSelected = !IsValueTypeSelected);

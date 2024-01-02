@@ -22,7 +22,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		//MainEventTypesCC implementation
 		#region MainEventTypesCC implementation
 		protected IMainEventTypesCCViewModel _mainEventTypesCCHelper;
-		protected List<ISubEventTypeModel> _allUserTypesForVisuals;
+		protected List<ISubEventTypeModel> _allSubTypesForVisuals;
 
 		public IMainEventType SelectedMainEventType
 		{
@@ -36,13 +36,13 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		}
 		private void FilterAllSubEventTypesOCByMainEventType(IMainEventType value)
 		{
-			var tempFilteredEventTypes = FilterUserTypesForVisuals(value);
+			var tempFilteredEventTypes = FilterSubTypesForVisuals(value);
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(tempFilteredEventTypes);
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
-		private List<ISubEventTypeModel> FilterUserTypesForVisuals(IMainEventType value)
+		private List<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
 		{
-			return _allUserTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
+			return _allSubTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
 		}
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC
 		{
@@ -112,8 +112,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		#region Properties
 		public AsyncRelayCommand DeleteAboveEventsCommand { get; set; }
-		//public AsyncRelayCommand DeleteAllEventsCommand { get; set; }
-		//public AsyncRelayCommand DeleteAllUserTypesCommand { get; set; }
 		public AsyncRelayCommand SaveBelowEventsToFileCommand { get; set; }
 		public AsyncRelayCommand SaveAllEventsToFileCommand { get; set; }
 		public AsyncRelayCommand LoadEventsFromFileCommand { get; set; }
@@ -135,10 +133,8 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		// All Events MODE
 		public AllEventsViewModel() : base()
 		{
-			//DeleteAllEvents();
-			//DeleteAllUserTypes();
 			InitializeCommon();
-			_allUserTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelected);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 		}
@@ -160,8 +156,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			_filterDatesCCHelper.FilterDateFromChanged += OnFilterDateFromChanged;
 			_filterDatesCCHelper.FilterDateToChanged += OnFilterDateToChanged;
 			DeleteAboveEventsCommand = new AsyncRelayCommand(DeleteShownEvents);
-			//DeleteAllEventsCommand = new AsyncRelayCommand(DeleteShownEvents);
-			//DeleteAllUserTypesCommand = new AsyncRelayCommand(DeleteAllUserTypes);
 			SaveBelowEventsToFileCommand = new AsyncRelayCommand(OnSaveSelectedEventsAndTypesCommand);
 			SaveAllEventsToFileCommand = new AsyncRelayCommand(OnSaveEventsAndTypesCommand);
 			LoadEventsFromFileCommand = new AsyncRelayCommand(OnLoadEventsAndTypesCommand);
@@ -211,7 +205,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			}
 		}
 
-		public async Task DeleteAllUserTypes()
+		public async Task DeleteAllSubTypes()
 		{
 			try
 			{

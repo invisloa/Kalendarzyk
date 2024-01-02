@@ -3,7 +3,7 @@ using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.HelperClass;
-using Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions;
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;

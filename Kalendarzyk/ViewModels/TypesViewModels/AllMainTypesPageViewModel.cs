@@ -54,9 +54,9 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		#endregion
 
-		private void EditSelectedType(IMainEventType userTypeToEdit)
+		private void EditSelectedType(IMainEventType subTypeToEdit)
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new AddNewMainTypePage(userTypeToEdit));
+			Application.Current.MainPage.Navigation.PushAsync(new AddNewMainTypePage(subTypeToEdit));
 		}
 
 	}

@@ -12,7 +12,7 @@ namespace Kalendarzyk
 	{
 		private const string DefaultProgramName = "Kalendarzyk";
 		private const string DefaultJsonEventsFileName = "CalendarEventsD";
-		private const string DefaultJsonUserTypesFileName = "CalendarTypesOfEventsD";
+		private const string DefaultJsonSubTypesFileName = "CalendarTypesOfEventsD";
 
 		//statc mauiapp instance to use it for creating DI
 		public static MauiApp Current { get; private set; }

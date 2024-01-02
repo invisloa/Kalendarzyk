@@ -13,8 +13,6 @@ using System.Security.Cryptography;
 public class LocalMachineEventRepository : IEventRepository
 {
 	ILocalDataEncryptionService _aesService = Factory.CreateNewLocalDataEncryptionService();
-
-
 	// File Paths generation code
 	#region File Paths generation code
 	private static string _eventsFilePath = null;
@@ -66,7 +64,7 @@ public class LocalMachineEventRepository : IEventRepository
 
 	private static string CalculateSubEventsTypesFilePath()
 	{
-		return Path.Combine(FileSystem.Current.AppDataDirectory, Preferences.Default.Get("JsonUserTypesFileName", "CalendarSubTypesOfEventsD"));
+		return Path.Combine(FileSystem.Current.AppDataDirectory, Preferences.Default.Get("JsonSubTypesFileName", "CalendarSubTypesOfEventsD"));
 	}
 	private static string CalculateMainEventsTypesFilePath()
 	{
@@ -212,8 +210,8 @@ public class LocalMachineEventRepository : IEventRepository
 	#endregion
 
 
-	// UserTypes Repository
-	#region UserTypes Repository
+	// SubTypes Repository
+	#region SubTypes Repository
 	private List<ISubEventTypeModel> _allUserEventTypesList = new List<ISubEventTypeModel>();
 	public List<ISubEventTypeModel> AllUserEventTypesList
 	{
@@ -384,11 +382,13 @@ public class LocalMachineEventRepository : IEventRepository
 
 	//FILE SAVE AND LOAD EVENTS AND TYPES with encryption using _aesService
 	#region FILE SAVE AND LOAD
-	async Task SaveEventsAndTypesToFile(CancellationToken cancellationToken, List<IGeneralEventModel> eventsToSaveList = null)
+
+	// Method for creating JSON string from events data
+	public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList = null)
 	{
 		var settings = JsonSerializerSettings_All;
 		EventsAndTypesForJson eventsAndTypesToSave;
-		// if eventsToSaveList is null, save all events and types
+
 		if (eventsToSaveList == null)
 		{
 			eventsAndTypesToSave = new EventsAndTypesForJson()
@@ -422,11 +422,17 @@ public class LocalMachineEventRepository : IEventRepository
 			};
 		}
 
+		var jsonString = JsonConvert.SerializeObject(eventsAndTypesToSave, settings);
+		return _aesService.EncryptString(jsonString); // Encrypt the jsonString
+	}
+
+
+	async Task SaveEventsAndTypesToFile(CancellationToken cancellationToken, List<IGeneralEventModel> eventsToSaveList = null)
+	{
 		try
 		{
-			var jsonString = JsonConvert.SerializeObject(eventsAndTypesToSave, settings);
-			var encryptedString = _aesService.EncryptString(jsonString); // Encrypt the jsonString
-			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 or another Encoding as needed.
+			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
+			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
 
 			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.kics", stream, cancellationToken);
 			if (fileSaverResult.IsSuccessful)
@@ -443,11 +449,8 @@ public class LocalMachineEventRepository : IEventRepository
 			await Toast.Make($"The file was not saved successfully with error: {ex.Message}").Show(cancellationToken);
 		}
 	}
-
-
-	async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
+	public async Task<string> SelectAndReadFileAsync(CancellationToken cancellationToken)
 	{
-		var settings = JsonSerializerSettings_All;
 		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
 			{ DevicePlatform.WinUI, new[] { ".kics" } },
@@ -458,85 +461,204 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			FileTypes = customFileType
 		};
+
 		try
 		{
-			// Prompt the user to select the file
 			var filePickerResult = await FilePicker.PickAsync(pickOptions);
-
 			if (filePickerResult != null)
 			{
 				using var stream = await filePickerResult.OpenReadAsync();
 				using var reader = new StreamReader(stream, Encoding.Default); // Use consistent encoding
 				var encryptedString = await reader.ReadToEndAsync();
-				var jsonString = _aesService.DecryptString(encryptedString); // Decrypt the string
-
-				// Deserialize the content of the file
-				var loadedData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonString, settings);
-
-
-				foreach (var eventItem in loadedData.Events)
-				{
-					var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
-					if (!isEventAlreadyAdded)
-					{
-						AllEventsList.Add(eventItem);
-					}
-					else
-					{
-						// ask the user if he wants to overwrite the event
-						var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
-						switch (action)
-						{
-							case "Overwrite":
-								var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
-								if (eventToUpdate != null)
-								{
-									AllEventsList.Remove(eventToUpdate);
-									AllEventsList.Add(eventItem);
-								}
-								break;
-							case "Duplicate":
-								eventItem.Id = Guid.NewGuid();
-								eventItem.Title += " (.)";
-								AllEventsList.Add(eventItem);
-								break;
-							case "Skip":
-								// Do nothing, just skip.
-								break;
-							default:
-								// Cancel was selected or back button was pressed.
-								break;
-						}
-					}
-				}
-
-				foreach (var eventType in loadedData.UserEventTypes)
-				{
-					if (!AllUserEventTypesList.Contains(eventType))
-					{
-						AllUserEventTypesList.Add(eventType);
-					}
-					if (!AllMainEventTypesList.Contains(eventType.MainEventType))
-					{
-						AllMainEventTypesList.Add(eventType.MainEventType);
-					}
-				}
-
-				await Toast.Make($"Data loaded successfully from: {filePickerResult.FileName}").Show(cancellationToken);
-				await SaveEventsListAsync();
-				await SaveSubEventTypesListAsync();
-				await SaveMainEventTypesListAsync();
+				return _aesService.DecryptString(encryptedString); // Decrypt and return the string
 			}
 			else
 			{
 				await Toast.Make($"Failed to pick a file: User canceled file picking").Show(cancellationToken);
+				return null;
 			}
 		}
 		catch (Exception ex)
 		{
 			await Toast.Make($"An error occurred while loading the file: {ex.Message}").Show(cancellationToken);
+			return null;
 		}
 	}
+
+	// Method for processing the events data
+	public async Task ProcessEventDataAsync(string jsonData, CancellationToken cancellationToken)
+	{
+		if (string.IsNullOrWhiteSpace(jsonData))
+		{
+			await Toast.Make("No data to process").Show(cancellationToken);
+			return;
+		}
+
+		try
+		{
+			var settings = JsonSerializerSettings_All;
+			var loadedData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonData, settings);
+
+
+			foreach (var eventItem in loadedData.Events)
+			{
+				var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
+				if (!isEventAlreadyAdded)
+				{
+					AllEventsList.Add(eventItem);
+				}
+				else
+				{
+					// ask the user if he wants to overwrite the event
+					var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
+					switch (action)
+					{
+						case "Overwrite":
+							var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
+							if (eventToUpdate != null)
+							{
+								AllEventsList.Remove(eventToUpdate);
+								AllEventsList.Add(eventItem);
+							}
+							break;
+						case "Duplicate":
+							eventItem.Id = Guid.NewGuid();
+							eventItem.Title += " (.)";
+							AllEventsList.Add(eventItem);
+							break;
+						case "Skip":
+							// Do nothing, just skip.
+							break;
+						default:
+							// Cancel was selected or back button was pressed.
+							break;
+					}
+				}
+			}
+
+			foreach (var eventType in loadedData.UserEventTypes)
+			{
+				if (!AllUserEventTypesList.Contains(eventType))
+				{
+					AllUserEventTypesList.Add(eventType);
+				}
+				if (!AllMainEventTypesList.Contains(eventType.MainEventType))
+				{
+					AllMainEventTypesList.Add(eventType.MainEventType);
+				}
+			}
+
+
+			await Toast.Make($"Data loaded successfully").Show(cancellationToken);
+			await SaveEventsListAsync();
+			await SaveSubEventTypesListAsync();
+			await SaveMainEventTypesListAsync();
+		}
+		catch (Exception ex)
+		{
+			await Toast.Make($"An error occurred while processing the data: {ex.Message}").Show(cancellationToken);
+		}
+	}
+
+	// Original method refactored to use the new methods
+	public async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
+	{
+		var jsonData = await SelectAndReadFileAsync(cancellationToken);
+		await ProcessEventDataAsync(jsonData, cancellationToken);
+	}
+
+	//async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
+	//{
+	//	var settings = JsonSerializerSettings_All;
+	//	var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+	//	{
+	//		{ DevicePlatform.WinUI, new[] { ".kics" } },
+	//		{ DevicePlatform.Android, new[] { ".kics" } },
+	//		{ DevicePlatform.iOS, new[] { ".kics" } }
+	//	});
+	//	var pickOptions = new PickOptions
+	//	{
+	//		FileTypes = customFileType
+	//	};
+	//	try
+	//	{
+	//		// Prompt the user to select the file
+	//		var filePickerResult = await FilePicker.PickAsync(pickOptions);
+
+	//		if (filePickerResult != null)
+	//		{
+	//			using var stream = await filePickerResult.OpenReadAsync();
+	//			using var reader = new StreamReader(stream, Encoding.Default); // Use consistent encoding
+	//			var encryptedString = await reader.ReadToEndAsync();
+	//			var jsonString = _aesService.DecryptString(encryptedString); // Decrypt the string
+
+	//			// Deserialize the content of the file
+	//			var loadedData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonString, settings);
+
+
+	//			foreach (var eventItem in loadedData.Events)
+	//			{
+	//				var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
+	//				if (!isEventAlreadyAdded)
+	//				{
+	//					AllEventsList.Add(eventItem);
+	//				}
+	//				else
+	//				{
+	//					// ask the user if he wants to overwrite the event
+	//					var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
+	//					switch (action)
+	//					{
+	//						case "Overwrite":
+	//							var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
+	//							if (eventToUpdate != null)
+	//							{
+	//								AllEventsList.Remove(eventToUpdate);
+	//								AllEventsList.Add(eventItem);
+	//							}
+	//							break;
+	//						case "Duplicate":
+	//							eventItem.Id = Guid.NewGuid();
+	//							eventItem.Title += " (.)";
+	//							AllEventsList.Add(eventItem);
+	//							break;
+	//						case "Skip":
+	//							// Do nothing, just skip.
+	//							break;
+	//						default:
+	//							// Cancel was selected or back button was pressed.
+	//							break;
+	//					}
+	//				}
+	//			}
+
+	//			foreach (var eventType in loadedData.UserEventTypes)
+	//			{
+	//				if (!AllUserEventTypesList.Contains(eventType))
+	//				{
+	//					AllUserEventTypesList.Add(eventType);
+	//				}
+	//				if (!AllMainEventTypesList.Contains(eventType.MainEventType))
+	//				{
+	//					AllMainEventTypesList.Add(eventType.MainEventType);
+	//				}
+	//			}
+
+	//			await Toast.Make($"Data loaded successfully from: {filePickerResult.FileName}").Show(cancellationToken);
+	//			await SaveEventsListAsync();
+	//			await SaveSubEventTypesListAsync();
+	//			await SaveMainEventTypesListAsync();
+	//		}
+	//		else
+	//		{
+	//			await Toast.Make($"Failed to pick a file: User canceled file picking").Show(cancellationToken);
+	//		}
+	//	}
+	//	catch (Exception ex)
+	//	{
+	//		await Toast.Make($"An error occurred while loading the file: {ex.Message}").Show(cancellationToken);
+	//	}
+	//}
 
 	private static readonly JsonSerializerSettings JsonSerializerSettings_Auto = new JsonSerializerSettings
 	{
@@ -549,7 +671,6 @@ public class LocalMachineEventRepository : IEventRepository
 
 	public async Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSaveList = null)
 	{
-
 		await SaveEventsAndTypesToFile(CancellationToken.None, eventsToSaveList);
 	}
 	public async Task LoadEventsAndTypesFromFile()
