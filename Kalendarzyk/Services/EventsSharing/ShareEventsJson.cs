@@ -23,11 +23,8 @@ namespace Kalendarzyk.Services.EventsSharing
 
 			try
 			{
-				// Serialize the event to a JSON string
-				var eventJsonString = SerializeEventToJson(eventModel);
-
-				// Encrypt the JSON string
-				var encryptedEventJsonString = _aesService.EncryptString(eventJsonString);
+				// Serialize the event to a JSON string Encrypt the JSON string
+				var encryptedEventJsonString = _eventRepository.SerializeEventsToJson(new List<IGeneralEventModel> { eventModel });
 
 				var fileName = $"{eventModel.Title}.kics";      // kics stands for Kalendarzyk ICS (ICS is a file extension for iCalendar files) file format
 				var tempFilePath = GetTemporaryFilePath(fileName);
@@ -53,8 +50,14 @@ namespace Kalendarzyk.Services.EventsSharing
 			var decryptedJsonString = _aesService.DecryptString(jsonString);
 			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
 
-			// at this moment there is no eventrepository
-			// var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
+			// at this moment of the program creation there is no eventrepository so the below code is commented out
+			var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
+			if (eventExists)
+			{
+				await App.Current.MainPage.DisplayAlert("EventExists", "Event with this Id already exists", "XXX");
+				return;
+			}
+			_eventRepository.AddEventAsync(eventModel);
 
 			//just go to editeventpage
 

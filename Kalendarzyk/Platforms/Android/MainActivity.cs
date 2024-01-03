@@ -7,30 +7,46 @@ using Kalendarzyk.Services;
 
 namespace Kalendarzyk
 {
-	[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+	[Activity(Label = "FormSecondApp", Theme = "@style/MainTheme", MainLauncher = true, Exported = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[IntentFilter
+	(
+	new[] { Android.Content.Intent.ActionView, Android.Content.Intent.ActionSend },
+	Categories = new[]
+	   {
+			 Android.Content.Intent.CategoryDefault
+	   },
+
+	DataMimeType = "application/json"
+	)]
 	public class MainActivity : MauiAppCompatActivity
 	{
+
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			HandleIntent(Intent);
-		}
 
-		protected override void OnNewIntent(Intent intent)
-		{
-			base.OnNewIntent(intent);
-			HandleIntent(intent);
-		}
-		void HandleIntent(Intent intent)
-		{
-			if (intent?.Action == Intent.ActionView)
+			if (Intent?.Action == Android.Content.Intent.ActionOpenDocument)
 			{
-				var contentUri = intent.Data;
-				var fileContent = contentUri.ToString();
-				var shareEventsService = Factory.CreateNewShareEventsService();
-				shareEventsService.ImportEventAsync(fileContent);
+				Stream? inputStream = null;
+				var filePath = Intent?.ClipData?.GetItemAt(0);
+				if (filePath?.Uri != null)
+				{
+					inputStream = ContentResolver!.OpenInputStream(filePath.Uri)!;
+				}
+
+				if (inputStream != null)
+				{
+					using (var reader = new StreamReader(inputStream))
+					{
+						var content = reader.ReadToEnd();
+
+						// TODO HERE
+					}
+
+					inputStream.Close();
+					inputStream.Dispose();
+				}
 			}
 		}
 	}
-
 }

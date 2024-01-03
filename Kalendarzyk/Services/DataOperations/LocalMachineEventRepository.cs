@@ -384,7 +384,7 @@ public class LocalMachineEventRepository : IEventRepository
 	#region FILE SAVE AND LOAD
 
 	// Method for creating JSON string from events data
-	public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList = null)
+	public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList)
 	{
 		var settings = JsonSerializerSettings_All;
 		EventsAndTypesForJson eventsAndTypesToSave;
@@ -423,7 +423,7 @@ public class LocalMachineEventRepository : IEventRepository
 		}
 
 		var jsonString = JsonConvert.SerializeObject(eventsAndTypesToSave, settings);
-		return _aesService.EncryptString(jsonString); // Encrypt the jsonString
+		return _aesService.EncryptString(jsonString); // Encrypt and return the jsonString directly
 	}
 
 

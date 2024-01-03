@@ -2,6 +2,7 @@
 using Kalendarzyk.Services.EventsSharing;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
+using System.Windows.Forms;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -20,6 +21,7 @@ namespace Kalendarzyk.WinUI
 		/// </summary>
 		public App()
 		{
+			MessageBox.Show("App constructor");
 			this.InitializeComponent();
 		}
 
@@ -27,6 +29,8 @@ namespace Kalendarzyk.WinUI
 
 		protected override async void OnLaunched(LaunchActivatedEventArgs args)
 		{
+			MessageBox.Show("OnLaunched");
+
 			base.OnLaunched(args);
 
 			AppActivationArguments appActivationArguments = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
@@ -41,6 +45,8 @@ namespace Kalendarzyk.WinUI
 		}
 		private async Task HandleFileOpenAsync(Windows.ApplicationModel.Activation.FileActivatedEventArgs fileArgs)
 		{
+			MessageBox.Show("HandleFileOpenAsync");
+
 			// Assuming the file is the first one in the list
 			var file = fileArgs.Files[0] as Windows.Storage.StorageFile;
 			if (file != null)

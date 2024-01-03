@@ -37,13 +37,14 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
-		<AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
 		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
 		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
-		<AppInstallerUri>F:\Kalendarzyk\</AppInstallerUri>
+		<AppInstallerUri>F:\Kale</AppInstallerUri>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<PackageCertificateThumbprint>190FDDE8C7617AD6CD51EBA58D7C4CC25CF519C9</PackageCertificateThumbprint>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -95,6 +96,8 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		
+		
 	</ItemGroup>
 
 	<ItemGroup>
@@ -242,5 +245,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<AppExtension Include=".kics">
+			<ContentType>Text</ContentType>
+			<RequestAccess>true</RequestAccess>
+		</AppExtension>
+	</ItemGroup>
+	
 </Project>

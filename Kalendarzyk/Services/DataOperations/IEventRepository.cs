@@ -7,7 +7,6 @@ namespace Kalendarzyk.Services.DataOperations
 	{
 		public event Action OnEventListChanged;
 		public event Action OnUserEventTypeListChanged;
-
 		Task AddEventAsync(IGeneralEventModel eventToAdd);
 		Task AddSubEventTypeAsync(ISubEventTypeModel eventTypeToAdd);
 		Task AddMainEventTypeAsync(IMainEventType eventTypeToAdd);
@@ -25,7 +24,7 @@ namespace Kalendarzyk.Services.DataOperations
 
 		Task<ISubEventTypeModel> GetSubEventTypeAsync(ISubEventTypeModel eventTypeToSelect);
 		Task<IMainEventType> GetMainEventTypeAsync(IMainEventType eventTypeToSelect);
-
+		string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList);
 		Task ClearAllEventsListAsync();
 		Task ClearAllSubEventTypesAsync();
 		Task ClearAllMainEventTypesAsync();

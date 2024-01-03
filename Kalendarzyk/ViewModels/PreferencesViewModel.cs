@@ -127,10 +127,10 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task ClearData()
 		{
-			var action = await App.Current.MainPage.DisplayActionSheet("Delete all current data\nAre You sure??", "Cancel", null, "Restore default data");
+			var action = await App.Current.MainPage.DisplayActionSheet("Delete all current data\nAre You sure??", "Cancel", null, "Clear all data");
 			switch (action)
 			{
-				case "Restore default data":
+				case "Clear all data":
 					break;      // if ok continue code below
 				default:
 					return;     // if cancel or null stop this method
@@ -167,8 +167,9 @@ namespace Kalendarzyk.ViewModels
 				default:
 					return;		// if cancel or null stop this method
 			}
-			await ClearData();
-
+			await _eventRepository.ClearAllEventsListAsync();
+			await _eventRepository.ClearAllSubEventTypesAsync();
+			await _eventRepository.ClearAllMainEventTypesAsync();
 			await AddQuickNotesTypes();
 
 			//DummyData
