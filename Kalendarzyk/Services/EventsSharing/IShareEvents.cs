@@ -2,7 +2,7 @@
 
 namespace Kalendarzyk.Services.EventsSharing
 {
-	public interface IShareEvents
+	public interface IShareEventsService
 	{
 		public Task ImportEventAsync(string jsonString);
 		public Task ShareEventAsync(IGeneralEventModel eventModel);

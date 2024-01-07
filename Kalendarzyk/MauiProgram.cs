@@ -35,7 +35,7 @@ namespace Kalendarzyk
 				});
 
 			// Interfaces DI Dependency Injection for events repository
-			builder.Services.AddScoped<IShareEvents, ShareEventsJson>();
+			builder.Services.AddScoped<IShareEventsService, ShareEventsJson>();
 
 			// ViewModels register
 			// AddSingleton - one instance for all timne

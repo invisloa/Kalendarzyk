@@ -26,7 +26,7 @@ namespace Kalendarzyk.ViewModels
 		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
-		private IShareEvents _shareEventsService;
+		private IShareEventsService _shareEventsService;
 		
 		public bool IsModified;
 

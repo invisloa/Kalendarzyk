@@ -62,7 +62,7 @@
                                 Grid.Column="1"
                                 >
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.SelectEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                <TapGestureRecognizer Command="{Binding BindingContext.GoToEditEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                                      CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <Grid>

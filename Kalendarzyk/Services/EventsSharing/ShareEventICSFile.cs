@@ -2,7 +2,7 @@
 
 namespace Kalendarzyk.Services.EventsSharing
 {
-	internal class ShareEventICSFile : IShareEvents
+	internal class ShareEventICSFile : IShareEventsService
 	{
 		public Task ImportEventAsync(string jsonString)
 		{

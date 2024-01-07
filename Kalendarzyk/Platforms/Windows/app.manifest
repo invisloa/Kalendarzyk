@@ -11,14 +11,6 @@
       <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true/PM</dpiAware>
       <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitorV2, PerMonitor</dpiAwareness>
     </windowsSettings>
-
-	  <uap:Extension Category="windows.fileTypeAssociation">
-		  <uap:FileTypeAssociation Name="kics">
-			  <uap:SupportedFileTypes>
-				  <uap:FileType>.kics</uap:FileType>
-			  </uap:SupportedFileTypes>
-		  </uap:FileTypeAssociation>
-	  </uap:Extension>
 	  
   </application>
 </assembly>

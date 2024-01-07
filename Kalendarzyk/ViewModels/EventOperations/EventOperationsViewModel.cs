@@ -11,7 +11,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	class EventOperationsViewModel : EventOperationsBaseViewModel
 	{
 		#region Fields
-		private IShareEvents _shareEvents;
+		private IShareEventsService _shareEvents;
 		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _asyncShareEventCommand;
 		#endregion
@@ -31,7 +31,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		public override bool IsEditMode => _selectedCurrentEvent != null;
-		private IShareEvents _shareEventsService;	// made private not tested
+		private IShareEventsService _shareEventsService;	// made private not tested
 
 		public AsyncRelayCommand AsyncDeleteEventCommand
 		{

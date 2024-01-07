@@ -1,10 +1,11 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Views;
 using Newtonsoft.Json;
 
 namespace Kalendarzyk.Services.EventsSharing
 {
-	public class ShareEventsJson : IShareEvents
+	public class ShareEventsJson : IShareEventsService
 	{
 		ILocalDataEncryptionService _aesService = Factory.CreateNewLocalDataEncryptionService();
 
@@ -26,7 +27,7 @@ namespace Kalendarzyk.Services.EventsSharing
 				// Serialize the event to a JSON string Encrypt the JSON string
 				var encryptedEventJsonString = _eventRepository.SerializeEventsToJson(new List<IGeneralEventModel> { eventModel });
 
-				var fileName = $"{eventModel.Title}.kics";      // kics stands for Kalendarzyk ICS (ICS is a file extension for iCalendar files) file format
+				var fileName = $"{eventModel.Title}.json";      // kics stands for Kalendarzyk ICS (ICS is a file extension for iCalendar files) file format
 				var tempFilePath = GetTemporaryFilePath(fileName);
 
 				// Write the encrypted data to the temporary file
@@ -48,20 +49,24 @@ namespace Kalendarzyk.Services.EventsSharing
 		public async Task ImportEventAsync(string jsonString)
 		{
 			var decryptedJsonString = _aesService.DecryptString(jsonString);
-			var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
+			var addedEvent = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
+			await _eventRepository.AddEventAsync(addedEvent);
 
-			// at this moment of the program creation there is no eventrepository so the below code is commented out
-			var eventExists = await _eventRepository.GetEventByIdAsync(eventModel.Id) != null;
-			if (eventExists)
-			{
-				await App.Current.MainPage.DisplayAlert("EventExists", "Event with this Id already exists", "XXX");
-				return;
-			}
-			_eventRepository.AddEventAsync(eventModel);
+			await Application.Current.MainPage.Navigation.PushAsync(new EventPage(addedEvent));
 
-			//just go to editeventpage
 
-			await Shell.Current.GoToAsync("..");
+			//// at this moment of the program creation there is no eventrepository so the below code is commented out
+			//var eventExists = await _eventRepository.GetEventByIdAsync(addedEvent.Id) != null;
+			//if (eventExists)
+			//{
+			//	await App.Current.MainPage.DisplayAlert("EventExists", "Event with this Id already exists", "XXX");
+			//	return;
+			//}
+			//_eventRepository.AddEventAsync(addedEvent);
+
+			////just go to editeventpage
+
+			//await Shell.Current.GoToAsync("..");
 
 
 		}

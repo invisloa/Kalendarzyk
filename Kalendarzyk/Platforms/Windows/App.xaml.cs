@@ -14,7 +14,7 @@ namespace Kalendarzyk.WinUI
 	/// </summary>
 	public partial class App : MauiWinUIApplication
 	{
-		IShareEvents _shareEventsService = Factory.CreateNewShareEventsService();
+		IShareEventsService _shareEventsService = Factory.CreateNewShareEventsService();
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
 		/// executed, and as such is the logical equivalent of main() or WinMain().

@@ -20,7 +20,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		private ObservableCollection<ISubEventTypeModel> _AllSubEventTypesOC;
 		private ObservableCollection<IGeneralEventModel> _eventsToShowList = new ObservableCollection<IGeneralEventModel>();
 		private RelayCommand<ISubEventTypeModel> _selectUserEventTypeCommand;
-		private RelayCommand<IGeneralEventModel> _selectEventCommand;
+		private RelayCommand<IGeneralEventModel> _goToEditEventCommand;
 		private RelayCommand _goToAddNewSubTypePageCommand;
 
 		protected Color _deselectedUserEventTypeColor;
@@ -78,7 +78,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		}
 		public RelayCommand GoToAddNewSubTypePageCommand => _goToAddNewSubTypePageCommand ?? (_goToAddNewSubTypePageCommand = new RelayCommand(GoToAddNewSubTypePage));
 
-		public RelayCommand<IGeneralEventModel> SelectEventCommand => _selectEventCommand ?? (_selectEventCommand = new RelayCommand<IGeneralEventModel>(SelectEvent));
+		public RelayCommand<IGeneralEventModel> GoToEditEventCommand => _goToEditEventCommand ?? (_goToEditEventCommand = new RelayCommand<IGeneralEventModel>(OnGoToEditEventCommand));
 
 		#endregion
 
@@ -141,7 +141,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			BindDataToScheduleList();
 		}
 
-		private void SelectEvent(IGeneralEventModel selectedEvent)
+		private void OnGoToEditEventCommand(IGeneralEventModel selectedEvent)
 		{
 			Application.Current.MainPage.Navigation.PushAsync(new EventPage(selectedEvent));
 		}

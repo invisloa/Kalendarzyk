@@ -111,7 +111,7 @@ namespace Kalendarzyk.Services
 		{
 			return new IsCompletedCCViewModel();
 		}
-		internal static IShareEvents CreateNewShareEventsService()
+		internal static IShareEventsService CreateNewShareEventsService()
 		{
 			return new ShareEventsJson(CreateNewEventRepository());
 		}

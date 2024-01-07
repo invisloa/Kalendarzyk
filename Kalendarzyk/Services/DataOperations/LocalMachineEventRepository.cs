@@ -240,7 +240,7 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
 	{
-		// C:\Users\invis\AppData\Local\Packages\com.companyname.Kalendarzyk_9zz4h110yvjzm\LocalState
+		// C:\Users\invis\AppData\Local\Packages\com.jolovCompany.Kalendarzyk_9zz4h110yvjzm\LocalState
 		if (File.Exists(MainEventsTypesFilePath))
 		{
 			var jsonString = await File.ReadAllTextAsync(MainEventsTypesFilePath);
@@ -434,7 +434,7 @@ public class LocalMachineEventRepository : IEventRepository
 			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
 			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
 
-			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.kics", stream, cancellationToken);
+			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.json", stream, cancellationToken);
 			if (fileSaverResult.IsSuccessful)
 			{
 				await Toast.Make($"The file was saved successfully to location: {fileSaverResult.FilePath}").Show(cancellationToken);
@@ -453,9 +453,9 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
-			{ DevicePlatform.WinUI, new[] { ".kics" } },
-			{ DevicePlatform.Android, new[] { ".kics" } },
-			{ DevicePlatform.iOS, new[] { ".kics" } }
+			{ DevicePlatform.WinUI, new[] { ".json" } },
+			{ DevicePlatform.Android, new[] { ".json" } },
+			{ DevicePlatform.iOS, new[] { ".json" } }
 		});
 		var pickOptions = new PickOptions
 		{

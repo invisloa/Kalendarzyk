@@ -28,7 +28,7 @@
                 x:Name="monthlyEventsControl"
                 AllEventsList="{Binding AllEventsListOC}" 
                 CurrentSelectedDate="{Binding CurrentSelectedDate}"
-                EventSelectedCommand="{Binding SelectEventCommand}" 
+                EventSelectedCommand="{Binding GoToEditEventCommand}" 
                 EventsToShowList="{Binding EventsToShowList, Mode=TwoWay}"
                 GoToSelectedDateCommand="{Binding GoToSelectedDateCommand}"    
                 />

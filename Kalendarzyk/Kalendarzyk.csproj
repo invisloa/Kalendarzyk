@@ -24,7 +24,7 @@
 		<ApplicationTitle>Kalendarzyk</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.kalendarzyk</ApplicationId>
+		<ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -50,34 +50,42 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationIdGuid>8712f8d4-b93e-7a1c-56f0-248e9d7b586a</ApplicationIdGuid>
+	  <ApplicationId>com.jolovCompany.kalendarzyk</ApplicationId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -244,13 +252,6 @@
 	  <MauiXaml Update="Views\WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-	
-	<ItemGroup>
-		<AppExtension Include=".kics">
-			<ContentType>Text</ContentType>
-			<RequestAccess>true</RequestAccess>
-		</AppExtension>
 	</ItemGroup>
 	
 </Project>
