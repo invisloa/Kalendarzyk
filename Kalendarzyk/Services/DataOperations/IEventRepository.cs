@@ -42,7 +42,7 @@ namespace Kalendarzyk.Services.DataOperations
 		Task LoadEventsAndTypesFromFile();
 		Task InitializeAsync();
 		void InitializeData();
-
+		Task LoadEventsFromJson(string jsonData);
 	}
 }
 

@@ -4,7 +4,7 @@ namespace Kalendarzyk.Services.EventsSharing
 {
 	internal class ShareEventICSFile : IShareEventsService
 	{
-		public Task ImportEventAsync(string jsonString)
+		public Task ImportEventsAsync(string jsonString)
 		{
 			throw new NotImplementedException();
 		}

@@ -46,15 +46,30 @@ namespace Kalendarzyk.Services.EventsSharing
 			}
 		}
 
-		public async Task ImportEventAsync(string jsonString)
+		public async Task ImportEventsAsync(string jsonString)
 		{
-			var decryptedJsonString = _aesService.DecryptString(jsonString);
-			var addedEvent = JsonConvert.DeserializeObject<IGeneralEventModel>(decryptedJsonString);
-			await _eventRepository.AddEventAsync(addedEvent);
+			try
+			{
+				var decryptedJsonString = _aesService.DecryptString(jsonString);
+				_eventRepository.LoadEventsFromJson(decryptedJsonString);
 
-			await Application.Current.MainPage.Navigation.PushAsync(new EventPage(addedEvent));
+				// Assuming your MainPage is a NavigationPage
+				if (Application.Current.MainPage is NavigationPage navigationPage)
+				{
+					await navigationPage.PushAsync(new EventPage());
+				}
+				else
+				{
+					await Shell.Current.GoToAsync("///eventpage");
 
-
+					// Handle the case where MainPage is not a NavigationPage.
+					// You may want to display an error message or handle this differently.
+				}
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("ImportEventError", $"{ex}", "XXX");
+			}
 			//// at this moment of the program creation there is no eventrepository so the below code is commented out
 			//var eventExists = await _eventRepository.GetEventByIdAsync(addedEvent.Id) != null;
 			//if (eventExists)

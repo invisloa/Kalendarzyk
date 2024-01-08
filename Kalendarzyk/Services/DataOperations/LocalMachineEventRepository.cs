@@ -451,10 +451,11 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public async Task<string> SelectAndReadFileAsync(CancellationToken cancellationToken)
 	{
+
 		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
 			{ DevicePlatform.WinUI, new[] { ".json" } },
-			{ DevicePlatform.Android, new[] { ".json" } },
+			{ DevicePlatform.Android, new[] { "application/json" } },
 			{ DevicePlatform.iOS, new[] { ".json" } }
 		});
 		var pickOptions = new PickOptions
@@ -486,14 +487,8 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 
 	// Method for processing the events data
-	public async Task ProcessEventDataAsync(string jsonData, CancellationToken cancellationToken)
+	public async Task LoadEventsFromJson(string jsonData)
 	{
-		if (string.IsNullOrWhiteSpace(jsonData))
-		{
-			await Toast.Make("No data to process").Show(cancellationToken);
-			return;
-		}
-
 		try
 		{
 			var settings = JsonSerializerSettings_All;
@@ -547,16 +542,13 @@ public class LocalMachineEventRepository : IEventRepository
 					AllMainEventTypesList.Add(eventType.MainEventType);
 				}
 			}
-
-
-			await Toast.Make($"Data loaded successfully").Show(cancellationToken);
 			await SaveEventsListAsync();
 			await SaveSubEventTypesListAsync();
 			await SaveMainEventTypesListAsync();
 		}
 		catch (Exception ex)
 		{
-			await Toast.Make($"An error occurred while processing the data: {ex.Message}").Show(cancellationToken);
+			// TODO MESSAGE WAS Before => await Toast.Make($"An error occurred while processing the data: {ex.Message}").Show(cancellationToken);
 		}
 	}
 
@@ -564,7 +556,7 @@ public class LocalMachineEventRepository : IEventRepository
 	public async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
 	{
 		var jsonData = await SelectAndReadFileAsync(cancellationToken);
-		await ProcessEventDataAsync(jsonData, cancellationToken);
+		await LoadEventsFromJson(jsonData);
 	}
 
 	//async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)

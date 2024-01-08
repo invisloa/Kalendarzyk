@@ -54,7 +54,7 @@ namespace Kalendarzyk.WinUI
 				// Read the file's content
 				string fileContent = await Windows.Storage.FileIO.ReadTextAsync(file);
 
-				await _shareEventsService.ImportEventAsync(fileContent);
+				await _shareEventsService.ImportEventsAsync(fileContent);
 			}
 		}
 	}
