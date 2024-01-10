@@ -9,6 +9,7 @@ using CommunityToolkit.Maui.Alerts;
 using Kalendarzyk;
 using Kalendarzyk.Services;
 using System.Security.Cryptography;
+using Kalendarzyk.Views;
 
 public class LocalMachineEventRepository : IEventRepository
 {
@@ -18,6 +19,7 @@ public class LocalMachineEventRepository : IEventRepository
 	private static string _eventsFilePath = null;
 	private static string _subEventsTypesFilePath = null;
 	private static string _mainEventsTypesFilePath = null;
+	private EventsAndTypesForJson _deserializedEventsAndTypesdData;
 
 	public event Action OnEventListChanged;
 	public event Action OnMainEventTypesListChanged;    // TODO - implement
@@ -179,7 +181,6 @@ public class LocalMachineEventRepository : IEventRepository
 		}
 		return AllEventsList;
 	}
-
 	public async Task SaveEventsListAsync()
 	{
 		try
@@ -225,12 +226,6 @@ public class LocalMachineEventRepository : IEventRepository
 			_allUserEventTypesList = value;
 			OnUserEventTypeListChanged?.Invoke();
 		}
-	}
-	public void InitializeData()
-	{
-		AllEventsList =  GetEventsListAsync().Result;
-		AllUserEventTypesList = GetSubEventTypesListAsync().Result;
-		AllMainEventTypesList = GetMainEventTypesListAsync().Result;
 	}
 	public async Task InitializeAsync()
 	{
@@ -491,64 +486,143 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		try
 		{
-			var settings = JsonSerializerSettings_All;
-			var loadedData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonData, settings);
-
-
-			foreach (var eventItem in loadedData.Events)
+			if (string.IsNullOrEmpty(jsonData))
 			{
-				var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
-				if (!isEventAlreadyAdded)
-				{
-					AllEventsList.Add(eventItem);
-				}
-				else
-				{
-					// ask the user if he wants to overwrite the event
-					var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
-					switch (action)
-					{
-						case "Overwrite":
-							var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
-							if (eventToUpdate != null)
-							{
-								AllEventsList.Remove(eventToUpdate);
-								AllEventsList.Add(eventItem);
-							}
-							break;
-						case "Duplicate":
-							eventItem.Id = Guid.NewGuid();
-							eventItem.Title += " (.)";
-							AllEventsList.Add(eventItem);
-							break;
-						case "Skip":
-							// Do nothing, just skip.
-							break;
-						default:
-							// Cancel was selected or back button was pressed.
-							break;
-					}
-				}
+				await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"jsonData is null or empty", "XXX");
+				return;
 			}
 
-			foreach (var eventType in loadedData.UserEventTypes)
-			{
-				if (!AllUserEventTypesList.Contains(eventType))
-				{
-					AllUserEventTypesList.Add(eventType);
-				}
-				if (!AllMainEventTypesList.Contains(eventType.MainEventType))
-				{
-					AllMainEventTypesList.Add(eventType.MainEventType);
-				}
-			}
-			await SaveEventsListAsync();
-			await SaveSubEventTypesListAsync();
-			await SaveMainEventTypesListAsync();
+			DeserializeAndLoadEvents(jsonData);
 		}
 		catch (Exception ex)
 		{
-			// TODO MESSAGE WAS Before => await Toast.Make($"An error occurred while processing the data: {ex.Message}").Show(cancellationToken);
+			await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"{ex}", "XXX");
+		}
+	}
+
+	private async Task DeserializeAndLoadEvents(string decryptedJsonData)
+	{
+		var settings = JsonSerializerSettings_All;
+		_deserializedEventsAndTypesdData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(decryptedJsonData, settings);
+
+		// before adding event there has to be its main and sub type added
+		ImportMainAndSubEventTypes();       // for now just import all main and sub event types without asking the user
+
+
+		if (_deserializedEventsAndTypesdData.Events.Count > 1)
+		{
+		await LoadMultipleEventsFromJson();
+		}
+		else
+		{
+			await LoadSingleEventFromJson();
+		}
+	}
+
+	private async Task LoadMultipleEventsFromJson()
+	{
+		
+		foreach (var eventItem in _deserializedEventsAndTypesdData.Events)
+		{
+			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
+			if (!isEventAlreadyAdded)
+			{
+				AllEventsList.Add(eventItem);
+			}
+			else
+			{
+				// ask the user if he wants to overwrite the event
+				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit shared event");
+				switch (action)
+				{
+					case "Overwrite":
+						var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
+						if (eventToUpdate != null)
+						{
+							AllEventsList.Remove(eventToUpdate);
+							AllEventsList.Add(eventItem);
+						}
+						break;
+					case "Duplicate":
+						eventItem.Id = Guid.NewGuid();
+						eventItem.Title += " (.)";
+						AllEventsList.Add(eventItem);
+						break;
+					case "Edit shared event":
+
+					// TODO NOW	await Shell.Current.GoToAsync($"///eventpage?data={Uri.EscapeDataString(decryptedJsonData)}");
+
+						break;
+					case "Skip":
+						// Do nothing, just skip.
+						break;
+					default:
+						// Cancel was selected or back button was pressed.
+						break;
+				}
+			}
+		}
+		await SaveEventsListAsync();
+		await SaveSubEventTypesListAsync();
+		await SaveMainEventTypesListAsync();
+	}
+		private async Task LoadSingleEventFromJson()
+		{
+			var eventItem = _deserializedEventsAndTypesdData.Events[0];
+			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
+			if (!isEventAlreadyAdded)
+			{
+			try
+			{
+				Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
+
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("LoadSingleEventFromJsonError", $"{ex}", "XXX");
+			}
+			}
+			else
+			{
+				// ask the user if he wants to overwrite the event
+				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
+				switch (action)
+				{
+					case "Overwrite":
+						var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
+						if (eventToUpdate != null)
+						{
+							AllEventsList.Remove(eventToUpdate);
+							AllEventsList.Add(eventItem);
+						}
+						break;
+					case "Duplicate":
+						eventItem.Id = Guid.NewGuid();
+						eventItem.Title += " (.)";
+						AllEventsList.Add(eventItem);
+						break;
+					case "Skip":
+						// Do nothing, just skip.
+						break;
+					default:
+						// Cancel was selected or back button was pressed.
+						break;
+				}
+			}
+		}
+	private void ImportMainAndSubEventTypes()
+	{       // for now just import all main and sub event types without asking the user
+
+		foreach (var eventType in _deserializedEventsAndTypesdData.UserEventTypes)
+		{
+			if (!AllUserEventTypesList.Contains(eventType))
+			{
+				AllUserEventTypesList.Add(eventType);
+			}
+			if (!AllMainEventTypesList.Contains(eventType.MainEventType))
+			{
+				AllMainEventTypesList.Add(eventType.MainEventType);
+			}
 		}
 	}
 
@@ -558,99 +632,6 @@ public class LocalMachineEventRepository : IEventRepository
 		var jsonData = await SelectAndReadFileAsync(cancellationToken);
 		await LoadEventsFromJson(jsonData);
 	}
-
-	//async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
-	//{
-	//	var settings = JsonSerializerSettings_All;
-	//	var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-	//	{
-	//		{ DevicePlatform.WinUI, new[] { ".kics" } },
-	//		{ DevicePlatform.Android, new[] { ".kics" } },
-	//		{ DevicePlatform.iOS, new[] { ".kics" } }
-	//	});
-	//	var pickOptions = new PickOptions
-	//	{
-	//		FileTypes = customFileType
-	//	};
-	//	try
-	//	{
-	//		// Prompt the user to select the file
-	//		var filePickerResult = await FilePicker.PickAsync(pickOptions);
-
-	//		if (filePickerResult != null)
-	//		{
-	//			using var stream = await filePickerResult.OpenReadAsync();
-	//			using var reader = new StreamReader(stream, Encoding.Default); // Use consistent encoding
-	//			var encryptedString = await reader.ReadToEndAsync();
-	//			var jsonString = _aesService.DecryptString(encryptedString); // Decrypt the string
-
-	//			// Deserialize the content of the file
-	//			var loadedData = JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonString, settings);
-
-
-	//			foreach (var eventItem in loadedData.Events)
-	//			{
-	//				var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
-	//				if (!isEventAlreadyAdded)
-	//				{
-	//					AllEventsList.Add(eventItem);
-	//				}
-	//				else
-	//				{
-	//					// ask the user if he wants to overwrite the event
-	//					var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Skip");
-	//					switch (action)
-	//					{
-	//						case "Overwrite":
-	//							var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
-	//							if (eventToUpdate != null)
-	//							{
-	//								AllEventsList.Remove(eventToUpdate);
-	//								AllEventsList.Add(eventItem);
-	//							}
-	//							break;
-	//						case "Duplicate":
-	//							eventItem.Id = Guid.NewGuid();
-	//							eventItem.Title += " (.)";
-	//							AllEventsList.Add(eventItem);
-	//							break;
-	//						case "Skip":
-	//							// Do nothing, just skip.
-	//							break;
-	//						default:
-	//							// Cancel was selected or back button was pressed.
-	//							break;
-	//					}
-	//				}
-	//			}
-
-	//			foreach (var eventType in loadedData.UserEventTypes)
-	//			{
-	//				if (!AllUserEventTypesList.Contains(eventType))
-	//				{
-	//					AllUserEventTypesList.Add(eventType);
-	//				}
-	//				if (!AllMainEventTypesList.Contains(eventType.MainEventType))
-	//				{
-	//					AllMainEventTypesList.Add(eventType.MainEventType);
-	//				}
-	//			}
-
-	//			await Toast.Make($"Data loaded successfully from: {filePickerResult.FileName}").Show(cancellationToken);
-	//			await SaveEventsListAsync();
-	//			await SaveSubEventTypesListAsync();
-	//			await SaveMainEventTypesListAsync();
-	//		}
-	//		else
-	//		{
-	//			await Toast.Make($"Failed to pick a file: User canceled file picking").Show(cancellationToken);
-	//		}
-	//	}
-	//	catch (Exception ex)
-	//	{
-	//		await Toast.Make($"An error occurred while loading the file: {ex.Message}").Show(cancellationToken);
-	//	}
-	//}
 
 	private static readonly JsonSerializerSettings JsonSerializerSettings_Auto = new JsonSerializerSettings
 	{

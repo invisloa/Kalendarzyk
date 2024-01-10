@@ -12,6 +12,8 @@ BUGS!!!!!!!!!!!
 
 
 
+when sharing an event there might be some problem with microtasks. for example when i have a shopping list add some items to it and share with my wife, she adds 2 items and i add  one item meanwhile, and she shares me the event back -- what will happen with my added item?? 
+
 +
 user selected event types for main page??
 Today with red color frame

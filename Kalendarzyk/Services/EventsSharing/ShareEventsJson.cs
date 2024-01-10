@@ -2,6 +2,7 @@
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
 using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Kalendarzyk.Services.EventsSharing
 {
@@ -60,7 +61,9 @@ namespace Kalendarzyk.Services.EventsSharing
 				}
 				else
 				{
-					await Shell.Current.GoToAsync("///eventpage");
+					// TODO NOW await Shell.Current.GoToAsync($"///eventpage?data={Uri.EscapeDataString(decryptedJsonString)}");
+					//await Shell.Current.GoToAsync("///eventpage");
+
 
 					// Handle the case where MainPage is not a NavigationPage.
 					// You may want to display an error message or handle this differently.
@@ -70,20 +73,6 @@ namespace Kalendarzyk.Services.EventsSharing
 			{
 				await App.Current.MainPage.DisplayAlert("ImportEventError", $"{ex}", "XXX");
 			}
-			//// at this moment of the program creation there is no eventrepository so the below code is commented out
-			//var eventExists = await _eventRepository.GetEventByIdAsync(addedEvent.Id) != null;
-			//if (eventExists)
-			//{
-			//	await App.Current.MainPage.DisplayAlert("EventExists", "Event with this Id already exists", "XXX");
-			//	return;
-			//}
-			//_eventRepository.AddEventAsync(addedEvent);
-
-			////just go to editeventpage
-
-			//await Shell.Current.GoToAsync("..");
-
-
 		}
 		public string GetTemporaryFilePath(string fileName)
 		{
