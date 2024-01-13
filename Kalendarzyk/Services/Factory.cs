@@ -115,5 +115,20 @@ namespace Kalendarzyk.Services
 		{
 			return new ShareEventsJson(CreateNewEventRepository());
 		}
+
+		internal static ILocalFilePathService CreateNewLocalFilePathService()
+		{
+			return new LocalFilePathService();
+		}
+
+		internal static IEventJsonSerializer CreateNewEventJsonSerializer()
+		{
+			return new EventJsonSerializer(CreateNewLocalDataEncryptionService());
+		}
+
+		internal static IFileStorageService CreateNewFileStorageService()
+		{
+			return new FileStorageService();
+		}
 	}
 }

@@ -51,8 +51,8 @@ namespace Kalendarzyk.Services.EventsSharing
 		{
 			try
 			{
-				var decryptedJsonString = _aesService.DecryptString(jsonString);
-				_eventRepository.LoadEventsFromJson(decryptedJsonString);
+				
+				_eventRepository.LoadEventsFromJson(jsonString);
 
 				// Assuming your MainPage is a NavigationPage
 				if (Application.Current.MainPage is NavigationPage navigationPage)
