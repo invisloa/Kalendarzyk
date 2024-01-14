@@ -9,7 +9,6 @@
     Background="{DynamicResource MainBackgroundDarkerColor}"
     >
     <!--Shell.FlyoutBehavior="Disabled"-->
-    <ShellContent Route="eventpage" ContentTemplate="{DataTemplate local:EventPage}" />
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="MainPage">

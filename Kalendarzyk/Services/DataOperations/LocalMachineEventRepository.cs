@@ -137,7 +137,7 @@ public class LocalMachineEventRepository : IEventRepository
 				return AllEventsList;
 		*/
 		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.EventsFilePath);
-		AllEventsList = _eventJsonSerializer.DeserializeEventsFromJson(jsonString);
+		AllEventsList = _eventJsonSerializer.DeserializeEventsFromJson(jsonString) ?? new List<IGeneralEventModel>();
 		return AllEventsList;
 	}
 	public async Task SaveEventsListAsync()

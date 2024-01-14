@@ -9,7 +9,7 @@ using Kalendarzyk.Services.EventsSharing;
 namespace Kalendarzyk
 {
 
-	[Activity(Label = "asdzxc", Theme = "@style/MainTheme", MainLauncher = true, Exported = true, LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity(Label = "Kalendarzyk", Theme = "@style/MainTheme", MainLauncher = true, Exported = true, LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 
 	[IntentFilter(new[] { Android.Content.Intent.ActionView },
 		Categories = new[] { Android.Content.Intent.CategoryDefault },
