@@ -13,6 +13,7 @@ namespace Kalendarzyk
 		private const string DefaultProgramName = "Kalendarzyk";
 		private const string DefaultJsonEventsFileName = "CalendarEventsD";
 		private const string DefaultJsonSubTypesFileName = "CalendarTypesOfEventsD";
+		private const string DefaultJsonMainTypesFileName = "CalendarMainTypesOfEventsD";
 
 		//statc mauiapp instance to use it for creating DI
 		public static MauiApp Current { get; private set; }
@@ -53,10 +54,10 @@ namespace Kalendarzyk
 			//builder.Services.AddSingleton(eventFactories);
 
 			// Preferences Setting General Properties
-			Preferences.Default.Set("ProgramName", "Kalendarzyk4s");
-			Preferences.Default.Set("JsonEventsFileName", "CalendarEvents");
-			Preferences.Default.Set("JsonSubTypesFileName", "CalendarSubTypesOfEvents");
-			Preferences.Default.Set("JsonMainTypesFileName", "CalendarMainTypesOfEvents");
+			Preferences.Default.Set("ProgramName", DefaultProgramName);
+			Preferences.Default.Set("JsonEventsFileName", DefaultJsonEventsFileName);
+			Preferences.Default.Set("JsonSubTypesFileName", DefaultJsonSubTypesFileName);
+			Preferences.Default.Set("JsonMainTypesFileName", DefaultJsonMainTypesFileName);
 
 
 #if DEBUG

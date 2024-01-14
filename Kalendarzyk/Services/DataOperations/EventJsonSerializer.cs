@@ -95,7 +95,8 @@ namespace Kalendarzyk.Services.DataOperations
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(decryptedString, _settingsAll);
+				var deserializedEvents = JsonConvert.DeserializeObject<List<IGeneralEventModel>>(decryptedString, _settingsAll);
+				return deserializedEvents;
 			}
 			catch (Exception)
 			{
@@ -120,7 +121,8 @@ namespace Kalendarzyk.Services.DataOperations
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAuto);
+				var deserializedMainEventTypes = JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAuto);
+				return deserializedMainEventTypes;
 			}
 			catch (Exception)
 			{

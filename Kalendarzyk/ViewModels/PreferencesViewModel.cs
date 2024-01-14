@@ -138,6 +138,7 @@ namespace Kalendarzyk.ViewModels
 			await _eventRepository.ClearAllEventsListAsync();
 			await _eventRepository.ClearAllSubEventTypesAsync();
 			await _eventRepository.ClearAllMainEventTypesAsync();
+			await AddQuickNotesTypes(); //there has to be quick notes types
 		}
 
 		public static async Task AddQuickNotesTypes()

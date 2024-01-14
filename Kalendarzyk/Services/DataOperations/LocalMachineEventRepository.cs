@@ -238,7 +238,7 @@ public class LocalMachineEventRepository : IEventRepository
 		/*		var settings = JsonSerializerSettings_Auto;
 				var jsonString = JsonConvert.SerializeObject(AllMainEventTypesList, settings);
 				await File.WriteAllTextAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);*/
-		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
+		var jsonString = _eventJsonSerializer.SerializeMainEventTypesToJson(AllMainEventTypesList);
 		await _fileStorageService.WriteFileAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);
 		// TO CHECK OnMainEventTypesListChanged?.Invoke();
 	}

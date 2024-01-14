@@ -13,7 +13,7 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			if (!FileExists(filePath))
 			{
-				throw new FileNotFoundException($"The file {filePath} was not found.");
+				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 			}
 
 			using var streamReader = new StreamReader(filePath, Encoding.UTF8);
