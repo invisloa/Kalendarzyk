@@ -10,6 +10,8 @@ using Kalendarzyk;
 using Kalendarzyk.Services;
 using System.Security.Cryptography;
 using Kalendarzyk.Views;
+using Microsoft.Maui.Storage;
+using Kalendarzyk.Services.Notifier;
 
 public class LocalMachineEventRepository : IEventRepository
 {
@@ -17,9 +19,10 @@ public class LocalMachineEventRepository : IEventRepository
 	ILocalFilePathService _localFilePathService = Factory.CreateNewLocalFilePathService();
 	IEventJsonSerializer _eventJsonSerializer = Factory.CreateNewEventJsonSerializer();
 	IFileStorageService _fileStorageService = Factory.CreateNewFileStorageService();
+	IFileSelectorService _fileSelectorService = Factory.CreateNewFileSelectorService();
+	IUserNotifier userNotifier = Factory.CreateNewUserNotifier();
 	// File Paths generation code
 	#region File Paths generation code
-	private EventsAndTypesForJson _deserializedEventsAndTypesdData;
 
 	public event Action OnEventListChanged;
 	public event Action OnMainEventTypesListChanged;    // TODO - implement
@@ -134,24 +137,19 @@ public class LocalMachineEventRepository : IEventRepository
 				return AllEventsList;
 		*/
 		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.EventsFilePath);
-		AllEventsList = JsonConvert.DeserializeObject<List<IGeneralEventModel>>(jsonString);
-
-
-
-
-
+		AllEventsList = _eventJsonSerializer.DeserializeEventsFromJson(jsonString);
+		return AllEventsList;
 	}
 	public async Task SaveEventsListAsync()
 	{
 		try
 		{
-			var settings = JsonSerializerSettings_Auto;
 			if (AllEventsList.Count > 0)
 			{
 				AllEventsList = AllEventsList.OrderBy(e => e.StartDateTime).ToList();
 			}
-			var jsonString = JsonConvert.SerializeObject(AllEventsList, settings);
-			await File.WriteAllTextAsync(_localFilePathService.EventsFilePath, jsonString);
+			var jsonString = _eventJsonSerializer.SerializeEventsToJson(AllEventsList);
+			await _fileStorageService.WriteFileAsync(_localFilePathService.EventsFilePath, jsonString);
 		}
 		catch (Exception ex)
 		{
@@ -191,44 +189,58 @@ public class LocalMachineEventRepository : IEventRepository
 	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
 	{
 		// C:\Users\invis\AppData\Local\Packages\com.jolovCompany.Kalendarzyk_9zz4h110yvjzm\LocalState
-		if (File.Exists(_localFilePathService.MainEventsTypesFilePath))
-		{
-			var jsonString = await File.ReadAllTextAsync(_localFilePathService.MainEventsTypesFilePath);
-			var settings = JsonSerializerSettings_Auto;
-			AllMainEventTypesList = JsonConvert.DeserializeObject<List<IMainEventType>>(jsonString, settings);
-		}
-		else
-		{
-			AllMainEventTypesList = new List<IMainEventType>();
-		}
+		/*		if (File.Exists(_localFilePathService.MainEventsTypesFilePath))
+				{
+					var jsonString = await File.ReadAllTextAsync(_localFilePathService.MainEventsTypesFilePath);
+					var settings = JsonSerializerSettings_Auto;
+					AllMainEventTypesList = JsonConvert.DeserializeObject<List<IMainEventType>>(jsonString, settings);
+				}
+				else
+				{
+					AllMainEventTypesList = new List<IMainEventType>();
+				}*/
+		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.MainEventsTypesFilePath);
+		var deserializedMainEventTypes = _eventJsonSerializer.DeserializeMainEventTypesFromJson(jsonString);
+		AllMainEventTypesList = deserializedMainEventTypes ?? new List<IMainEventType>();
 		return AllMainEventTypesList;
 	}
 	public async Task<List<ISubEventTypeModel>> GetSubEventTypesListAsync()
 	{
-		if (File.Exists(_localFilePathService.SubEventsTypesFilePath))
-		{
-			var jsonString = await File.ReadAllTextAsync(_localFilePathService.SubEventsTypesFilePath);
-			var settings = JsonSerializerSettings_Auto;
-			AllUserEventTypesList = JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(jsonString, settings);
-		}
-		else
-		{
-			AllUserEventTypesList = new List<ISubEventTypeModel>();
-		}
+		/*		if (File.Exists(_localFilePathService.SubEventsTypesFilePath))
+				{
+					var jsonString = await File.ReadAllTextAsync(_localFilePathService.SubEventsTypesFilePath);
+					var settings = JsonSerializerSettings_Auto;
+					AllUserEventTypesList = JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(jsonString, settings);
+				}
+				else
+				{
+					AllUserEventTypesList = new List<ISubEventTypeModel>();
+				}*/
+		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.SubEventsTypesFilePath);
+		var deserializedSubEventTypes = _eventJsonSerializer.DeserializeSubEventTypesFromJson(jsonString);
+		AllUserEventTypesList = deserializedSubEventTypes ?? new List<ISubEventTypeModel>();
 		return AllUserEventTypesList;
 	}
 
 	public async Task SaveSubEventTypesListAsync()
 	{
-		var settings = JsonSerializerSettings_Auto;
-		var jsonString = JsonConvert.SerializeObject(AllUserEventTypesList, settings);
-		await File.WriteAllTextAsync(_localFilePathService.SubEventsTypesFilePath, jsonString);
+		/*		var settings = JsonSerializerSettings_Auto;
+				var jsonString = JsonConvert.SerializeObject(AllUserEventTypesList, settings);
+				await File.WriteAllTextAsync(_localFilePathService.SubEventsTypesFilePath, jsonString);
+		*/
+
+		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
+		await _fileStorageService.WriteFileAsync(_localFilePathService.SubEventsTypesFilePath, jsonString);
+		// TO CHECK OnUserEventTypeListChanged?.Invoke();
 	}
 	public async Task SaveMainEventTypesListAsync()
 	{
-		var settings = JsonSerializerSettings_Auto;
-		var jsonString = JsonConvert.SerializeObject(AllMainEventTypesList, settings);
-		await File.WriteAllTextAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);
+		/*		var settings = JsonSerializerSettings_Auto;
+				var jsonString = JsonConvert.SerializeObject(AllMainEventTypesList, settings);
+				await File.WriteAllTextAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);*/
+		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
+		await _fileStorageService.WriteFileAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);
+		// TO CHECK OnMainEventTypesListChanged?.Invoke();
 	}
 	public async Task DeleteFromEventsListAsync(IGeneralEventModel eventToDelete)
 	{
@@ -248,7 +260,6 @@ public class LocalMachineEventRepository : IEventRepository
 		await SaveSubEventTypesListAsync();
 		OnUserEventTypeListChanged?.Invoke();
 	}
-
 	public async Task AddSubEventTypeAsync(ISubEventTypeModel eventTypeToAdd)
 	{
 		AllUserEventTypesList.Add(eventTypeToAdd);
@@ -257,10 +268,10 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public async Task UpdateEventAsync(IGeneralEventModel eventToUpdate)   // TO TEST
 	{
-		var x = AllEventsList.FirstOrDefault(e => e.Id == eventToUpdate.Id);
-		if (x != null)
+		var updatedEvent = AllEventsList.FirstOrDefault(e => e.Id == eventToUpdate.Id);
+		if (updatedEvent != null)
 		{
-			x = eventToUpdate;
+			updatedEvent = eventToUpdate;
 
 			// TO CHECK
 			await SaveEventsListAsync();
@@ -302,71 +313,65 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public List<IGeneralEventModel> DeepCopyAllEventsList()
 	{
-		var settings = JsonSerializerSettings_Auto;
-		var serialized = JsonConvert.SerializeObject(_allEventsList, settings);
-		return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(serialized, settings);
+		/*		var settings = JsonSerializerSettings_Auto;
+				var serialized = JsonConvert.SerializeObject(_allEventsList, settings);
+				return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(serialized, settings);
+		*/
+		var jsonString = _eventJsonSerializer.SerializeEventsToJson(AllEventsList);
+		return _eventJsonSerializer.DeserializeEventsFromJson(jsonString);
 	}
 	public List<ISubEventTypeModel> DeepCopySubEventTypesList()
 	{
-		var settings = JsonSerializerSettings_Auto;
-		var serialized = JsonConvert.SerializeObject(_allUserEventTypesList, settings);
-		return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(serialized, settings);
+		/*		var settings = JsonSerializerSettings_Auto;
+				var serialized = JsonConvert.SerializeObject(_allUserEventTypesList, settings);
+				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(serialized, settings);
+		*/
+		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
+		return _eventJsonSerializer.DeserializeSubEventTypesFromJson(jsonString);
 	}
 	public List<IMainEventType> DeepCopyMainEventTypesList()
 	{
-		var settings = JsonSerializerSettings_Auto;
-		var serialized = JsonConvert.SerializeObject(_allMainEventTypesList, settings);
-		return JsonConvert.DeserializeObject<List<IMainEventType>>(serialized, settings);
+		/*		var settings = JsonSerializerSettings_Auto;
+				var serialized = JsonConvert.SerializeObject(_allMainEventTypesList, settings);
+				return JsonConvert.DeserializeObject<List<IMainEventType>>(serialized, settings);*/
+		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
+		return _eventJsonSerializer.DeserializeMainEventTypesFromJson(jsonString);
 	}
 	#endregion
 
-	//FILE SAVE AND LOAD EVENTS AND TYPES with encryption using _aesService
 	#region FILE SAVE AND LOAD
 
 	// Method for creating JSON string from events data it uses the EventsAndTypesForJson class because interface types cannot be newed up
-	public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList)
+	public string SerializeAllEventsDataToJson(List<IGeneralEventModel> eventsToSaveList)
 	{
-		return _eventJsonSerializer.SerializeEventsToJson(eventsToSaveList, AllEventsList, AllUserEventTypesList, AllMainEventTypesList);
+		return _eventJsonSerializer.SerializeAllDataToJson(eventsToSaveList, AllEventsList, AllUserEventTypesList, AllMainEventTypesList);
 	}
 
 
 	public async Task<string> SelectAndReadFileAsync(CancellationToken cancellationToken)
 	{
 
-		var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-		{
-			{ DevicePlatform.WinUI, new[] { ".json" } },
-			{ DevicePlatform.Android, new[] { "application/json" } },
-			{ DevicePlatform.iOS, new[] { ".json" } }
-		});
-		var pickOptions = new PickOptions
-		{
-			FileTypes = customFileType
-		};
-
 		try
 		{
-			var filePickerResult = await FilePicker.PickAsync(pickOptions);
-			if (filePickerResult != null)
+			var selectedFilePath = await _fileSelectorService.AsyncSelectFile();
+			if (selectedFilePath != null)
 			{
-				var filePath = filePickerResult.FullPath;
-				return await _fileStorageService.ReadFileAsync(filePath);
+				return await _fileStorageService.ReadFileAsync(selectedFilePath);
 			}
 			else
 			{
-				await Toast.Make($"Failed to pick a file: User canceled file picking").Show(cancellationToken);
+				await userNotifier.ShowMessageAsync($"Failed to pick a file: User canceled file picking", cancellationToken);
 				return null;
 			}
-		}
+		}	
 		catch (Exception ex)
 		{
-			await Toast.Make($"An error occurred while loading the file: {ex.Message}").Show(cancellationToken);
+			await userNotifier.ShowMessageAsync($"An error occurred while loading the file: {ex.Message}", cancellationToken);
 			return null;
 		}
 	}
-
 	// Method for processing the events data
-	public async Task LoadEventsFromJson(string jsonData)
+	public async Task ImportEventsFromJson(string jsonData)
 	{
 		try
 		{
@@ -375,37 +380,39 @@ public class LocalMachineEventRepository : IEventRepository
 				await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"jsonData is null or empty", "XXX");
 				return;
 			}
-
-			DeserializeAndLoadEvents(jsonData);
+			var deserializedEventsAndTypesdData = DeserializeEventsDataFromJson(jsonData);
+			await ImportEventsData(deserializedEventsAndTypesdData);
 		}
 		catch (Exception ex)
 		{
 			await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"{ex}", "XXX");
 		}
 	}
-
-	private async Task DeserializeAndLoadEvents(string encryptedJsonData)
+	private EventsAndTypesForJson DeserializeEventsDataFromJson(string encryptedJsonData)
 	{
-		_deserializedEventsAndTypesdData = _eventJsonSerializer.DeserializeEvents(encryptedJsonData);
+		return _eventJsonSerializer.DeserializeEventsAllInfo(encryptedJsonData);
+	}
 
+	private async Task ImportEventsData(EventsAndTypesForJson deserializedEventsAndTypesdData)	// TO REFACTOR
+	{
 		// before adding event there has to be its main and sub type added
-		ImportMainAndSubEventTypes();       // for now just import all main and sub event types without asking the user
+		ImportMainAndSubEventTypes(deserializedEventsAndTypesdData);       // for now just import all main and sub event types without asking the user what to do
 
 
-		if (_deserializedEventsAndTypesdData.Events.Count > 1)
+		if (deserializedEventsAndTypesdData.Events.Count > 1)
 		{
-		await LoadMultipleEventsFromJson();
+		await LoadMultipleEventsFromJson(deserializedEventsAndTypesdData);
 		}
 		else
 		{
-			await LoadSingleEventFromJson();
+		await LoadSingleEventFromJson(deserializedEventsAndTypesdData);
 		}
 	}
 
-	private async Task LoadMultipleEventsFromJson()
+	private async Task LoadMultipleEventsFromJson(EventsAndTypesForJson deserializedEventsAndTypesdData)
 	{
 		
-		foreach (var eventItem in _deserializedEventsAndTypesdData.Events)
+		foreach (var eventItem in deserializedEventsAndTypesdData.Events)
 		{
 			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
 			if (!isEventAlreadyAdded)
@@ -415,7 +422,7 @@ public class LocalMachineEventRepository : IEventRepository
 			else
 			{
 				// ask the user if he wants to overwrite the event
-				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit shared event");
+				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit shared event");		// TO REFACTOR
 				switch (action)
 				{
 					case "Overwrite":
@@ -449,9 +456,9 @@ public class LocalMachineEventRepository : IEventRepository
 		await SaveSubEventTypesListAsync();
 		await SaveMainEventTypesListAsync();
 	}
-		private async Task LoadSingleEventFromJson()
+		private async Task LoadSingleEventFromJson(EventsAndTypesForJson deserializedEventsAndTypesdData)
 		{
-			var eventItem = _deserializedEventsAndTypesdData.Events[0];
+			var eventItem = deserializedEventsAndTypesdData.Events[0];
 			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
 			if (!isEventAlreadyAdded)
 			{
@@ -468,7 +475,7 @@ public class LocalMachineEventRepository : IEventRepository
 			else
 			{
 				// ask the user if he wants to overwrite the event
-				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit", "Skip");
+				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit", "Skip");		// TO REFACTOR
 				switch (action)
 				{
 					case "Overwrite":
@@ -494,12 +501,13 @@ public class LocalMachineEventRepository : IEventRepository
 						// Cancel was selected or back button was pressed.
 						break;
 				}
+				await SaveEventsListAsync();
 			}
 		}
-	private void ImportMainAndSubEventTypes()
+	private void ImportMainAndSubEventTypes(EventsAndTypesForJson deserializedEventsAndTypesdData)
 	{       // for now just import all main and sub event types without asking the user
 
-		foreach (var eventType in _deserializedEventsAndTypesdData.UserEventTypes)
+		foreach (var eventType in deserializedEventsAndTypesdData.UserEventTypes)
 		{
 			if (!AllUserEventTypesList.Contains(eventType))
 			{
@@ -516,7 +524,7 @@ public class LocalMachineEventRepository : IEventRepository
 	public async Task LoadEventsAndTypesFromFile(CancellationToken cancellationToken)
 	{
 		var jsonData = await SelectAndReadFileAsync(cancellationToken);
-		await LoadEventsFromJson(jsonData);
+		await ImportEventsFromJson(jsonData);
 	}
 
 	//private static readonly JsonSerializerSettings JsonSerializerSettings_Auto = new JsonSerializerSettings
@@ -533,7 +541,7 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		try
 		{
-			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
+/*			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
 			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
 
 			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.json", stream, CancellationToken.None);
@@ -544,11 +552,14 @@ public class LocalMachineEventRepository : IEventRepository
 			else
 			{
 				await Toast.Make($"The file was not saved successfully with error: {fileSaverResult.Exception.Message}").Show(CancellationToken.None);
-			}
+			}*/
+			var encryptedString = SerializeAllEventsDataToJson(eventsToSaveList); // Create the jsonString with encryption
+			await _fileStorageService.WriteFileAsync(_localFilePathService.EventsFilePath, encryptedString);
+			await userNotifier.ShowMessageAsync($"The file was saved successfully to location: {_localFilePathService.EventsFilePath}", CancellationToken.None);
 		}
 		catch (Exception ex)
 		{
-			await Toast.Make($"The file was not saved successfully with error: {ex.Message}").Show(CancellationToken.None);
+			await userNotifier.ShowMessageAsync($"The file was not saved successfully with error: {ex.Message}", CancellationToken.None);
 		}
 
 	}

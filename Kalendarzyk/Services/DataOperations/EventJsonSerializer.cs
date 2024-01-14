@@ -1,7 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Newtonsoft.Json;
-using Org.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace Kalendarzyk.Services.DataOperations
 		}
 
 
-		public string SerializeEventsToJson(
+		public string SerializeAllDataToJson(
 			List<IGeneralEventModel> eventsToSaveList,
 			List<IGeneralEventModel> allEventsList,
 			List<ISubEventTypeModel> allUserEventTypesList,
@@ -79,13 +78,69 @@ namespace Kalendarzyk.Services.DataOperations
 				MainEventTypes = mainTypesToSave.ToList()
 			};
 		}
-		public EventsAndTypesForJson DeserializeEvents(string jsonData)
+		public EventsAndTypesForJson DeserializeEventsAllInfo(string jsonString)
 		{
-			return JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonData, _settingsAll);
+			try
+			{
+				var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<EventsAndTypesForJson>(decryptedString, _settingsAll);
+			}
+			catch (Exception)
+			{
+				return null;
+			}
 		}
-		public List<IGeneralEventModel> GetEventsFromJson(string jsonString)
+		public List<IGeneralEventModel> DeserializeEventsFromJson(string jsonString)
 		{
-			return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(jsonString, _settingsAuto);
+			try
+			{
+				var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(decryptedString, _settingsAll);
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
+		public List<ISubEventTypeModel> DeserializeSubEventTypesFromJson(string jsonString)
+		{
+			try
+			{
+				var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(decryptedString, _settingsAuto);
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+		public List<IMainEventType> DeserializeMainEventTypesFromJson(string jsonString)
+		{
+			try
+			{
+				var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAuto);
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+		public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList)
+		{
+			var jsonString = JsonConvert.SerializeObject(eventsToSaveList, _settingsAll);
+			return _aesService.EncryptString(jsonString);
+		}
+		public string SerializeSubEventTypesToJson(List<ISubEventTypeModel> subEventTypesToSaveList)
+		{
+			var jsonString = JsonConvert.SerializeObject(subEventTypesToSaveList, _settingsAuto);
+			return _aesService.EncryptString(jsonString);
+		}
+		public string SerializeMainEventTypesToJson(List<IMainEventType> mainEventTypesToSaveList)
+		{
+			var jsonString = JsonConvert.SerializeObject(mainEventTypesToSaveList, _settingsAuto);
+			return _aesService.EncryptString(jsonString);
 		}
 	}
 	public class EventsAndTypesForJson

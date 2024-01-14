@@ -26,7 +26,7 @@ namespace Kalendarzyk.Services.EventsSharing
 			try
 			{
 				// Serialize the event to a JSON string Encrypt the JSON string
-				var encryptedEventJsonString = _eventRepository.SerializeEventsToJson(new List<IGeneralEventModel> { eventModel });
+				var encryptedEventJsonString = _eventRepository.SerializeAllEventsDataToJson(new List<IGeneralEventModel> { eventModel });
 
 				var fileName = $"{eventModel.Title}.json";      // kics stands for Kalendarzyk ICS (ICS is a file extension for iCalendar files) file format
 				var tempFilePath = GetTemporaryFilePath(fileName);
@@ -52,7 +52,7 @@ namespace Kalendarzyk.Services.EventsSharing
 			try
 			{
 				
-				_eventRepository.LoadEventsFromJson(jsonString);
+				_eventRepository.ImportEventsFromJson(jsonString);
 
 				// Assuming your MainPage is a NavigationPage
 				if (Application.Current.MainPage is NavigationPage navigationPage)

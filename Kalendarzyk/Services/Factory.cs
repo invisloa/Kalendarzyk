@@ -11,6 +11,7 @@ using System.Globalization;
 using Kalendarzyk.Models;
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Services.EventsSharing;
+using Kalendarzyk.Services.Notifier;
 
 namespace Kalendarzyk.Services
 {
@@ -129,6 +130,16 @@ namespace Kalendarzyk.Services
 		internal static IFileStorageService CreateNewFileStorageService()
 		{
 			return new FileStorageService();
+		}
+
+		internal static IFileSelectorService CreateNewFileSelectorService()
+		{
+			return new FileSelectorService();
+		}
+
+		internal static IUserNotifier CreateNewUserNotifier()
+		{
+			return new ToastNotifier();
 		}
 	}
 }

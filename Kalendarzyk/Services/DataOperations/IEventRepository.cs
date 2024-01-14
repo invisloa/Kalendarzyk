@@ -24,7 +24,7 @@ namespace Kalendarzyk.Services.DataOperations
 
 		Task<ISubEventTypeModel> GetSubEventTypeAsync(ISubEventTypeModel eventTypeToSelect);
 		Task<IMainEventType> GetMainEventTypeAsync(IMainEventType eventTypeToSelect);
-		string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList);
+		string SerializeAllEventsDataToJson(List<IGeneralEventModel> eventsToSaveList);
 		Task ClearAllEventsListAsync();
 		Task ClearAllSubEventTypesAsync();
 		Task ClearAllMainEventTypesAsync();
@@ -41,7 +41,7 @@ namespace Kalendarzyk.Services.DataOperations
 		Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSave = null);
 		Task LoadEventsAndTypesFromFile();
 		Task InitializeAsync();
-		Task LoadEventsFromJson(string jsonData);
+		Task ImportEventsFromJson(string jsonData);
 	}
 }
 
