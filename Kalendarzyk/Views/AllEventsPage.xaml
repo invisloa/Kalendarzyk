@@ -58,7 +58,9 @@
         </StackLayout>
 
         <!-- CollectionView with subtle frame borders and shadows for elevation -->
-        <CollectionView Grid.Row="4" ItemsSource="{Binding EventsToShowList}"
+        <Frame Grid.Row="4" BorderColor="DimGrey" BackgroundColor="{StaticResource MainBackgroundColor}" >
+            
+        <CollectionView  ItemsSource="{Binding EventsToShowList}"
                         HorizontalScrollBarVisibility="Always" VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:IGeneralEventModel">
@@ -98,6 +100,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </Frame>
 
         <!-- Delete actions styled with a more modern approach -->
         <StackLayout Grid.Row="5" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">

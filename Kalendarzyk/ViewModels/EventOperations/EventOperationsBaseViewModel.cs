@@ -297,6 +297,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 					if (_endExactTime == value) return; // Avoid unnecessary setting and triggering.
 					_isChangingEndTimes = true;
 					_endExactTime = value;
+					var startDate = StartDateTime;
 					if (_startDateTime.Date == _endDateTime.Date && value < _startExactTime)
 					{
 						_startExactTime = value;

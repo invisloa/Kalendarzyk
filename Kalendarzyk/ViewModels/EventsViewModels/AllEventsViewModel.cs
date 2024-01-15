@@ -272,8 +272,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 				}
 			}
 			EventsToShowList = new ObservableCollection<IGeneralEventModel>(EventsToShowList);
-
-
 		}
 		#endregion
 		public void OnAppearing()
