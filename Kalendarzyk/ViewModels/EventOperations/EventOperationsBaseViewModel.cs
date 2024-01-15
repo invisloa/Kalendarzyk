@@ -215,7 +215,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		// Start Date/Time
-		bool _isChangingEndTimes = false;
+
+		// setting logic is in the setter because TimePicker and DatePicker doesnt support commands
 		public DateTime StartDateTime
 		{
 			get => _startDateTime;
@@ -224,17 +225,18 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				if (_startDateTime == value) return;
 				_startDateTime = value;
 				OnPropertyChanged();
-				if (SelectedEventType != null && !_isChangingEndTimes)
+				if (!IsEditMode)
 				{
 					SetEndExactTimeAccordingToEventType();
 				}
-				else if (_startDateTime > _endDateTime)
+				if (_startDateTime > _endDateTime)
 				{
 					_endDateTime = _startDateTime;
 					OnPropertyChanged(nameof(EndDateTime));
 				}
 			}
 		}
+		// setting logic is in the setter because TimePicker and DatePicker doesnt support commands
 		public DateTime EndDateTime
 		{
 			get => _endDateTime;
@@ -267,6 +269,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				}
 			}
 		}
+		// setting logic is in the setter because TimePicker and DatePicker doesnt support commands
 		public TimeSpan StartExactTime
 		{
 			get => _startExactTime;
@@ -275,11 +278,11 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				if (_startExactTime == value) return; // Avoid unnecessary setting and triggering.
 				_startExactTime = value;
 				OnPropertyChanged();
-				if (SelectedEventType != null && !_isChangingEndTimes)
-				{
+				if(!IsEditMode)
+				{ 
 					SetEndExactTimeAccordingToEventType();
 				}
-				else if (_startDateTime.Date == _endDateTime.Date && _startExactTime > _endExactTime)
+				if (_startDateTime.Date == _endDateTime.Date && _startExactTime > _endExactTime)
 				{
 					_endExactTime = _startExactTime;
 					OnPropertyChanged(nameof(EndExactTime));
@@ -287,6 +290,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 
+		// setting logic is in the setter because TimePicker and DatePicker doesnt support commands
 		public TimeSpan EndExactTime
 		{
 			get => _endExactTime;
@@ -298,6 +302,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 					_isChangingEndTimes = true;
 					_endExactTime = value;
 					var startDate = StartDateTime;
+					var endDate = EndDateTime;
 					if (_startDateTime.Date == _endDateTime.Date && value < _startExactTime)
 					{
 						_startExactTime = value;
@@ -383,7 +388,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
 			}
-			SetEndExactTimeAccordingToEventType();
+			if (!IsEditMode)
+			{
+				SetEndExactTimeAccordingToEventType();
+			}
 			SetVisualsForSelectedSubType();
 		}
 		protected void SetVisualsForSelectedSubType()

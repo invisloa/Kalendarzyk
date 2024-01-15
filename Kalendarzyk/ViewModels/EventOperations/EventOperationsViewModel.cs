@@ -113,8 +113,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			EndDateTime = _selectedCurrentEvent.EndDateTime.Date;
 			SelectedMainEventType = _selectedCurrentEvent.EventType.MainEventType;
 			SelectedEventType = _selectedCurrentEvent.EventType;
-			StartExactTime = _selectedCurrentEvent.StartDateTime.TimeOfDay;
-			EndExactTime = _selectedCurrentEvent.EndDateTime.TimeOfDay;
+
 			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
 
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
@@ -137,6 +136,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(_selectedCurrentEvent.MicroTasksList);
 			}
 			MainEventTypeSelectedCommand = null;
+			StartExactTime = _selectedCurrentEvent.StartDateTime.TimeOfDay;
+			EndExactTime = _selectedCurrentEvent.EndDateTime.TimeOfDay;
 		}
 		#endregion
 
