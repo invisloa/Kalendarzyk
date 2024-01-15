@@ -245,7 +245,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				try
 				{
 					if (_endDateTime == value) return;
-					_isChangingEndTimes = true;
 					if (_startDateTime > value)
 					{
 						_endDateTime = _startDateTime = value;
@@ -256,17 +255,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 						_endDateTime = value;
 					}
 					OnPropertyChanged();
-					_isChangingEndTimes = false;
 				}
 				catch
 				{
 					_endDateTime = _startDateTime;
 					OnPropertyChanged(nameof(EndDateTime));
 				}
-				finally
-				{
-					_isChangingEndTimes = false;
-				}
+
 			}
 		}
 		// setting logic is in the setter because TimePicker and DatePicker doesnt support commands
@@ -299,7 +294,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				try
 				{
 					if (_endExactTime == value) return; // Avoid unnecessary setting and triggering.
-					_isChangingEndTimes = true;
 					_endExactTime = value;
 					var startDate = StartDateTime;
 					var endDate = EndDateTime;
@@ -315,10 +309,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 					_endExactTime = _startExactTime;
 					OnPropertyChanged(nameof(EndExactTime));
 				}
-				finally
-				{
-					_isChangingEndTimes = false;
-				}
+
 			}
 		}
 
