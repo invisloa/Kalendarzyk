@@ -7,33 +7,33 @@
             Direction="Row"
             HorizontalOptions="CenterAndExpand">
         <!--STARTS AT TIME-->
-        <Frame BorderColor="GreenYellow" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"  Margin="0, 5">
+        <Frame BorderColor="GreenYellow" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"  Margin="0, 5" CornerRadius="200" >
             <StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="START" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold" />
-                    <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}" />
+                <StackLayout Orientation="Vertical">
+                    <Label Text="START" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold"  Padding="5" BackgroundColor="Green" />
+                    <DatePicker x:Name="StartDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding StartDateTime, Mode=TwoWay}"  BackgroundColor="Green" />
                 </StackLayout>
 
 
 
                 <TimePicker x:Name="StartTimePicker" Format="HH:mm" 
                         Time="{Binding StartExactTime, Mode=TwoWay}"  TextColor="{DynamicResource MainTextColor}"
-                            HorizontalOptions="Center"/>
+                            HorizontalOptions="Center"  BackgroundColor="Green" />
             </StackLayout>
         </Frame>
 
         <!--ENDS AT TIME-->
-        <Frame BorderColor="BurlyWood" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="0, 5">
+        <Frame BorderColor="BurlyWood" BackgroundColor="{DynamicResource MainButtonBackgroundColor}" Margin="0, 5" CornerRadius="200" >
             <StackLayout>
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical">
 
-                    <Label Text="END" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold"  />
-                    <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" />
+                    <Label Text="END" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" FontAttributes="Bold" Background="Brown" Padding="5"/>
+                    <DatePicker x:Name="EndDatePicker" HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource MainTextColor}" Date="{Binding EndDateTime, Mode=TwoWay}" BackgroundColor="Brown" />
                 </StackLayout>
 
                 <TimePicker x:Name="EndTimePicker"  Format="HH:mm" TextColor="{DynamicResource MainTextColor}" 
-                            Time="{Binding EndExactTime, Mode=TwoWay}"
-                            HorizontalOptions="Center"/>
+                            Time="{Binding EndExactTime, Mode=TwoWay}" 
+                            HorizontalOptions="Center" BackgroundColor="Brown" />
             </StackLayout>
         </Frame>
     </FlexLayout>

@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Kalendarzyk.Views.CustomControls.RoundEntryCC"
              x:Name="ThisControl">
-        <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}"
-            StrokeThickness="5">
+        <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Padding="0" Margin="0"
+            StrokeThickness="1">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="15" />
             </Border.StrokeShape>
-            <Editor Placeholder="{Binding Placeholder, Source={x:Reference ThisControl}}"
+            <Editor Placeholder="{Binding Placeholder, Source={x:Reference ThisControl}}" 
                 Text="{Binding Text, Source={x:Reference ThisControl}, Mode=TwoWay}"
                 AutoSize="TextChanges"
                 HorizontalOptions="CenterAndExpand"

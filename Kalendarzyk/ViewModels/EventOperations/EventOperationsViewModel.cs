@@ -184,6 +184,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_selectedCurrentEvent.StartDateTime = StartDateTime.Date + StartExactTime;
 			_selectedCurrentEvent.EndDateTime = EndDateTime.Date + EndExactTime;
 			_selectedCurrentEvent.IsCompleted = IsCompletedCCAdapter.IsCompleted;
+			_selectedCurrentEvent.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
 			_measurementSelectorHelperClass.QuantityAmount = new QuantityModel(_measurementSelectorHelperClass.SelectedMeasurementUnit.TypeOfMeasurementUnit, _measurementSelectorHelperClass.QuantityValue);
 			_selectedCurrentEvent.QuantityAmount = _measurementSelectorHelperClass.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);

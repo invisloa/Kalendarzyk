@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.CustomControls.MicroTasksListCC"
              x:Name="root" >
     <ContentView.Resources>
@@ -29,11 +30,17 @@
                 CornerRadius="10" Command="{Binding MicroTasksCCAdapter.ToggleDeleteModeCommand}"
                 Margin="0,0,10,0" MinimumWidthRequest="40"/>
 
-            <Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
+            <customControls:RoundEntryCC Grid.Column="1" Placeholder="MicroTask to add..." MyWidthRequest="200"
+                                             Text="{Binding MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
+                                             HorizontalOptions="Center"  BackgroundColor="Transparent"/>
+            <!--<Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
                         StrokeThickness="1">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10" />
                 </Border.StrokeShape>
+                
+
+
                 <Entry 
                         Placeholder="...MICRO TASK TO ADD..." 
                         HorizontalOptions="CenterAndExpand"
@@ -45,7 +52,7 @@
                         TextColor="{DynamicResource MainTextColor}"
                         PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
                         Background="{DynamicResource MainTextboxesBackgroundColor}" />
-            </Border>
+            </Border>-->
             <Button
                 Style="{DynamicResource MyCustomButtonStyle}"
                 Grid.Column="2" HorizontalOptions="Start"  Text="+"  

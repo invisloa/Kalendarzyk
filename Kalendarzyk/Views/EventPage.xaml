@@ -25,31 +25,35 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" />
 
                 <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
                     IconText="delete_forever" 
                     IconTextColor="Red"
                     SubmitCommand="{Binding AsyncDeleteEventCommand}" 
                     IsVisible="{Binding IsEditMode}" 
-                    Margin="10"
-                    FontSize="44"/>
+                    Margin="10"  
+                        FontSize="40"/>
                 <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
 
                     <buttons:ClickableFontButtonCC         
                         IconText="share" 
                         SubmitCommand="{Binding AsyncShareEventCommand}" IconTextColor="Blue" 
                         IsVisible="{Binding IsEditMode}" 
-                        Margin="10" FontSize="44"/>
+                        Margin="10"  
+                        FontSize="40"/>
+
 
                     <buttons:ClickableFontButtonCC  
                         IconText="save" 
                         SubmitCommand="{Binding AsyncSubmitEventCommand}" 
                         IconTextColor="Green" 
-                        Margin="10" FontSize="44"/>
+                        Margin="10"  
+                        FontSize="40"/>
+
 
                 </StackLayout>
             </Grid>
+            <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Margin="1" />
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"
                                          Margin="10, 10, 10, 10" />
@@ -70,14 +74,6 @@
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>
-
-            <Button     
-                        Style="{StaticResource MyCustomButtonStyle}"
-                        Text="{Binding SubmitButtonText}"
-                        HorizontalOptions="Center"
-                        Margin="15"/>
-
-
         </StackLayout>
 
     </ScrollView>
