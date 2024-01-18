@@ -13,7 +13,6 @@
             <converters:IsCompleteToColorConverter x:Key="isCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView  BackgroundColor="{DynamicResource MainBackgroundColor}">
 
         <!-- Replace StackLayout with Grid -->
         <Grid Padding="10" Background="{DynamicResource MainBackgroundColor}">
@@ -127,5 +126,4 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-    </ScrollView>
 </ContentPage>

@@ -132,6 +132,9 @@
 	  <Compile Update="Views\CustomControls\Buttons\ClickableFontButtonCC.xaml.cs">
 	    <DependentUpon>ClickableFontButtonCC.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml.cs">
+	    <DependentUpon>SubTypeExtraOptions_EventCC.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DailyEventsPage.xaml.cs">
 	    <DependentUpon>DailyEventsPage.xaml</DependentUpon>
 	  </Compile>

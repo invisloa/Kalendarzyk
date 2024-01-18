@@ -238,6 +238,9 @@ namespace Kalendarzyk.ViewModels
 				}
 			}
 		}
+
+
+		//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TODO NOW think about extracting this to a separate class
 		private void OnSelectColorCommand(SelectableButtonViewModel selectedColor)
 		{
 			SelectedSubTypeColor = selectedColor.ButtonColor;

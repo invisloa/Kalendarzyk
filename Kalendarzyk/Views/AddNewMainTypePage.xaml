@@ -92,7 +92,7 @@
                 Command="{Binding Path=BindingContext.BgColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
                 BindingContext="{Binding}"  IsVisible="{Binding IsBgColorsTabSelected}"/>
 
-            <!--Icon Colors--> 
+            <!--Text Colors--> 
             <customControls:ColorButtonsSelectorCC Margin="5"
                 ItemsSource="{Binding TextColorsButtonsOC}" 
                 Command="{Binding Path=BindingContext.TextColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 

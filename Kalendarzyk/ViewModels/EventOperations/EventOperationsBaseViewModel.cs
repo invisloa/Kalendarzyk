@@ -433,7 +433,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			try
 			{
-				var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
+/*				var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
 
 				// Calculate the number of whole days within the TimeSpan
 				int days = (int)timeSpanAdded.TotalDays;
@@ -445,7 +445,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				EndDateTime = StartDateTime.AddDays(days);
 
 				// Set EndExactTime to the remaining hours, minutes, and seconds
-				EndExactTime = remainingTime;
+				EndExactTime = remainingTime;*/
 			}
 			catch
 			{

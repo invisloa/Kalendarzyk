@@ -378,10 +378,17 @@ namespace Kalendarzyk.ViewModels
 		}
 		private void OnTextColorSeletctionCommand(SelectableButtonViewModel clickedButton)
 		{
+			// TODO NOW  add  logic for color button clicked!!!!!! xxxxxxxxxxxxxxxxx
 			TextColor = clickedButton.ButtonColor;
+			foreach (var button in TextColorsButtonsOC)
+			{
+				button.IsSelected = button.ButtonColor == clickedButton.ButtonColor;
+			}
 		}
 		private void OnBgColorSeletctionCommand(SelectableButtonViewModel clickedButton)
 		{
+			// TODO NOW  add  logic for color button clicked!!!!!! xxxxxxxxxxxxxxxxx
+
 			BackgroundColor = clickedButton.ButtonColor;
 		}
 		#endregion

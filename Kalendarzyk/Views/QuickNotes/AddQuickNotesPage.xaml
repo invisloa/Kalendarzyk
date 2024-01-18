@@ -9,7 +9,9 @@
              Shell.TabBarIsVisible="False"
              x:Name="AddQuickNotesPageName"
              >
-    <VerticalStackLayout Background="{StaticResource MainBackgroundColor}" Padding="10">
+    <ScrollView Background="{StaticResource MainBackgroundColor}" Padding="10">
+        <VerticalStackLayout>
+            
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -56,5 +58,7 @@
 
 
         <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+
+    </ScrollView>
 </ContentPage>
