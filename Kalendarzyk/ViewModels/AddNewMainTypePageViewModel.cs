@@ -35,7 +35,7 @@ namespace Kalendarzyk.ViewModels
 		public ObservableCollection<SelectableButtonViewModel> TextColorsButtonsOC { get; set; }
 		public bool IsQuickNoteMainType
 		{
-			get => _currentMainType?.Title == "QNOTE";
+			get => _currentMainType?.Title == PreferencesManager.GetMainTypeQuickNoteName();
 		}
 		public bool IsIconsTabSelected
 		{
@@ -240,7 +240,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task<bool> CanAddNewType()
 		{
-			if (MainTypeName == "QNOTE")
+			if (MainTypeName == PreferencesManager.GetMainTypeQuickNoteName())
 			{
 				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 
@@ -250,7 +250,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task<bool> CanEditType()
 		{
-			if (_currentMainType.Title != "QNOTE" && MainTypeName == "QNOTE")
+			if (_currentMainType.Title != PreferencesManager.GetMainTypeQuickNoteName() && MainTypeName == PreferencesManager.GetMainTypeQuickNoteName())
 			{
 				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 				return false;
@@ -323,7 +323,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private bool CanDeleteMainEventType()
 		{
-			return _currentMainType.Title != "QNOTE" ;
+			return _currentMainType.Title != PreferencesManager.GetMainTypeQuickNoteName(); ;
 		}
 
 

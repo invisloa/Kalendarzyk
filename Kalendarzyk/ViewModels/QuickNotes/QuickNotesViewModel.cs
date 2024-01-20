@@ -48,7 +48,7 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		public QuickNotesViewModel()
 		{
 			_eventRepository = Factory.CreateNewEventRepository();
-			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE");
+			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName());
 			_quickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);
 			EditSelectedQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnEditSelectedQuickNoteCommand);
@@ -87,7 +87,7 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		}
 		private void SearchQuickNotes()
 		{
-			QuickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == "QNOTE" && x.Title.Contains(SearchBoxText)));
+			QuickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName() && x.Title.Contains(SearchBoxText)));
 		}
 	}
 }

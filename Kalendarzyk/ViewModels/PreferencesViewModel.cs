@@ -145,15 +145,15 @@ namespace Kalendarzyk.ViewModels
 		{
 			var repository = Factory.CreateNewEventRepository();
 
-			if (repository.AllMainEventTypesList.Where(x => x.Title == "QNOTE").Count() != 0)
+			if (repository.AllMainEventTypesList.Where(x => x.Title == PreferencesManager.GetMainTypeQuickNoteName()).Count() != 0)
 			{
 				return;
 			}
 			// QUICK NOTE
 			IMainTypeVisualModel quickNoteVisualModel = new IconModel(IconFont.Quickreply, Colors.Red, Colors.AntiqueWhite);
-			IMainEventType quickNoteMainType = new MainEventType("QNOTE", quickNoteVisualModel);
+			IMainEventType quickNoteMainType = new MainEventType(PreferencesManager.GetMainTypeQuickNoteName(), quickNoteVisualModel);
 			await repository.AddMainEventTypeAsync(quickNoteMainType);
-			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, "QNOTE", Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
+			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, PreferencesManager.GetSubTypeQuickNoteName(), Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
 			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
 			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel, new QuantityModel(MeasurementUnit.Money, 0));
 			await repository.AddEventAsync(qNoteEvent);

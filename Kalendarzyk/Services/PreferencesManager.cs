@@ -9,6 +9,8 @@ namespace Kalendarzyk.Services
 	public static class PreferencesManager
 	{
 		// Define keys as constants
+		public const string MainTypeQuickNoteName = "QuickNote";
+		public const string SubTypeQuickNoteName = "QuickNote";
 		public const string SelectedLanguageKey = "SelectedLanguage";
 		public const string SubEventTypeTimesDifferentKey = "SubEventTypeTimesDifferent";
 		public const string MainEventTypeTimesDifferentKey = "MainEventTypeTimesDifferent";
@@ -27,6 +29,8 @@ namespace Kalendarzyk.Services
 		//public static void SetIsCreateDummyDataSelected(bool value) => Preferences.Set(IsCreateDummyDataSelectedKey, value);
 
 
+		public static string GetMainTypeQuickNoteName() => Preferences.Get(MainTypeQuickNoteName, "QNOTE");
+		public static string GetSubTypeQuickNoteName() => Preferences.Get(SubTypeQuickNoteName, "QNOTE");
 
 		public static bool GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, false);
 		public static void SetSelectedLanguage(bool value) => Preferences.Set(SelectedLanguageKey, value);

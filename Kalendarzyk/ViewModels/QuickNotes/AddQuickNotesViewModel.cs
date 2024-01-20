@@ -197,7 +197,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private void SetPropperValueType()
 		{
-			qNoteSubType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First();
+			qNoteSubType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
 			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
 			DefaultMeasurementSelectorCCHelper.QuantityAmount = qNoteSubType.DefaultQuantityAmount;
 			DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
@@ -277,7 +277,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				_currentQuickNote.Title = QuickNoteTitle;
 				_currentQuickNote.Description = QuickNoteDescription;
-				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == "QNOTE").First();
+				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
 				_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
 				_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
 				_currentQuickNote.IsCompleted = IsCompletedCCAdapter.IsCompleted;

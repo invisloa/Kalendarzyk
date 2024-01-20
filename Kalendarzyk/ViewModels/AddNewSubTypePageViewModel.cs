@@ -41,7 +41,7 @@ namespace Kalendarzyk.ViewModels
 		#region Properties
 		public bool IsQuickNoteType
 		{
-			get => CurrentType?.EventTypeName == "QNOTE";
+			get => CurrentType?.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName();
 		}
 		public string QuantityValueText => IsEdit ? "DEFAULT VALUE:" : "Value:";
 		public string PageTitle => IsEdit ? "EDIT TYPE" : "ADD NEW TYPE";
@@ -261,7 +261,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private bool CanDeleteSelectedEventType()
 		{
-			return CurrentType.MainEventType.Title != "QNOTE";
+			return CurrentType.MainEventType.Title != PreferencesManager.GetMainTypeQuickNoteName();
 		}
 		public void SetExtraUserControlsValues(ISubEventTypeModel _currentType)
 		{
@@ -290,7 +290,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task<bool> CanAddNewType()
 		{
-			if (TypeName == "QNOTE")
+			if (TypeName == PreferencesManager.GetSubTypeQuickNoteName())
 			{
 				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 
@@ -300,7 +300,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task<bool> CanEditType()
 		{
-			if (CurrentType.EventTypeName != "QNOTE" && TypeName == "QNOTE")
+			if (CurrentType.EventTypeName != PreferencesManager.GetSubTypeQuickNoteName() && TypeName == PreferencesManager.GetSubTypeQuickNoteName())
 			{
 				await App.Current.MainPage.DisplayActionSheet($"Name is not allowed!!!", "OK", null);
 				return false;
