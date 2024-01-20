@@ -199,6 +199,8 @@ namespace Kalendarzyk.ViewModels
 			ExactIconSelectedCommand = new RelayCommand<string>(OnExactIconSelectedCommand);
 		}
 
+
+		// TODO extract to separate class and make ctor in so that takes 2 params : 1. string name, 2. method for relaycommand
 		private void InitializeSelectors()      // TODO CHANGE THIS TO DYNAMIC LIST !!!!!
 		{
 			SelectedVisualElementString = IconFont.Minor_crash;
@@ -208,7 +210,6 @@ namespace Kalendarzyk.ViewModels
 				new SelectableButtonViewModel("Background Colors", false, new RelayCommand<SelectableButtonViewModel>(OnShowBgColorsCommand)),
 				new SelectableButtonViewModel("Text Colors", false, new RelayCommand<SelectableButtonViewModel>(OnShowTextColorsCommand)),
 			};
-			//InitializeIconsTabs();
 		}
 
 		private async Task OnSubmitMainTypeCommand()
@@ -390,6 +391,10 @@ namespace Kalendarzyk.ViewModels
 			// TODO NOW  add  logic for color button clicked!!!!!! xxxxxxxxxxxxxxxxx
 
 			BackgroundColor = clickedButton.ButtonColor;
+			foreach (var button in BgColorsButtonsOC)
+			{
+				button.IsSelected = button.ButtonColor == clickedButton.ButtonColor;
+			}
 		}
 		#endregion
 	}

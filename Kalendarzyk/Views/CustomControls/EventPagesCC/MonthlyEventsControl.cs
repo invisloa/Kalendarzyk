@@ -127,7 +127,8 @@
 				Padding = 5,
 				BackgroundColor = _emptyLabelColor,
 				MinimumWidthRequest = _minimumDayWidthRequest,
-				MinimumHeightRequest = _minimumDayHeightRequest
+				MinimumHeightRequest = _minimumDayHeightRequest,
+				CornerRadius = 0  
 			};
 			dateFrame.GestureRecognizers.Add(tapGestureRecognizerForFrame);
 			var stackLayout = new StackLayout();
@@ -207,7 +208,8 @@
 					Content = eventTypeLabel,
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Center,
-					WidthRequest = 30
+					WidthRequest = 30,
+
 				};
 
 				var grid = new Grid
@@ -268,6 +270,7 @@
 					VerticalOptions = LayoutOptions.Center,
 					WidthRequest = _EventIconFrameSize,
 					HeightRequest = _EventIconFrameSize,
+
 				};
 
 				var grid = new Grid
