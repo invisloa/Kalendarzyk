@@ -20,6 +20,8 @@
             <!--<Color x:Key="MainBackgroundColor">#F0F8FF</Color>-->
             <Color x:Key="MainBackgroundDarkerColor">#0578d4</Color>
             <Color x:Key="MainButtonBackgroundColor">#062e9c</Color>
+            <Color x:Key="MainSaveButtonColor">#00FF00</Color>
+            
             <Color x:Key="MainFrameBackgroundColor">#2a4ebd</Color>
             <Color x:Key="MainTextboxesBackgroundColor">#273567</Color>
             <Color x:Key="DeselectedBackgroundColor">#8198B2</Color>

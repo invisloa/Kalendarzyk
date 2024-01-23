@@ -33,7 +33,6 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private bool _isQuickNoteDateSelected;
 
-
 		[ObservableProperty]
 		private IsCompletedCCViewModel _isCompletedCCAdapter;
 
@@ -97,9 +96,22 @@ namespace Kalendarzyk.ViewModels
 				_quickNoteTitle = value;
 				AsyncSubmitQuickNoteCommand.NotifyCanExecuteChanged();
 				IsModified = true;
+				CanSubmitQuickNote = !string.IsNullOrEmpty(value);
 				OnPropertyChanged();
 			}
 		}
+		// the below is added for converter use
+		private bool _canSubmitQuickNote;
+		public bool CanSubmitQuickNote
+		{
+			get => _canSubmitQuickNote;
+			set
+			{
+				_canSubmitQuickNote = value;
+				OnPropertyChanged();
+			}
+		}
+
 		private string _quickNoteDescription;
 		public string QuickNoteDescription
 		{
@@ -251,7 +263,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		public bool CanSubmitQuickNoteCommand()
 		{
-			return !string.IsNullOrEmpty(QuickNoteTitle);
+			return CanSubmitQuickNote;
 		}
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{

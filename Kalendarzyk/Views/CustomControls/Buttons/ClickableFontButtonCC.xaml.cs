@@ -4,13 +4,23 @@ namespace Kalendarzyk.Views.CustomControls.Buttons;
 
 public partial class ClickableFontButtonCC : ContentView
 {
-	public static readonly BindableProperty IconTextColorProperty = BindableProperty.Create(nameof(IconTextColorProperty), typeof(Color), typeof(ClickableFontButtonCC), Colors.Black);
+	public static readonly BindableProperty IconTextColorProperty = BindableProperty.Create(
+		nameof(IconTextColor), typeof(Color), typeof(ClickableFontButtonCC), Colors.Black,
+		propertyChanged: OnIconTextColorPropertyChanged); 
 	public Color IconTextColor
 	{
 		get => (Color)GetValue(IconTextColorProperty);
 		set => SetValue(IconTextProperty, value);
 	}
-
+	private static void OnIconTextColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is ClickableFontButtonCC button)
+		{
+			// Raise a PropertyChanged event for IconTextColor here if you have implemented INotifyPropertyChanged.
+			// This is where you notify the UI that the property has changed.
+			button.OnPropertyChanged(nameof(IconTextColor));
+		}
+	}
 	public static readonly BindableProperty IconTextProperty = BindableProperty.Create(nameof(IconTextProperty), typeof(string), typeof(ClickableFontButtonCC), "save");
 	public string IconText
 	{

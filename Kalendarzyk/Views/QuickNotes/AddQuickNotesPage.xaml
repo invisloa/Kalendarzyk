@@ -5,10 +5,16 @@
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
              Title="AddQuickNotesPage"
              Shell.TabBarIsVisible="False"
              x:Name="AddQuickNotesPageName"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="boolToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView Background="{StaticResource MainBackgroundColor}" Padding="10">
         <VerticalStackLayout>
             
@@ -34,8 +40,9 @@
                         SubmitCommand="{Binding AsyncShareEventCommand}" IconTextColor="Blue" 
                         IsVisible="{Binding IsEditQuickNoteMode}" 
                         Margin="10" FontSize="44"/>
-
-                <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSubmitQuickNoteCommand}" IconTextColor="Green" Margin="10" FontSize="44"/>
+                    <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSubmitQuickNoteCommand}" 
+                                                   IconTextColor="{Binding CanSubmitQuickNote, Converter={StaticResource boolToColorConverter}, ConverterParameter='MainSaveButtonColor'}"
+                                                   Margin="10" FontSize="44"/>
 
 
             </StackLayout>
