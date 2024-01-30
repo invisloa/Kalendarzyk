@@ -18,41 +18,16 @@
     <ScrollView  BackgroundColor="{DynamicResource MainBackgroundColor}">
 
         <StackLayout >
-            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-
-                <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
-                    IconText="delete_forever" 
-                    IconTextColor="Red"
-                    SubmitCommand="{Binding AsyncDeleteEventCommand}" 
-                    IsVisible="{Binding IsEditMode}" 
-                    Margin="10"  
-                        FontSize="40"/>
-                <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
-
-                    <buttons:ClickableFontButtonCC         
-                        IconText="share" 
-                        SubmitCommand="{Binding AsyncShareEventCommand}" IconTextColor="Blue" 
-                        IsVisible="{Binding IsEditMode}" 
-                        Margin="10"  
-                        FontSize="40"/>
-
-
-                    <buttons:ClickableFontButtonCC  
-                        IconText="save" 
-                        SubmitCommand="{Binding AsyncSubmitEventCommand}" 
-                        IconTextColor="Green" 
-                        Margin="10"  
-                        FontSize="40"/>
-
-
-                </StackLayout>
-            </Grid>
+            <customControls:OperationsBarCC IsDeleteButtonVisible="{Binding IsEditMode}"
+                                            IsSaveButtonClickable="{Binding CanSubmitEvent}"
+                                            IsShareButtonVisible="{Binding IsEditMode}" 
+                                            
+                                            AsyncSaveButtonCommand="{Binding AsyncSubmitEventCommand}"
+                                            AsyncDeleteButtonCommand="{Binding AsyncDeleteEventCommand}"
+                                            AsyncShareEventButtonCommand="{Binding AsyncShareEventCommand}"
+                                            />
+            
+            
             <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding Title, Mode=TwoWay}" HorizontalOptions="Center" Margin="1" />
 
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"

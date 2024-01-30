@@ -20,6 +20,16 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	/// </summary>
 	public abstract class EventOperationsBaseViewModel : BaseViewModel, IMainEventTypesCCViewModel
 	{
+		private bool _canSubmitEvent;
+		public bool CanSubmitEvent		// added since color converter doesnt work with canexecute
+		{
+			get => _canSubmitEvent;
+			set
+			{
+				_canSubmitEvent = value;
+				OnPropertyChanged();
+			}
+		}
 		//MeasurementCC implementation
 		#region MeasurementCC implementation
 		protected IMeasurementSelectorCC _measurementSelectorHelperClass { get; set; } = Factory.CreateNewMeasurementSelectorCCHelperClass();
@@ -193,6 +203,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				_asyncSubmitEventCommand.NotifyCanExecuteChanged();
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsEventTypeSelected));
+				CanSubmitEvent = !string.IsNullOrWhiteSpace(_title) && SelectedEventType != null;
+				OnPropertyChanged(nameof(CanSubmitEvent));
 			}
 		}
 		public string Title
@@ -202,6 +214,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			{
 				_title = value;
 				OnPropertyChanged();
+				CanSubmitEvent = !string.IsNullOrWhiteSpace(_title) && SelectedEventType != null;
+				OnPropertyChanged(nameof(CanSubmitEvent));
 				_asyncSubmitEventCommand.NotifyCanExecuteChanged();
 			}
 		}

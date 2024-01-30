@@ -8,6 +8,9 @@
              Title="WelcomePage">
 
     <StackLayout>
+        <Border Stroke="DarkRed" StrokeThickness="5"
+                StrokeShape="RoundRectangle 75,75,75,75"  HeightRequest="50"/>
+
         <local:ExpandableCC>
         </local:ExpandableCC>
     </StackLayout>

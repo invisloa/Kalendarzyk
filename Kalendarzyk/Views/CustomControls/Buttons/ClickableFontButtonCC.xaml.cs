@@ -16,8 +16,7 @@ public partial class ClickableFontButtonCC : ContentView
 	{
 		if (bindable is ClickableFontButtonCC button)
 		{
-			// Raise a PropertyChanged event for IconTextColor here if you have implemented INotifyPropertyChanged.
-			// This is where you notify the UI that the property has changed.
+			// Raise a PropertyChanged event for IconTextColor
 			button.OnPropertyChanged(nameof(IconTextColor));
 		}
 	}
@@ -28,7 +27,7 @@ public partial class ClickableFontButtonCC : ContentView
 		set => SetValue(IconTextProperty, value);
 	}
 
-	public static readonly BindableProperty SubmitCommandProperty = BindableProperty.Create(nameof(Command), typeof(System.Windows.Input.ICommand), typeof(ClickableFontButtonCC), null);
+	public static readonly BindableProperty SubmitCommandProperty = BindableProperty.Create(nameof(SubmitCommand), typeof(System.Windows.Input.ICommand), typeof(ClickableFontButtonCC), null);
 	public System.Windows.Input.ICommand SubmitCommand
 	{
 		get => (System.Windows.Input.ICommand)GetValue(SubmitCommandProperty);

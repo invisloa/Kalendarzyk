@@ -267,12 +267,10 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
-			if (CanSubmitQuickNoteCommand())
-			{ 
+
 			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
 
 			await _eventRepository.AddEventAsync(_currentQuickNote);
-			}
 			await Shell.Current.GoToAsync("..");
 
 			// go to all quick notes page
@@ -285,7 +283,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task AsyncEditQuickNote()
 		{
-			if (CanSubmitQuickNoteCommand())
+			// ?? if (CanSubmitQuickNoteCommand())
 			{
 				_currentQuickNote.Title = QuickNoteTitle;
 				_currentQuickNote.Description = QuickNoteDescription;

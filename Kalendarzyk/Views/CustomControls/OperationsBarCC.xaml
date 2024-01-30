@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
+             xmlns:local="Kalendarzyk.Views.CustomControls.OperationsBarCC"
+
+
+             x:Class="Kalendarzyk.Views.CustomControls.OperationsBarCC">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="boolToColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Stroke="AliceBlue" StrokeThickness="1"
+                StrokeShape="RoundRectangle 75,5,5,75"  HeightRequest="50" Grid.ColumnSpan="3"/>
+        <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
+                    IconText="delete_forever" 
+                    IconTextColor="Red"
+                    SubmitCommand="{Binding AsyncDeleteButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
+                    IsVisible="{Binding IsDeleteButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
+                    Margin="10"
+                    FontSize="44"/>
+
+
+        <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
+
+            <buttons:ClickableFontButtonCC         
+                        IconText="share" 
+                        SubmitCommand="{Binding AsyncShareEventButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  IconTextColor="Blue" 
+                        IsVisible="{Binding IsShareButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  
+                        Margin="10" FontSize="44"/>
+
+            <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSaveButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  
+                        IconTextColor="{Binding IsSaveButtonClickable,
+                        Converter={StaticResource boolToColorConverter}, ConverterParameter='MainSaveButtonColor' , Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
+                        Margin="10" FontSize="44"/>
+
+
+        </StackLayout>
+    </Grid>
+</ContentView>

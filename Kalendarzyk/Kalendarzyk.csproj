@@ -132,6 +132,9 @@
 	  <Compile Update="Views\CustomControls\Buttons\ClickableFontButtonCC.xaml.cs">
 	    <DependentUpon>ClickableFontButtonCC.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomControls\OperationsBarCC.xaml.cs">
+	    <DependentUpon>OperationsBarCC.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml.cs">
 	    <DependentUpon>SubTypeExtraOptions_EventCC.xaml</DependentUpon>
 	  </Compile>
@@ -208,6 +211,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\MicroTasksListCC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomControls\OperationsBarCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\RoundEntryCC.xaml">
