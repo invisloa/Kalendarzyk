@@ -7,11 +7,32 @@
              xmlns:icon="clr-namespace:Kalendarzyk.Helpers"
              Title="WelcomePage">
 
-    <StackLayout>
-        <Border Stroke="DarkRed" StrokeThickness="5"
-                StrokeShape="RoundRectangle 75,75,75,75"  HeightRequest="50"/>
 
-        <local:ExpandableCC>
-        </local:ExpandableCC>
-    </StackLayout>
+    <Grid HorizontalOptions="Center" Margin="10">
+        <!-- Define the columns of the Grid-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        
+        <Frame Background="AliceBlue" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="5"></Frame>
+        <Frame Background="AliceBlue" Grid.Column="1" Grid.Row="1"></Frame>
+        <Frame Background="AliceBlue" Grid.Column="0" Grid.Row="0"></Frame>
+        <Frame Background="AliceBlue" Grid.Column="1" Grid.Row="1"></Frame>
+        <Frame Background="AliceBlue" Grid.Column="2" Grid.Row="2"></Frame>
+        <Frame Background="AliceBlue" Grid.Column="3" Grid.Row="3"></Frame>
+        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"/>
+
+    </Grid>
 </ContentPage>

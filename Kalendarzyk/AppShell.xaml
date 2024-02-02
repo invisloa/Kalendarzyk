@@ -11,10 +11,10 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="MainPage">
-            <!--<ShellContent
+            <ShellContent
                 Title="Welcome"
                 ContentTemplate="{DataTemplate local:WelcomePage}"
-                Route="WelcomePage" />-->
+                Route="WelcomePage" />
             <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
