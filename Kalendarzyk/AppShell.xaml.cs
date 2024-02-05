@@ -14,20 +14,50 @@ namespace Kalendarzyk
 			// Register routes
 			Routing.RegisterRoute("eventpage", typeof(EventPage));
 		}
-		// This method can be called when the user wants to add a page to favorites.
+		//  method when the user wants to add a page to favorites.
 		public void AddDeleteFromFavorites(string title, Type pageType)
 		{
-			var tab = this.Items.FirstOrDefault(item => item.CurrentItem.Title == "Favourites");
-			if (tab != null)
+			var favouritesTab = FindFavouritesTab();
+			if (favouritesTab != null)
 			{
+				this.Items.Remove(favouritesTab);
+
 				var shellContent = new ShellContent
 				{
 					Title = title,
-					ContentTemplate = new DataTemplate(pageType)
+					ContentTemplate = new DataTemplate(pageType),
+					Route = title.Replace(" ", string.Empty)
 				};
 
-				tab.Items.Add(shellContent);
+				favouritesTab.Items.Add(shellContent);
+
+				// Use Dispatcher.Dispatch() to ensure UI updates happen on the main thread
+				this.Dispatcher.Dispatch(() =>
+				{
+					this.Items.Add(favouritesTab);
+					this.CurrentItem = favouritesTab; // Reselect the tab
+				});
 			}
+		}
+
+
+
+		private Tab FindFavouritesTab()
+		{
+			foreach (var item in this.Items)
+			{
+				if (item is FlyoutItem flyoutItem)
+				{
+					foreach (var tab in flyoutItem.Items)
+					{
+						if (tab is Tab tabItem && tabItem.Title == "Favourites")
+						{
+							return tabItem;
+						}
+					}
+				}
+			}
+			return null; // Favourites tab not found
 		}
 	}
 }
