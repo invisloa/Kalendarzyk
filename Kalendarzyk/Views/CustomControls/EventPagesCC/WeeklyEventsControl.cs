@@ -9,6 +9,7 @@
 	using System.Linq;
 	using System.Security.Cryptography;
 	using static Kalendarzyk.App;
+	using static System.Runtime.InteropServices.JavaScript.JSType;
 	using MauiGrid = Microsoft.Maui.Controls.Grid;
 
 	public class WeeklyEventsControl : BaseEventPageCC
@@ -120,36 +121,18 @@
 		/// <remarks> hour special case: -1 for before span, -2 for after span</remarks>
 		/// <param name="dayOfWeek"></param>
 		/// <returns></returns>
-		private Frame CreateEventFrame(int hour, int dayOfWeek)
+		private Frame DrawHourFrame(int hour, int dayOfWeek)
 		{
-			var date = CalculateEventDate(dayOfWeek);
-			var dayEvents = GetDayEvents(hour, date);
+			var date = CalculateFrameDate(dayOfWeek);
 
-			var frame = InitializeFrame(date);
-			AddEventsToFrame(dayEvents, frame, dayOfWeek);
+			var frame = DrawSingleFrame(date);
+
 
 			return frame;
 		}
 
-		private DateTime CalculateEventDate(int dayOfWeek)
-		{
-			return CurrentSelectedDate.AddDays(dayOfWeek - (int)CurrentSelectedDate.DayOfWeek).Date;
-		}
 
-		private IEnumerable<IGeneralEventModel> GetDayEvents(int hour, DateTime date)
-		{
-			if (hour == -1)
-			{
-				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour < _hoursSpanFrom);
-			}
-			if (hour == -2)
-			{
-				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour >= _hoursSpanTo);
-			}
-			return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour == hour);
-		}
-
-		private Frame InitializeFrame(DateTime date)
+		private Frame DrawSingleFrame(DateTime date)
 		{
 			var frame = new Frame
 			{
@@ -171,31 +154,27 @@
 			return frame;
 		}
 
-		private void AddEventsToFrame(IEnumerable<IGeneralEventModel> dayEvents, Frame frame, int dayOfWeek)
-		{
-			if (dayEvents.Any())
-			{
-				var stackLayout = GenerateEventStackLayout(dayEvents.ToList(), dayOfWeek);
-				frame.Content = stackLayout;
-			}
-		}
 
-		private StackLayout GenerateEventStackLayout(List<IGeneralEventModel> dayEvents, int dayOfWeek)
+		private IEnumerable<IGeneralEventModel> GetHourEvents(int hour, DateTime date)
 		{
-			var stackLayout = new StackLayout();
-			if (dayEvents.Count > _displayEventsLimit)
+			if (hour == -1)
 			{
-				var moreLabel = GenerateMoreEventsLabel(dayEvents.Count, dayOfWeek);
-				stackLayout.Children.Add(moreLabel);
+				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour < _hoursSpanFrom);
 			}
-			else
+			if (hour == -2)
 			{
-				var eventItemsStackLayout = GenerateMultipleEventFrames(dayEvents);
-				stackLayout.Children.Add(eventItemsStackLayout);
+				return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour >= _hoursSpanTo);
 			}
-			return stackLayout;
+			return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour == hour);
 		}
-		private Label GenerateMoreEventsLabel(int dayEventsCount, int dayOfWeek)
+		private void AddEventsToGrid(IEnumerable<IGeneralEventModel> hourlyEvents, int dayOfWeek)
+		{
+			if (hourlyEvents.Any())
+			{
+				//Add events to the grid as buttons
+			}
+		}
+		private Label GenerateMoreButton(int dayEventsCount, int dayOfWeek)		// Consider if use this at all or just set no limit for number of events??
 		{
 			var moreLabel = new Label
 			{
@@ -219,107 +198,90 @@
 			for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++)
 			{
 				// FOR BEFORE SPAN COLUMN
-				var frame = CreateEventFrame(-1, dayOfWeek); // Adjust hour for CreateEventFrame
+				var frame = DrawHourFrame(-1, dayOfWeek); // Adjust hour for CreateEventFrame
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 				Grid.SetColumn(frame, -1 + 2); // Offset by 2 to account for the day labels column and "before" column
+				
 				Children.Add(frame);
 
+				// TODO HERE: Add events for before span ...
+
+				//???????????????????????????????????????????????????????????????????????
+
+
+
+
+				// For normal hours span Colimns
 				for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
 				{
-					frame = CreateEventFrame(hour, dayOfWeek); // Adjust hour for CreateEventFrame
+					frame = DrawHourFrame(hour, dayOfWeek); // Adjust hour for CreateEventFrame
 					Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
 					Children.Add(frame);
+					//Addevents for Normal span
+
+
 				}
 
 				// FOR AFTER SPAN COLUMN
-				frame = CreateEventFrame(-2, dayOfWeek); // Adjust hour for CreateEventFrame
+				frame = DrawHourFrame(-2, dayOfWeek); // Adjust hour for CreateEventFrame
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Offset by 2 to account for the day labels column and "before" column
 				Children.Add(frame);
+
+				//Addevents for after span
+
 			}
 		}
 
-		private StackLayout GenerateMultipleEventFrames(List<IGeneralEventModel> dayEvents)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		private DateTime CalculateFrameDate(int dayOfWeek)
 		{
-			var eventItemsStackLayout = new StackLayout
-			{
-				Orientation = StackOrientation.Vertical,
-				Spacing = 2,
-			};
-
-			for (int i = 0; i < Math.Min(dayEvents.Count, _displayEventsLimit); i++)
-			{
-				var eventItem = dayEvents[i];
-
-				var title = new Label
-				{
-					FontAttributes = FontAttributes.Bold,
-					Margin = new Thickness(5, 0, 0, 0),
-					Text = eventItem.Title,
-					LineBreakMode = LineBreakMode.TailTruncation,
-				};
-
-				var eventTypeLabel = new Label
-				{
-					Text = eventItem.EventType.MainEventType.SelectedVisualElement.ElementName,
-					FontSize = 20,
-					TextColor = eventItem.EventType.MainEventType.SelectedVisualElement.TextColor,
-					Style = Styles.GoogleFontStyle,
-					HorizontalOptions = LayoutOptions.Center,
-					VerticalOptions = LayoutOptions.Center,
-				};
-
-				var eventTypeFrame = new Frame
-				{
-					BackgroundColor = eventItem.EventType.MainEventType.SelectedVisualElement.BackgroundColor,
-					Padding = 0,
-					Content = eventTypeLabel,
-					HorizontalOptions = LayoutOptions.Center,
-					VerticalOptions = LayoutOptions.Center,
-					WidthRequest = 30
-				};
-
-				var grid = new Grid
-				{
-					ColumnDefinitions =
-			{
-				new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-				new ColumnDefinition { Width = new GridLength(30) }
-			},
-					Children = { title, eventTypeFrame }
-				};
-				Grid.SetColumn(title, 0);
-				Grid.SetColumn(eventTypeFrame, 1);
-
-				var eventFrame = new Frame
-				{
-					BackgroundColor = eventItem.EventVisibleColor,
-					Content = grid,
-					Padding = 0,
-					HasShadow = false,
-				};
-
-				var tapGestureRecognizer = new TapGestureRecognizer
-				{
-					Command = EventSelectedCommand,
-					CommandParameter = eventItem
-				};
-
-				eventFrame.GestureRecognizers.Add(tapGestureRecognizer);
-				eventItemsStackLayout.Children.Add(eventFrame);
-			}
-
-			return eventItemsStackLayout;
+			return CurrentSelectedDate.AddDays(dayOfWeek - (int)CurrentSelectedDate.DayOfWeek).Date;
 		}
+
 		private void SetCorrectHourlySpanTimes()
 		{
 			_hoursSpanFrom = PreferencesManager.GetHoursSpanFrom() > 0 && PreferencesManager.GetHoursSpanFrom() < 23 ? PreferencesManager.GetHoursSpanFrom() : 0;
 			_hoursSpanTo = PreferencesManager.GetHoursSpanTo() < 23 && PreferencesManager.GetHoursSpanTo() > 1 ? PreferencesManager.GetHoursSpanTo() : 23;
 
 			_hoursSpanFrom = _hoursSpanFrom <= _hoursSpanTo ? _hoursSpanFrom : 0;
-
-
 		}
 	}
 }

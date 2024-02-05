@@ -10,7 +10,7 @@
     >
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="MainPage">
+        <Tab Title="Favourites">
             <ShellContent
                 Title="Welcome"
                 ContentTemplate="{DataTemplate local:WelcomePage}"
