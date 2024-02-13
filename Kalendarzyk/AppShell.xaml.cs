@@ -20,7 +20,7 @@ namespace Kalendarzyk
 			var favouritesTab = FindFavouritesTab();
 			if (favouritesTab != null)
 			{
-				this.Items.Remove(favouritesTab);
+				this.Items.Remove(favouritesTab);		// TODO JO SOMETIMES IT CRASHES HERE ??
 
 				var shellContent = new ShellContent
 				{

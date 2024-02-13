@@ -1,3 +1,5 @@
+				
+				//TODO HERE: AddToFavoritesCommand
 				// TODO HERE: Add events for before span ...
 
 

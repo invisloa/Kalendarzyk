@@ -18,9 +18,10 @@ public partial class WelcomePage : ContentPage
 		InitializeComponent();
 		BindingContext = this;
 
+		//TODO HERE: AddToFavoritesCommand
 		AddToFavoritesCommand = new Command<string>((pageType) =>
 		{
-			// You need to reference your Shell instance here to call the method
+			// reference Shell instance here to call the method
 			(Application.Current.MainPage as AppShell)?.AddDeleteFromFavorites("New Page", Type.GetType(pageType));
 		});
 	}
