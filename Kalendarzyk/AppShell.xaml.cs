@@ -14,7 +14,10 @@ namespace Kalendarzyk
 			// Register routes
 			Routing.RegisterRoute("eventpage", typeof(EventPage));
 		}
-		//  method when the user wants to add a page to favorites.
+/*		TODO JO TO CHECK FAVOURITES TAB
+ *		
+ *		
+ *		//  method when the user wants to add a page to favorites.
 		public void AddDeleteFromFavorites(string title, Type pageType)
 		{
 			var favouritesTab = FindFavouritesTab();
@@ -59,5 +62,5 @@ namespace Kalendarzyk
 			}
 			return null; // Favourites tab not found
 		}
-	}
+*/	}
 }

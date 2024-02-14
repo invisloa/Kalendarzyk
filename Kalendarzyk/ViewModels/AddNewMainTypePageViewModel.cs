@@ -26,7 +26,6 @@ namespace Kalendarzyk.ViewModels
 		private Color _backgroundColor = Color.FromArgb("#fff");
 		private Color _textColor = Color.FromArgb("#000");
 		private bool _isEdit;
-		private Dictionary<string, RelayCommand<SelectableButtonViewModel>> iconCommandsDictionary;
 		private string lastSelectedIconType = "Top";
 		private bool _isIconsTabSelected = true;
 		private bool _isBgColorsTabSelected = false;

@@ -7,7 +7,6 @@ namespace Kalendarzyk.Views;
 
 public partial class AllMainTypesPage : ContentPage
 {
-	IEventRepository _eventRepository;
 	public AllMainTypesPage()
 	{
 		BindingContext = new AllMainTypesPageViewModel();

@@ -10,7 +10,6 @@ namespace Kalendarzyk.Views;
 
 public partial class WelcomePage : ContentPage
 {
-	IEventRepository _eventRepository;
 	public ICommand AddToFavoritesCommand { get; }
 
 	public WelcomePage()
@@ -19,16 +18,18 @@ public partial class WelcomePage : ContentPage
 		BindingContext = this;
 
 		//TODO HERE: AddToFavoritesCommand
-		AddToFavoritesCommand = new Command<string>((pageType) =>
+/*		AddToFavoritesCommand = new Command<string>((pageType) =>
 		{
 			// reference Shell instance here to call the method
 			(Application.Current.MainPage as AppShell)?.AddDeleteFromFavorites("New Page", Type.GetType(pageType));
-		});
+		});*/
 	}
 
 	private void Button_Clicked(object sender, EventArgs e)
-	{var pageType = "Kalendarzyk.Views.EventPage";
+	{
+/*		Favourites tab
+ *		var pageType = "Kalendarzyk.Views.EventPage";
 		(Application.Current.MainPage as AppShell)?.AddDeleteFromFavorites("New Page", Type.GetType(pageType));
-
+*/
 	}
 }

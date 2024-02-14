@@ -29,7 +29,6 @@ namespace Kalendarzyk.ViewModels
 		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
-		private TimeSpan _defaultEventTime;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
 		private Color _selectedColor = Color.FromRgb(255, 0, 0); // initialize with red
 		private string _typeName;

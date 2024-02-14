@@ -9,7 +9,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 {
 	public class DailyEventsViewModel : AbstractEventViewModel
 	{
-		private ISubEventTypeModel _eventType;
 		public string AboveEventsListText
 		{
 			get

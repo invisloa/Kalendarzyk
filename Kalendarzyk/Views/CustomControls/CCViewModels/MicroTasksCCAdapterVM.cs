@@ -50,7 +50,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 
 
-		List<MicroTaskModel> _listToAddMicroTasks;
 		public MicroTasksCCAdapterVM(List<MicroTaskModel> listToAddMicroTasks)
 		{
 			InitializeCommon();

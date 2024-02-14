@@ -18,7 +18,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 	public class AllEventsViewModel : AbstractEventViewModel, IMainEventTypesCCViewModel, IFilterDatesCC
 	{
 		public event Action<IMainEventType> MainEventTypeChanged;
-
+		private ISubEventTypeModel _eventType;
 		//MainEventTypesCC implementation
 		#region MainEventTypesCC implementation
 		protected IMainEventTypesCCViewModel _mainEventTypesCCHelper;
@@ -106,7 +106,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 		#region Fields
 
-		private ISubEventTypeModel _eventType;
 
 		#endregion
 

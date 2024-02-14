@@ -11,6 +11,7 @@ namespace Kalendarzyk.Services.DataOperations
 
 		public LocalFilePathService()
 		{
+			// file paths for json files
 			EventsFilePath = Path.Combine(FileSystem.Current.AppDataDirectory, Preferences.Default.Get("JsonEventsFileName", "CalendarEventsD"));
 			SubEventsTypesFilePath = Path.Combine(FileSystem.Current.AppDataDirectory, Preferences.Default.Get("JsonSubTypesFileName", "CalendarSubTypesOfEventsD"));
 			MainEventsTypesFilePath = Path.Combine(FileSystem.Current.AppDataDirectory, Preferences.Default.Get("JsonMainTypesFileName", "CalendarMainTypesOfEventsD"));
@@ -19,8 +20,18 @@ namespace Kalendarzyk.Services.DataOperations
 			CreateDirectoryIfNotExists(EventsFilePath);
 			CreateDirectoryIfNotExists(SubEventsTypesFilePath);
 			CreateDirectoryIfNotExists(MainEventsTypesFilePath);
+			// only for testing purposes
+/*			DeleteFileIfExists(EventsFilePath);
+			DeleteFileIfExists(SubEventsTypesFilePath);
+			DeleteFileIfExists(MainEventsTypesFilePath);*/
 		}
-
+		public void DeleteFileIfExists(string filePath)	// only for testing purposes
+		{
+			if (File.Exists(filePath))
+			{
+				File.Delete(filePath);
+			}
+		}
 		private void CreateDirectoryIfNotExists(string filePath)
 		{
 			var directoryPath = Path.GetDirectoryName(filePath);

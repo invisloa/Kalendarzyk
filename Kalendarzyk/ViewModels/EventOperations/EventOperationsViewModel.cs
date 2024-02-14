@@ -11,7 +11,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	class EventOperationsViewModel : EventOperationsBaseViewModel
 	{
 		#region Fields
-		private IShareEventsService _shareEvents;
 		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _asyncShareEventCommand;
 		#endregion
