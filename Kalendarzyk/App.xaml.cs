@@ -6,6 +6,7 @@ using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels;
+using Kalendarzyk.Views;
 
 namespace Kalendarzyk
 {
@@ -15,10 +16,28 @@ namespace Kalendarzyk
 		public App()
 		{
 			_repository = Factory.CreateNewEventRepository();
+			_repository.InitializeAsync();
 			InitializeComponent();
-			MainPage = new AppShell();
+			if(IsFirstLaunch())
+			{
+				FirstLaunch();
+			}
+			else
+			{
+				// TODO HERE!!! NOW
+				//TODO NOW
+				FirstLaunch();
 
+				//NotFirstLaunch();
+			}
+			Preferences.Default.Set("FirstLaunch", false);
 		}
+
+		private bool IsFirstLaunch()
+		{
+			return !Preferences.Default.ContainsKey("FirstLaunch");
+		}
+
 		protected override async void OnStart()
 		{
 			// Call base method 
@@ -47,5 +66,16 @@ namespace Kalendarzyk
 				}
 			};
 		}
+
+		private void FirstLaunch()
+		{
+			MainPage = new WelcomePage();
+		}
+		private void NotFirstLaunch()
+		{
+			MainPage = new AppShell();
+
+		}
+
 	}
 }

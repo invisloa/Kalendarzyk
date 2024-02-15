@@ -17,6 +17,8 @@ public partial class WelcomePage : ContentPage
 		InitializeComponent();
 		BindingContext = this;
 
+
+
 		//TODO HERE: AddToFavoritesCommand
 /*		AddToFavoritesCommand = new Command<string>((pageType) =>
 		{
