@@ -24,11 +24,7 @@ namespace Kalendarzyk
 			}
 			else
 			{
-				// TODO HERE!!! NOW
-				//TODO NOW
-				FirstLaunch();
-
-				//NotFirstLaunch();
+				NotFirstLaunch();
 			}
 			Preferences.Default.Set("FirstLaunch", false);
 		}

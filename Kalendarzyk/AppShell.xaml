@@ -11,7 +11,10 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Favourites">
-
+            <ShellContent
+                Title="Add New MainTypes"
+                ContentTemplate="{DataTemplate local:AddNewMainTypePage}"
+                Route="AddNewMainTypePage" />
             <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
@@ -20,6 +23,10 @@
                 Title="Daily"
                 ContentTemplate="{DataTemplate local:DailyEventsPage}"
                 Route="DailyEvents" />
+            <ShellContent
+                Title="Welcome Page"
+                ContentTemplate="{DataTemplate local:WelcomePage}"
+                Route="WelcomePage" />
 
         </Tab>
     </FlyoutItem>

@@ -4,7 +4,7 @@
              x:Class="Kalendarzyk.Views.CustomControls.ColorButtonsSelectorCC"
              xmlns:local="Kalendarzyk.Views.CustomControls.ColorButtonsSelectorCC"
              >
-    <CollectionView ItemsSource="{Binding ColorButtonsSelectorHelper.ItemsSource, Source={RelativeSource AncestorType={x:Type local:ColorButtonsSelectorCC}}}">
+    <CollectionView ItemsSource="{Binding ColorButtonsSelectorHelper.ColorButtons, Source={RelativeSource AncestorType={x:Type local:ColorButtonsSelectorCC}}}">
         <CollectionView.ItemsLayout>
             <GridItemsLayout Orientation="Vertical"
                                      Span="10" />
@@ -12,12 +12,12 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Button 
-                    BackgroundColor="{Binding ColorButtonsSelectorHelper.ButtonColor}"
-                    Command="{Binding Path=Command, Source={RelativeSource AncestorType={x:Type local:ColorButtonsSelectorCC}}}"
+                    BackgroundColor="{Binding ButtonColor}"
+                    Command="{Binding Path=ColorButtonsSelectorHelper.SelectedButtonCommand, Source={RelativeSource AncestorType={x:Type local:ColorButtonsSelectorCC}}}"
                     CommandParameter="{Binding .}"
                     
                         MinimumWidthRequest="10"
-                        BorderWidth="{Binding ColorButtonsSelectorHelper.ButtonBorder}"
+                        BorderWidth="{Binding ButtonBorder}"
 
                         Margin="1"/>
 

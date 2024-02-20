@@ -13,6 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Kalendarzyk.Models.EventModels;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using System.Runtime.CompilerServices;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -23,15 +26,31 @@ namespace Kalendarzyk.ViewModels
 		private IMainEventType _currentMainType;
 		private string _mainTypeName;
 		private string _selectedVisualElementString;
-		private Color _backgroundColor = Color.FromArgb("#fff");
-		private Color _textColor = Color.FromArgb("#000");
 		private bool _isEdit;
 		private string lastSelectedIconType = "Top";
 		private bool _isIconsTabSelected = true;
 		private bool _isBgColorsTabSelected = false;
 		private bool _isTextColorsTabSelected = false;
-		public ObservableCollection<SelectableButtonViewModel> BgColorsButtonsOC { get; set; }
-		public ObservableCollection<SelectableButtonViewModel> TextColorsButtonsOC { get; set; }
+		private ColorButtonsSelectorViewModel _backGroundColorsHelper;
+		public ColorButtonsSelectorViewModel BackGroundColorsHelper
+		{
+			get { return _backGroundColorsHelper; }
+			set
+			{
+				_backGroundColorsHelper = value;
+				OnPropertyChanged();
+			}
+		}
+		private ColorButtonsSelectorViewModel _textColorsHelper;
+		public ColorButtonsSelectorViewModel TextColorsHelper
+		{
+			get { return _textColorsHelper; }
+			set
+			{
+				_textColorsHelper = value;
+				OnPropertyChanged();
+			}
+		}
 		public bool IsQuickNoteMainType
 		{
 			get => _currentMainType?.Title == PreferencesManager.GetMainTypeQuickNoteName();
@@ -63,7 +82,6 @@ namespace Kalendarzyk.ViewModels
 				OnPropertyChanged();
 			}
 		}
-
 		public ObservableCollection<SelectableButtonViewModel> MainButtonVisualsSelectors { get; set; }
 		public ObservableCollection<SelectableButtonViewModel> IconsTabsOC { get; set; }
 
@@ -91,24 +109,6 @@ namespace Kalendarzyk.ViewModels
 				OnPropertyChanged();
 			}
 		}
-		public Color TextColor
-		{
-			get => _textColor;
-			set
-			{
-				_textColor = value;
-				OnPropertyChanged();
-			}
-		}
-		public Color BackgroundColor
-		{
-			get => _backgroundColor;
-			set
-			{
-				_backgroundColor = value;
-				OnPropertyChanged();
-			}
-		}
 		public string SelectedVisualElementString
 		{
 			get => _selectedVisualElementString;
@@ -124,8 +124,6 @@ namespace Kalendarzyk.ViewModels
 		public RelayCommand<string> ExactIconSelectedCommand { get; set; }
 		public AsyncRelayCommand AsyncSubmitMainTypeCommand { get; set; }
 		public AsyncRelayCommand DeleteAsyncSelectedMainEventTypeCommand { get; set; }
-		public RelayCommand<SelectableButtonViewModel> BgColorsCommand { get; private set; }
-		public RelayCommand<SelectableButtonViewModel> TextColorsCommand { get; private set; }
 		#endregion
 
 
@@ -146,8 +144,8 @@ namespace Kalendarzyk.ViewModels
 			_currentMainType = currentMainType;
 			MainTypeName = currentMainType.Title;
 			SelectedVisualElementString = currentMainType.SelectedVisualElement.ElementName;
-			BackgroundColor = currentMainType.SelectedVisualElement.BackgroundColor;
-			TextColor = currentMainType.SelectedVisualElement.TextColor;
+			BackGroundColorsHelper.SelectedColor = currentMainType.SelectedVisualElement.BackgroundColor;
+			TextColorsHelper.SelectedColor = currentMainType.SelectedVisualElement.TextColor;
 			DeleteAsyncSelectedMainEventTypeCommand = new AsyncRelayCommand(OnDeleteMainTypeCommand, CanDeleteMainEventType);
 		}
 		#endregion
@@ -159,10 +157,9 @@ namespace Kalendarzyk.ViewModels
 		#region private methods
 		private void InitializeCommon()
 		{
-			BgColorsButtonsOC = SelectableButtonHelper.GenerateColorPaletteButtons();
-			TextColorsButtonsOC = SelectableButtonHelper.GenerateColorPaletteButtons();
-			BgColorsCommand = new RelayCommand<SelectableButtonViewModel>(OnBgColorSeletctionCommand);
-			TextColorsCommand = new RelayCommand<SelectableButtonViewModel>(OnTextColorSeletctionCommand);
+			BackGroundColorsHelper = new ColorButtonsSelectorViewModel(startingColor:Colors.Red);
+			TextColorsHelper = new ColorButtonsSelectorViewModel(startingColor: Colors.White);
+
 			RefreshIconsToShowOC();
 			InitializeCommands();
 			InitializeSelectors();
@@ -213,7 +210,7 @@ namespace Kalendarzyk.ViewModels
 
 		private async Task OnSubmitMainTypeCommand()
 		{
-			var iconForMainEventType = Factory.CreateIMainTypeVisualElement(SelectedVisualElementString, BackgroundColor, TextColor);
+			var iconForMainEventType = Factory.CreateIMainTypeVisualElement(SelectedVisualElementString, BackGroundColorsHelper.SelectedColor, TextColorsHelper.SelectedColor);
 			if (_isEdit)
 			{
 				if (await CanEditType())
@@ -257,12 +254,6 @@ namespace Kalendarzyk.ViewModels
 			}
 			return true;
 		}
-		//private void OnGoToAllMainTypesPageCommand()
-		//{
-		//	Shell.Current.GoToAsync("//AllMainTypesPage");
-
-		//	//Application.Current.MainPage.Navigation.PushAsync(new AllMainTypesPage());
-		//}
 		private async Task OnDeleteMainTypeCommand()
 		{
 			var eventTypesInDb = _eventRepository.AllEventsList.Where(x => x.EventType.MainEventType.Equals(_currentMainType)); // to check
@@ -375,25 +366,6 @@ namespace Kalendarzyk.ViewModels
 			IsTextColorsTabSelected = false;
 			IsBgColorsTabSelected = false;
 			IsIconsTabSelected = false;
-		}
-		private void OnTextColorSeletctionCommand(SelectableButtonViewModel clickedButton)
-		{
-			// TODO NOW  add  logic for color button clicked!!!!!! xxxxxxxxxxxxxxxxx
-			TextColor = clickedButton.ButtonColor;
-			foreach (var button in TextColorsButtonsOC)
-			{
-				button.IsSelected = button.ButtonColor == clickedButton.ButtonColor;
-			}
-		}
-		private void OnBgColorSeletctionCommand(SelectableButtonViewModel clickedButton)
-		{
-			// TODO NOW  add  logic for color button clicked!!!!!! xxxxxxxxxxxxxxxxx
-
-			BackgroundColor = clickedButton.ButtonColor;
-			foreach (var button in BgColorsButtonsOC)
-			{
-				button.IsSelected = button.ButtonColor == clickedButton.ButtonColor;
-			}
 		}
 		#endregion
 	}

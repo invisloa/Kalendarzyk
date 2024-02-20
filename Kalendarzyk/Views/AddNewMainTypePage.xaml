@@ -34,12 +34,12 @@
                                HorizontalOptions="Start"  />
                 <!-- Adjust margin as needed to position the icon -->
                 <Frame  Grid.Column="0" Padding="0"  
-                            BackgroundColor="{Binding BackgroundColor}"
+                            BackgroundColor="{Binding BackGroundColorsHelper.SelectedColor}"
                             >
 
                     <Label 
                                 Text="{Binding SelectedVisualElementString}"
-                                TextColor="{Binding TextColor}"
+                                TextColor="{Binding TextColorsHelper.SelectedColor}"
                                 Style="{StaticResource GoogleFont}"
                                 HorizontalOptions="Center" 
                                 VerticalOptions="Center"/>
@@ -84,19 +84,26 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
+            
+            <!--Background Colors-->
+            <customControls:ColorButtonsSelectorCC Margin="5" ColorButtonsSelectorHelper="{Binding BackGroundColorsHelper}" IsVisible="{Binding IsBgColorsTabSelected}"/>
 
-        
-            <!--Background Colors--> 
+            <!--Text Colors-->
             <customControls:ColorButtonsSelectorCC Margin="5"
-                ItemsSource="{Binding BgColorsButtonsOC}" 
-                Command="{Binding Path=BindingContext.BgColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
+                ColorButtonsSelectorHelper="{Binding TextColorsHelper}" 
+                BindingContext="{Binding}"  IsVisible="{Binding IsTextColorsTabSelected}"/>
+
+            <!--Background Colors--><!-- 
+            <customControls:ColorButtonsSelectorCC Margin="5"
+                ColorButtonsSelectorHelper="{Binding BgColorsButtonsOC}" 
+                ColorButtonCommand="{Binding Path=BindingContext.BgColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
                 BindingContext="{Binding}"  IsVisible="{Binding IsBgColorsTabSelected}"/>
 
-            <!--Text Colors--> 
+            --><!--Text Colors--><!-- 
             <customControls:ColorButtonsSelectorCC Margin="5"
-                ItemsSource="{Binding TextColorsButtonsOC}" 
-                Command="{Binding Path=BindingContext.TextColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
-                BindingContext="{Binding}"  IsVisible="{Binding IsTextColorsTabSelected}"/>
+                ColorButtonsSelectorHelper="{Binding TextColorsButtonsOC}" 
+                ColorButtonCommand="{Binding Path=BindingContext.TextColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
+                BindingContext="{Binding}"  IsVisible="{Binding IsTextColorsTabSelected}"/>-->
 
         
             <!--Down of the screen buttons-->
