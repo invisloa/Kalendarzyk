@@ -4,6 +4,7 @@ public partial class FirstRunPage : ContentPage
 {
 	public FirstRunPage()
 	{
+
 		InitializeComponent();
 	}
 }

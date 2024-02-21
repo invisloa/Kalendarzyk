@@ -32,7 +32,7 @@ namespace Kalendarzyk.Views
 					DisplayAlert("Error", $"{ex}", "XXX");
 				}
 
-				// Use myData as needed.
+				// Use myData
 			}
 		}
 
