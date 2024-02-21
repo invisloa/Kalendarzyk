@@ -34,15 +34,15 @@
                                          Margin="10, 10, 10, 10" />
 
             
+
+
+            <!--Start/End Date and time-->
+            <customControls:DateStartEndCC/>
             <!--Main Event Types Custom Control-->
             <customControls:MainEventTypesSelectorCC/>
 
             <!--User Event Types Custom Control-->
             <customControls:EventTypesCustomControl/>
-
-
-            <!--Start/End Date and time-->
-            <customControls:DateStartEndCC/>
 
             <!--UserExtraControls Timespan Value MicroTasks-->
             <customControls:SubTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
