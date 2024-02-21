@@ -377,7 +377,7 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			if (string.IsNullOrEmpty(jsonData))
 			{
-				await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"jsonData is null or empty", "XXX");
+				await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"jsonData is null or empty", "yyy");
 				return;
 			}
 			var deserializedEventsAndTypesdData = DeserializeEventsDataFromJson(jsonData);
@@ -385,7 +385,7 @@ public class LocalMachineEventRepository : IEventRepository
 		}
 		catch (Exception ex)
 		{
-			await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"{ex}", "XXX");
+			await App.Current.MainPage.DisplayAlert("LoadEventsFromJsonError", $"{ex}", "yyy");
 		}
 	}
 	private EventsAndTypesForJson DeserializeEventsDataFromJson(string encryptedJsonData)
@@ -469,7 +469,7 @@ public class LocalMachineEventRepository : IEventRepository
 				}
 				catch (Exception ex)
 				{
-					await App.Current.MainPage.DisplayAlert("LoadSingleEventFromJsonError", $"{ex}", "XXX");
+					await App.Current.MainPage.DisplayAlert("LoadSingleEventFromJsonError", $"{ex}", "yyy");
 				}
 			}
 			else

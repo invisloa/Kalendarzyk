@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <!-- Grid for Entry and Button -->
-            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />

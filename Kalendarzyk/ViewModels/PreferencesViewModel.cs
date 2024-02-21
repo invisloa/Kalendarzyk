@@ -25,14 +25,21 @@ namespace Kalendarzyk.ViewModels
 			get;
 			set;
 		}
-		public bool SelectedLanguage
+		public Enums.LanguageEnum SelectedLanguage
 		{
-			get => PreferencesManager.GetSelectedLanguage();
+			get
+			{
+				// Retrieve the stored language integer value from preferences
+				int storedLanguage = PreferencesManager.GetSelectedLanguage();
+
+				// Convert the stored integer value to LanguageEnum
+				return (Enums.LanguageEnum)storedLanguage;
+			}
 			set
 			{
-				if (PreferencesManager.GetSelectedLanguage() != value)
+				if (PreferencesManager.GetSelectedLanguage() != (int)value)
 				{
-					PreferencesManager.SetSelectedLanguage(value);
+					PreferencesManager.SetSelectedLanguage((int)value);
 					OnPropertyChanged();
 				}
 			}

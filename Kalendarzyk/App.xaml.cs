@@ -18,7 +18,7 @@ namespace Kalendarzyk
 			_repository = Factory.CreateNewEventRepository();
 			_repository.InitializeAsync();
 			InitializeComponent();
-			if(IsFirstLaunch())
+			if(!IsFirstLaunch())
 			{
 				FirstLaunch();
 			}
@@ -65,7 +65,7 @@ namespace Kalendarzyk
 
 		private void FirstLaunch()
 		{
-			MainPage = new WelcomePage();
+			MainPage = new FirstRunPage();
 		}
 		private void NotFirstLaunch()
 		{

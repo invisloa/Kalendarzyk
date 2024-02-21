@@ -35,7 +35,7 @@ namespace Kalendarzyk.Views
 			}
 			catch (Exception ex)
 			{
-				DisplayAlert("Error", $"{ex}", "XXX");
+				DisplayAlert("Error", $"{ex}", "yyy");
 			}
 		}
 	}

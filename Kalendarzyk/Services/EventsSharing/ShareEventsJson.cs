@@ -43,7 +43,7 @@ namespace Kalendarzyk.Services.EventsSharing
 			}
 			catch (Exception ex)
 			{
-				await App.Current.MainPage.DisplayAlert("ShareFileError", $"{ex}", "XXX");
+				await App.Current.MainPage.DisplayAlert("ShareFileError", $"{ex}", "yyy");
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace Kalendarzyk.Services.EventsSharing
 			}
 			catch (Exception ex)
 			{
-				await App.Current.MainPage.DisplayAlert("ImportEventError", $"{ex}", "XXX");
+				await App.Current.MainPage.DisplayAlert("ImportEventError", $"{ex}", "yyy");
 			}
 		}
 		public string GetTemporaryFilePath(string fileName)

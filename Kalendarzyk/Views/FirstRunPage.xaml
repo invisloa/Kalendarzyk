@@ -9,10 +9,44 @@
             Text="{Binding WelcomeText}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label Text="{Binding ColorChooseText}"/>
-        <!--<customControls:ColorButtonsSelectorCC Margin="5"
+
+        <!-- Manually added buttons with Grid layout -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Adjust column width as needed -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Frame HeightRequest="150" WidthRequest="150" BorderColor="Red" Margin="20" Scale="{Binding EnglishFlagScale}">
+                <VerticalStackLayout Margin="-10">
+                    <Image Source="flag_english.png" WidthRequest="100" HeightRequest="100" Margin="-10"/>
+                    <Label Margin="0" Text="LANGUAGE" WidthRequest="100" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding EngCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame Grid.Column="1" HeightRequest="150" WidthRequest="150" BorderColor="Red" Margin="20"  Scale="{Binding PolishFlagScale}">
+                <VerticalStackLayout Margin="-10">
+                    <Image Source="flag_polish.png" WidthRequest="100" HeightRequest="100" Margin="-10"/>
+                    <Label Margin="0" Text="JĘZYK" WidthRequest="100" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PLCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+        <Button Style="{StaticResource MyCustomButtonStyle}" Text="{Binding NextButtonText}" HorizontalOptions="Center"  CornerRadius="20" Clicked="Button_Clicked" IsEnabled="{Binding IsNextButtonEnabled}"/>
+    </VerticalStackLayout>
+</ContentPage>
+
+
+
+<!--<Label Text="{Binding ColorChooseText}"/>
+        <customControls:ColorButtonsSelectorCC ColorButtonsSelectorHelper="{Binding BackroundColorSelectorHelper}"/>-->
+<!--<customControls:ColorButtonsSelectorCC Margin="5"
                 ColorButtonsSelectorHelper="{Binding BgColorsButtonsOC}" 
                 ColorButtonCommand="{Binding Path=BindingContext.BgColorsCommand, Source={x:Reference AddNewMainTypePageName}}" 
                 BindingContext="{Binding}"  IsVisible="{Binding IsBgColorsTabSelected}"/>-->
-    </VerticalStackLayout>
-</ContentPage>

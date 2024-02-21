@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kalendarzyk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,8 +33,8 @@ namespace Kalendarzyk.Services
 		public static string GetMainTypeQuickNoteName() => Preferences.Get(MainTypeQuickNoteName, "QNOTE");
 		public static string GetSubTypeQuickNoteName() => Preferences.Get(SubTypeQuickNoteName, "QNOTE");
 
-		public static bool GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, false);
-		public static void SetSelectedLanguage(bool value) => Preferences.Set(SelectedLanguageKey, value);
+		public static int GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, (int)Enums.LanguageEnum.English);
+		public static void SetSelectedLanguage(int value) => Preferences.Set(SelectedLanguageKey, value);
 
 		public static bool GetSubEventTypeTimesDifferent() => Preferences.Get(SubEventTypeTimesDifferentKey, false);
 		public static void SetSubEventTypeTimesDifferent(bool value) => Preferences.Set(SubEventTypeTimesDifferentKey, value);

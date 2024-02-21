@@ -54,8 +54,6 @@
             <customControls:MainEventTypesSelectorCC BindingContext="{Binding Source={x:Reference AddNewSubTypePageName}, Path=BindingContext}"/>
 
             <!--Possible Colors of events to choose-->
-            
-            <!--TODO HERE XXXXXXXX!!!!-->
             <customControls:ColorButtonsSelectorCC Margin="5"
                ColorButtonsSelectorHelper="{Binding ColorButtonsHelperClass}" />
             <!--SubTypeExtraOptions_TypesCC-->
