@@ -6,6 +6,13 @@
              x:Name="AddNewSubTypePageName">
     <ScrollView BackgroundColor="{DynamicResource MainBackgroundColor}">
         <StackLayout>
+            <customControls:OperationsBarCC IsDeleteButtonVisible="{Binding IsEdit}"
+                                            IsSaveButtonClickable="{Binding CanSubmitTypeCommand}"
+                                            IsShareButtonVisible="False" 
+                                            
+                                            AsyncSaveButtonCommand="{Binding AsyncSubmitTypeCommand}"
+                                            AsyncDeleteButtonCommand="{Binding AsyncDeleteSelectedEventTypeCommand}"
+                                            />
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -18,27 +25,7 @@
                     <Entry Placeholder="{Binding PlaceholderText}" Text="{Binding TypeName, Mode=TwoWay}" Margin="10"  FontAttributes="Bold" FontSize="Body" IsReadOnly="{Binding IsQuickNoteType}"
                            HorizontalTextAlignment="Center" BackgroundColor="{Binding ColorButtonsHelperClass.SelectedColor, Mode=TwoWay}" TextColor="{DynamicResource MainTextColor}" VerticalOptions="Fill"/>
                 </Frame>
-                <Label Grid.Column="0" HorizontalOptions="Start" 
-                        Text="_delete_forever" 
-                        TextColor="Red"
-                        Style="{StaticResource GoogleFont}"
-                        IsVisible="{Binding IsEdit}" 
-                        Margin="10"
-                        >
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer  Command="{Binding DeleteSelectedEventTypeCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label  Grid.Column="2" HorizontalOptions="End" 
-                        Text="save" 
-                        TextColor="Green"
-                        Style="{StaticResource GoogleFont}"
-                        Margin="10"
-                        >
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SubmitTypeCommand}" />
-                        </Label.GestureRecognizers>
-                </Label>
+
             </Grid>
 
 
@@ -53,12 +40,13 @@
             <!--Main Event Types Custom Control-->
             <customControls:MainEventTypesSelectorCC BindingContext="{Binding Source={x:Reference AddNewSubTypePageName}, Path=BindingContext}"/>
 
-            <!--Possible Colors of events to choose-->
-            <customControls:ColorButtonsSelectorCC Margin="5"
-               ColorButtonsSelectorHelper="{Binding ColorButtonsHelperClass}" />
             <!--SubTypeExtraOptions_TypesCC-->
 
             <customControls:SubTypeExtraOptions_TypesCC Margin="5" />
+
+            <!--Possible Colors of events to choose-->
+            <customControls:ColorButtonsSelectorCC Margin="5"
+               ColorButtonsSelectorHelper="{Binding ColorButtonsHelperClass}" />
 
 
             <!--Down of the screen buttons-->

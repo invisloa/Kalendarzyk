@@ -16,6 +16,8 @@ using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Kalendarzyk.Helpers;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -76,18 +78,14 @@ namespace Kalendarzyk.ViewModels
 			{
 				if (value == _typeName) return;
 				_typeName = value;
-				SubmitTypeCommand.NotifyCanExecuteChanged();
+				AsyncSubmitTypeCommand.NotifyCanExecuteChanged();
+				SetCanSubmitTypeCommand();
 				OnPropertyChanged();
 			}
 		}
 		public IMainEventType SelectedMainEventType
 		{
 			get => MainEventTypesCCHelper.SelectedMainEventType;
-			set
-			{
-				MainEventTypesCCHelper.SelectedMainEventType = value;
-				SubmitTypeCommand.NotifyCanExecuteChanged();
-			}
 		}
 
 		public ObservableCollection<SelectableButtonViewModel> ButtonsColorsOC { get; set; }
@@ -96,11 +94,24 @@ namespace Kalendarzyk.ViewModels
 		public RelayCommand<MainEventTypeViewModel> MainEventTypeSelectedCommand { get; set; }
 		//public RelayCommand GoToAllSubTypesPageCommand { get; private set; }
 		public RelayCommand<SelectableButtonViewModel> SelectColorCommand { get; private set; }
-		public AsyncRelayCommand SubmitTypeCommand { get; private set; }
-		public AsyncRelayCommand DeleteSelectedEventTypeCommand { get; private set; }
+		public AsyncRelayCommand AsyncSubmitTypeCommand { get; private set; }
+		public AsyncRelayCommand AsyncDeleteSelectedEventTypeCommand { get; private set; }
+		private bool _canSubmitTypeCommand;
+		private bool _isMainEventTypeSelected;
+
+		public bool CanSubmitTypeCommand
+		{
+			get => _canSubmitTypeCommand;
+			set
+			{
+				_canSubmitTypeCommand = value;
+				OnPropertyChanged();
+			}
+		}
+
 
 		#region Commands CanExecute
-		private bool CanExecuteSubmitTypeCommand() => !string.IsNullOrEmpty(TypeName) && MainEventTypesCCHelper.SelectedMainEventType != null;
+		public bool CanExecuteAsyncSubmitTypeCommand() => !string.IsNullOrEmpty(TypeName) && MainEventTypesCCHelper.SelectedMainEventType != null;
 		#endregion
 		#endregion
 
@@ -110,7 +121,7 @@ namespace Kalendarzyk.ViewModels
 		{
 			_eventRepository = Factory.CreateNewEventRepository();
 			InitializeCommon();
-			MainEventTypeSelectedCommand = MainEventTypesCCHelper.MainEventTypeSelectedCommand;
+			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelectedCommand);
 			DefaultEventTimespanCCHelper.SelectedUnitIndex = 0; // minutes
 			DefaultEventTimespanCCHelper.DurationValue = 30;
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
@@ -126,14 +137,14 @@ namespace Kalendarzyk.ViewModels
 			{
 				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(currentType.MicroTasksList);
 			}
-			MainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
+			OnMainEventTypeSelectedCommand(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
 			//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
 			ColorButtonsHelperClass.SelectedColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);
 			setIsVisibleForExtraControlsInEditMode();
 			SubTypeExtraOptionsHelper.ValueTypeClickCommand = null;
-			DeleteSelectedEventTypeCommand = new AsyncRelayCommand(DeleteSelectedEventType, CanDeleteSelectedEventType);
+			AsyncDeleteSelectedEventTypeCommand = new AsyncRelayCommand(AsyncDeleteSelectedEventType, CanDeleteSelectedEventType);
 
 			// set proper visuals for an edited event type ??
 		}
@@ -145,7 +156,7 @@ namespace Kalendarzyk.ViewModels
 			bool isEditMode = CurrentType != null;
 			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
 			//GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
-			SubmitTypeCommand = new AsyncRelayCommand(SubmitType, CanExecuteSubmitTypeCommand);
+			AsyncSubmitTypeCommand = new AsyncRelayCommand(AsyncSubmitType, CanExecuteAsyncSubmitTypeCommand);
 			_mainEventTypesCCHelper.MainEventTypeChanged += OnMainEventTypeChanged;
 
 		}
@@ -153,7 +164,7 @@ namespace Kalendarzyk.ViewModels
 		// for telling the view that the main event type has changed
 		private void OnMainEventTypeChanged(IMainEventType newMainEventType)
 		{
-			SubmitTypeCommand.NotifyCanExecuteChanged();
+			AsyncSubmitTypeCommand.NotifyCanExecuteChanged();
 		}
 		private void setIsVisibleForExtraControlsInEditMode()
 		{
@@ -165,7 +176,7 @@ namespace Kalendarzyk.ViewModels
 
 
 		#region Methods
-		private async Task DeleteSelectedEventType()
+		private async Task AsyncDeleteSelectedEventType()
 		{
 			var eventTypesInDb = _eventRepository.AllEventsList.Where(x => x.EventType.Equals(_currentType));
 			if (eventTypesInDb.Any())
@@ -194,7 +205,7 @@ namespace Kalendarzyk.ViewModels
 			await Shell.Current.GoToAsync($"{nameof(AllSubTypesPage)}");
 		}
 
-		private async Task SubmitType()
+		private async Task AsyncSubmitType()
 		{
 
 			if (IsEdit)
@@ -282,7 +293,17 @@ namespace Kalendarzyk.ViewModels
 			}
 			return true;
 		}
+		private void OnMainEventTypeSelectedCommand(MainEventTypeViewModel mainEventTypeViewModel)
+		{
+			_isMainEventTypeSelected = true;
+			MainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(mainEventTypeViewModel);
+			SetCanSubmitTypeCommand();
+		}
+		#endregion
+		private void SetCanSubmitTypeCommand()
+		{
+			CanSubmitTypeCommand = !string.IsNullOrEmpty(TypeName) && _isMainEventTypeSelected;
+		}
 	}
-	#endregion
 
 }
