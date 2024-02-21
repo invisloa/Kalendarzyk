@@ -9,34 +9,8 @@ using System.Xml.Linq;
 
 namespace Kalendarzyk.Views
 {
-	[QueryProperty(nameof(MyData), "data")]
 	public partial class EventPage : ContentPage
 	{
-		private string myData;
-		public string MyData
-		{
-			get => myData;
-			set
-			{
-				myData = Uri.UnescapeDataString(value ?? string.Empty);
-				OnPropertyChanged();
-				var settings = new JsonSerializerSettings{TypeNameHandling = TypeNameHandling.All};
-				try
-				{
-					var eventModel = JsonConvert.DeserializeObject<IGeneralEventModel>(myData, settings);
-					BindingContext = new EventOperationsViewModel(eventModel);
-
-				}
-				catch (Exception ex)
-				{
-					DisplayAlert("Error", $"{ex}", "XXX");
-				}
-
-				// Use myData
-			}
-		}
-
-
 		// For adding events
 		public EventPage(DateTime selcetedDate)
 		{
