@@ -27,7 +27,11 @@ namespace Kalendarzyk.Helpers
 			// Orange
 			Color.FromRgb(255, 165, 0),
 			// Gold
-			Color.FromRgb(255, 215, 0)
+			Color.FromRgb(255, 215, 0),
+			// Light Gray
+			Color.FromRgb(211, 211, 211),
+			// White
+			Color.FromRgb(255, 255, 255)
 		};
 
 		public static ObservableCollection<SelectableButtonViewModel> GenerateColorPaletteButtons()
