@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
-	public class ColorButtonsSelectorViewModel : BaseViewModel
+	public class ColorButtonsSelectorViewModel : BaseViewModel, IColorButtonsSelectorHelperClass
 	{
 		private Color _selectedColor;
 		private ObservableCollection<SelectableButtonViewModel> _colorButtons;

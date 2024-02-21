@@ -31,25 +31,15 @@ namespace Kalendarzyk.ViewModels
 		private bool _isIconsTabSelected = true;
 		private bool _isBgColorsTabSelected = false;
 		private bool _isTextColorsTabSelected = false;
-		private ColorButtonsSelectorViewModel _backGroundColorsHelper;
-		public ColorButtonsSelectorViewModel BackGroundColorsHelper
+		private IColorButtonsSelectorHelperClass _backGroundColorsHelper = Factory.CreateNewIColorButtonsHelperClass(startingColor:Colors.Red);
+		public IColorButtonsSelectorHelperClass BackGroundColorsHelper
 		{
 			get { return _backGroundColorsHelper; }
-			set
-			{
-				_backGroundColorsHelper = value;
-				OnPropertyChanged();
-			}
 		}
-		private ColorButtonsSelectorViewModel _textColorsHelper;
-		public ColorButtonsSelectorViewModel TextColorsHelper
+		private IColorButtonsSelectorHelperClass _textColorsHelper = Factory.CreateNewIColorButtonsHelperClass(startingColor: Colors.White);
+		public IColorButtonsSelectorHelperClass TextColorsHelper
 		{
 			get { return _textColorsHelper; }
-			set
-			{
-				_textColorsHelper = value;
-				OnPropertyChanged();
-			}
 		}
 		public bool IsQuickNoteMainType
 		{
@@ -157,8 +147,6 @@ namespace Kalendarzyk.ViewModels
 		#region private methods
 		private void InitializeCommon()
 		{
-			BackGroundColorsHelper = new ColorButtonsSelectorViewModel(startingColor:Colors.Red);
-			TextColorsHelper = new ColorButtonsSelectorViewModel(startingColor: Colors.White);
 
 			RefreshIconsToShowOC();
 			InitializeCommands();

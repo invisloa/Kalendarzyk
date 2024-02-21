@@ -7,7 +7,7 @@
     <CollectionView ItemsSource="{Binding ColorButtonsSelectorHelper.ColorButtons, Source={RelativeSource AncestorType={x:Type local:ColorButtonsSelectorCC}}}">
         <CollectionView.ItemsLayout>
             <GridItemsLayout Orientation="Vertical"
-                                     Span="10" />
+                                     Span="5" />
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>

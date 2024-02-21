@@ -12,6 +12,8 @@ using Kalendarzyk.Models;
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.Services.Notifier;
+using Kalendarzyk.ViewModels;
+using System.Windows.Input;
 
 namespace Kalendarzyk.Services
 {
@@ -140,6 +142,14 @@ namespace Kalendarzyk.Services
 		internal static IUserNotifier CreateNewUserNotifier()
 		{
 			return new ToastNotifier();
+		}
+
+		internal static IColorButtonsSelectorHelperClass CreateNewIColorButtonsHelperClass(
+			ObservableCollection<SelectableButtonViewModel> colorButtons = null,
+			ICommand selectedButtonCommand = null,
+			Color? startingColor = null)
+		{
+			return new ColorButtonsSelectorViewModel(colorButtons, selectedButtonCommand, startingColor);
 		}
 	}
 }

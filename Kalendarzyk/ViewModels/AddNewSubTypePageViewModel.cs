@@ -30,10 +30,11 @@ namespace Kalendarzyk.ViewModels
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
-		private Color _selectedColor = Color.FromRgb(255, 0, 0); // initialize with red
 		private string _typeName;
 		private IEventRepository _eventRepository;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
+		private IColorButtonsSelectorHelperClass _colorButtonsHelperClass = Factory.CreateNewIColorButtonsHelperClass(startingColor:Colors.Red);
+		public IColorButtonsSelectorHelperClass ColorButtonsHelperClass { get => _colorButtonsHelperClass; }
 
 		#endregion
 
@@ -65,21 +66,6 @@ namespace Kalendarzyk.ViewModels
 			{
 				if (value == _currentType) return;
 				_currentType = value;
-				OnPropertyChanged();
-			}
-		}
-		public Color MainEventTypeButtonsColor
-		{
-			get; set;
-		}
-
-		public Color SelectedSubTypeColor
-		{
-			get => _selectedColor;
-			set
-			{
-				if (value == _selectedColor) return;
-				_selectedColor = value;
 				OnPropertyChanged();
 			}
 		}
@@ -142,7 +128,7 @@ namespace Kalendarzyk.ViewModels
 			}
 			MainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
 			//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
-			SelectedSubTypeColor = currentType.EventTypeColor;
+			ColorButtonsHelperClass.SelectedColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);
 			setIsVisibleForExtraControlsInEditMode();
@@ -158,7 +144,6 @@ namespace Kalendarzyk.ViewModels
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;
 			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
-			SelectColorCommand = new RelayCommand<SelectableButtonViewModel>(OnSelectColorCommand);
 			//GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
 			SubmitTypeCommand = new AsyncRelayCommand(SubmitType, CanExecuteSubmitTypeCommand);
 			_mainEventTypesCCHelper.MainEventTypeChanged += OnMainEventTypeChanged;
@@ -218,7 +203,7 @@ namespace Kalendarzyk.ViewModels
 				{
 					_currentType.MainEventType = SelectedMainEventType;
 					_currentType.EventTypeName = TypeName;
-					_currentType.EventTypeColor = _selectedColor;
+					_currentType.EventTypeColor = ColorButtonsHelperClass.SelectedColor;
 					SetExtraUserControlsValues(_currentType);
 					await _eventRepository.UpdateSubEventTypeAsync(_currentType);
 					await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
@@ -231,7 +216,7 @@ namespace Kalendarzyk.ViewModels
 					var timespan = SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDefaultDuration() : TimeSpan.Zero;
 					var quantityAmount = SubTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
 					var microTasks = SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
-					var newSubType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, _selectedColor, timespan, quantityAmount, microTasks);
+					var newSubType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, ColorButtonsHelperClass.SelectedColor, timespan, quantityAmount, microTasks);
 					await _eventRepository.AddSubEventTypeAsync(newSubType);
 					TypeName = string.Empty;
 				}
@@ -239,16 +224,7 @@ namespace Kalendarzyk.ViewModels
 		}
 
 
-		//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TODO NOW think about extracting this to a separate class
-		private void OnSelectColorCommand(SelectableButtonViewModel selectedColor)
-		{
-			SelectedSubTypeColor = selectedColor.ButtonColor;
 
-			foreach (var button in ButtonsColorsOC)
-			{
-				button.IsSelected = button.ButtonColor == selectedColor.ButtonColor;
-			}
-		}
 		//private void GoToAllSubTypesPage()
 		//{
 		//	Application.Current.MainPage.Navigation.PushAsync(new AllSubTypesPage());
