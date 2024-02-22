@@ -12,6 +12,10 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Favourites">
             <ShellContent
+                Title="Add New SubTypes"
+                ContentTemplate="{DataTemplate local:AddNewSubTypePage}"
+                Route="AddNewSubTypePage" />
+            <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
                 Route="QuickNotesPage" />

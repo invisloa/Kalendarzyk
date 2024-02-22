@@ -12,15 +12,23 @@
             <converters:BoolToColorConverter x:Key="boolToColorConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1" Margin="10, 0, 10, 10"
+         
+          >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Stroke="AliceBlue" StrokeThickness="1"
-                StrokeShape="RoundRectangle 75,5,5,75"  HeightRequest="50" Grid.ColumnSpan="3"/>
+        <Border Stroke="{DynamicResource MainBackgroundDarkerColor}" StrokeThickness="1" 
+                StrokeShape="RoundRectangle 5,5,75,75"  HeightRequest="50" Grid.ColumnSpan="3">
+            <Border.Shadow>
+                <Shadow Brush="{DynamicResource MainBackgroundDarkerColor}"
+                                Radius="5"
+                                Opacity="1"/>
+            </Border.Shadow>
+        </Border>
         <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
                     IconText="delete_forever" 
                     IconTextColor="Red"

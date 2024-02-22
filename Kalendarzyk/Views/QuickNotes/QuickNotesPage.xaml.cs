@@ -19,14 +19,14 @@ public partial class QuickNotesPage : ContentPage
 	protected async override void OnAppearing()
 	{
 		base.OnAppearing();
-
+/*
 		//<
 		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
 		await _eventRepository.InitializeAsync();
 		await PreferencesViewModel.AddQuickNotesTypes();
 		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
 		//>
-
+*/
 
 		BindingContext = new QuickNotesViewModel();
 	}

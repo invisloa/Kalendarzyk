@@ -12,7 +12,7 @@ namespace Kalendarzyk
 			// below is from some tutorial check if it is needed
 			// TODO JO TO CHECK
 			// Register routes
-			Routing.RegisterRoute("eventpage", typeof(EventPage));
+			//Routing.RegisterRoute("eventpage", typeof(EventPage));
 		}
 /*		TODO JO TO CHECK FAVOURITES TAB
  *		

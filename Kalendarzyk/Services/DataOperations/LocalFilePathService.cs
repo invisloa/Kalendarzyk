@@ -20,10 +20,10 @@ namespace Kalendarzyk.Services.DataOperations
 			CreateDirectoryIfNotExists(EventsFilePath);
 			CreateDirectoryIfNotExists(SubEventsTypesFilePath);
 			CreateDirectoryIfNotExists(MainEventsTypesFilePath);
-			// only for testing purposes
-			DeleteFileIfExists(EventsFilePath);
-			DeleteFileIfExists(SubEventsTypesFilePath);
-			DeleteFileIfExists(MainEventsTypesFilePath);
+			// XXXXXXXXXXXXXXXXXXX    REMOVE FOR PROGRAM TO WORK!!!!!!!!!!!!!!!!!!!      only for testing purposes
+			//DeleteFileIfExists(EventsFilePath);
+			//DeleteFileIfExists(SubEventsTypesFilePath);
+			//DeleteFileIfExists(MainEventsTypesFilePath);
 
 		}
 		public void DeleteFileIfExists(string filePath)	// only for testing purposes
