@@ -2,20 +2,15 @@
 {
 	using Kalendarzyk.Models.EventModels;
 	using Kalendarzyk.Services;
-	using Kalendarzyk.Views.CustomControls;
 	using Microsoft.Maui.Controls;
 	using System;
-	using System.Collections.ObjectModel;
 	using System.Linq;
-	using System.Security.Cryptography;
 	using static Kalendarzyk.App;
-	using static System.Runtime.InteropServices.JavaScript.JSType;
-	using MauiGrid = Microsoft.Maui.Controls.Grid;
 
 	public class WeeklyEventsControl : BaseEventPageCC
 	{
 		private readonly int _minimumDayOfWeekWidthRequest = 45;
-		private readonly int _minimumDayOfWeekHeightRequest = 30;
+		private readonly int _minimumDayOfWeekHeightRequest = 150;
 		private readonly double _firstColumnForHoursWidth = 35;
 		private int _hoursSpanFrom;
 		private int _hoursSpanTo;
@@ -130,8 +125,6 @@
 
 			return frame;
 		}
-
-
 		private Frame DrawSingleFrame(DateTime date)
 		{
 			var frame = new Frame
@@ -155,6 +148,68 @@
 		}
 
 
+		private Frame DrawEventFrame(IGeneralEventModel eventItem)
+		{
+
+
+			var title = new Label
+			{
+				FontAttributes = FontAttributes.Bold,
+				Text = eventItem.Title,
+				LineBreakMode = LineBreakMode.TailTruncation,
+			};
+
+			var eventTypeLabel = new Label
+			{
+				Text = eventItem.EventType.MainEventType.SelectedVisualElement.ElementName,
+				TextColor = eventItem.EventType.MainEventType.SelectedVisualElement.TextColor,
+				Style = Styles.GoogleFontStyle,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center,
+			};
+
+			var eventTypeFrame = new Frame
+			{
+				BackgroundColor = eventItem.EventType.MainEventType.SelectedVisualElement.BackgroundColor,
+				Padding = 0,
+				Content = eventTypeLabel,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center,
+				WidthRequest = 30,
+
+			};
+
+			var grid = new Grid
+			{
+				ColumnDefinitions =
+					{
+						new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+						new ColumnDefinition { Width = new GridLength(30) }
+					},
+				Children = { title, eventTypeFrame }
+			};
+			Grid.SetColumn(title, 0);
+			Grid.SetColumn(eventTypeFrame, 1);
+
+			var eventFrame = new Frame
+			{
+				BackgroundColor = eventItem.EventVisibleColor,
+				Content = grid,
+				Padding = 2,
+				HasShadow = false,
+			};
+
+			var tapGestureRecognizerForFrame = new TapGestureRecognizer
+			{
+				NumberOfTapsRequired = 2,
+				Command = GoToSelectedDateCommand,
+				CommandParameter = eventItem.StartDateTime
+			};
+			eventFrame.GestureRecognizers.Add(tapGestureRecognizerForFrame);
+			return eventFrame;
+		}
+
+
 		private IEnumerable<IGeneralEventModel> GetHourEvents(int hour, DateTime date)
 		{
 			if (hour == -1)
@@ -172,6 +227,22 @@
 			if (hourlyEvents.Any())
 			{
 				//Add events to the grid as buttons
+				var eventsCount = hourlyEvents.Count();
+				if (eventsCount > _displayEventsLimit)
+				{
+					Children.Add(GenerateMoreButton(eventsCount, dayOfWeek));
+				}
+				else
+				{
+					foreach (var eventModel in hourlyEvents)
+					{
+						var eventFrame = DrawEventFrame(eventModel);
+
+						Grid.SetRow(eventFrame, dayOfWeek + 1); // Offset by 1 to account for the header row
+						Grid.SetColumn(eventFrame, eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
+						Children.Add(eventFrame);
+					}
+				}
 			}
 		}
 		private Label GenerateMoreButton(int dayEventsCount, int dayOfWeek)		// Consider if use this at all or just set no limit for number of events??
@@ -207,20 +278,21 @@
 				// TODO HERE: Add events for before span ...
 
 				//???????????????????????????????????????????????????????????????????????
+				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));
+				AddEventsToGrid(eventsInBeforeSpan, dayOfWeek);
 
 
 
-
-				// For normal hours span Colimns
+				// For normal hours span Columns
 				for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
 				{
 					frame = DrawHourFrame(hour, dayOfWeek); // Adjust hour for CreateEventFrame
 					Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
 					Children.Add(frame);
-					//Addevents for Normal span
-
-
+					//Add events for Normal span
+					var eventsInHour = GetHourEvents(hour, CalculateFrameDate(dayOfWeek));
+					AddEventsToGrid(eventsInHour, dayOfWeek);
 				}
 
 				// FOR AFTER SPAN COLUMN
@@ -228,48 +300,12 @@
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Offset by 2 to account for the day labels column and "before" column
 				Children.Add(frame);
-
 				//Addevents for after span
+				var eventsInAfterSpan = GetHourEvents(-2, CalculateFrameDate(dayOfWeek));
+				AddEventsToGrid(eventsInAfterSpan, dayOfWeek);
 
 			}
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		private DateTime CalculateFrameDate(int dayOfWeek)
 		{
