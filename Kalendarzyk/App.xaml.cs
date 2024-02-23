@@ -26,12 +26,11 @@ namespace Kalendarzyk
 			{
 				NotFirstLaunch();
 			}
-			Preferences.Default.Set("FirstLaunch", false);
 		}
 
 		private bool IsFirstLaunch()
 		{
-			return !Preferences.Default.ContainsKey("FirstLaunch");
+			return Preferences.Default.Get("FirstLaunch", true);
 		}
 
 		protected override async void OnStart()

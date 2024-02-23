@@ -14,8 +14,7 @@
                 TextColor="{DynamicResource MainTextColor}"/>
 
         <!-- Language -->
-        <Label Text="{Binding SelectedLanguageText}" />
-        <Switch IsToggled="{Binding SelectedLanguage}" />
+        <Button Style="{StaticResource MyCustomButtonStyle}" Text="{Binding SelectedLanguageText}" Command="{Binding GoToLanguageSelectionPage}" Margin="10"/>
 
         <!--Event Different Times Preferences-->
         <Label Text="{Binding SubEventTypeTimesDifferentText}" />

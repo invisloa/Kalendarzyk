@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Kalendarzyk.Models;
 using Kalendarzyk.Services;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System;
@@ -13,12 +14,16 @@ namespace Kalendarzyk.ViewModels
 	
 	internal partial class FirstRunViewModel : ObservableObject
 	{
+		private const double smallFlagScale = 0.7;
+		private const double bigFlagScale = 1;
+		[ObservableProperty]
+		private bool isFirstLaunch = Preferences.Default.Get("FirstLaunch", true);
 		[ObservableProperty]
 		private bool isNextButtonEnabled = false;	// commands canexecute doesnt work with custom buttons
 		[ObservableProperty]
-		private double englishFlagScale = 1;
+		private double englishFlagScale = smallFlagScale;
 		[ObservableProperty]
-		private double polishFlagScale = 1;
+		private double polishFlagScale = smallFlagScale;
 		[ObservableProperty]
 		private string nextButtonText = "NEXT / DALEJ";
 
@@ -32,24 +37,24 @@ namespace Kalendarzyk.ViewModels
 		}
 		public FirstRunViewModel()
 		{
-
 		}
 		private void SetLaguageVisibility()
 		{
 			IsNextButtonEnabled = true;
-			if (PreferencesManager.GetSelectedLanguage() == 0)
+			Preferences.Default.Set("FirstLaunch", false);
+
+			if ((Enums.LanguageEnum)PreferencesManager.GetSelectedLanguage() == Enums.LanguageEnum.English)
 			{
-				EnglishFlagScale = 1.2;
-				PolishFlagScale = 1;
+				EnglishFlagScale = bigFlagScale;
+				PolishFlagScale = smallFlagScale;
 				NextButtonText = "NEXT";
 			}
 			else
 			{
-				EnglishFlagScale = 1;
-				PolishFlagScale = 1.2;
+				EnglishFlagScale = smallFlagScale;
+				PolishFlagScale = bigFlagScale;
 				NextButtonText = "DALEJ";
 			}
-
 		}
 	}
 }

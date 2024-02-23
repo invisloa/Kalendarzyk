@@ -8,6 +8,7 @@ using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Models.EventModels;
 using System;
+using Kalendarzyk.Views;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -15,6 +16,7 @@ namespace Kalendarzyk.ViewModels
 	{
 
 		IEventRepository _eventRepository;
+		private ICommand _goToLanguageSelectionPage;
 		public AsyncRelayCommand ResetToDefaultDataCommand
 		{
 			get;
@@ -115,9 +117,19 @@ namespace Kalendarzyk.ViewModels
 				}
 			}
 		}
+		public ICommand GoToLanguageSelectionPage
+		{
+			get
+			{
+				return _goToLanguageSelectionPage ?? (_goToLanguageSelectionPage = new AsyncRelayCommand(async () =>
+				{
+					Application.Current.MainPage.Navigation.PushAsync(new FirstRunPage());
+				}));
+			}
+		}
 
 		// Text properties for labels
-		public string SelectedLanguageText { get; set; } = "Selected Language";
+		public string SelectedLanguageText { get => (Enums.LanguageEnum)PreferencesManager.GetSelectedLanguage() == Enums.LanguageEnum.English ? "Select Language" : "Wybierz język"; }
 		public string SubEventTypeTimesDifferentText { get; set; } = "Sub Event Type Times Different";
 		public string MainEventTypeTimesDifferentText { get; set; } = "Main Event Type Times Different";
 		public string WeeklyHoursSpanText { get; set; } = "Weekly Preferred Hours Span";

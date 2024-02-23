@@ -33,7 +33,7 @@ namespace Kalendarzyk.Services
 		public static string GetMainTypeQuickNoteName() => Preferences.Get(MainTypeQuickNoteName, "QNOTE");
 		public static string GetSubTypeQuickNoteName() => Preferences.Get(SubTypeQuickNoteName, "QNOTE");
 
-		public static int GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, (int)Enums.LanguageEnum.English);
+		public static int GetSelectedLanguage() => Preferences.Get(SelectedLanguageKey, (int)Enums.LanguageEnum.English); // it uses int cause Get second parameter has to be simple type
 		public static void SetSelectedLanguage(int value) => Preferences.Set(SelectedLanguageKey, value);
 
 		public static bool GetSubEventTypeTimesDifferent() => Preferences.Get(SubEventTypeTimesDifferentKey, false);

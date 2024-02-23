@@ -4,13 +4,11 @@
              x:Class="Kalendarzyk.Views.FirstRunPage"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              Title="FirstRunPage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Background="{StaticResource MainBackgroundColor}">
         <Label 
             Text="{Binding WelcomeText}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-
-        <!-- Manually added buttons with Grid layout -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -18,7 +16,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Frame HeightRequest="150" WidthRequest="150" BorderColor="Red" Margin="20" Scale="{Binding EnglishFlagScale}">
+            <Frame  BorderColor="Red" Margin="20" Scale="{Binding EnglishFlagScale}" Background="Transparent">
                 <VerticalStackLayout Margin="-10">
                     <Image Source="flag_english.png" WidthRequest="100" HeightRequest="100" Margin="-10"/>
                     <Label Margin="0" Text="LANGUAGE" WidthRequest="100" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
@@ -28,7 +26,7 @@
                 </Frame.GestureRecognizers>
             </Frame>
 
-            <Frame Grid.Column="1" HeightRequest="150" WidthRequest="150" BorderColor="Red" Margin="20"  Scale="{Binding PolishFlagScale}">
+            <Frame Grid.Column="1"  BorderColor="Red" Margin="20"  Scale="{Binding PolishFlagScale}" Background="Transparent">
                 <VerticalStackLayout Margin="-10">
                     <Image Source="flag_polish.png" WidthRequest="100" HeightRequest="100" Margin="-10"/>
                     <Label Margin="0" Text="JĘZYK" WidthRequest="100" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
@@ -38,7 +36,10 @@
                 </Frame.GestureRecognizers>
             </Frame>
         </Grid>
-        <Button Style="{StaticResource MyCustomButtonStyle}" Text="{Binding NextButtonText}" HorizontalOptions="Center"  CornerRadius="20" Clicked="Button_Clicked" IsEnabled="{Binding IsNextButtonEnabled}"/>
+
+        <Button Style="{StaticResource MyCustomButtonStyle}" Text="{Binding NextButtonText}" IsEnabled="{Binding IsNextButtonEnabled}"
+                 HorizontalOptions="Center"  CornerRadius="20" Clicked="Button_Clicked"
+                IsVisible="{Binding IsFirstLaunch}"/>
     </VerticalStackLayout>
 </ContentPage>
 
