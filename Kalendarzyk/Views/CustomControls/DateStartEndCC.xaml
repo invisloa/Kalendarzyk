@@ -9,7 +9,7 @@
         <!--STARTS AT TIME-->
         <Border StrokeThickness="0"  Margin="0, 5">
             <Border.Shadow>
-                <Shadow Brush="White"
+                <Shadow Brush="Blue"
                 Offset="2,2"
                 Radius="5"
                 Opacity="0.5" />            </Border.Shadow>

@@ -196,13 +196,19 @@
 				HasShadow = false,
 			};
 
-			var tapGestureRecognizerForFrame = new TapGestureRecognizer
+			// to do in the future (there is no touch effect in maui yet) 
+			// add touch effect to the frame that will go to the event details page
+
+			var tapGestureRecognizerGoToDate  = new TapGestureRecognizer
 			{
 				NumberOfTapsRequired = 2,
 				Command = GoToSelectedDateCommand,
 				CommandParameter = eventItem.StartDateTime
 			};
-			eventFrame.GestureRecognizers.Add(tapGestureRecognizerForFrame);
+
+			eventTypeFrame.GestureRecognizers.Add(tapGestureRecognizerGoToDate);
+			eventFrame.GestureRecognizers.Add(tapGestureRecognizerGoToDate);
+			grid.GestureRecognizers.Add(tapGestureRecognizerGoToDate);
 			return eventFrame;
 		}
 
@@ -270,7 +276,7 @@
 			moreLabel.GestureRecognizers.Add(tapGestureRecognizerForMoreEvents);
 			return moreLabel;
 		}
-		private void GenerateEventFrames()
+		private void GenerateEventFrames() // to make the events span across multiple hours maybe try to use new grid placed above the main grid?? todo in the future
 		{
 			// Create frames for each hour and day
 			for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++)
@@ -282,9 +288,6 @@
 				
 				Children.Add(frame);
 
-				// TODO HERE: Add events for before span ...
-
-				//???????????????????????????????????????????????????????????????????????
 				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));
 				AddEventsToGrid(eventsInBeforeSpan, dayOfWeek);
 
