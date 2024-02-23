@@ -1,7 +1,5 @@
-				
-				//TODO HERE: AddToFavoritesCommand
-				// TODO HERE: Add events for before span ...
 
+TODO NOW BUG WHEN REMOVING EVENTS ONE BY ONE FROM Daily PAGE
 
 
 
@@ -9,7 +7,7 @@ TO TEST if there is no file for events to read json !!!! (localMachineEventRepos
 
 
 
-
+D
 
 
 does event repository need this LoadEventsAndTypesFromFile and SaveEventsAndTypesToFile methods??? => some service for it???

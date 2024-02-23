@@ -3,6 +3,7 @@
 	using Kalendarzyk.Models.EventModels;
 	using Kalendarzyk.Services;
 	using Microsoft.Maui.Controls;
+	using Microsoft.Maui.Layouts;
 	using System;
 	using System.Linq;
 	using static Kalendarzyk.App;
@@ -10,7 +11,7 @@
 	public class WeeklyEventsControl : BaseEventPageCC
 	{
 		private readonly int _minimumDayOfWeekWidthRequest = 45;
-		private readonly int _minimumDayOfWeekHeightRequest = 150;
+		private readonly int _minimumDayOfWeekHeightRequest = 35;
 		private readonly double _firstColumnForHoursWidth = 35;
 		private int _hoursSpanFrom;
 		private int _hoursSpanTo;
@@ -119,10 +120,7 @@
 		private Frame DrawHourFrame(int hour, int dayOfWeek)
 		{
 			var date = CalculateFrameDate(dayOfWeek);
-
 			var frame = DrawSingleFrame(date);
-
-
 			return frame;
 		}
 		private Frame DrawSingleFrame(DateTime date)
@@ -131,7 +129,8 @@
 			{
 				BorderColor = _frameBorderColor,
 				Padding = 5,
-				BackgroundColor = _emptyLabelColor,
+				CornerRadius = 2,
+				BackgroundColor = Colors.Transparent,
 				MinimumWidthRequest = _minimumDayOfWeekWidthRequest,
 				MinimumHeightRequest = _minimumDayOfWeekHeightRequest
 			};
@@ -150,8 +149,6 @@
 
 		private Frame DrawEventFrame(IGeneralEventModel eventItem)
 		{
-
-
 			var title = new Label
 			{
 				FontAttributes = FontAttributes.Bold,
@@ -234,14 +231,24 @@
 				}
 				else
 				{
+					var StackLayoutitem = new StackLayout();
+
 					foreach (var eventModel in hourlyEvents)
 					{
 						var eventFrame = DrawEventFrame(eventModel);
 
-						Grid.SetRow(eventFrame, dayOfWeek + 1); // Offset by 1 to account for the header row
-						Grid.SetColumn(eventFrame, eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
-						Children.Add(eventFrame);
+						Grid.SetRow(StackLayoutitem, dayOfWeek + 1); // Offset by 1 to account for the header row
+						Grid.SetColumn(StackLayoutitem, eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
+						//var eventTime = eventModel.EndDateTime.Hour - eventModel.StartDateTime.Hour;
+						//if (eventTime > 1)
+						//{
+						//	Grid.SetColumnSpan(StackLayoutitem, eventTime);
+						//}
+						StackLayoutitem.Add(eventFrame);
+
 					}
+					Children.Add(StackLayoutitem);
+
 				}
 			}
 		}
