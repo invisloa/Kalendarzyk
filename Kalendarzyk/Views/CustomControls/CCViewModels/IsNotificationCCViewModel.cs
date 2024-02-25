@@ -28,7 +28,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
         public IsNotificationCCViewModel()
         {
             _isNotification = false;
-			_notificationSelectionText = "No";
+			_notificationSelectionText = "Notification";
 			_isNotificationFrameSelectionCommand = new Command(ChangeIsNotification);
         }
 

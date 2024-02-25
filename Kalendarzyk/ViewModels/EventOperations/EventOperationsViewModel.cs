@@ -4,6 +4,7 @@ using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.EventsSharing;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.ViewModels.EventOperations
@@ -13,6 +14,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#region Fields
 		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _asyncShareEventCommand;
+		private IsNotificationCCViewModel _isNotificationCCAdapter = Factory.CreateNewIsNotificationHelpercClass();
 		#endregion
 		#region Properties
 		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
@@ -77,7 +79,12 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			{
 				return "DELETE CURRENT EVENT";
 			}
+		}
 
+		public IsNotificationCCViewModel IsNotificationCCAdapter
+		{
+			get => _isNotificationCCAdapter;
+			set => _isNotificationCCAdapter = value;
 		}
 		#endregion
 

@@ -3,14 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.CustomControls.IsNotificationCC">
-    <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding IsNotificationCCAdapter._isNotificationFrameSelectionCommand}"/>
-        </Frame.GestureRecognizers>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding IsNotificationCCAdapter.NotificationSelectionText}" VerticalOptions="Center" InputTransparent="True"/>
-            <CheckBox IsChecked="{Binding IsNotificationCCAdapter.IsNotification, Mode=TwoWay}" InputTransparent="True"/>
-            <customControls:DefaultEventTimespanCC IsVisible="{Binding IsNotificationCCAdapter.IsNotificationCommand}"/>
+    <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10" CornerRadius="15">
+        <StackLayout Orientation="Vertical">
+
+            <!-- Mimicking a Button with StackLayout -->
+            <Frame CornerRadius="15" Padding="10" BackgroundColor="{DynamicResource ButtonBackgroundColor}">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <!-- Mimicking Button Content -->
+                    <CheckBox IsChecked="{Binding IsNotificationCCAdapter.IsNotification, Mode=TwoWay}" VerticalOptions="Center"/>
+                    <Label Text="{Binding IsNotificationCCAdapter.NotificationSelectionText}" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Tap Gesture Recognizer for the whole Frame acting as a Button -->
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IsNotificationCCAdapter.IsNotificationFrameSelectionCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <customControls:DefaultEventTimespanCC IsVisible="{Binding IsNotificationCCAdapter.IsNotification}"/>
+
         </StackLayout>
     </Frame>
 </ContentView>

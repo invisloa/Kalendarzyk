@@ -151,5 +151,7 @@ namespace Kalendarzyk.Services
 		{
 			return new ColorButtonsSelectorViewModel(colorButtons, selectedButtonCommand, startingColor);
 		}
-	}
+
+		internal static IsNotificationCCViewModel CreateNewIsNotificationHelpercClass() => new IsNotificationCCViewModel();
+}
 }
