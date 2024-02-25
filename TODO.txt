@@ -1,5 +1,7 @@
 
-TODO NOW BUG WHEN REMOVING EVENTS ONE BY ONE FROM Daily PAGE
+BEFORE RELEASE
+Notifications for events
+google maps API INtegration
 
 
 
@@ -13,6 +15,8 @@ D
 does event repository need this LoadEventsAndTypesFromFile and SaveEventsAndTypesToFile methods??? => some service for it???
 
 BUGS!!!!!!!!!!!
+TODO NOW BUG WHEN REMOVING EVENTS ONE BY ONE FROM Daily PAGE
+
 SHARE EVENT HAS TO SHARE SUB EVENT AND MAIN EVENT DATA !!!
 
 

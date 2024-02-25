@@ -1,4 +1,5 @@
-﻿using Kalendarzyk.Models.EventTypesModels;
+﻿using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventTypesModels;
 using Newtonsoft.Json;
 
 namespace Kalendarzyk.Models.EventModels
@@ -21,6 +22,9 @@ namespace Kalendarzyk.Models.EventModels
 		public QuantityModel QuantityAmount { get; set; }
 		public IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
 
+		// New property to store notification integer ID
+		public int? NotificationId { get; }
+
 		[JsonIgnore]
 		public Color EventVisibleColor
 		{
@@ -38,15 +42,10 @@ namespace Kalendarzyk.Models.EventModels
 		}
 
 		// TO Consider postpone time and maybe some other extra options for advanced event adding mode??
-		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, QuantityModel quantityAmount = null, IEnumerable<MicroTaskModel> microTasksList = null)
+		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, QuantityModel quantityAmount = null, IEnumerable<MicroTaskModel> microTasksList = null, Guid? id = null, int? notificationID = null, bool usesNotification = false)
 		{
-			//... rest of the code
-
-			if (postponeTime.HasValue)
-				ReminderTime = postponeTime.Value;
-			else
-				ReminderTime = _defaulteventremindertime;
-			Id = Guid.NewGuid();
+			ReminderTime = postponeTime ?? _defaulteventremindertime;
+			Id = id ?? Guid.NewGuid();
 			Title = title;
 			Description = description;
 			StartDateTime = startTime;
@@ -57,6 +56,9 @@ namespace Kalendarzyk.Models.EventModels
 			QuantityAmount = quantityAmount;
 			MicroTasksList = microTasksList;
 			PostponeHistory = new List<DateTime>(); // default new list 
+
+			NotificationId = usesNotification ? (notificationID ?? NotificationIDGenerator.GetNextUniqueId()) : 0;
+
 		}
 		private Color IsCompleteColorAdapt(Color color)
 		{

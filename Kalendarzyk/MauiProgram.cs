@@ -27,7 +27,6 @@ namespace Kalendarzyk
 
 				.UseMauiCommunityToolkit()
 				.UseLocalNotification()
-
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

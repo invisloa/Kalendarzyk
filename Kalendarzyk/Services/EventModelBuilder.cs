@@ -23,9 +23,11 @@ namespace Kalendarzyk.Services
 		private bool wasShown = false;
 		private QuantityModel quantityAmount = null;
 		private IEnumerable<MicroTaskModel> _microTasksList = null;
+		private int? notificationID = null;
+		private Guid? guid = null;
 
 
-		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted, TimeSpan? postponeTime, bool wasShown)
+		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted, TimeSpan? postponeTime, bool wasShown, int? notificationID)
 		{
 			// Validate Required Parameters Here
 			if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Title must not be empty", nameof(title));
@@ -42,6 +44,7 @@ namespace Kalendarzyk.Services
 			else
 				this.postponeTime = TimeSpan.FromHours(24);
 			this.wasShown = wasShown;
+
 		}
 
 		public EventModelBuilder SetIsCompleted(bool isCompleted)
@@ -73,11 +76,15 @@ namespace Kalendarzyk.Services
 			_microTasksList = microTasksList;
 			return this;
 		}
-
+		public int? SetNotificationID(int? notificationID)
+		{
+			this.notificationID = notificationID;
+			return notificationID;
+		}
 		public EventModel Build()
 		{
 			// Perform any final validation
-			return new EventModel(title, description, startTime, endTime, eventType, isCompleted, postponeTime, wasShown, quantityAmount, _microTasksList);
+			return new EventModel(title, description, startTime, endTime, eventType, isCompleted, postponeTime, wasShown, quantityAmount, _microTasksList, guid, notificationID);
 		}
 	}
 }

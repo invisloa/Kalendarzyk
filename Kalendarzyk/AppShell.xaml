@@ -12,6 +12,10 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Favourites">
             <ShellContent
+                Title="Test"
+                ContentTemplate="{DataTemplate local:TestPage}"
+                Route="Test" />
+            <ShellContent
                 Title="First"
                 ContentTemplate="{DataTemplate local:FirstRunPage}"
                 Route="FirstRunPage" />

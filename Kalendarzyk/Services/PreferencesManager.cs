@@ -18,6 +18,8 @@ namespace Kalendarzyk.Services
 		public const string WeeklyHoursSpanKey = "WeeklyHoursSpan";
 		public const string HoursSpanFromKey = "HoursSpanFrom";
 		public const string HoursSpanToKey = "HoursSpanTo";
+		public const string NotificationID = "NotificationID";
+
 		//public const string IsDeleteAllSelectedKey = "IsDeleteAllSelected";
 		//public const string IsCreateDummyDataSelectedKey = "IsCreateDummyDataSelected";
 
@@ -50,6 +52,9 @@ namespace Kalendarzyk.Services
 
 		public static int GetHoursSpanTo() => Preferences.Get(HoursSpanToKey, 18);
 		public static void SetHoursSpanTo(int value) => Preferences.Set(HoursSpanToKey, value);
+
+		public static int GetNotificationID() => Preferences.Get(NotificationID, 1);
+		public static void SetNotificationID(int value) => Preferences.Set(NotificationID, value);
 
 		public static void ClearAllPreferences()
 		{
