@@ -57,7 +57,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			}
 		}
 
-		public TimeSpan GetDefaultDuration()
+		public TimeSpan GetDuration()
 		{
 			switch (SelectedUnitIndex)
 			{

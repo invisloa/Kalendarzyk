@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             x:Class="Kalendarzyk.Views.CustomControls.IsNotificationCC">
+    <Frame BackgroundColor="Transparent" HorizontalOptions="Center" Padding="5" Margin="10">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding IsNotificationCCAdapter._isNotificationFrameSelectionCommand}"/>
+        </Frame.GestureRecognizers>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding IsNotificationCCAdapter.NotificationSelectionText}" VerticalOptions="Center" InputTransparent="True"/>
+            <CheckBox IsChecked="{Binding IsNotificationCCAdapter.IsNotification, Mode=TwoWay}" InputTransparent="True"/>
+            <customControls:DefaultEventTimespanCC IsVisible="{Binding IsNotificationCCAdapter.IsNotificationCommand}"/>
+        </StackLayout>
+    </Frame>
+</ContentView>

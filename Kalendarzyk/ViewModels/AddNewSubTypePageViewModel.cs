@@ -224,7 +224,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				if (await CanAddNewType())
 				{
-					var timespan = SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDefaultDuration() : TimeSpan.Zero;
+					var timespan = SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDuration() : TimeSpan.Zero;
 					var quantityAmount = SubTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
 					var microTasks = SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
 					var newSubType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, ColorButtonsHelperClass.SelectedColor, timespan, quantityAmount, microTasks);
@@ -257,7 +257,7 @@ namespace Kalendarzyk.ViewModels
 			}
 			if (SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected)
 			{
-				_currentType.DefaultEventTimeSpan = DefaultEventTimespanCCHelper.GetDefaultDuration();
+				_currentType.DefaultEventTimeSpan = DefaultEventTimespanCCHelper.GetDuration();
 			}
 			else
 			{

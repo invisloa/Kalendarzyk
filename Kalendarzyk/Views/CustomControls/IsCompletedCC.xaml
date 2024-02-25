@@ -7,7 +7,7 @@
             <TapGestureRecognizer Command="{Binding IsCompletedCCAdapter.IsCompleteFrameCommand}"/>
         </Frame.GestureRecognizers>
         <StackLayout Orientation="Horizontal">
-            <Label Text="IS COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
+            <Label Text="COMPLETED" VerticalOptions="Center" InputTransparent="True"/>
             <CheckBox IsChecked="{Binding IsCompletedCCAdapter.IsCompleted, Mode=TwoWay}" InputTransparent="True"/>
         </StackLayout>
     </Frame>

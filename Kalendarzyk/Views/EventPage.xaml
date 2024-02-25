@@ -49,6 +49,8 @@
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>
+
+            <customControls:IsNotificationCC/>
         </StackLayout>
 
     </ScrollView>
