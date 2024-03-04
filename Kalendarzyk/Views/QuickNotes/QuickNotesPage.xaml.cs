@@ -11,7 +11,7 @@ public partial class QuickNotesPage : ContentPage
 	IEventRepository _eventRepository;
 	public QuickNotesPage()
 	{
-		_eventRepository = Factory.CreateNewEventRepository();
+		_eventRepository = Factory.GetEventRepository();
 		InitializeComponent();
 		BindingContext = new QuickNotesViewModel();
 	}
@@ -19,16 +19,14 @@ public partial class QuickNotesPage : ContentPage
 	protected async override void OnAppearing()
 	{
 		base.OnAppearing();
-/*
-		//<
-		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
-		await _eventRepository.InitializeAsync();
-		await PreferencesViewModel.AddQuickNotesTypes();
-		//TODO JO !!!!!!!!! MOVE THIS TO SOME LOADING STARTING PAGE!!!!!!!!!!!!
-		//>
-*/
 
+		//load data for the first time program runs
+		if (_eventRepository.AllEventsList.Count == 0)
+		{
+			await _eventRepository.InitializeAsync();
+		}
 		BindingContext = new QuickNotesViewModel();
+
 	}
 
 }

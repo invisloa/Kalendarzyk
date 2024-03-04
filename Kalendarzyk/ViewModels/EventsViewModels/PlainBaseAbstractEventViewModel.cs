@@ -85,7 +85,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		#region Constructor
 		public PlainBaseAbstractEventViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
 			_eventRepository.OnEventListChanged += UpdateAllEventList;

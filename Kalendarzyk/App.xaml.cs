@@ -16,7 +16,7 @@ namespace Kalendarzyk
 		public App()
 		{
 			//PreferencesManager.SetNotificationID(0);
-			_repository = Factory.CreateNewEventRepository();
+			_repository = Factory.GetEventRepository();
 			_repository.InitializeAsync();
 			InitializeComponent();
 			if(IsFirstLaunch())

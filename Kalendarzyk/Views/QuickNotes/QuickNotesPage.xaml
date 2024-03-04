@@ -13,6 +13,9 @@
             <converters:IsCompleteToColorConverter x:Key="isCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Content>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </ContentPage.Content>
 
         <!-- Replace StackLayout with Grid -->
         <Grid Padding="10" Background="{DynamicResource MainBackgroundColor}">
@@ -31,7 +34,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button 
+
+            <Button 
                 Grid.Column="0" Text="-" HorizontalOptions="End" 
                 BorderColor="Red" BorderWidth="2"
                 BackgroundColor="{Binding IsSelectedDeleteMode, 

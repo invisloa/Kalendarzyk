@@ -139,7 +139,7 @@ namespace Kalendarzyk.ViewModels
 
 		public PreferencesViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			ResetToDefaultDataCommand = new AsyncRelayCommand(ResetToDefaultData);
 			DeleteAllDataCommand = new AsyncRelayCommand(ClearData);
 		}
@@ -162,7 +162,7 @@ namespace Kalendarzyk.ViewModels
 
 		public static async Task AddQuickNotesTypes()
 		{
-			var repository = Factory.CreateNewEventRepository();
+			var repository = Factory.GetEventRepository();
 
 			if (repository.AllMainEventTypesList.Where(x => x.Title == PreferencesManager.GetMainTypeQuickNoteName()).Count() != 0)
 			{

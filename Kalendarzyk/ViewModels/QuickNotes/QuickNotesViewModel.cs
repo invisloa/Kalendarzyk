@@ -15,6 +15,10 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 {
 	public partial class QuickNotesViewModel : ObservableObject
 	{
+		[ObservableProperty]
+		private bool _isBusy = true;
+
+
 		private IEventRepository _eventRepository;
 		[ObservableProperty]
 		private AsyncRelayCommand<IGeneralEventModel> _currentCommand;
@@ -47,7 +51,7 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 
 		public QuickNotesViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName());
 			_quickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);

@@ -122,14 +122,14 @@ namespace Kalendarzyk.ViewModels
 		public AddNewMainTypePageViewModel()
 		{
 			IsEdit = false;
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
 		}
 		//Constructor for edit mode
 		public AddNewMainTypePageViewModel(IMainEventType currentMainType)
 		{
 			IsEdit = true;
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
 			_currentMainType = currentMainType;
 			MainTypeName = currentMainType.Title;

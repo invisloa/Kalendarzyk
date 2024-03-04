@@ -173,7 +173,7 @@ namespace Kalendarzyk.ViewModels
 		//ctor new quick note
 		public AddQuickNotesViewModel()
         {
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
@@ -183,7 +183,7 @@ namespace Kalendarzyk.ViewModels
 		{
 			_shareEventsService = Factory.CreateNewShareEventsService();
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			_currentQuickNote = quickNote;
 			InitializeCommon();
 			IsEditQuickNoteMode = true;

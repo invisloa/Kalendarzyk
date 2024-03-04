@@ -119,7 +119,7 @@ namespace Kalendarzyk.ViewModels
 		// constructor for create mode
 		public AddNewSubTypePageViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelectedCommand);
 			DefaultEventTimespanCCHelper.SelectedUnitIndex = 0; // minutes
@@ -130,7 +130,7 @@ namespace Kalendarzyk.ViewModels
 		// constructor for edit mode
 		public AddNewSubTypePageViewModel(ISubEventTypeModel currentType)
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			CurrentType = currentType;
 			InitializeCommon();
 			if (currentType.IsMicroTaskType)

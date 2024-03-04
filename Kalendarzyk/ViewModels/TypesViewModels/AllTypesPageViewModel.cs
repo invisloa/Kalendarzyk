@@ -62,7 +62,7 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		public AllSubTypesPageViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			_eventRepository.OnEventListChanged += UpdateAllEventList;

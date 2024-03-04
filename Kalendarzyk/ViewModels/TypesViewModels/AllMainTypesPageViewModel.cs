@@ -42,7 +42,7 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		public AllMainTypesPageViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			AllMainEventTypesOC = new ObservableCollection<IMainEventType>(_eventRepository.AllMainEventTypesList);
 			EditSelectedTypeCommand = new RelayCommand<IMainEventType>(EditSelectedType);
 

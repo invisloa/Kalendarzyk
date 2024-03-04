@@ -70,7 +70,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		// ctor
 		public EventOperationsBaseViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(false);
 			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());

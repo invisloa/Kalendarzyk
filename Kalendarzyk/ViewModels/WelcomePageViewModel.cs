@@ -50,7 +50,7 @@ namespace Kalendarzyk.ViewModels
 
 		public WelcomePageViewModel()
 		{
-			_eventRepository = Factory.CreateNewEventRepository();
+			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			ButtonClickCommand = new RelayCommand(OnButtonCommand);
 		}

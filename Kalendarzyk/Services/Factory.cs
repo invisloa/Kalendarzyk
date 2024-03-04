@@ -22,7 +22,7 @@ namespace Kalendarzyk.Services
 		// Event Repository Singleton Pattern
 		private static IEventRepository _eventRepository;
 
-		public static IEventRepository CreateNewEventRepository()
+		public static IEventRepository GetEventRepository()
 		{
 			if (_eventRepository == null)
 				_eventRepository = new LocalMachineEventRepository();
@@ -116,7 +116,7 @@ namespace Kalendarzyk.Services
 		}
 		internal static IShareEventsService CreateNewShareEventsService()
 		{
-			return new ShareEventsJson(CreateNewEventRepository());
+			return new ShareEventsJson(GetEventRepository());
 		}
 
 		internal static ILocalFilePathService CreateNewLocalFilePathService()
