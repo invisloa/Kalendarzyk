@@ -48,12 +48,15 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 				SearchQuickNotes();
 			}
 		}
-
+		public void BindDataToShow()
+		{
+			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName());
+			QuickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
+		}
 		public QuickNotesViewModel()
 		{
 			_eventRepository = Factory.GetEventRepository();
-			var quickNotesEvents = _eventRepository.AllEventsList.Where(x => x.EventType.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName());
-			_quickNotesToShowOC = new ObservableCollection<IGeneralEventModel>(quickNotesEvents);
+			BindDataToShow();
 			DeleteQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnDeleteQuickNoteCommand);
 			EditSelectedQuickNoteCommand = new AsyncRelayCommand<IGeneralEventModel>(OnEditSelectedQuickNoteCommand);
 			ToggleDeleteModeCommand = new RelayCommand(OnToggleDeleteMode);

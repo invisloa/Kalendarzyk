@@ -9,24 +9,31 @@ namespace Kalendarzyk.Views.QuickNotes;
 public partial class QuickNotesPage : ContentPage
 {
 	IEventRepository _eventRepository;
+	QuickNotesViewModel quickNotesViewModel;
 	public QuickNotesPage()
 	{
 		_eventRepository = Factory.GetEventRepository();
 		InitializeComponent();
-		BindingContext = new QuickNotesViewModel();
+		quickNotesViewModel = new QuickNotesViewModel();
+		BindingContext = quickNotesViewModel;
 	}
-
-	protected async override void OnAppearing()
+	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
 
-		//load data for the first time program runs
-		if (_eventRepository.AllEventsList.Count == 0)
-		{
-			await _eventRepository.InitializeAsync();
-		}
-		BindingContext = new QuickNotesViewModel();
+		quickNotesViewModel.IsBusy = true;
 
+		await LoadDataAsync();
+
+		quickNotesViewModel.IsBusy = false;
 	}
 
+	private async Task LoadDataAsync()
+	{
+		//load data for the first time program runs
+		if (_eventRepository.AllEventsList.Count == 0)
+			await _eventRepository.InitializeAsync();
+		quickNotesViewModel.BindDataToShow();
+
+	}
 }

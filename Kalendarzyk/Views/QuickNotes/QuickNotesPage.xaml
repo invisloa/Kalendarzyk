@@ -13,9 +13,7 @@
             <converters:IsCompleteToColorConverter x:Key="isCompleteToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-    </ContentPage.Content>
+
 
         <!-- Replace StackLayout with Grid -->
         <Grid Padding="10" Background="{DynamicResource MainBackgroundColor}">
@@ -66,7 +64,9 @@
                 Margin="10,0,0,0" MinimumWidthRequest="40"
                 />
             </Grid>
-            <!-- CollectionView -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"  Grid.Row="1" />
+
+        <!-- CollectionView -->
             <CollectionView Grid.Row="1" ItemsSource="{Binding QuickNotesToShowOC}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:IGeneralEventModel">
