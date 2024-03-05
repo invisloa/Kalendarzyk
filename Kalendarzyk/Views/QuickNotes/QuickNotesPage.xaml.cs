@@ -34,6 +34,5 @@ public partial class QuickNotesPage : ContentPage
 		if (_eventRepository.AllEventsList.Count == 0)
 			await _eventRepository.InitializeAsync();
 		quickNotesViewModel.BindDataToShow();
-
 	}
 }

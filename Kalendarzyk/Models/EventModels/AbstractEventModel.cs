@@ -1,5 +1,6 @@
 ﻿using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventTypesModels;
+using Kalendarzyk.Services;
 using Newtonsoft.Json;
 
 namespace Kalendarzyk.Models.EventModels
@@ -8,7 +9,7 @@ namespace Kalendarzyk.Models.EventModels
 	{
 		private TimeSpan _defaulteventRemindertime = TimeSpan.FromHours(24);
 		private const int _alphaColorDivisor = 20;
-		public Guid Id { get; set; }
+		public Guid Id { get; }
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
 		public string Title { get; set; }
@@ -24,6 +25,7 @@ namespace Kalendarzyk.Models.EventModels
 
 		// New property to store notification integer ID
 		public int? NotificationId { get; }
+		private  INotificationIDGenerator _notificationIDGenerator => Factory.CreateNotificationIDGenerator();
 
 		[JsonIgnore]
 		public Color EventVisibleColor
@@ -57,7 +59,7 @@ namespace Kalendarzyk.Models.EventModels
 			MicroTasksList = microTasksList;
 			PostponeHistory = new List<DateTime>(); // default new list 
 
-			NotificationId = usesNotification ? (notificationID ?? NotificationIDGenerator.GetNextUniqueId()) : 0;
+			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : 0;
 
 		}
 		private Color IsCompleteColorAdapt(Color color)

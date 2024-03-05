@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Kalendarzyk.Helpers
 {
-	public static class NotificationIDGenerator
+	public class NotificationIDGenerator : INotificationIDGenerator
 	{
-		public static int GetNextUniqueId()
+		public int GetNextUniqueId()
 		{
 			int uniqueId = PreferencesManager.GetNotificationID();
 			PreferencesManager.SetNotificationID(uniqueId + 1);
