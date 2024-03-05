@@ -10,10 +10,20 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		[ObservableProperty]
 		private RelayCommand _isCompleteFrameCommand;
 
+		[ObservableProperty]
+		private string _isCompleteIconFontText;
 
-		public IsCompletedCCViewModel()
+
+		public IsCompletedCCViewModel(bool isCompleted)
 		{
-			IsCompleteFrameCommand = new RelayCommand(() => IsCompleted = !IsCompleted);
+			IsCompleted = isCompleted;
+			IsCompleteFrameCommand = new RelayCommand(OnIsCompleteFrameCommand);
+			IsCompleteIconFontText = IsCompleted ? "check_box" : "check_box_outline_blank";
+		}
+		private void OnIsCompleteFrameCommand()
+		{
+			IsCompleted = !IsCompleted;
+			IsCompleteIconFontText = IsCompleted ? "check_box" : "check_box_outline_blank";
 		}
 	}
 }

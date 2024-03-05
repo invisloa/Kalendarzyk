@@ -236,16 +236,3 @@ namespace Kalendarzyk.ViewModels.EventOperations
 }
 
 
-
-
-
-
-// ???????????????????????????????????
-//	: base(eventRepository)
-//{
-//	StartDateTime = DateTime.Now;
-//	EndDateTime = DateTime.Now;
-//	_submitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
-//	IsCompleteFrameCommand = new RelayCommand(() => IsCompleted = !IsCompleted);
-
-//}

@@ -2,14 +2,13 @@
 BEFORE RELEASE
 Notifications for events
 google maps API INtegration
-
+Photos for events
+repeating events
 
 
 TO TEST if there is no file for events to read json !!!! (localMachineEventRepository)
 
-
-
-D
+WHEN Events are coppied there has to be some check for the notifiactions id becauese there may already be some notifications with the same id Guid is very low probability of being the same... + what if they are copied back to the same device????
 
 
 does event repository need this LoadEventsAndTypesFromFile and SaveEventsAndTypesToFile methods??? => some service for it???

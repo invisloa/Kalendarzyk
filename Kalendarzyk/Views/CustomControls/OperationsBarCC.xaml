@@ -12,9 +12,7 @@
             <converters:BoolToColorConverter x:Key="boolToColorConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1" Margin="10, 0, 10, 10"
-         
-          >
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="1" Margin="10, 0, 10, 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -39,7 +37,6 @@
 
 
         <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
-
             <buttons:ClickableFontButtonCC         
                         IconText="share" 
                         SubmitCommand="{Binding AsyncShareEventButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  IconTextColor="Blue" 

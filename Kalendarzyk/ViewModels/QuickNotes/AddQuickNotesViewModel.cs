@@ -19,6 +19,7 @@ namespace Kalendarzyk.ViewModels
 		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
+		private bool _isCompleted;
 
 		/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
 		Before:
@@ -196,6 +197,8 @@ namespace Kalendarzyk.ViewModels
 		//ctor edit quick note
 		public AddQuickNotesViewModel(IGeneralEventModel quickNote)
 		{
+			_isCompleted = quickNote.IsCompleted;
+
 			_shareEventsService = Factory.CreateNewShareEventsService();
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			_eventRepository = Factory.GetEventRepository();
@@ -207,7 +210,6 @@ namespace Kalendarzyk.ViewModels
 			QuickNoteDescription = quickNote.Description;
 			StartDateTime = quickNote.StartDateTime;
 			EndDateTime = quickNote.EndDateTime;
-			IsCompletedCCAdapter.IsCompleted = quickNote.IsCompleted;
 			if (quickNote.QuantityAmount != null && quickNote.QuantityAmount.Value != 0)
 			{
 				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[1]); // TODO refactor this
@@ -234,7 +236,7 @@ namespace Kalendarzyk.ViewModels
 		}
 		private void InitializeCommon()
 		{
-			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter();
+			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(_isCompleted);
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
 			DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 

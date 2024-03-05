@@ -132,7 +132,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
 			_allMeasurementUnitItems = Factory.PopulateMeasurementCollection();
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
-			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter();
+			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(false);
 		}
 
 		//Fields

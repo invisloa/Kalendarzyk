@@ -18,13 +18,20 @@ public partial class ClickableFontButtonCC : ContentView
 			button.OnPropertyChanged(nameof(IconTextColor));
 		}
 	}
-	public static readonly BindableProperty IconTextProperty = BindableProperty.Create(nameof(IconTextProperty), typeof(string), typeof(ClickableFontButtonCC), "save");
+	public static readonly BindableProperty IconTextProperty = BindableProperty.Create(nameof(IconTextProperty), typeof(string), typeof(ClickableFontButtonCC), "save", propertyChanged: OnIconTextFontPropertyChanged);
 	public string IconText
 	{
 		get => (string)GetValue(IconTextProperty);
 		set => SetValue(IconTextProperty, value);
 	}
-
+	private static void OnIconTextFontPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is ClickableFontButtonCC button)
+		{
+			// Raise a PropertyChanged event for IconTextColor
+			button.OnPropertyChanged(nameof(IconText));
+		}
+	}
 	public static readonly BindableProperty SubmitCommandProperty = BindableProperty.Create(nameof(SubmitCommand), typeof(System.Windows.Input.ICommand), typeof(ClickableFontButtonCC), null);
 	public System.Windows.Input.ICommand SubmitCommand
 	{
