@@ -3,7 +3,6 @@
 	using Kalendarzyk.Models.EventModels;
 	using Kalendarzyk.Services;
 	using Microsoft.Maui.Controls;
-	using Microsoft.Maui.Layouts;
 	using System;
 	using System.Linq;
 	using static Kalendarzyk.App;
@@ -16,11 +15,11 @@
 		private int _hoursSpanFrom;
 		private int _hoursSpanTo;
 
-        public WeeklyEventsControl()
-        {
+		public WeeklyEventsControl()
+		{
 			SetCorrectHourlySpanTimes();
 		}
-        public void GenerateGrid()
+		public void GenerateGrid()
 		{
 			ClearGrid();
 			GenerateDayLabels();
@@ -37,7 +36,7 @@
 			// Set up column definitions for hours including before and after spans
 			int extraColumnForLessThen = _hoursSpanFrom > 0 ? 1 : 0;
 			int extraColumnForMoreThen = _hoursSpanTo < 23 ? 1 : 0;
-			int totalColumns = _hoursSpanTo - _hoursSpanFrom + extraColumnForLessThen + extraColumnForMoreThen+1;
+			int totalColumns = _hoursSpanTo - _hoursSpanFrom + extraColumnForLessThen + extraColumnForMoreThen + 1;
 			ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(_firstColumnForHoursWidth) });
 			for (int i = 0; i < totalColumns; i++)
 				ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -77,10 +76,10 @@
 			int currentColumnIndex = 1; // Start from the second column
 
 			// Label for time before _hoursSpanFrom
-			if(_hoursSpanFrom > 0)
+			if (_hoursSpanFrom > 0)
 			{
 				Label beforeLabel;
-				if(_hoursSpanFrom == 1)
+				if (_hoursSpanFrom == 1)
 				{
 					beforeLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = "00" };
 				}
@@ -104,7 +103,7 @@
 			// Label for time after _hoursSpanTo
 			if (_hoursSpanTo < 23)
 			{
-				var afterLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = ">" + (_hoursSpanTo+1).ToString("D2") };
+				var afterLabel = new Label { FontSize = 12, FontAttributes = FontAttributes.Bold, Text = ">" + (_hoursSpanTo + 1).ToString("D2") };
 				Grid.SetRow(afterLabel, 0); // Header row
 				Grid.SetColumn(afterLabel, currentColumnIndex);
 				Children.Add(afterLabel);
@@ -199,7 +198,7 @@
 			// to do in the future (there is no touch effect in maui yet) 
 			// add touch effect to the frame that will go to the event details page
 
-			var tapGestureRecognizerGoToDate  = new TapGestureRecognizer
+			var tapGestureRecognizerGoToDate = new TapGestureRecognizer
 			{
 				NumberOfTapsRequired = 2,
 				Command = GoToSelectedDateCommand,
@@ -245,11 +244,11 @@
 
 						Grid.SetRow(StackLayoutitem, dayOfWeek + 1); // Offset by 1 to account for the header row
 						Grid.SetColumn(StackLayoutitem, eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
-						//var eventTime = eventModel.EndDateTime.Hour - eventModel.StartDateTime.Hour;
-						//if (eventTime > 1)
-						//{
-						//	Grid.SetColumnSpan(StackLayoutitem, eventTime);
-						//}
+																											 //var eventTime = eventModel.EndDateTime.Hour - eventModel.StartDateTime.Hour;
+																											 //if (eventTime > 1)
+																											 //{
+																											 //	Grid.SetColumnSpan(StackLayoutitem, eventTime);
+																											 //}
 						StackLayoutitem.Add(eventFrame);
 
 					}
@@ -258,7 +257,7 @@
 				}
 			}
 		}
-		private Label GenerateMoreButton(int dayEventsCount, int dayOfWeek)		// Consider if use this at all or just set no limit for number of events??
+		private Label GenerateMoreButton(int dayEventsCount, int dayOfWeek)     // Consider if use this at all or just set no limit for number of events??
 		{
 			var moreLabel = new Label
 			{
@@ -285,7 +284,7 @@
 				var frame = DrawHourFrame(-1, dayOfWeek); // Adjust hour for CreateEventFrame
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
 				Grid.SetColumn(frame, -1 + 2); // Offset by 2 to account for the day labels column and "before" column
-				
+
 				Children.Add(frame);
 
 				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));

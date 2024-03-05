@@ -1,5 +1,3 @@
-using CommunityToolkit.Maui.Core;
-
 namespace Kalendarzyk.Views.CustomControls;
 
 public partial class EventTypesCustomControl : ContentView

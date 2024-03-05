@@ -1,14 +1,7 @@
 ﻿using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels.HelperClass.ExtensionsMethods;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels.HelperClass
 {

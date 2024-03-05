@@ -1,12 +1,4 @@
-﻿using Kalendarzyk.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
+﻿using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 
 namespace Kalendarzyk.Models
 {

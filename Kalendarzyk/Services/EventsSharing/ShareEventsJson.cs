@@ -2,7 +2,6 @@
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
 using Newtonsoft.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Kalendarzyk.Services.EventsSharing
 {
@@ -51,7 +50,7 @@ namespace Kalendarzyk.Services.EventsSharing
 		{
 			try
 			{
-				
+
 				_eventRepository.ImportEventsFromJson(jsonString);
 
 				// Assuming your MainPage is a NavigationPage

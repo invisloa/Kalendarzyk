@@ -1,18 +1,51 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿using Kalendarzyk.Helpers;
+using Kalendarzyk.Models;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.ViewModels.HelperClass;
-using Kalendarzyk.Views.CustomControls;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls.CCHelperClass;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using Kalendarzyk.Models;
-using Kalendarzyk.Helpers;
 using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.Services.Notifier;
 using Kalendarzyk.ViewModels;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls.CCHelperClass;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls.CCHelperClass;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls;
+*/
+using Kalendarzyk.ViewModels.HelperClass;
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Kalendarzyk.Views.
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using System.Globalization;
+using Kalendarzyk.Models;
+using Kalendarzyk.Helpers;
+After:
+using System.CCViewModels;
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Helpers;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using System.Globalization;
+using Kalendarzyk.Models;
+using Kalendarzyk.Helpers;
+After:
+using System.CCViewModels;
+using Kalendarzyk.Views.CustomControls.CCViewModels.Kalendarzyk.Helpers;
+*/
+CustomControls.CCViewModels.Kalendarzyk.Views.CustomControls.CCHelperClass;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace Kalendarzyk.Services

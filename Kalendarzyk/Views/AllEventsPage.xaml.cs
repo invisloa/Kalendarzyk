@@ -1,7 +1,4 @@
-using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.ViewModels.EventOperations;
 using Kalendarzyk.ViewModels.EventsViewModels;
 
 namespace Kalendarzyk.Views;
@@ -12,13 +9,13 @@ public partial class AllEventsPage : ContentPage
 	{
 		// Retrieve the view model from DI container
 
-		 var viewModel = MauiProgram.Current.Services.GetService<AllEventsViewModel>();
+		var viewModel = MauiProgram.Current.Services.GetService<AllEventsViewModel>();
 
 		BindingContext = viewModel;
 		InitializeComponent();
 		viewModel.OnEventsToShowListUpdated += () =>
 		{
-		viewModel.BindDataToScheduleList();
+			viewModel.BindDataToScheduleList();
 		};
 	}
 	// for viewing specific type of events

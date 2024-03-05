@@ -1,17 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Kalendarzyk.Models;
 using Kalendarzyk.Services;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Kalendarzyk.ViewModels
 {
-	
+
 	internal partial class FirstRunViewModel : ObservableObject
 	{
 		private const double smallFlagScale = 0.7;
@@ -19,7 +13,7 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private bool isFirstLaunch = Preferences.Default.Get("FirstLaunch", true);
 		[ObservableProperty]
-		private bool isNextButtonEnabled = false;	// commands canexecute doesnt work with custom buttons
+		private bool isNextButtonEnabled = false;   // commands canexecute doesnt work with custom buttons
 		[ObservableProperty]
 		private double englishFlagScale = smallFlagScale;
 		[ObservableProperty]

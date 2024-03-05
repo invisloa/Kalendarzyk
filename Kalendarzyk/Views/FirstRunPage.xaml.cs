@@ -1,4 +1,3 @@
-using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
 
 namespace Kalendarzyk.Views;

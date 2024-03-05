@@ -1,12 +1,8 @@
 ﻿using Kalendarzyk.Models;
 using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {

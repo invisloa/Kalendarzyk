@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Kalendarzyk.Services.DataOperations
 {
@@ -22,7 +18,7 @@ namespace Kalendarzyk.Services.DataOperations
 				return await streamReader.ReadToEndAsync();
 			}
 			catch
-			(Exception ex)	// no file exists probably first run
+			(Exception ex)  // no file exists probably first run
 			{
 				Console.WriteLine(ex.Message);
 				return null;
@@ -33,14 +29,14 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			try
 			{
-			var directory = Path.GetDirectoryName(filePath);
-			if (!Directory.Exists(directory))
+				var directory = Path.GetDirectoryName(filePath);
+				if (!Directory.Exists(directory))
 				{
 					Directory.CreateDirectory(directory);
 				}
 
-			using var streamWriter = new StreamWriter(filePath, false, Encoding.UTF8);
-			await streamWriter.WriteAsync(content);
+				using var streamWriter = new StreamWriter(filePath, false, Encoding.UTF8);
+				await streamWriter.WriteAsync(content);
 
 			}
 			catch (Exception ex)

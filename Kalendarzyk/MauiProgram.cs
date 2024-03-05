@@ -1,8 +1,23 @@
-﻿using Kalendarzyk.Services.DataOperations;
+﻿
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Services.DataOperations;
+After:
+using CommunityToolkit.Maui;
+using Kalendarzyk.Services.DataOperations;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Services.DataOperations;
+After:
+using CommunityToolkit.Maui;
+using Kalendarzyk.Services.DataOperations;
+*/
+using CommunityToolkit.Maui;
 using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.EventsViewModels;
-using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Plugin.LocalNotification;
 

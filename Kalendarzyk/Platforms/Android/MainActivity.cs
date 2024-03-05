@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Service.Autofill;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.EventsSharing;
 
@@ -20,7 +19,7 @@ namespace Kalendarzyk
 		bool _isIntentHandled;
 		IShareEventsService _shareEventsService = Factory.CreateNewShareEventsService();
 		// when the app is not running and a new intent is received
-		protected override  void OnCreate(Bundle savedInstanceState)
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
 
 			base.OnCreate(savedInstanceState);

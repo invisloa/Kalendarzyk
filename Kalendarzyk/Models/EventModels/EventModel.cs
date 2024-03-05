@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Kalendarzyk.Models.EventModels;
+using Kalendarzyk.Models.EventTypesModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Models.EventModels;
 
 namespace Kalendarzyk.Models.EventModels
 {

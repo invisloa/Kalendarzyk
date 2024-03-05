@@ -1,6 +1,4 @@
 ﻿using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models;
 
 namespace Kalendarzyk.Models.EventModels
 {
@@ -21,6 +19,6 @@ namespace Kalendarzyk.Models.EventModels
 		public IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
 
 		// New property to store notification integer ID
-		public int? NotificationId { get;}
+		public int? NotificationId { get; }
 	}
 }

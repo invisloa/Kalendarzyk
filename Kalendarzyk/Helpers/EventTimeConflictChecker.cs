@@ -1,12 +1,19 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using Kalendarzyk.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+After:
+using Kalendarzyk.Models.EventTypesModels;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Helpers;
+After:
+using Kalendarzyk.Models.EventTypesModels;
+*/
+
 
 namespace Kalendarzyk.Helpers
 {

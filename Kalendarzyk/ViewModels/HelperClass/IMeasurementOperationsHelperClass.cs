@@ -1,7 +1,4 @@
-﻿using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models.EventTypesModels;
-
-namespace Kalendarzyk.ViewModels.HelperClass
+﻿namespace Kalendarzyk.ViewModels.HelperClass
 {
 	public interface IMeasurementOperationsHelperClass
 	{

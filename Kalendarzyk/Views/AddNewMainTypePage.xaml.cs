@@ -1,6 +1,5 @@
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels;
 
 namespace Kalendarzyk.Views;

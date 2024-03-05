@@ -1,14 +1,23 @@
-﻿using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.Views;
+﻿using Kalendarzyk.Views;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
+After:
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
+After:
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+*/
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
 
 namespace Kalendarzyk.ViewModels.EventsViewModels
 {

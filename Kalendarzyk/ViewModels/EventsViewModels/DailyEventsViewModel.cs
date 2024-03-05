@@ -1,9 +1,22 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+After:
+using System.Collections.ObjectModel;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
+After:
+using System.Collections.ObjectModel;
+*/
+System.Collections.ObjectModel;
 
 namespace Kalendarzyk.ViewModels.EventsViewModels
 {
@@ -19,11 +32,11 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 				}
 			}
 		}
-        // ctor 
-        public DailyEventsViewModel()
-        {
-        }
-        public DailyEventsViewModel(ISubEventTypeModel eventType) : base()	// IDK ???
+		// ctor 
+		public DailyEventsViewModel()
+		{
+		}
+		public DailyEventsViewModel(ISubEventTypeModel eventType) : base()  // IDK ???
 		{
 		}
 		protected override void ApplyEventsDatesFilter(DateTime startDate, DateTime endDate)

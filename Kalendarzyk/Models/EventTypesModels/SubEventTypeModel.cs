@@ -1,8 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.ViewModels;
-using Newtonsoft.Json;
 using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 
 namespace Kalendarzyk.Models.EventTypesModels

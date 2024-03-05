@@ -4,13 +4,7 @@ using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.HelperClass;
 using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {

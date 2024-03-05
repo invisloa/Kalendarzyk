@@ -3,12 +3,7 @@ using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels
 {

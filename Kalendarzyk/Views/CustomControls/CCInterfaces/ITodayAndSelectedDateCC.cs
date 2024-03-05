@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kalendarzyk.Views.CustomControls.CCInterfaces
+﻿namespace Kalendarzyk.Views.CustomControls.CCInterfaces
 {
 	public interface ITodayAndSelectedDateCC
 	{

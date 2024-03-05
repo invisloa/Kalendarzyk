@@ -25,7 +25,7 @@ namespace Kalendarzyk.Models.EventModels
 
 		// New property to store notification integer ID
 		public int? NotificationId { get; }
-		private  INotificationIDGenerator _notificationIDGenerator => Factory.CreateNotificationIDGenerator();
+		private INotificationIDGenerator _notificationIDGenerator => Factory.CreateNotificationIDGenerator();
 
 		[JsonIgnore]
 		public Color EventVisibleColor
@@ -44,7 +44,9 @@ namespace Kalendarzyk.Models.EventModels
 		}
 
 		// TO Consider postpone time and maybe some other extra options for advanced event adding mode??
-		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, QuantityModel quantityAmount = null, IEnumerable<MicroTaskModel> microTasksList = null, Guid? id = null, int? notificationID = null, bool usesNotification = false)
+		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,
+								bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, QuantityModel quantityAmount = null,
+								IEnumerable<MicroTaskModel> microTasksList = null, Guid? id = null, int? notificationID = null, bool usesNotification = false)
 		{
 			ReminderTime = postponeTime ?? _defaulteventRemindertime;
 			Id = id ?? Guid.NewGuid();

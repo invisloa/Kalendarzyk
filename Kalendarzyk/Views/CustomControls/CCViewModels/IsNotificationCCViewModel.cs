@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Kalendarzyk.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
@@ -25,16 +20,16 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		public TimeSpan NotificationTime => _defaultEventTimespanCCViewModel.GetDuration();
 
 
-        public IsNotificationCCViewModel()
-        {
-            _isNotification = false;
+		public IsNotificationCCViewModel()
+		{
+			_isNotification = false;
 			_notificationSelectionText = "Notification";
 			_isNotificationFrameSelectionCommand = new Command(ChangeIsNotification);
-        }
+		}
 
 		private void ChangeIsNotification()
 		{
 			IsNotification = !IsNotification;
 		}
-    }
+	}
 }

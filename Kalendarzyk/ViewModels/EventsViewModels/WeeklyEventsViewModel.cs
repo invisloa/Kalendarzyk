@@ -1,6 +1,4 @@
-﻿using Kalendarzyk.Services.DataOperations;
-
-namespace Kalendarzyk.ViewModels.EventsViewModels
+﻿namespace Kalendarzyk.ViewModels.EventsViewModels
 {
 	public class WeeklyEventsViewModel : AbstractEventViewModel
 	{

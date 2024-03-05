@@ -1,7 +1,5 @@
-using Kalendarzyk.Helpers;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.ViewModels;
 using Kalendarzyk.ViewModels.QuickNotes;
 
 namespace Kalendarzyk.Views.QuickNotes;

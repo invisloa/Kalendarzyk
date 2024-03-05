@@ -1,6 +1,4 @@
 using Kalendarzyk.Views.CustomControls.CCViewModels;
-using System.Collections;
-using System.Windows.Input;
 
 namespace Kalendarzyk.Views.CustomControls;
 

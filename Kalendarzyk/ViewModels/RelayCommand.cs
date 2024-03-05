@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 // Generic relay command implementation
 public class RelayCommand : ICommand

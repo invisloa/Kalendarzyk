@@ -1,11 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Kalendarzyk.Helpers;
-using Kalendarzyk.Models;
-using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services;
+﻿using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.ViewModels;
 using Kalendarzyk.Views;
 
 namespace Kalendarzyk
@@ -19,7 +13,7 @@ namespace Kalendarzyk
 			_repository = Factory.GetEventRepository();
 			_repository.InitializeAsync();
 			InitializeComponent();
-			if(IsFirstLaunch())
+			if (IsFirstLaunch())
 			{
 				FirstLaunch();
 			}

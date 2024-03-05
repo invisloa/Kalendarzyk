@@ -1,11 +1,9 @@
 ﻿namespace Kalendarzyk.Views.CustomControls
 {
-	using Microsoft.Maui.Graphics;
 	using Kalendarzyk.Models.EventModels;
-	using Microsoft.Maui.Layouts;
+	using Microsoft.Maui.Graphics;
 	using System;
 	using System.Collections.ObjectModel;
-	using System.Linq;
 	using MauiGrid = Microsoft.Maui.Controls.Grid;
 
 	public abstract class BaseEventPageCC : MauiGrid

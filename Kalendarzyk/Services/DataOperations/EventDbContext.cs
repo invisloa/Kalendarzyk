@@ -1,6 +1,5 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Kalendarzyk.Services.DataOperations
 {

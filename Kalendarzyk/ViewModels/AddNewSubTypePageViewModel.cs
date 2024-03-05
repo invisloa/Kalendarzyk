@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
-using Newtonsoft.Json;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
-using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Views;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Kalendarzyk.Helpers;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -35,7 +26,7 @@ namespace Kalendarzyk.ViewModels
 		private string _typeName;
 		private IEventRepository _eventRepository;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
-		private IColorButtonsSelectorHelperClass _colorButtonsHelperClass = Factory.CreateNewIColorButtonsHelperClass(startingColor:Colors.Red);
+		private IColorButtonsSelectorHelperClass _colorButtonsHelperClass = Factory.CreateNewIColorButtonsHelperClass(startingColor: Colors.Red);
 		public IColorButtonsSelectorHelperClass ColorButtonsHelperClass { get => _colorButtonsHelperClass; }
 
 		#endregion
@@ -138,7 +129,7 @@ namespace Kalendarzyk.ViewModels
 				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(currentType.MicroTasksList);
 			}
 			OnMainEventTypeSelectedCommand(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
-			//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
+																									//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
 			ColorButtonsHelperClass.SelectedColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);

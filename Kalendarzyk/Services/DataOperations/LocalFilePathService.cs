@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace Kalendarzyk.Services.DataOperations
+﻿namespace Kalendarzyk.Services.DataOperations
 {
 	internal class LocalFilePathService : ILocalFilePathService
 	{
@@ -26,7 +23,7 @@ namespace Kalendarzyk.Services.DataOperations
 			//DeleteFileIfExists(MainEventsTypesFilePath);
 
 		}
-		public void DeleteFileIfExists(string filePath)	// only for testing purposes
+		public void DeleteFileIfExists(string filePath) // only for testing purposes
 		{
 			if (File.Exists(filePath))
 			{

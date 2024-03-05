@@ -1,17 +1,68 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Models.EventModels;
+After:
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventModels;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Models.EventModels;
+After:
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventModels;
+*/
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Newtonsoft.Json;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
+using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Newtonsoft.Json;
+*/
+using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using System.Runtime.CompilerServices;
 using Kalendarzyk.Helpers;
+After:
+using System.Runtime.CompilerServices;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using System.Runtime.CompilerServices;
+using Kalendarzyk.Helpers;
+After:
+using System.Runtime.CompilerServices;
+*/
+
 
 namespace Kalendarzyk.ViewModels.EventOperations
 {
@@ -21,7 +72,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	public abstract class EventOperationsBaseViewModel : BaseViewModel, IMainEventTypesCCViewModel
 	{
 		private bool _canSubmitEvent;
-		public bool CanSubmitEvent		// added since color converter doesnt work with canexecute
+		public bool CanSubmitEvent      // added since color converter doesnt work with canexecute
 		{
 			get => _canSubmitEvent;
 			set
@@ -287,8 +338,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				if (_startExactTime == value) return; // Avoid unnecessary setting and triggering.
 				_startExactTime = value;
 				OnPropertyChanged();
-				if(!IsEditMode)
-				{ 
+				if (!IsEditMode)
+				{
 					SetEndExactTimeAccordingToEventType();
 				}
 				if (_startDateTime.Date == _endDateTime.Date && _startExactTime > _endExactTime)
@@ -447,19 +498,19 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			try
 			{
-/*				var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
+				/*				var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
 
-				// Calculate the number of whole days within the TimeSpan
-				int days = (int)timeSpanAdded.TotalDays;
+								// Calculate the number of whole days within the TimeSpan
+								int days = (int)timeSpanAdded.TotalDays;
 
-				// Calculate the remaining hours, minutes, and seconds after removing whole days
-				TimeSpan remainingTime = TimeSpan.FromHours(timeSpanAdded.Hours).Add(TimeSpan.FromMinutes(timeSpanAdded.Minutes)).Add(TimeSpan.FromSeconds(timeSpanAdded.Seconds));
+								// Calculate the remaining hours, minutes, and seconds after removing whole days
+								TimeSpan remainingTime = TimeSpan.FromHours(timeSpanAdded.Hours).Add(TimeSpan.FromMinutes(timeSpanAdded.Minutes)).Add(TimeSpan.FromSeconds(timeSpanAdded.Seconds));
 
-				// Set EndDateTime by adding whole days
-				EndDateTime = StartDateTime.AddDays(days);
+								// Set EndDateTime by adding whole days
+								EndDateTime = StartDateTime.AddDays(days);
 
-				// Set EndExactTime to the remaining hours, minutes, and seconds
-				EndExactTime = remainingTime;*/
+								// Set EndExactTime to the remaining hours, minutes, and seconds
+								EndExactTime = remainingTime;*/
 			}
 			catch
 			{

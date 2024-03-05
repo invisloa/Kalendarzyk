@@ -1,18 +1,11 @@
-﻿using Kalendarzyk.ViewModels.EventsViewModels;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kalendarzyk.Services;
-using CommunityToolkit.Mvvm.Input;
+﻿
 using Kalendarzyk.Models.EventTypesModels;
-using System.Collections.ObjectModel;
+using Kalendarzyk.Services;
+using Kalendarzyk.ViewModels.EventsViewModels;
 using Kalendarzyk.ViewModels.HelperClass;
-using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Views;
-using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Views.CustomControls.CCInterfaces;
+using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.ViewModels
 {

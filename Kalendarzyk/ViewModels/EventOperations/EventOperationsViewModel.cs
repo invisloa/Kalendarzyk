@@ -2,7 +2,6 @@
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
-using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
@@ -32,7 +31,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 		}
 		public override bool IsEditMode => _selectedCurrentEvent != null;
-		private IShareEventsService _shareEventsService;	// made private not tested
+		private IShareEventsService _shareEventsService;    // made private not tested
 
 		public AsyncRelayCommand AsyncDeleteEventCommand
 		{
@@ -135,7 +134,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			// ADD EVENT MICROTASKS if IsMicroTaskType
 			if (_selectedCurrentEvent.EventType.IsMicroTaskType)
 			{
-				if (_selectedCurrentEvent.MicroTasksList == null)	// TODO this is a temporary fix for null reference exception need to fix but no time now...
+				if (_selectedCurrentEvent.MicroTasksList == null)   // TODO this is a temporary fix for null reference exception need to fix but no time now...
 				{
 					_selectedCurrentEvent.MicroTasksList = new List<MicroTaskModel>();
 				}

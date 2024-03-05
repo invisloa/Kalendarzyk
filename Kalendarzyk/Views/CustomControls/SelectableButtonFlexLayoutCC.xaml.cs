@@ -1,4 +1,3 @@
-using Microsoft.Maui.Layouts;
 using System.Collections;
 
 namespace Kalendarzyk.Views.CustomControls

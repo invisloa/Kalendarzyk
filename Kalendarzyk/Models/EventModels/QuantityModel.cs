@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using System.Threading.Tasks;
 using Kalendarzyk.Models.EventTypesModels;
+After:
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using System.Threading.Tasks;
+using Kalendarzyk.Models.EventTypesModels;
+After:
+using System.Threading.Tasks;
+*/
+
 
 namespace Kalendarzyk.Models.EventModels
 {

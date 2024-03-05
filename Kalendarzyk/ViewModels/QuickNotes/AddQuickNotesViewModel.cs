@@ -1,20 +1,13 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.EventsSharing;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Microsoft.Maui.Graphics.Text;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -26,8 +19,30 @@ namespace Kalendarzyk.ViewModels
 		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
+
+		/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+		Before:
+				private IShareEventsService _shareEventsService;
+
+				public bool IsModified;
+		After:
+				private IShareEventsService _shareEventsService;
+
+				public bool IsModified;
+		*/
+
+		/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+		Before:
+				private IShareEventsService _shareEventsService;
+
+				public bool IsModified;
+		After:
+				private IShareEventsService _shareEventsService;
+
+				public bool IsModified;
+		*/
 		private IShareEventsService _shareEventsService;
-		
+
 		public bool IsModified;
 
 		[ObservableProperty]
@@ -51,7 +66,7 @@ namespace Kalendarzyk.ViewModels
 
 		public bool IsNotEditQuickNoteMode => !_isEditQuickNoteMode;
 		[ObservableProperty]
-		private Color _quickNoteLabelColor=  Colors.Red;
+		private Color _quickNoteLabelColor = Colors.Red;
 
 
 		public string SubmitQuickNoteButtonText
@@ -172,7 +187,7 @@ namespace Kalendarzyk.ViewModels
 
 		//ctor new quick note
 		public AddQuickNotesViewModel()
-        {
+		{
 			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
 			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
@@ -193,13 +208,13 @@ namespace Kalendarzyk.ViewModels
 			StartDateTime = quickNote.StartDateTime;
 			EndDateTime = quickNote.EndDateTime;
 			IsCompletedCCAdapter.IsCompleted = quickNote.IsCompleted;
-			if(quickNote.QuantityAmount != null && quickNote.QuantityAmount.Value != 0)
+			if (quickNote.QuantityAmount != null && quickNote.QuantityAmount.Value != 0)
 			{
 				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[1]); // TODO refactor this
 				DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == quickNote.QuantityAmount.Unit).First();
 				DefaultMeasurementSelectorCCHelper.QuantityValue = quickNote.QuantityAmount.Value;
 			}
-			if(quickNote.MicroTasksList != null && quickNote.MicroTasksList.Count() > 0)
+			if (quickNote.MicroTasksList != null && quickNote.MicroTasksList.Count() > 0)
 			{
 				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[0]); // TODO refactor this
 				MicroTasksCCAdapter.MicroTasksOC = quickNote.MicroTasksList.ToObservableCollection();

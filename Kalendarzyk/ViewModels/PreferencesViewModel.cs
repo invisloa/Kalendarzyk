@@ -1,14 +1,60 @@
-﻿using Kalendarzyk.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using System.Windows.Input;
+After:
 using CommunityToolkit.Mvvm.Input;
-using Kalendarzyk.Models;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using System.Windows.Input;
+After:
+using CommunityToolkit.Mvvm.Input;
+*/
+Input;
 using Kalendarzyk.Helpers;
+using Kalendarzyk.Models;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Models.EventModels;
-using System;
+After:
+using Kalendarzyk.Services;
+using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Views;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Models.EventModels;
+After:
+using Kalendarzyk.Services;
+using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Views;
+*/
+using Kalendarzyk.Services;
+using Kalendarzyk.Services.DataOperations;
+using Kalendarzyk.Views;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Views;
+After:
+using System.Windows.Input;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Views;
+After:
+using System.Windows.Input;
+*/
+using System.Windows.Input;
 
 namespace Kalendarzyk.ViewModels
 {
@@ -20,7 +66,7 @@ namespace Kalendarzyk.ViewModels
 		public AsyncRelayCommand ResetToDefaultDataCommand
 		{
 			get;
-			set;	
+			set;
 		}
 		public AsyncRelayCommand DeleteAllDataCommand
 		{
@@ -183,9 +229,9 @@ namespace Kalendarzyk.ViewModels
 			switch (action)
 			{
 				case "Restore default data":
-					break;		// if ok continue code below
+					break;      // if ok continue code below
 				default:
-					return;		// if cancel or null stop this method
+					return;     // if cancel or null stop this method
 			}
 			await _eventRepository.ClearAllEventsListAsync();
 			await _eventRepository.ClearAllSubEventTypesAsync();
@@ -217,10 +263,10 @@ namespace Kalendarzyk.ViewModels
 			await _eventRepository.AddSubEventTypeAsync(shoppingSubEventType);
 			await _eventRepository.AddSubEventTypeAsync(examsSubEventType);
 
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now-TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new QuantityModel(MeasurementUnit.Money, 150)));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now - TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new QuantityModel(MeasurementUnit.Money, 150)));
 			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Maserati", "Olej", DateTime.Now - TimeSpan.FromDays(2), DateTime.Now - TimeSpan.FromDays(2) + TimeSpan.FromHours(1), mechaniciansSubEventType, new QuantityModel(MeasurementUnit.Money, 500)));
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Lidl", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType, new QuantityModel(MeasurementUnit.Money, 115), new List<MicroTaskModel> { new MicroTaskModel("Mleko"), new MicroTaskModel("Chleb"), new MicroTaskModel("Jabłka"), new MicroTaskModel("Pomidory"), new MicroTaskModel("Lasagne"), new MicroTaskModel("Ser"),  }));
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Matematyka", "Integrals", DateTime.Now+TimeSpan.FromDays(7), DateTime.Now + TimeSpan.FromDays(7)+TimeSpan.FromMinutes(60), examsSubEventType));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Lidl", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType, new QuantityModel(MeasurementUnit.Money, 115), new List<MicroTaskModel> { new MicroTaskModel("Mleko"), new MicroTaskModel("Chleb"), new MicroTaskModel("Jabłka"), new MicroTaskModel("Pomidory"), new MicroTaskModel("Lasagne"), new MicroTaskModel("Ser"), }));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Matematyka", "Integrals", DateTime.Now + TimeSpan.FromDays(7), DateTime.Now + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(60), examsSubEventType));
 
 		}
 	}

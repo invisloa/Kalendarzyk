@@ -1,5 +1,3 @@
-using Microsoft.Identity.Client;
-
 namespace Kalendarzyk.Views.CustomControls;
 
 public partial class RoundEntryCC : ContentView

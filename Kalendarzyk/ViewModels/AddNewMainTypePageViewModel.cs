@@ -1,14 +1,50 @@
-﻿using Kalendarzyk.Helpers;
-using Kalendarzyk.Models;
+﻿
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Helpers;
+After:
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Helpers;
+After:
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
+*/
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.Views;
+using Kalendarzyk.Views
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using CommunityToolkit.Mvvm.Input;
+using System;
+After:
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+*/
+.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
-using System.Linq;
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
 using System.Text;
 using System.Threading.Tasks;
 using Kalendarzyk.Models.EventModels;
@@ -16,6 +52,27 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Runtime.CompilerServices;
+After:
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using System.Text;
+using System.Threading.Tasks;
+using Kalendarzyk.Models.EventModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
+using System.Runtime.CompilerServices;
+After:
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
 
 namespace Kalendarzyk.ViewModels
 {
@@ -31,7 +88,7 @@ namespace Kalendarzyk.ViewModels
 		private bool _isIconsTabSelected = true;
 		private bool _isBgColorsTabSelected = false;
 		private bool _isTextColorsTabSelected = false;
-		private IColorButtonsSelectorHelperClass _backGroundColorsHelper = Factory.CreateNewIColorButtonsHelperClass(startingColor:Colors.Red);
+		private IColorButtonsSelectorHelperClass _backGroundColorsHelper = Factory.CreateNewIColorButtonsHelperClass(startingColor: Colors.Red);
 		public IColorButtonsSelectorHelperClass BackGroundColorsHelper
 		{
 			get { return _backGroundColorsHelper; }

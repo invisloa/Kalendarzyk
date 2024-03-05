@@ -1,11 +1,5 @@
-using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels.EventOperations;
-using Kalendarzyk.ViewModels.EventsViewModels;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
-using System.Xml.Linq;
 
 namespace Kalendarzyk.Views
 {

@@ -1,17 +1,26 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Models.EventModels;
+After:
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Models.EventModels;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Models.EventModels;
+After:
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Models.EventModels;
+*/
+using CommunityToolkit.Mvvm.Input;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.ViewModels.HelperClass;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
+using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels.EventsViewModels
 {

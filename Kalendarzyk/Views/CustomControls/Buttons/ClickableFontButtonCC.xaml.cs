@@ -1,12 +1,10 @@
-using Microsoft.Identity.Client;
-
 namespace Kalendarzyk.Views.CustomControls.Buttons;
 
 public partial class ClickableFontButtonCC : ContentView
 {
 	public static readonly BindableProperty IconTextColorProperty = BindableProperty.Create(
 		nameof(IconTextColor), typeof(Color), typeof(ClickableFontButtonCC), Colors.Black,
-		propertyChanged: OnIconTextColorPropertyChanged); 
+		propertyChanged: OnIconTextColorPropertyChanged);
 	public Color IconTextColor
 	{
 		get => (Color)GetValue(IconTextColorProperty);

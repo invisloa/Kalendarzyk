@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace Kalendarzyk.Helpers.Converters
 {
@@ -12,7 +7,7 @@ namespace Kalendarzyk.Helpers.Converters
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			try
-			{ 
+			{
 				if (value is bool isTrue && isTrue)
 				{
 					if (parameter != null)
@@ -30,7 +25,7 @@ namespace Kalendarzyk.Helpers.Converters
 									return color;
 								}
 							}
-								return Colors.Black;
+							return Colors.Black;
 						}
 
 					}

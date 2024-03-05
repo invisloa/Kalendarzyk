@@ -1,11 +1,11 @@
 ﻿namespace Kalendarzyk.Views.CustomControls
 {
-	using Microsoft.Maui.Graphics;
 	using Kalendarzyk.Models.EventModels;
+	using Microsoft.Maui.Graphics;
+	using Microsoft.Maui.Layouts;
 	using System;
 	using System.Linq;
 	using static Kalendarzyk.App;
-	using Microsoft.Maui.Layouts;
 
 	public class MonthlyEventsControl : BaseEventPageCC
 	{
@@ -128,7 +128,7 @@
 				BackgroundColor = _emptyLabelColor,
 				MinimumWidthRequest = _minimumDayWidthRequest,
 				MinimumHeightRequest = _minimumDayHeightRequest,
-				CornerRadius = 0  
+				CornerRadius = 0
 			};
 			dateFrame.GestureRecognizers.Add(tapGestureRecognizerForFrame);
 			var stackLayout = new StackLayout();

@@ -1,15 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.Views.QuickNotes;
 using Kalendarzyk.Services;
-using System;
-using System.Collections.Generic;
+using Kalendarzyk.Services.DataOperations;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Services;
+After:
+using Kalendarzyk.Views.QuickNotes;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Services;
+After:
+using Kalendarzyk.Views.QuickNotes;
+*/
+using Kalendarzyk.Views.QuickNotes;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels.QuickNotes
 {

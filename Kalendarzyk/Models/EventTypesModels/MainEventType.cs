@@ -1,14 +1,4 @@
-﻿using Kalendarzyk.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kalendarzyk.Models.EventTypesModels
+﻿namespace Kalendarzyk.Models.EventTypesModels
 {
 	public class MainEventType : IMainEventType
 	{

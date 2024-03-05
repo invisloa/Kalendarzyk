@@ -1,17 +1,11 @@
-﻿using Kalendarzyk.Models.EventModels;
-using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
-using Newtonsoft.Json;
-using Microsoft.Maui;
-using CommunityToolkit.Maui.Storage;
-using System.Text;
-using CommunityToolkit.Maui.Alerts;
+﻿
 using Kalendarzyk;
+using Kalendarzyk.Models.EventModels;
+using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
-using System.Security.Cryptography;
-using Kalendarzyk.Views;
-using Microsoft.Maui.Storage;
+using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.Notifier;
+using Kalendarzyk.Views;
 
 public class LocalMachineEventRepository : IEventRepository
 {
@@ -326,7 +320,7 @@ public class LocalMachineEventRepository : IEventRepository
 				await userNotifier.ShowMessageAsync($"Failed to pick a file: User canceled file picking", cancellationToken);
 				return null;
 			}
-		}	
+		}
 		catch (Exception ex)
 		{
 			await userNotifier.ShowMessageAsync($"An error occurred while loading the file: {ex.Message}", cancellationToken);
@@ -356,7 +350,7 @@ public class LocalMachineEventRepository : IEventRepository
 		return _eventJsonSerializer.DeserializeEventsAllInfo(encryptedJsonData);
 	}
 
-	private async Task ImportEventsData(EventsAndTypesForJson deserializedEventsAndTypesdData)	// TO REFACTOR
+	private async Task ImportEventsData(EventsAndTypesForJson deserializedEventsAndTypesdData)  // TO REFACTOR
 	{
 		// before adding event there has to be its main and sub type added
 		ImportMainAndSubEventTypes(deserializedEventsAndTypesdData);       // for now just import all main and sub event types without asking the user what to do
@@ -364,17 +358,17 @@ public class LocalMachineEventRepository : IEventRepository
 
 		if (deserializedEventsAndTypesdData.Events.Count > 1)
 		{
-		await LoadMultipleEventsFromJson(deserializedEventsAndTypesdData);
+			await LoadMultipleEventsFromJson(deserializedEventsAndTypesdData);
 		}
 		else
 		{
-		await LoadSingleEventFromJson(deserializedEventsAndTypesdData);
+			await LoadSingleEventFromJson(deserializedEventsAndTypesdData);
 		}
 	}
 
 	private async Task LoadMultipleEventsFromJson(EventsAndTypesForJson deserializedEventsAndTypesdData)
 	{
-		
+
 		foreach (var eventItem in deserializedEventsAndTypesdData.Events)
 		{
 			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
@@ -385,7 +379,7 @@ public class LocalMachineEventRepository : IEventRepository
 			else
 			{
 				// ask the user if he wants to overwrite the event
-				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit shared event");		// TO REFACTOR
+				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit shared event");       // TO REFACTOR
 				switch (action)
 				{
 					case "Overwrite":
@@ -397,13 +391,12 @@ public class LocalMachineEventRepository : IEventRepository
 						}
 						break;
 					case "Duplicate":
-						eventItem.Id = Guid.NewGuid();
 						eventItem.Title += " (.)";
 						AllEventsList.Add(eventItem);
 						break;
 					case "Edit shared event":
 
-					// TODO NOW	await Shell.Current.GoToAsync($"///eventpage?data={Uri.EscapeDataString(decryptedJsonData)}");
+						// TODO NOW	await Shell.Current.GoToAsync($"///eventpage?data={Uri.EscapeDataString(decryptedJsonData)}");
 
 						break;
 					case "Skip":
@@ -419,54 +412,53 @@ public class LocalMachineEventRepository : IEventRepository
 		await SaveSubEventTypesListAsync();
 		await SaveMainEventTypesListAsync();
 	}
-		private async Task LoadSingleEventFromJson(EventsAndTypesForJson deserializedEventsAndTypesdData)
+	private async Task LoadSingleEventFromJson(EventsAndTypesForJson deserializedEventsAndTypesdData)
+	{
+		var eventItem = deserializedEventsAndTypesdData.Events[0];
+		var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
+		if (!isEventAlreadyAdded)
 		{
-			var eventItem = deserializedEventsAndTypesdData.Events[0];
-			var isEventAlreadyAdded = AllEventsList.Any(e => e.Id == eventItem.Id);
-			if (!isEventAlreadyAdded)
+			try
 			{
-				try
-				{
-					Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
+				Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
 
-				}
-				catch (Exception ex)
-				{
-					await App.Current.MainPage.DisplayAlert("LoadSingleEventFromJsonError", $"{ex}", "yyy");
-				}
 			}
-			else
+			catch (Exception ex)
 			{
-				// ask the user if he wants to overwrite the event
-				var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit", "Skip");		// TO REFACTOR
-				switch (action)
-				{
-					case "Overwrite":
-						var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
-						if (eventToUpdate != null)
-						{
-							AllEventsList.Remove(eventToUpdate);
-							AllEventsList.Add(eventItem);
-						}
-						break;
-					case "Duplicate":
-						eventItem.Id = Guid.NewGuid();
-						eventItem.Title += " (.)";
+				await App.Current.MainPage.DisplayAlert("LoadSingleEventFromJsonError", $"{ex}", "yyy");
+			}
+		}
+		else
+		{
+			// ask the user if he wants to overwrite the event
+			var action = await App.Current.MainPage.DisplayActionSheet($"Event {eventItem.Title} already exists", "Cancel", null, "Overwrite", "Duplicate", "Edit", "Skip");        // TO REFACTOR
+			switch (action)
+			{
+				case "Overwrite":
+					var eventToUpdate = AllEventsList.FirstOrDefault(e => e.Id == eventItem.Id);
+					if (eventToUpdate != null)
+					{
+						AllEventsList.Remove(eventToUpdate);
 						AllEventsList.Add(eventItem);
-						break;
+					}
+					break;
+				case "Duplicate":
+					eventItem.Title += " (.)";
+					AllEventsList.Add(eventItem);
+					break;
 				case "Edit":
 					Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
 					break;
 				case "Skip":
-						// Do nothing, just skip.
-						break;
-					default:
-						// Cancel was selected or back button was pressed.
-						break;
-				}
-				await SaveEventsListAsync();
+					// Do nothing, just skip.
+					break;
+				default:
+					// Cancel was selected or back button was pressed.
+					break;
 			}
+			await SaveEventsListAsync();
 		}
+	}
 	private void ImportMainAndSubEventTypes(EventsAndTypesForJson deserializedEventsAndTypesdData)
 	{       // for now just import all main and sub event types without asking the user
 
@@ -504,18 +496,18 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		try
 		{
-/*			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
-			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
+			/*			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
+						using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
 
-			var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.json", stream, CancellationToken.None);
-			if (fileSaverResult.IsSuccessful)
-			{
-				await Toast.Make($"The file was saved successfully to location: {fileSaverResult.FilePath}").Show(CancellationToken.None);
-			}
-			else
-			{
-				await Toast.Make($"The file was not saved successfully with error: {fileSaverResult.Exception.Message}").Show(CancellationToken.None);
-			}*/
+						var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.json", stream, CancellationToken.None);
+						if (fileSaverResult.IsSuccessful)
+						{
+							await Toast.Make($"The file was saved successfully to location: {fileSaverResult.FilePath}").Show(CancellationToken.None);
+						}
+						else
+						{
+							await Toast.Make($"The file was not saved successfully with error: {fileSaverResult.Exception.Message}").Show(CancellationToken.None);
+						}*/
 			var encryptedString = SerializeAllEventsDataToJson(eventsToSaveList); // Create the jsonString with encryption
 			await _fileStorageService.WriteFileAsync(_localFilePathService.EventsFilePath, encryptedString);
 			await userNotifier.ShowMessageAsync($"The file was saved successfully to location: {_localFilePathService.EventsFilePath}", CancellationToken.None);

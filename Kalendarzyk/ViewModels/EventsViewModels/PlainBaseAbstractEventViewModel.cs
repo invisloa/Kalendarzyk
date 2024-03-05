@@ -1,14 +1,23 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
-using Kalendarzyk.Services.DataOperations;
-using Kalendarzyk.Views;
 using Kalendarzyk.Services;
-using System;
-using System.Collections.Generic;
+using Kalendarzyk.Services.DataOperations;
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
+Before:
+using Kalendarzyk.Services;
+After:
+using Kalendarzyk.Views;
+*/
+
+/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
+Before:
+using Kalendarzyk.Services;
+After:
+using Kalendarzyk.Views;
+*/
+using Kalendarzyk.Views;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kalendarzyk.ViewModels.EventsViewModels
 {
@@ -162,21 +171,21 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 
 			// Clear existing items in the EventsToShowList
 			EventsToShowList.Clear();
-			EventsToShowList = new ObservableCollection<IGeneralEventModel>(filteredEvents);	
+			EventsToShowList = new ObservableCollection<IGeneralEventModel>(filteredEvents);
 			// TODO NOW XXXXX events dont get changes when edited!!!
-/*			// Add filtered items to the EventsToShowList
-			foreach (var eventItem in filteredEvents)
-			{
+			/*			// Add filtered items to the EventsToShowList
+						foreach (var eventItem in filteredEvents)
+						{
 
-				try
-				{
-					EventsToShowList.Add(eventItem);
-				}
-				catch (Exception ex)
-				{
-					string error = ex.Message;
-				}
-			}*/
+							try
+							{
+								EventsToShowList.Add(eventItem);
+							}
+							catch (Exception ex)
+							{
+								string error = ex.Message;
+							}
+						}*/
 		}
 		private void GoToAddNewSubTypePage()
 		{
