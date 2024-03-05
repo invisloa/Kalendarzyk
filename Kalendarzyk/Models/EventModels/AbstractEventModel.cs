@@ -58,9 +58,7 @@ namespace Kalendarzyk.Models.EventModels
 			QuantityAmount = quantityAmount;
 			MicroTasksList = microTasksList;
 			PostponeHistory = new List<DateTime>(); // default new list 
-
-			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : 0;
-
+			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : null;
 		}
 		private Color IsCompleteColorAdapt(Color color)
 		{
