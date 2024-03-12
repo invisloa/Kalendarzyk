@@ -222,6 +222,9 @@
 	  <MauiXaml Update="Views\CustomControls\ExpandableCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsSelectorCC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\IsCompletedCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

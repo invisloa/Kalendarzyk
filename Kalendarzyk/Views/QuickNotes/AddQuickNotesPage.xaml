@@ -39,10 +39,10 @@
         <customControls:MicroTasksListCC IsVisible="{Binding IsQuickNoteMicroTasksType}" />
         
         <!--VALUE CC-->
-            <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteValueType}"/>
+        <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteValueType}"/>
 
 
-            <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"  />
+        <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"  />
         </VerticalStackLayout>
 
     </ScrollView>

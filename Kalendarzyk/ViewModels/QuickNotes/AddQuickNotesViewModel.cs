@@ -56,32 +56,10 @@ namespace Kalendarzyk.ViewModels
 		[ObservableProperty]
 		private bool _isQuickNotDatesSelected;
 
-		[ObservableProperty]
-		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
+
 		[ObservableProperty]
 		private AsyncRelayCommand _asyncShareEventCommand;
 
-		private bool _isQuickNoteMicroTasksType;
-
-		public bool IsQuickNoteMicroTasksType
-		{
-			get => _isQuickNoteMicroTasksType;
-			set
-			{
-				SetProperty(ref _isQuickNoteMicroTasksType, value);
-				IsModified = true;
-			}
-		}
-		private bool _isQuickNoteValueType;
-		public bool IsQuickNoteValueType
-		{
-			get => _isQuickNoteValueType;
-			set
-			{
-				SetProperty(ref _isQuickNoteValueType, value);
-				IsModified = true;
-			}
-		}
 		private string _quickNoteTitle;
 		public string QuickNoteTitle
 		{
@@ -189,17 +167,7 @@ namespace Kalendarzyk.ViewModels
 			QuickNoteDescription = quickNote.Description;
 			StartDateTime = quickNote.StartDateTime;
 			EndDateTime = quickNote.EndDateTime;
-			if (quickNote.QuantityAmount != null && quickNote.QuantityAmount.Value != 0)
-			{
-				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[1]); // TODO refactor this
-				DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == quickNote.QuantityAmount.Unit).First();
-				DefaultMeasurementSelectorCCHelper.QuantityValue = quickNote.QuantityAmount.Value;
-			}
-			if (quickNote.MicroTasksList != null && quickNote.MicroTasksList.Count() > 0)
-			{
-				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[0]); // TODO refactor this
-				MicroTasksCCAdapter.MicroTasksOC = quickNote.MicroTasksList.ToObservableCollection();
-			}
+
 			AsyncDeleteSelectedQuckNoteCommand = new AsyncRelayCommand(OnAsyncDeleteSelectedQuckNoteCommand);
 			IsModified = false;
 		}
@@ -230,27 +198,10 @@ namespace Kalendarzyk.ViewModels
 			{
 				new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand)),
 				new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsQuickNoteValueTypeCommand)),
-				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand)),
+				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand))
 			};
-			//InitializeIconsTabs();
 		}
-		private void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
-		{
-			IsQuickNoteMicroTasksType = !IsQuickNoteMicroTasksType;
-			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
 
-		}
-		private void OnIsQuickNoteValueTypeCommand(SelectableButtonViewModel clickedButton)
-		{
-			IsQuickNoteValueType = !IsQuickNoteValueType;
-			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
-
-		}
-		private void OnIsDateControlsSelectedCommand(SelectableButtonViewModel clickedButton)
-		{
-			IsQuickNoteDateSelected = !IsQuickNoteDateSelected;
-			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
-		}
 
 		private async Task OnAsyncDeleteSelectedQuckNoteCommand()
 		{
@@ -293,16 +244,7 @@ namespace Kalendarzyk.ViewModels
 				await _eventRepository.UpdateEventAsync(_currentQuickNote);
 			}
 		}
-		//private void ClearFields()
-		//{
-		//	_defaultMeasurementSelectorCCHelper.QuantityValue = 0;
-		//	MicroTasksCCAdapter.MicroTasksOC.Clear();
-		//	QuickNoteTitle = "";
-		//	QuickNoteDescription = "";
-		//	IsCompletedCCAdapter.IsCompleted = false;
-		//	IsQuickNoteValueType = false;
-		//	IsQuickNoteMicroTasksType = false;
-		//}
+
 		private async Task AsyncShareEvent()
 		{
 			await AsyncEditQuickNote();
