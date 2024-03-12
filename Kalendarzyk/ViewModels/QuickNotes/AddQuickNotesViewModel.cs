@@ -21,27 +21,6 @@ namespace Kalendarzyk.ViewModels
 		private IGeneralEventModel _currentQuickNote;
 		private bool _isCompleted;
 
-		/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-		Before:
-				private IShareEventsService _shareEventsService;
-
-				public bool IsModified;
-		After:
-				private IShareEventsService _shareEventsService;
-
-				public bool IsModified;
-		*/
-
-		/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-		Before:
-				private IShareEventsService _shareEventsService;
-
-				public bool IsModified;
-		After:
-				private IShareEventsService _shareEventsService;
-
-				public bool IsModified;
-		*/
 		private IShareEventsService _shareEventsService;
 
 		public bool IsModified;
