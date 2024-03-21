@@ -167,12 +167,12 @@ namespace Kalendarzyk.ViewModels
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
 
-			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, eventSubtype, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
+/*			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, eventSubtype, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
 
 			await _eventRepository.AddEventAsync(_currentQuickNote);
 			await Shell.Current.GoToAsync("..");
 
-			// go to all quick notes page
+*/			// go to all quick notes page
 			// await Shell.Current.GoToAsync("//QuickNotesPage");
 		}
 		private async Task AsyncEditQucikNoteAndGoBack()
@@ -183,7 +183,7 @@ namespace Kalendarzyk.ViewModels
 		private async Task AsyncEditQuickNote()
 		{
 			{
-				_currentQuickNote.Title = QuickNoteTitle;
+/*				_currentQuickNote.Title = QuickNoteTitle;
 				_currentQuickNote.Description = QuickNoteDescription;
 				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
 				_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
@@ -201,7 +201,7 @@ namespace Kalendarzyk.ViewModels
 
 
 				await _eventRepository.UpdateEventAsync(_currentQuickNote);
-			}
+*/			}
 		}
 
 		private async Task AsyncShareEvent()

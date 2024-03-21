@@ -17,7 +17,7 @@
         </StackLayout>
 
         <!--Visible in both Modes-->
-        <customControls:DefaultEventTimespanCC IsVisible="{Binding SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected}"/>
+        <!-- TODO XXX <customControls:DefaultEventTimespanCC IsVisible="{Binding SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected}"/>-->
         <customControls:MicroTasksListCC IsVisible="{Binding SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected}"/>
 
 

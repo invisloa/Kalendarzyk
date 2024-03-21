@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
-	internal partial class ExtraOptionsSelectorHelperClass : ObservableObject
+	public partial class ExtraOptionsSelectorHelperClass : ObservableObject
 	{
 		[ObservableProperty]
 		private MicroTasksCCAdapterVM _microTasksCCAdapter;
@@ -37,8 +37,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		public ExtraOptionsSelectorHelperClass()
 		{
 			InitializeCommon();
-
-
 		}
 		//ctor edit mode
 		public ExtraOptionsSelectorHelperClass(IGeneralEventModel eventToEdit)
@@ -95,13 +93,14 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 		private void SetPropperValueType()
 		{
-			_subEventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == event;
-			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
+/*		TODO NOW XXX
+ *		_subEventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == event;
+			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => _subEventType.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
 			DefaultMeasurementSelectorCCHelper.QuantityAmount = qNoteSubType.DefaultQuantityAmount;
 			DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
 			DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = measurementUnitsForSelectedType.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit);
 			OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
-
+*/
 		}
 	}
 }

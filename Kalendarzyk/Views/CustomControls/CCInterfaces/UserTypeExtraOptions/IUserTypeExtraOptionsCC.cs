@@ -1,12 +1,12 @@
-﻿/*using Kalendarzyk.Models.EventModels;
+﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions
 {
-    public interface IUserTypeExtraOptionsCC 
-	{
+    public interface IUserTypeExtraOptionsCC
+    {
         bool IsDefaultEventTimespanSelected { get; set; }
         Color IsDefaultTimespanColor { get; }
         RelayCommand IsDefaultTimespanSelectedCommand { get; set; }
@@ -17,4 +17,4 @@ namespace Kalendarzyk.Views.CustomControls.CCInterfaces.UserTypeExtraOptions
         bool IsValueTypeSelected { get; set; }
         RelayCommand ValueTypeClickCommand { get; set; }
     }
-}*/
+}

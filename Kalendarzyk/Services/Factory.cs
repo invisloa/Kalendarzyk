@@ -190,5 +190,6 @@ namespace Kalendarzyk.Services
 		internal static INotificationIDGenerator CreateNotificationIDGenerator() => new NotificationIDGenerator();
 
 		internal static ExtraOptionsSelectorHelperClass CreateNewExtraOptionsSelectorHelperClass() => new ExtraOptionsSelectorHelperClass();
+		internal static ExtraOptionsSelectorHelperClass CreateNewExtraOptionsSelectorHelperClass(IGeneralEventModel eventToEdit) => new ExtraOptionsSelectorHelperClass(eventToEdit);
 	}
 }

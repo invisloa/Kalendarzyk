@@ -155,6 +155,9 @@
 	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml.cs">
 	    <DependentUpon>SubTypeExtraOptions_EventCC.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_TypesCC.xaml.cs">
+	    <DependentUpon>SubTypeExtraOptions_TypesCC.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DailyEventsPage.xaml.cs">
 	    <DependentUpon>DailyEventsPage.xaml</DependentUpon>
 	  </Compile>

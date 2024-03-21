@@ -3,6 +3,7 @@ using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.EventsSharing;
+using Kalendarzyk.Views.CustomControls;
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
 
@@ -10,15 +11,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 {
 	class EventOperationsViewModel : EventOperationsBaseViewModel
 	{
-		#region Fields
-		private AsyncRelayCommand _asyncDeleteEventCommand;
-		private AsyncRelayCommand _asyncShareEventCommand;
-		private IsNotificationCCViewModel _isNotificationCCAdapter = Factory.CreateNewIsNotificationHelpercClass();
-		#endregion
-		#region Properties
-		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
-		public string HeaderText => IsEditMode ? $"EDIT EVENT" : "ADD NEW EVENT";
-		public bool IsDefaultEventTimespanSelected
+
+		/*	TODO XXX	public bool IsDefaultEventTimespanSelected
 		{
 			get
 			{
@@ -29,7 +23,25 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected = value;
 				OnPropertyChanged();
 			}
-		}
+		}*/
+		/*	TODO XXX	public RelayCommand IsDefaultTimespanSelectedCommand
+		{
+			get
+			{
+				return SubTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand;
+			}
+		}*/
+
+		#region Fields
+		private AsyncRelayCommand _asyncDeleteEventCommand;
+		private AsyncRelayCommand _asyncShareEventCommand;
+		private IsNotificationCCViewModel _isNotificationCCAdapter = Factory.CreateNewIsNotificationHelpercClass();
+
+		#endregion
+		#region Properties
+		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
+		public string HeaderText => IsEditMode ? $"EDIT EVENT" : "ADD NEW EVENT";
+
 		public override bool IsEditMode => _selectedCurrentEvent != null;
 		private IShareEventsService _shareEventsService;    // made private not tested
 
@@ -44,13 +56,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			get => _asyncShareEventCommand;
 			set => _asyncShareEventCommand = value;
 		}
-		public RelayCommand IsDefaultTimespanSelectedCommand
-		{
-			get
-			{
-				return SubTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand;
-			}
-		}
+
 		public override string SubmitButtonText
 		{
 			get
@@ -111,7 +117,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_shareEventsService = Factory.CreateNewShareEventsService();
 			// Set properties based on eventToEdit
 			_selectedCurrentEvent = eventToEdit;
-			OnUserEventTypeSelected(eventToEdit.EventType);
+			OnUserEventTypeSelectedCommand(eventToEdit.EventType);
 			Title = _selectedCurrentEvent.Title;
 			Description = _selectedCurrentEvent.Description;
 			StartDateTime = _selectedCurrentEvent.StartDateTime.Date;
@@ -122,6 +128,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
 
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
+
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
 
 			// ADD measurements if IsMeasurementType
 			if (_selectedCurrentEvent.EventType.IsValueType)

@@ -1,22 +1,4 @@
-﻿
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using Kalendarzyk.Models.EventModels;
-After:
-using CommunityToolkit.Mvvm.Input;
-using Kalendarzyk.Helpers;
-using Kalendarzyk.Models.EventModels;
-*/
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using Kalendarzyk.Models.EventModels;
-After:
-using CommunityToolkit.Mvvm.Input;
-using Kalendarzyk.Helpers;
-using Kalendarzyk.Models.EventModels;
-*/
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
@@ -26,42 +8,9 @@ using Kalendarzyk.Views;
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
 using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
 
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
-using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
-After:
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Newtonsoft.Json;
-*/
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions;
-using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
-After:
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Newtonsoft.Json;
-*/
 using Kalendarzyk.Views.CustomControls.CCViewModels;
 using System.Collections.ObjectModel;
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using System.Runtime.CompilerServices;
-using Kalendarzyk.Helpers;
-After:
-using System.Runtime.CompilerServices;
-*/
 
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using System.Runtime.CompilerServices;
-using Kalendarzyk.Helpers;
-After:
-using System.Runtime.CompilerServices;
-*/
 
 
 namespace Kalendarzyk.ViewModels.EventOperations
@@ -71,6 +20,14 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	/// </summary>
 	public abstract class EventOperationsBaseViewModel : BaseViewModel, IMainEventTypesCCViewModel
 	{
+
+		private ExtraOptionsSelectorHelperClass extraOptionsSelectorCC;
+		public ExtraOptionsSelectorHelperClass ExtraOptionsHelperToChangeName
+		{
+			get => extraOptionsSelectorCC;
+			set => extraOptionsSelectorCC = value;
+		}
+
 		private bool _canSubmitEvent;
 		public bool CanSubmitEvent      // added since color converter doesnt work with canexecute
 		{
@@ -128,7 +85,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
-			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelected);
+			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
 			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
 			_allMeasurementUnitItems = Factory.PopulateMeasurementCollection();
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
@@ -421,35 +378,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 			// TODO Show POPUP ???
 		}
-		protected void OnUserEventTypeSelected(ISubEventTypeModel selectedEvent)
-		{
-			SelectedEventType = selectedEvent;
-			SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected = selectedEvent.IsMicroTaskType ? true : false;
-			if (SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
-			{
-				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
-			}
-			SubTypeExtraOptionsHelper.IsValueTypeSelected = selectedEvent.IsValueType ? true : false;
-			if (SubTypeExtraOptionsHelper.IsValueTypeSelected)
-			{
-				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
-				var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
-				DefaultMeasurementSelectorCCHelper.QuantityAmount = SelectedEventType.DefaultQuantityAmount;
-				DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
-				_measurementSelectorHelperClass.SelectPropperMeasurementData(SelectedEventType);
-				OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
-			}
-			else
-			{
-
-				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
-			}
-			if (!IsEditMode)
-			{
-				SetEndExactTimeAccordingToEventType();
-			}
-			SetVisualsForSelectedSubType();
-		}
 		protected void SetVisualsForSelectedSubType()
 		{
 			foreach (var eventType in AllSubEventTypesOC)       // it sets colors in a different AllSubEventTypesOC then SelectedEventType is...
@@ -482,7 +410,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 			if (AllSubEventTypesOC.Count > 0)
 			{
-				OnUserEventTypeSelected(AllSubEventTypesOC[0]);
+				OnUserEventTypeSelectedCommand(AllSubEventTypesOC[0]);
 			}
 			else
 			{
@@ -498,7 +426,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			try
 			{
-				/*				var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
+				/*	No idea why thi is commented??
+				 *	
+				 *	var timeSpanAdded = StartExactTime.Add(SelectedEventType.DefaultEventTimeSpan);
 
 								// Calculate the number of whole days within the TimeSpan
 								int days = (int)timeSpanAdded.TotalDays;
@@ -525,5 +455,71 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 
 		#endregion
+		protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
+		{
+			SelectedEventType = selectedEvent;
+			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsMicroTaskType ? true : false;
+			if (ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType)
+			{
+				ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
+			}
+			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsValueType ? true : false;
+
+
+			ExtraOptionsHelperToChangeName.IsQuickNoteValueType = selectedEvent.IsValueType ? true : false;
+			if (ExtraOptionsHelperToChangeName.IsQuickNoteValueType)
+			{
+				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
+				var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
+				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = SelectedEventType.DefaultQuantityAmount;
+
+				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
+				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(SelectedEventType);
+				OnPropertyChanged(nameof(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
+			}
+			else
+			{
+
+				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
+			}
+			if (!IsEditMode)
+			{
+				SetEndExactTimeAccordingToEventType();
+			}
+			SetVisualsForSelectedSubType();
+		}
+
 	}
 }
+/*protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
+{
+	SelectedEventType = selectedEvent;
+
+
+	XXX
+			SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected = selectedEvent.IsMicroTaskType ? true : false;
+	if (SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
+	{
+		MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
+	}
+	SubTypeExtraOptionsHelper.IsValueTypeSelected = selectedEvent.IsValueType ? true : false;
+	if (SubTypeExtraOptionsHelper.IsValueTypeSelected)
+	{
+		// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
+		var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
+		DefaultMeasurementSelectorCCHelper.QuantityAmount = SelectedEventType.DefaultQuantityAmount;
+		DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
+		_measurementSelectorHelperClass.SelectPropperMeasurementData(SelectedEventType);
+		OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
+	}
+	else
+	{
+
+		DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
+	}
+	if (!IsEditMode)
+	{
+		SetEndExactTimeAccordingToEventType();
+	}
+	SetVisualsForSelectedSubType();
+}*/
