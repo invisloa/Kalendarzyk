@@ -1,5 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Kalendarzyk.Models.EventModels;
+using Kalendarzyk.Models.EventTypesModels;
+using Kalendarzyk.Services;
 using Kalendarzyk.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,42 +16,43 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 	internal partial class ExtraOptionsSelectorHelperClass : ObservableObject
 	{
 		[ObservableProperty]
-		private bool isModified;
-
-
-		private bool _isQuickNoteMicroTasksType;
-
-		public bool IsQuickNoteMicroTasksType
-		{
-			get => _isQuickNoteMicroTasksType;
-			set
-			{
-				SetProperty(ref _isQuickNoteMicroTasksType, value);
-				IsModified = true;
-			}
-		}
-		private bool _isQuickNoteValueType;
-		public bool IsQuickNoteValueType
-		{
-			get => _isQuickNoteValueType;
-			set
-			{
-				SetProperty(ref _isQuickNoteValueType, value);
-				IsModified = true;
-			}
-		}
-
-
+		private MicroTasksCCAdapterVM _microTasksCCAdapter;
 		[ObservableProperty]
-		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>
-			{
-				new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand)),
-				new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsQuickNoteValueTypeCommand)),
-				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand))
-			};
+		private MeasurementSelectorCCViewModel _defaultMeasurementSelectorCCHelper;
+		[ObservableProperty]
+		private bool _isQuickNoteDateSelected;
+		[ObservableProperty]
+		private IsCompletedCCViewModel _isCompletedCCAdapter;
+		private bool _isCompleted;
+		[ObservableProperty]
+		private bool _isQuickNoteMicroTasksType;
+		[ObservableProperty]
+		private bool _isQuickNoteValueType;
+		[ObservableProperty]
+		private ObservableCollection<SelectableButtonViewModel> _quickNotesButtonsSelectors;
+		[ObservableProperty]
+		private ISubEventTypeModel _subEventType;
 
+		//ctor create mode
+		public ExtraOptionsSelectorHelperClass()
+		{
+			InitializeCommon();
+
+
+		}
+		//ctor edit mode
 		public ExtraOptionsSelectorHelperClass(IGeneralEventModel eventToEdit)
-        {
+		{
+			InitializeCommon();
+			_isCompleted = eventToEdit.IsCompleted;
+
+			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
+			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
+			DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
+			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(_isCompleted);
+
+			SetPropperValueType();
+
 			if (eventToEdit.QuantityAmount != null && eventToEdit.QuantityAmount.Value != 0)
 			{
 				OnIsMicroTasksSelectedCommand(QuickNotesButtonsSelectors[1]); // TODO refactor this
@@ -61,7 +65,17 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				MicroTasksCCAdapter.MicroTasksOC = eventToEdit.MicroTasksList.ToObservableCollection();
 			}
 		}
-		private void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
+		private void InitializeCommon()
+		{
+			_quickNotesButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>		// TODO JO XXX REFACTOR THIS to be more modular
+			{
+				new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand)),
+				new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsQuickNoteValueTypeCommand)),
+				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand))
+			};
+		}
+
+        private void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
 		{
 			IsQuickNoteMicroTasksType = !IsQuickNoteMicroTasksType;
 			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
@@ -77,6 +91,17 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			IsQuickNoteDateSelected = !IsQuickNoteDateSelected;
 			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
+		}
+
+		private void SetPropperValueType()
+		{
+			_subEventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == event;
+			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
+			DefaultMeasurementSelectorCCHelper.QuantityAmount = qNoteSubType.DefaultQuantityAmount;
+			DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
+			DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = measurementUnitsForSelectedType.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit);
+			OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
+
 		}
 	}
 }

@@ -188,5 +188,7 @@ namespace Kalendarzyk.Services
 		internal static IsNotificationCCViewModel CreateNewIsNotificationHelpercClass() => new IsNotificationCCViewModel();
 
 		internal static INotificationIDGenerator CreateNotificationIDGenerator() => new NotificationIDGenerator();
+
+		internal static ExtraOptionsSelectorHelperClass CreateNewExtraOptionsSelectorHelperClass() => new ExtraOptionsSelectorHelperClass();
 	}
 }

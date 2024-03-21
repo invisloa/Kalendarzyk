@@ -15,51 +15,28 @@ namespace Kalendarzyk.ViewModels
 	{
 		#region Fields and Properties
 		private AsyncRelayCommand _asyncSubmitQuickNoteCommand;
-		private ISubEventTypeModel qNoteSubType;
+		private ISubEventTypeModel eventSubtype;
 		public AsyncRelayCommand AsyncSubmitQuickNoteCommand => _asyncSubmitQuickNoteCommand;
 		private IEventRepository _eventRepository;
 		private IGeneralEventModel _currentQuickNote;
-		private bool _isCompleted;
-
 		private IShareEventsService _shareEventsService;
-
 		public bool IsModified;
-
-		[ObservableProperty]
-		private bool _isQuickNoteDateSelected;
-
-		[ObservableProperty]
-		private IsCompletedCCViewModel _isCompletedCCAdapter;
-
 		[ObservableProperty]
 		private AsyncRelayCommand _asyncDeleteSelectedQuckNoteCommand;
-
-		[ObservableProperty]
-		private MicroTasksCCAdapterVM _microTasksCCAdapter;
-
-		[ObservableProperty]
-		private MeasurementSelectorCCViewModel _defaultMeasurementSelectorCCHelper;
-
 		[ObservableProperty]
 		[NotifyPropertyChangedFor(nameof(IsNotEditQuickNoteMode))]
 		private bool _isEditQuickNoteMode;
-
 		public bool IsNotEditQuickNoteMode => !_isEditQuickNoteMode;
 		[ObservableProperty]
 		private Color _quickNoteLabelColor = Colors.Red;
-
-
 		public string SubmitQuickNoteButtonText
 		{
 			get => IsEditQuickNoteMode ? "Submit changes" : "Add quick note";
 		}
 		[ObservableProperty]
 		private bool _isQuickNotDatesSelected;
-
-
 		[ObservableProperty]
 		private AsyncRelayCommand _asyncShareEventCommand;
-
 		private string _quickNoteTitle;
 		public string QuickNoteTitle
 		{
@@ -141,6 +118,8 @@ namespace Kalendarzyk.ViewModels
 				//IsUnsavedChange = true;
 			}
 		}
+		[ObservableProperty]
+		private ExtraOptionsSelectorHelperClass _extraOptionsSelectorHelperClass = Factory.CreateNewExtraOptionsSelectorHelperClass();
 		#endregion
 
 		//ctor new quick note
@@ -148,13 +127,11 @@ namespace Kalendarzyk.ViewModels
 		{
 			_eventRepository = Factory.GetEventRepository();
 			InitializeCommon();
-			_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 			_asyncSubmitQuickNoteCommand = new AsyncRelayCommand(OnAsyncSubmitQuickNoteCommand, CanSubmitQuickNoteCommand);
 		}
 		//ctor edit quick note
 		public AddQuickNotesViewModel(IGeneralEventModel quickNote)
 		{
-			_isCompleted = quickNote.IsCompleted;
 
 			_shareEventsService = Factory.CreateNewShareEventsService();
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
@@ -171,35 +148,10 @@ namespace Kalendarzyk.ViewModels
 			AsyncDeleteSelectedQuckNoteCommand = new AsyncRelayCommand(OnAsyncDeleteSelectedQuckNoteCommand);
 			IsModified = false;
 		}
-		private void SetPropperValueType()
-		{
-			qNoteSubType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
-			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
-			DefaultMeasurementSelectorCCHelper.QuantityAmount = qNoteSubType.DefaultQuantityAmount;
-			DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
-			DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = measurementUnitsForSelectedType.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit);
-			OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
 
-		}
 		private void InitializeCommon()
 		{
-			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(_isCompleted);
-			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
-			DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 
-			SetPropperValueType();
-			InitializeButtonSelectors();
-
-		}
-
-		private void InitializeButtonSelectors()
-		{
-			QuickNotesButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>
-			{
-				new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand)),
-				new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsQuickNoteValueTypeCommand)),
-				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand))
-			};
 		}
 
 
@@ -215,7 +167,7 @@ namespace Kalendarzyk.ViewModels
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
 
-			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, qNoteSubType, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
+			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, eventSubtype, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
 
 			await _eventRepository.AddEventAsync(_currentQuickNote);
 			await Shell.Current.GoToAsync("..");
@@ -230,17 +182,24 @@ namespace Kalendarzyk.ViewModels
 		}
 		private async Task AsyncEditQuickNote()
 		{
-			// ?? if (CanSubmitQuickNoteCommand())
 			{
 				_currentQuickNote.Title = QuickNoteTitle;
 				_currentQuickNote.Description = QuickNoteDescription;
 				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
 				_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
 				_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
-				_currentQuickNote.IsCompleted = IsCompletedCCAdapter.IsCompleted;
+				_currentQuickNote.IsCompleted = _extraOptionsSelectorHelperClass.IsCompletedCCAdapter.IsCompleted;
+
+
+
+
 				_defaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
 				_currentQuickNote.QuantityAmount = _defaultMeasurementSelectorCCHelper.QuantityAmount;
 				_currentQuickNote.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
+
+
+
+
 				await _eventRepository.UpdateEventAsync(_currentQuickNote);
 			}
 		}
