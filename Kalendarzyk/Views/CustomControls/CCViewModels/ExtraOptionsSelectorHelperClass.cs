@@ -102,5 +102,35 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
 */
 		}
+
+		internal void OnEventTypeChanged(ISubEventTypeModel selectedEvent)	// TODO HERE 22.03.24 just added this one
+		{
+			
+			IsQuickNoteMicroTasksType = selectedEvent.IsMicroTaskType ? true : false;
+			if (IsQuickNoteMicroTasksType)
+			{
+				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
+			}
+			IsQuickNoteMicroTasksType = selectedEvent.IsValueType ? true : false;
+
+
+			IsQuickNoteValueType = selectedEvent.IsValueType ? true : false;
+			if (IsQuickNoteValueType)
+			{
+				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
+				var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == selectedEvent.DefaultQuantityAmount.Unit); // TO CHECK!
+				DefaultMeasurementSelectorCCHelper.QuantityAmount = selectedEvent.DefaultQuantityAmount;
+
+				DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
+				DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(selectedEvent);
+				OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
+			}
+			else
+			{
+
+				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
+			}
+
+		}
 	}
 }

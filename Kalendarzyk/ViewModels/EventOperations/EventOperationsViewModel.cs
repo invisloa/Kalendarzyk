@@ -109,45 +109,27 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(IGeneralEventModel eventToEdit)
 		: base()
 		{
-			// value measurementType cannot be changed 
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
 			_shareEventsService = Factory.CreateNewShareEventsService();
+
 			// Set properties based on eventToEdit
 			_selectedCurrentEvent = eventToEdit;
-			OnUserEventTypeSelectedCommand(eventToEdit.EventType);
 			Title = _selectedCurrentEvent.Title;
 			Description = _selectedCurrentEvent.Description;
 			StartDateTime = _selectedCurrentEvent.StartDateTime.Date;
 			EndDateTime = _selectedCurrentEvent.EndDateTime.Date;
 			SelectedMainEventType = _selectedCurrentEvent.EventType.MainEventType;
 			SelectedEventType = _selectedCurrentEvent.EventType;
-
-			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
-
-			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
-
 			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
 
-			// ADD measurements if IsMeasurementType
-			if (_selectedCurrentEvent.EventType.IsValueType)
-			{
-				_measurementSelectorHelperClass.SelectedMeasurementUnit = _measurementSelectorHelperClass.MeasurementUnitsOC.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == _selectedCurrentEvent.QuantityAmount.Unit);
-				_measurementSelectorHelperClass.QuantityValue = _selectedCurrentEvent.QuantityAmount.Value;
-			}
+			OnUserEventTypeSelectedCommand(eventToEdit.EventType);
+			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
+			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
 
 
-			// ADD EVENT MICROTASKS if IsMicroTaskType
-			if (_selectedCurrentEvent.EventType.IsMicroTaskType)
-			{
-				if (_selectedCurrentEvent.MicroTasksList == null)   // TODO this is a temporary fix for null reference exception need to fix but no time now...
-				{
-					_selectedCurrentEvent.MicroTasksList = new List<MicroTaskModel>();
-				}
-				MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(_selectedCurrentEvent.MicroTasksList);
-			}
 			MainEventTypeSelectedCommand = null;
 			StartExactTime = _selectedCurrentEvent.StartDateTime.TimeOfDay;
 			EndExactTime = _selectedCurrentEvent.EndDateTime.TimeOfDay;
@@ -167,7 +149,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private async Task AddEventAsync()
 		{
-			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, _measurementSelectorHelperClass.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC); // TODO !!!!!add microtasks
+			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC); // TODO !!!!!add microtasks
 
 
 			// TODO In some day check why the lists are becoming different after adding first event
@@ -199,8 +181,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_selectedCurrentEvent.EndDateTime = EndDateTime.Date + EndExactTime;
 			_selectedCurrentEvent.IsCompleted = IsCompletedCCAdapter.IsCompleted;
 			_selectedCurrentEvent.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
-			_measurementSelectorHelperClass.QuantityAmount = new QuantityModel(_measurementSelectorHelperClass.SelectedMeasurementUnit.TypeOfMeasurementUnit, _measurementSelectorHelperClass.QuantityValue);
-			_selectedCurrentEvent.QuantityAmount = _measurementSelectorHelperClass.QuantityAmount;
+			ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityValue);
+			_selectedCurrentEvent.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);
 		}
 		private async Task AsyncEditEventAndGoBack()

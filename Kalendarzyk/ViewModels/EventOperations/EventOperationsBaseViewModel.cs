@@ -38,56 +38,16 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				OnPropertyChanged();
 			}
 		}
-		//MeasurementCC implementation
-		#region MeasurementCC implementation
-		protected IMeasurementSelectorCC _measurementSelectorHelperClass { get; set; } = Factory.CreateNewMeasurementSelectorCCHelperClass();
-		public IMeasurementSelectorCC DefaultMeasurementSelectorCCHelper { get => _measurementSelectorHelperClass; }
-
-		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
-
-		private bool _isValueTypeSelected;
-		public bool IsValueTypeSelected
-		{
-			get => _isValueTypeSelected;
-			set
-			{
-				_isValueTypeSelected = value;
-				OnPropertyChanged();
-
-			}
-		}
-		ObservableCollection<MeasurementUnitItem> _allMeasurementUnitItems;
-
-		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }
-
-
-		private bool _isMicroTaskTypeSelected;
-		public bool IsMicroTaskTypeSelected
-		{
-			get => _isMicroTaskTypeSelected;
-			set
-			{
-				if (_isMicroTaskTypeSelected != value)
-				{
-					_isMicroTaskTypeSelected = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-		#endregion
 		// ctor
 		public EventOperationsBaseViewModel()
 		{
 			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
-			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(false);
 			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
-			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
-			_allMeasurementUnitItems = Factory.PopulateMeasurementCollection();
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
 			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(false);
 		}
@@ -371,11 +331,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			Title = "";
 			Description = "";
 			IsCompletedCCAdapter.IsCompleted = false;
-			if (SelectedEventType.IsValueType)
-			{
-				DefaultMeasurementSelectorCCHelper.QuantityValue = 0;
-				OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.QuantityValue));
-			}
 			// TODO Show POPUP ???
 		}
 		protected void SetVisualsForSelectedSubType()
@@ -398,7 +353,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 			OnPropertyChanged(nameof(MainEventTypesVisualsOC));
 
-			SetSelectedEventTypeControlsVisibility();
 		}
 		protected virtual void OnMainEventTypeSelected(MainEventTypeViewModel selectedMainEventType)
 		{
@@ -417,11 +371,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 				SelectedEventType = null;
 			}
 		}
-		private void SetSelectedEventTypeControlsVisibility()
-		{
-			IsValueTypeSelected = SelectedEventType.IsValueType;
-			IsMicroTaskTypeSelected = SelectedEventType.IsMicroTaskType;
-		}
+
 		private void SetEndExactTimeAccordingToEventType()
 		{
 			try
@@ -458,7 +408,12 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
 		{
 			SelectedEventType = selectedEvent;
-			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsMicroTaskType ? true : false;
+			ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEvent);
+
+
+
+
+/*			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsMicroTaskType ? true : false;
 			if (ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType)
 			{
 				ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
@@ -481,12 +436,14 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			{
 
 				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
-			}
+			}*/
 			if (!IsEditMode)
 			{
 				SetEndExactTimeAccordingToEventType();
 			}
 			SetVisualsForSelectedSubType();
+
+
 		}
 
 	}
