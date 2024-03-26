@@ -99,6 +99,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(DateTime selectedDate)
 			: base()
 		{
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
+
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
@@ -116,6 +118,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_shareEventsService = Factory.CreateNewShareEventsService();
 
 			// Set properties based on eventToEdit
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
+
 			_selectedCurrentEvent = eventToEdit;
 			Title = _selectedCurrentEvent.Title;
 			Description = _selectedCurrentEvent.Description;
@@ -149,7 +153,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private async Task AddEventAsync()
 		{
-			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC); // TODO !!!!!add microtasks
+			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, MicroTasksCCAdapter.MicroTasksOC ?? null); // TODO !!!!!add microtasks
 
 
 			// TODO In some day check why the lists are becoming different after adding first event

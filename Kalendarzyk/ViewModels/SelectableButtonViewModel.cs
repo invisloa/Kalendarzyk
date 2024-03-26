@@ -13,6 +13,16 @@ namespace Kalendarzyk.ViewModels
 		private const int FullOpacity = 1;
 		private float FadedOpacity = 0.3f;
 		private Color _buttonColor;
+		private bool _isEnabled = true;
+		public bool IsEnabled
+		{
+			get => _isEnabled;
+			set
+			{
+				_isEnabled = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public string ButtonText { get; set; }
 		public Color ButtonColor
@@ -59,13 +69,14 @@ namespace Kalendarzyk.ViewModels
 		public int ButtonBorder => IsSelected ? 0 : _borderSize;
 		public SelectableButtonViewModel() { }
 
-		public SelectableButtonViewModel(string? text = null, bool isSelected = false, ICommand? selectButtonCommand = null, int borderSize = 7, float fadedOpacity = 0.3f)
+		public SelectableButtonViewModel(string? text = null, bool isSelected = false, ICommand? selectButtonCommand = null, int borderSize = 7, float fadedOpacity = 0.3f, bool isEnabled = true)
 		{
 			IsSelected = isSelected;
 			ButtonText = text == null ? "" : text;
 			ButtonCommand = selectButtonCommand;
 			_borderSize = borderSize;
 			FadedOpacity = fadedOpacity;
+			IsEnabled = isEnabled;
 		}
 	}
 }

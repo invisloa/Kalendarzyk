@@ -15,7 +15,8 @@
             BorderWidth="{Binding ButtonBorder}"
             Command="{Binding ButtonCommand}"
             Opacity="{Binding ButtonOpacity}"
-            CommandParameter="{Binding .}" />
+            CommandParameter="{Binding .}" 
+            IsEnabled="{Binding IsEnabled}"/>
         </DataTemplate>
 
     </BindableLayout.ItemTemplate>

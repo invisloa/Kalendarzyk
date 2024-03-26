@@ -33,10 +33,10 @@
 
         <customControls:IsCompletedCC/>
         
-        <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding QuickNotesButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
+        <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding ExtraOptionsButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 
         <!--MicroTasks CC-->
-        <customControls:MicroTasksListCC IsVisible="{Binding IsQuickNoteMicroTasksType}" />
+        <customControls:MicroTasksListCC IsVisible="{Binding IsEventMicroTasksType}" />
         
         <!--VALUE CC-->
         <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteValueType}"/>

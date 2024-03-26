@@ -4,6 +4,6 @@
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.CustomControls.ExtraOptionsSelectorCC">
 
-    <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding ExtraOptionsHelperToChangeName.QuickNotesButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
+    <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding ExtraOptionsHelperToChangeName.ExtraOptionsButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 
 </ContentView>

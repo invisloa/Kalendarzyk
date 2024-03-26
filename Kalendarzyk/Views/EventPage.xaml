@@ -37,7 +37,7 @@
 
 
             <!--Start/End Date and time-->
-            <customControls:DateStartEndCC/>
+            <!--<customControls:DateStartEndCC/>-->
             <!--Main Event Types Custom Control-->
             <customControls:MainEventTypesSelectorCC/>
 
@@ -45,8 +45,19 @@
             <customControls:EventTypesCustomControl/>
 
             <!--UserExtraControls Timespan Value MicroTasks-->
-            <customControls:SubTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>
+            <!--<customControls:SubTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>-->
+            
+            
             <customControls:ExtraOptionsSelectorCC />
+            <!--MicroTasks CC-->
+            <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}" />
+
+            <!--VALUE CC-->
+            <customControls:MeasurementSelectorCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsValueBtnSelected}"/>
+
+
+            <customControls:DateStartEndCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsDateBtnSelected}"  />
+
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC/>
