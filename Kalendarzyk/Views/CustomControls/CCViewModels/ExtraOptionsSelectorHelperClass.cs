@@ -16,7 +16,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 
 
-	TODO HERE 27.03.24 WHEN SWITCHING SUB TYPE IN EVENTS ADDING THE CONTROLS cONTROLS ARE NOT REFRESHED Accordingly
+	// TODO HERE 27.03.24 WHEN SWITCHING SUB TYPE IN EVENTS ADDING THE CONTROLS cONTROLS ARE NOT REFRESHED Accordingly
 	public partial class ExtraOptionsSelectorHelperClass : ObservableObject
 	{
 		private bool _isEventMicroTasksType;
