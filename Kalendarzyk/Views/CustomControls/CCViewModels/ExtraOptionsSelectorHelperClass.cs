@@ -89,7 +89,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		private IsCompletedCCViewModel _isCompletedCCAdapter;
 		private bool _isCompleted;
 		[ObservableProperty]
-		private ObservableCollection<SelectableButtonViewModel> _extraOptionsButtonsSelectors;
+		private ObservableCollection<SelectableButtonViewModel> _extraOptionsButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>();
 		[ObservableProperty]
 		private ISubEventTypeModel _subEventType;
 
@@ -135,16 +135,32 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 
 		}
-		private void InitializeCommon()
+		private void InitializeCommon() // TODO JO XXX REFACTOR THIS to be more modular
 		{
-			ExtraOptionsButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>		// TODO JO XXX REFACTOR THIS to be more modular
+			if (ExtraOptionsButtonsSelectors.Count == 0)
 			{
-				new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand), isEnabled: _subEventType?.IsMicroTaskType ?? true),
-				new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueTypeCommand),  isEnabled: _subEventType?.IsValueType ?? true ),
-				new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand))
-			};
-		}
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand), isEnabled: _subEventType?.IsMicroTaskType == true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueTypeCommand), isEnabled: _subEventType?.IsValueType == true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand)));
+			}
+			else
+			{
 
+                ExtraOptionsButtonsSelectors[0].IsEnabled = _subEventType?.IsMicroTaskType ?? true;
+                ExtraOptionsButtonsSelectors[0].IsSelected = ExtraOptionsButtonsSelectors[0].IsEnabled ? IsMicroTasksBtnSelected : false;
+                ExtraOptionsButtonsSelectors[1].IsEnabled = _subEventType?.IsValueType ?? true;
+                ExtraOptionsButtonsSelectors[1].IsSelected = ExtraOptionsButtonsSelectors[1].IsEnabled ? IsValueBtnSelected : false;
+                ExtraOptionsButtonsSelectors[2].IsSelected = IsDateBtnSelected;
+            }
+		}
+        public bool CheckIsMicroTaskType()
+        {
+            return _subEventType != null && _subEventType.IsMicroTaskType != null && _subEventType.IsMicroTaskType == true;
+        }
+        public bool CheckIsValueType()
+        {
+            return _subEventType != null && _subEventType.IsValueType != null && _subEventType.IsValueType == true;
+        }
         private void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
 		{
 			//IsEventMicroTasksType = !clickedButton.IsSelected;

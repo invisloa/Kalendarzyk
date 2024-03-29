@@ -1,5 +1,12 @@
 
+
+
+
+
 BEFORE RELEASE
+TYPE OF VALUE NOT WORKING
+MOVE NOTIFiCATIONS AND IS COMPLETED
+
 Notifications for events
 google maps API INtegration
 Photos for events
