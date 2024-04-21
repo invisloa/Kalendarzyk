@@ -36,17 +36,10 @@
             
 
 
-            <!--Start/End Date and time-->
-            <!--<customControls:DateStartEndCC/>-->
-            <!--Main Event Types Custom Control-->
             <customControls:MainEventTypesSelectorCC/>
 
-            <!--User Event Types Custom Control-->
             <customControls:EventTypesCustomControl/>
 
-            <!--UserExtraControls Timespan Value MicroTasks-->
-            <!--<customControls:SubTypeExtraOptions_EventCC IsVisible="{Binding IsEventTypeSelected}"/>-->
-            
             
             <customControls:ExtraOptionsSelectorCC />
 

@@ -24,14 +24,14 @@
             <Button 
                 Grid.Column="0" Text="-" HorizontalOptions="End" 
                 BorderColor="Red" BorderWidth="2"
-                BackgroundColor="{Binding MicroTasksCCAdapter.IsSelectedDeleteMode, 
+                BackgroundColor="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.IsSelectedDeleteMode, 
                 Converter={StaticResource boolToColorConverter}, 
                 ConverterParameter=Dangerous}"
-                CornerRadius="10" Command="{Binding MicroTasksCCAdapter.ToggleDeleteModeCommand}"
+                CornerRadius="10" Command="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.ToggleDeleteModeCommand}"
                 Margin="0,0,10,0" MinimumWidthRequest="40"/>
 
             <customControls:RoundEntryCC Grid.Column="1" Placeholder="MicroTask to add..." MyWidthRequest="200"
-                                             Text="{Binding MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
+                                             Text="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
                                              HorizontalOptions="Center"  BackgroundColor="Transparent"/>
             <!--<Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
                         StrokeThickness="1">
@@ -56,13 +56,13 @@
             <Button
                 Style="{DynamicResource MyCustomButtonStyle}"
                 Grid.Column="2" HorizontalOptions="Start"  Text="+"  
-                CornerRadius="10" Command="{Binding MicroTasksCCAdapter.AddMicroTaskEventCommand}"
+                CornerRadius="10" Command="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.AddMicroTaskEventCommand}"
                 Margin="10,0,0,0" MinimumWidthRequest="40"
                 />
         </Grid>
 
 
-        <FlexLayout BindableLayout.ItemsSource="{Binding MicroTasksCCAdapter.MicroTasksOC}" 
+        <FlexLayout BindableLayout.ItemsSource="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC}" 
                 Direction="Row" 
                 Wrap="Wrap" 
                 AlignItems="Start"
@@ -72,8 +72,8 @@
                     <Button Text="{Binding MicroTaskTitle}" 
                         BackgroundColor="{Binding IsMicroTaskCompleted, Converter={StaticResource isCompleteToColorConverter}}"
                         Margin="5"
-                        BorderColor="{Binding Path=BindingContext.MicroTasksCCAdapter.IsSelectedDeleteMode,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
-                        Command="{Binding Path=BindingContext.MicroTasksCCAdapter.CurrentCommand, Source={x:Reference root}}"
+                        BorderColor="{Binding Path=BindingContext.ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.IsSelectedDeleteMode,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
+                        Command="{Binding Path=BindingContext.ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.CurrentCommand, Source={x:Reference root}}"
                         CommandParameter="{Binding .}">
                     </Button>
                 </DataTemplate>

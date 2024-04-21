@@ -410,33 +410,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			SelectedEventType = selectedEvent;
 			ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEvent);
 
-
-
-
-/*			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsMicroTaskType ? true : false;
-			if (ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType)
-			{
-				ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
-			}
-			ExtraOptionsHelperToChangeName.IsQuickNoteMicroTasksType = selectedEvent.IsValueType ? true : false;
-
-
-			ExtraOptionsHelperToChangeName.IsQuickNoteValueType = selectedEvent.IsValueType ? true : false;
-			if (ExtraOptionsHelperToChangeName.IsQuickNoteValueType)
-			{
-				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
-				var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
-				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = SelectedEventType.DefaultQuantityAmount;
-
-				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
-				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(SelectedEventType);
-				OnPropertyChanged(nameof(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
-			}
-			else
-			{
-
-				ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
-			}*/
 			if (!IsEditMode)
 			{
 				SetEndExactTimeAccordingToEventType();
@@ -448,35 +421,3 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 	}
 }
-/*protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
-{
-	SelectedEventType = selectedEvent;
-
-
-	XXX
-			SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected = selectedEvent.IsMicroTaskType ? true : false;
-	if (SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
-	{
-		MicroTasksCCAdapter.MicroTasksOC = new ObservableCollection<MicroTaskModel>(selectedEvent.MicroTasksList);
-	}
-	SubTypeExtraOptionsHelper.IsValueTypeSelected = selectedEvent.IsValueType ? true : false;
-	if (SubTypeExtraOptionsHelper.IsValueTypeSelected)
-	{
-		// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
-		var measurementUnitsForSelectedType = _allMeasurementUnitItems.Where(unit => unit.TypeOfMeasurementUnit == SelectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
-		DefaultMeasurementSelectorCCHelper.QuantityAmount = SelectedEventType.DefaultQuantityAmount;
-		DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
-		_measurementSelectorHelperClass.SelectPropperMeasurementData(SelectedEventType);
-		OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
-	}
-	else
-	{
-
-		DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
-	}
-	if (!IsEditMode)
-	{
-		SetEndExactTimeAccordingToEventType();
-	}
-	SetVisualsForSelectedSubType();
-}*/

@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
 
-
-
 	// TODO HERE 27.03.24 WHEN SWITCHING SUB TYPE IN EVENTS ADDING THE CONTROLS cONTROLS ARE NOT REFRESHED Accordingly
 	public partial class ExtraOptionsSelectorHelperClass : ObservableObject
 	{
@@ -162,14 +160,12 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
         }
         private void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
 		{
-			//IsEventMicroTasksType = !clickedButton.IsSelected;
 			IsMicroTasksBtnSelected = !clickedButton.IsSelected;
 			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
 
 		}
 		private void OnIsEventValueTypeCommand(SelectableButtonViewModel clickedButton)
 		{
-			//IsEventValueType = !clickedButton.IsSelected;
 			IsValueBtnSelected = !clickedButton.IsSelected;
 			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
 
@@ -182,15 +178,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 		private void SetPropperValueType()
 		{
-			DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(_subEventType); // TODO XXX
-/*		TODO NOW XXX
- *		_subEventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == event;
-			var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => _subEventType.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit); // TO CHECK!
-			DefaultMeasurementSelectorCCHelper.QuantityAmount = qNoteSubType.DefaultQuantityAmount;
-			DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
-			DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = measurementUnitsForSelectedType.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == qNoteSubType.DefaultQuantityAmount.Unit);
-			OnPropertyChanged(nameof(DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC));
-*/
+			DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(_subEventType);
 		}
 
 		internal void OnEventTypeChanged(ISubEventTypeModel selectedEventType)	

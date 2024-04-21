@@ -153,7 +153,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private async Task AddEventAsync()
 		{
-			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, MicroTasksCCAdapter.MicroTasksOC ?? null); // TODO !!!!!add microtasks
+			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC ?? null); // TODO !!!!!add microtasks
 
 
 			// TODO In some day check why the lists are becoming different after adding first event
@@ -184,7 +184,11 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_selectedCurrentEvent.StartDateTime = StartDateTime.Date + StartExactTime;
 			_selectedCurrentEvent.EndDateTime = EndDateTime.Date + EndExactTime;
 			_selectedCurrentEvent.IsCompleted = IsCompletedCCAdapter.IsCompleted;
-			_selectedCurrentEvent.MicroTasksList = MicroTasksCCAdapter.MicroTasksOC.ToList();
+
+
+			//THIS IS NOT BEING REFRESHED in the view!!! _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
+
+            _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
 			ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityValue);
 			_selectedCurrentEvent.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);
