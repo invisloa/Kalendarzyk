@@ -50,10 +50,6 @@
             
             <customControls:ExtraOptionsSelectorCC />
 
-
-
-
-
             <!--MOVE THOSE 3 TO ExtraOptionsSelectorCC-->
             <!--MicroTasks CC-->
             <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}" />

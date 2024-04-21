@@ -132,7 +132,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 					MicroTasksCCAdapter.MicroTasksOC = _eventToEdit.MicroTasksList.ToObservableCollection();
 				}
 			}
-
+			SetPropperValueType();
 
 		}
 		private void InitializeCommon() // TODO JO XXX REFACTOR THIS to be more modular
@@ -145,7 +145,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			}
 			else
 			{
-
                 ExtraOptionsButtonsSelectors[0].IsEnabled = _subEventType?.IsMicroTaskType ?? true;
                 ExtraOptionsButtonsSelectors[0].IsSelected = ExtraOptionsButtonsSelectors[0].IsEnabled ? IsMicroTasksBtnSelected : false;
                 ExtraOptionsButtonsSelectors[1].IsEnabled = _subEventType?.IsValueType ?? true;
@@ -194,7 +193,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 */
 		}
 
-		internal void OnEventTypeChanged(ISubEventTypeModel selectedEventType)	// TODO HERE 22.03.24 just added this one
+		internal void OnEventTypeChanged(ISubEventTypeModel selectedEventType)	
 		{
 			_subEventType = selectedEventType;
 			InitializeCommon();

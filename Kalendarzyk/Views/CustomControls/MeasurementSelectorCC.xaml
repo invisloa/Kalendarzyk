@@ -19,15 +19,15 @@
 
         <StackLayout Orientation="Horizontal" >
             <Label Text="TYPE OF VALUE:"  VerticalOptions="Center" Margin="10"/>
-            <Picker ItemsSource="{Binding DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC}" 
+            <Picker ItemsSource="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC}" 
                         ItemDisplayBinding="{Binding DisplayName}"
-                        SelectedItem="{Binding DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit, Mode=TwoWay}" 
+                        SelectedItem="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit, Mode=TwoWay}" 
                         MinimumWidthRequest="200" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"
                         HorizontalTextAlignment="Center" TextColor="{DynamicResource MainTextColor}"
                     />
         </StackLayout >
         <StackLayout Orientation="Horizontal">
-            <Entry Keyboard="Numeric" Text="{Binding DefaultMeasurementSelectorCCHelper.QuantityValue, Mode=TwoWay}" FontSize="Large" HorizontalTextAlignment="End" FontAttributes="Bold" MinimumWidthRequest="150" HorizontalOptions="FillAndExpand" Margin="5">
+            <Entry Keyboard="Numeric" Text="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityValue, Mode=TwoWay}" FontSize="Large" HorizontalTextAlignment="End" FontAttributes="Bold" MinimumWidthRequest="150" HorizontalOptions="FillAndExpand" Margin="5">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior 
                 InvalidStyle="{StaticResource InvalidEntryStyle}"
