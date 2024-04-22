@@ -408,11 +408,11 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
 		{
 			SelectedEventType = selectedEvent;
-			ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEvent);
-
 			if (!IsEditMode)
 			{
-				SetEndExactTimeAccordingToEventType();
+                ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEvent);
+
+                SetEndExactTimeAccordingToEventType();
 			}
 			SetVisualsForSelectedSubType();
 

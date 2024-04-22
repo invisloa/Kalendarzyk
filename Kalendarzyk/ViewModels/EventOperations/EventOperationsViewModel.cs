@@ -111,25 +111,25 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(IGeneralEventModel eventToEdit)
 		: base()
 		{
-			_asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
+            _selectedCurrentEvent = eventToEdit;
+
+            _asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
 			_shareEventsService = Factory.CreateNewShareEventsService();
 
-			// Set properties based on eventToEdit
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
+            // Set properties based on eventToEdit
+            ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
+            OnUserEventTypeSelectedCommand(eventToEdit.EventType);
 
-			_selectedCurrentEvent = eventToEdit;
 			Title = _selectedCurrentEvent.Title;
 			Description = _selectedCurrentEvent.Description;
 			StartDateTime = _selectedCurrentEvent.StartDateTime.Date;
 			EndDateTime = _selectedCurrentEvent.EndDateTime.Date;
 			SelectedMainEventType = _selectedCurrentEvent.EventType.MainEventType;
 			SelectedEventType = _selectedCurrentEvent.EventType;
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
 
-			OnUserEventTypeSelectedCommand(eventToEdit.EventType);
 			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
 

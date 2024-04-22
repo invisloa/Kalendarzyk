@@ -243,7 +243,9 @@
 						var eventFrame = DrawEventFrame(eventModel);
 
 						Grid.SetRow(StackLayoutitem, dayOfWeek + 1); // Offset by 1 to account for the header row
-						Grid.SetColumn(StackLayoutitem, eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
+						var calculatedEventTime = eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom;
+						var columnForEvent = calculatedEventTime < 0 ? 1 : calculatedEventTime;
+						Grid.SetColumn(StackLayoutitem, columnForEvent); // Offset by 2 to account for the day labels column and "before" column
 																											 //var eventTime = eventModel.EndDateTime.Hour - eventModel.StartDateTime.Hour;
 																											 //if (eventTime > 1)
 																											 //{

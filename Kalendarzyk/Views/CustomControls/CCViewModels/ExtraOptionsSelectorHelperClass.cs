@@ -101,7 +101,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			_eventToEdit = eventToEdit;
 			_subEventType= eventToEdit.EventType;
-			InitializeCommon();
+
+            InitializeCommon();
 
 			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(_isCompleted);
 

@@ -33,26 +33,7 @@
             <customControls:RoundEntryCC Grid.Column="1" Placeholder="MicroTask to add..." MyWidthRequest="200"
                                              Text="{Binding ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
                                              HorizontalOptions="Center"  BackgroundColor="Transparent"/>
-            <!--<Border Stroke="{DynamicResource MainTextboxesBackgroundColor}" Grid.Column="1"
-                        StrokeThickness="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
-                
 
-
-                <Entry 
-                        Placeholder="...MICRO TASK TO ADD..." 
-                        HorizontalOptions="CenterAndExpand"
-                        MinimumWidthRequest="200"
-                        MaximumWidthRequest="350"
-                        Text="{Binding MicroTasksCCAdapter.MicroTaskToAddName, Mode=TwoWay}"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        TextColor="{DynamicResource MainTextColor}"
-                        PlaceholderColor="{DynamicResource MainPlaceholderTextColor}"
-                        Background="{DynamicResource MainTextboxesBackgroundColor}" />
-            </Border>-->
             <Button
                 Style="{DynamicResource MyCustomButtonStyle}"
                 Grid.Column="2" HorizontalOptions="Start"  Text="+"  
