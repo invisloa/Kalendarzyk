@@ -36,11 +36,21 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _asyncShareEventCommand;
 		private IsNotificationCCViewModel _isNotificationCCAdapter = Factory.CreateNewIsNotificationHelpercClass();
+		private bool _isTypeVisible = false;
 
 		#endregion
 		#region Properties
 		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
 		public string HeaderText => IsEditMode ? $"EDIT EVENT" : "ADD NEW EVENT";
+		public bool IsTypeVisible
+		{
+            get => _isTypeVisible;
+            set
+			{
+                _isTypeVisible = value;
+                OnPropertyChanged();
+            }
+        }	
 
 		public override bool IsEditMode => _selectedCurrentEvent != null;
 		private IShareEventsService _shareEventsService;    // made private not tested
@@ -94,13 +104,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#endregion
 
 
-		#region Constructors
+		#region Ctors
 		// ctor for creating evnents create event mode
 		public EventOperationsViewModel(DateTime selectedDate)
 			: base()
 		{
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
-
+            IsTypeVisible = true;
+            ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
@@ -111,8 +121,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(IGeneralEventModel eventToEdit)
 		: base()
 		{
+			
+			IsTypeVisible = false;
             _selectedCurrentEvent = eventToEdit;
-
             _asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);

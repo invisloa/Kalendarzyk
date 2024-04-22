@@ -20,10 +20,6 @@
                 ContentTemplate="{DataTemplate local:FirstRunPage}"
                 Route="FirstRunPage" />-->
             <ShellContent
-                Title="All Events Page"
-                ContentTemplate="{DataTemplate local:AllEventsPage}"
-                Route="AllEventsPage" />
-            <ShellContent
                 Title="Quick Notes"
                 ContentTemplate="{DataTemplate quickNotes:QuickNotesPage}"
                 Route="Quick Notes" />

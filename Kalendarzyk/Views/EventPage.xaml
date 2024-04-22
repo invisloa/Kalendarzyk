@@ -36,9 +36,9 @@
             
 
 
-            <customControls:MainEventTypesSelectorCC/>
+            <customControls:MainEventTypesSelectorCC IsVisible="{Binding IsTypeVisible}"/>
 
-            <customControls:EventTypesCustomControl/>
+            <customControls:EventTypesCustomControl IsVisible="{Binding IsTypeVisible}"/>
 
             
             <customControls:ExtraOptionsSelectorCC />
