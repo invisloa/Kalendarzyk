@@ -122,8 +122,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		: base()
 		{
 			
-			IsTypeVisible = false;
-            _selectedCurrentEvent = eventToEdit;
+			IsTypeVisible = false;// TODO HERE!!! to add some button for showing it back
+
+			_selectedCurrentEvent = eventToEdit;
             _asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
