@@ -49,7 +49,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
-			IsCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(false);
+			ChangableFontsIcon = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
 		}
 
 		//Fields
@@ -59,7 +59,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected string _submitButtonText;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
 		protected IEventTimeConflictChecker _eventTimeConflictChecker;
-		private IsCompletedCCViewModel _isCompletedCCAdapter;
+		private ChangableFontsIconAdapter _changableFontsIcon;
 
 
 		// normal fields
@@ -89,12 +89,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public abstract bool IsEditMode { get; }
 		public int FontSize => _fontSize;
 		public abstract string SubmitButtonText { get; set; }
-		public IsCompletedCCViewModel IsCompletedCCAdapter
+		public ChangableFontsIconAdapter ChangableFontsIcon
+
 		{
-			get => _isCompletedCCAdapter;
+			get => _changableFontsIcon;
 			set
 			{
-				_isCompletedCCAdapter = value;
+				_changableFontsIcon = value;
 			}
 		}
 		public string EventTypePickerText { get => "Select event Type"; }
@@ -330,7 +331,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			Title = "";
 			Description = "";
-			IsCompletedCCAdapter.IsCompleted = false;
+			ChangableFontsIcon.IsSelected = false;
 			// TODO Show POPUP ???
 		}
 		protected void SetVisualsForSelectedSubType()

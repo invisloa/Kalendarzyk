@@ -143,9 +143,9 @@ namespace Kalendarzyk.Services
 			return new EventTimeConflictChecker(allEventsList);
 		}
 
-		internal static IsCompletedCCViewModel CreateNewIsCompletedCCAdapter(bool isCompleted)
+		internal static ChangableFontsIconAdapter CreateNewChangableFontsIconAdapter(bool isSelected, string selectedIconText, string notSelectedIconText)
 		{
-			return new IsCompletedCCViewModel(isCompleted);
+			return new ChangableFontsIconAdapter(isSelected, selectedIconText, notSelectedIconText);
 		}
 		internal static IShareEventsService CreateNewShareEventsService()
 		{

@@ -27,13 +27,21 @@
                                 Opacity="1"/>
             </Border.Shadow>
         </Border>
-        <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+            <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
                     IconText="delete_forever" 
                     IconTextColor="Red"
                     SubmitCommand="{Binding AsyncDeleteButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                     IsVisible="{Binding IsDeleteButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                     Margin="10"
                     FontSize="44"/>
+            <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
+                    IconText="info" 
+                    IconTextColor="Blue"
+                    IsVisible="True" 
+                    Margin="10"
+                    FontSize="40"/>
+        </StackLayout>
 
 
         <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >

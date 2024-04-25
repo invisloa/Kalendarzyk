@@ -6,8 +6,8 @@
 
     <buttons:ClickableFontButtonCC         
         
-                        IconText="{Binding IsCompletedCCAdapter.IsCompleteIconFontText}" 
-                        SubmitCommand="{Binding IsCompletedCCAdapter.IsCompleteFrameCommand}"  IconTextColor="Blue" 
+                        IconText="{Binding IconAdapter.IconFontText, Source={RelativeSource AncestorType={x:Type local:IsCompletedCC}}}"
+                        SubmitCommand="{Binding IconAdapter.IsSelectedCommand , Source={RelativeSource AncestorType={x:Type local:IsCompletedCC}}}" IconTextColor="Blue" 
                         
                         Margin="10" FontSize="44"/>
 </ContentView>

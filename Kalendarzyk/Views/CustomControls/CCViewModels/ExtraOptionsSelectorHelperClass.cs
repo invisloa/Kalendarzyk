@@ -84,7 +84,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		[ObservableProperty]
 		private bool _isDateBtnSelected;
 		[ObservableProperty]
-		private IsCompletedCCViewModel _isCompletedCCAdapter;
+		private ChangableFontsIconAdapter _changableFontsIconCC;
 		private bool _isCompleted;
 		[ObservableProperty]
 		private ObservableCollection<SelectableButtonViewModel> _extraOptionsButtonsSelectors = new ObservableCollection<SelectableButtonViewModel>();
@@ -104,7 +104,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
             InitializeCommon();
 
-			_isCompletedCCAdapter = Factory.CreateNewIsCompletedCCAdapter(_isCompleted);
+			_changableFontsIconCC = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
 
 			if (_eventToEdit.EventType.IsValueType)
 			{

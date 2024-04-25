@@ -142,7 +142,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			SelectedMainEventType = _selectedCurrentEvent.EventType.MainEventType;
 			SelectedEventType = _selectedCurrentEvent.EventType;
 
-			IsCompletedCCAdapter.IsCompleted = _selectedCurrentEvent.IsCompleted;
+			ChangableFontsIcon.IsSelected = _selectedCurrentEvent.IsCompleted;
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
 
 
@@ -195,7 +195,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_selectedCurrentEvent.EventType = SelectedEventType;
 			_selectedCurrentEvent.StartDateTime = StartDateTime.Date + StartExactTime;
 			_selectedCurrentEvent.EndDateTime = EndDateTime.Date + EndExactTime;
-			_selectedCurrentEvent.IsCompleted = IsCompletedCCAdapter.IsCompleted;
+			_selectedCurrentEvent.IsCompleted = ChangableFontsIcon.IsSelected;
 
 
 			//THIS IS NOT BEING REFRESHED in the view!!! _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
