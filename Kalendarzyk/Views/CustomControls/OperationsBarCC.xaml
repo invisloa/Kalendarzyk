@@ -4,8 +4,7 @@
              xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
              xmlns:local="Kalendarzyk.Views.CustomControls.OperationsBarCC"
-
-
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.CustomControls.OperationsBarCC">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -35,13 +34,11 @@
                     IsVisible="{Binding IsDeleteButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                     Margin="10"
                     FontSize="44"/>
-            <buttons:ClickableFontButtonCC Grid.Column="0" HorizontalOptions="Start" 
-                    IconText="info" 
-                    IconTextColor="Blue"
-                    IsVisible="True" 
-                    Margin="10"
-                    FontSize="40"/>
-        </StackLayout>
+            <customControls:ChangableIconCC  Grid.Column="0" HorizontalOptions="Start" 
+                IconFontText="{Binding EventTypesInfoButton.IconFontText}"
+                IsSelectedCommand="{Binding EventTypesInfoButton.IsSelectedCommand}"/>        
+            
+            </StackLayout>
 
 
         <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >

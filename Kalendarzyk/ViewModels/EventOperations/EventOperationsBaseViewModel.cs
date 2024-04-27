@@ -49,7 +49,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
-			ChangableFontsIcon = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
+			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
+			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(false, "info", "info_outline");
+
 		}
 
 		//Fields
@@ -59,7 +61,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected string _submitButtonText;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
 		protected IEventTimeConflictChecker _eventTimeConflictChecker;
-		private ChangableFontsIconAdapter _changableFontsIcon;
+		private ChangableFontsIconAdapter _eventTypesInfoButton;
+		private ChangableFontsIconAdapter _isCompletedButton;
 
 
 		// normal fields
@@ -89,13 +92,23 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public abstract bool IsEditMode { get; }
 		public int FontSize => _fontSize;
 		public abstract string SubmitButtonText { get; set; }
-		public ChangableFontsIconAdapter ChangableFontsIcon
+		public ChangableFontsIconAdapter EventTypesInfoButton
 
 		{
-			get => _changableFontsIcon;
+			get => _eventTypesInfoButton;
 			set
 			{
-				_changableFontsIcon = value;
+				_eventTypesInfoButton = value;
+				OnPropertyChanged();
+			}
+		}
+		public ChangableFontsIconAdapter IsCompletedButton
+
+		{
+			get => _isCompletedButton;
+			set
+			{
+				_isCompletedButton = value;
 				OnPropertyChanged();
 			}
 		}
@@ -332,7 +345,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			Title = "";
 			Description = "";
-			ChangableFontsIcon.IsSelected = false;
+			IsCompletedButton.IsSelected = false;
 			// TODO Show POPUP ???
 		}
 		protected void SetVisualsForSelectedSubType()

@@ -33,12 +33,12 @@
             <customControls:RoundEntryCC Placeholder="...DESCRIPTION..." Text="{Binding Description, Mode=TwoWay}"  MyWidthRequest="250" HorizontalOptions="Center"
                                          Margin="10, 10, 10, 10" />
 
-            
 
 
-            <customControls:MainEventTypesSelectorCC IsVisible="{Binding IsTypeVisible}"/>
 
-            <customControls:EventTypesCustomControl IsVisible="{Binding IsTypeVisible}"/>
+            <customControls:MainEventTypesSelectorCC IsVisible="{Binding EventTypesInfoButton.IsSelected}"/>
+
+            <customControls:EventTypesCustomControl IsVisible="{Binding EventTypesInfoButton.IsSelected}"/>
 
             
             <customControls:ExtraOptionsSelectorCC />
@@ -56,8 +56,8 @@
 
             <!--IsComplete Frame-->
             <customControls:ChangableIconCC 
-                IconFontText="{Binding ChangableFontsIcon.IconFontText}"
-                IsSelectedCommand="{Binding ChangableFontsIcon.IsSelectedCommand}"/>
+                IconFontText="{Binding IsCompletedButton.IconFontText}"
+                IsSelectedCommand="{Binding IsCompletedButton.IsSelectedCommand}"/>
 
 
             <!--<customControls:IsNotificationCC/>-->
