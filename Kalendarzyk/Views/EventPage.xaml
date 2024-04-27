@@ -56,7 +56,9 @@
 
             <!--IsComplete Frame-->
             <customControls:IsCompletedCC 
-                              IconAdapter="{Binding ChangableFontsIcon}"/>
+    IconFontText="{Binding ChangableFontsIcon.IconFontText}"
+    IsSelectedCommand="{Binding ChangableFontsIcon.IsSelectedCommand}"/>
+
 
             <customControls:IsNotificationCC/>
         </StackLayout>

@@ -96,6 +96,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			set
 			{
 				_changableFontsIcon = value;
+				OnPropertyChanged();
 			}
 		}
 		public string EventTypePickerText { get => "Select event Type"; }
