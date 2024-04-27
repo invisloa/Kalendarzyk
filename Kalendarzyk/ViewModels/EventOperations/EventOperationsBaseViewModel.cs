@@ -50,7 +50,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
 			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
-			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(false, "info", "info_outline");
 
 		}
 
@@ -58,7 +57,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#region Fields
 		// Language
 		private int _fontSize = 20;
-		protected string _submitButtonText;
 		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
 		protected IEventTimeConflictChecker _eventTimeConflictChecker;
 		private ChangableFontsIconAdapter _eventTypesInfoButton;
@@ -91,7 +89,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#region Properties
 		public abstract bool IsEditMode { get; }
 		public int FontSize => _fontSize;
-		public abstract string SubmitButtonText { get; set; }
 		public ChangableFontsIconAdapter EventTypesInfoButton
 
 		{
@@ -309,9 +306,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 			}
 		}
-
-
-
 		#endregion
 
 		// Command

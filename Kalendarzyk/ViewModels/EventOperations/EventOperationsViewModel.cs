@@ -36,22 +36,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		private AsyncRelayCommand _asyncDeleteEventCommand;
 		private AsyncRelayCommand _asyncShareEventCommand;
 		private IsNotificationCCViewModel _isNotificationCCAdapter = Factory.CreateNewIsNotificationHelpercClass();
-		private bool _isTypeVisible = false;
-
 		#endregion
 		#region Properties
 		public string PageTitle => IsEditMode ? "Edit Event" : "Add Event";
 		public string HeaderText => IsEditMode ? $"EDIT EVENT" : "ADD NEW EVENT";
-		public bool IsTypeVisible
-		{
-            get => _isTypeVisible;
-            set
-			{
-                _isTypeVisible = value;
-                OnPropertyChanged();
-            }
-        }	
-
 		public override bool IsEditMode => _selectedCurrentEvent != null;
 		private IShareEventsService _shareEventsService;    // made private not tested
 
@@ -67,35 +55,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			set => _asyncShareEventCommand = value;
 		}
 
-		public override string SubmitButtonText
-		{
-			get
-			{
-				if (IsEditMode)
-				{
-					return "SUBMIT CHANGES";
-				}
-				else
-				{
-					return "ADD NEW EVENT";
-				}
-			}
-			set
-			{
-
-				// for now set is not used maybe it will be implemented when Languages will be added
-				_submitButtonText = value;
-				OnPropertyChanged();
-			}
-		}
-		public string DeleteButtonText
-		{
-			get
-			{
-				return "DELETE CURRENT EVENT";
-			}
-		}
-
 		public IsNotificationCCViewModel IsNotificationCCAdapter
 		{
 			get => _isNotificationCCAdapter;
@@ -109,11 +68,13 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(DateTime selectedDate)
 			: base()
 		{
-            IsTypeVisible = true;
-            ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
+
+			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
+
 		}
 
 
@@ -122,10 +83,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		: base()
 		{
 			
-			IsTypeVisible = false;// TODO HERE!!! to add some button for showing it back
-
 			_selectedCurrentEvent = eventToEdit;
-            _asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
+			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(false, "info", "info_outline");
+
+			_asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
 			AsyncShareEventCommand = new AsyncRelayCommand(AsyncShareEvent);
 			SelectUserEventTypeCommand = null;
