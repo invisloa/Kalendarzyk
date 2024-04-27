@@ -112,7 +112,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			EndExactTime = _selectedCurrentEvent.EndDateTime.TimeOfDay;
 		}
 		#endregion
-
 		#region Command Execution Methods
 
 		private bool CanExecuteSubmitCommand()
@@ -201,9 +200,5 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			await _shareEventsService.ShareEventAsync(_selectedCurrentEvent);
 		}
 		#endregion
-
-
 	}
 }
-
-

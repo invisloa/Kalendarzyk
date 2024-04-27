@@ -16,6 +16,8 @@
     <StackLayout
             VerticalOptions="Center" 
             HorizontalOptions="Center">
+        Severity	Count	Data Context	Binding Path	Target	Target Type	Description	File	Line	Project
+Error	1	AddNewSubTypePageViewModel	ExtraOptionsHelperToChangeName	Picker.ItemsSource	IList	'ExtraOptionsHelperToChangeName' property not found on 'Kalendarzyk.ViewModels.AddNewSubTypePageViewModel', target property: 'Microsoft.Maui.Controls.Picker.ItemsSource'	C:\Users\invis\source\repos\Kalendarzyk\Kalendarzyk\Views\CustomControls\MeasurementSelectorCC.xaml	22	Kalendarzyk
 
         <StackLayout Orientation="Horizontal" >
             <Label Text="TYPE OF VALUE:"  VerticalOptions="Center" Margin="10"/>

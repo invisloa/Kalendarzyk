@@ -14,6 +14,18 @@ namespace Kalendarzyk.ViewModels
 {
 	public class AddNewSubTypePageViewModel : BaseViewModel
 	{
+		
+					private ChangableFontsIconAdapter _eventTypesInfoButton;
+		public ChangableFontsIconAdapter EventTypesInfoButton
+
+		{
+			get => _eventTypesInfoButton;
+			set
+			{
+				_eventTypesInfoButton = value;
+				OnPropertyChanged();
+			}
+		}
 		// TODO ! CHANGE THE BELOW CLASS TO VIEW MODEL 
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC; set => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC = value; }
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
@@ -143,6 +155,8 @@ namespace Kalendarzyk.ViewModels
 		private void InitializeCommon()
 		{
 			InitializeColorButtons();
+			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
+
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;
 			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
