@@ -55,12 +55,12 @@
 
 
             <!--IsComplete Frame-->
-            <customControls:IsCompletedCC 
-    IconFontText="{Binding ChangableFontsIcon.IconFontText}"
-    IsSelectedCommand="{Binding ChangableFontsIcon.IsSelectedCommand}"/>
+            <customControls:ChangableIconCC 
+                IconFontText="{Binding ChangableFontsIcon.IconFontText}"
+                IsSelectedCommand="{Binding ChangableFontsIcon.IsSelectedCommand}"/>
 
 
-            <customControls:IsNotificationCC/>
+            <!--<customControls:IsNotificationCC/>-->
         </StackLayout>
 
     </ScrollView>

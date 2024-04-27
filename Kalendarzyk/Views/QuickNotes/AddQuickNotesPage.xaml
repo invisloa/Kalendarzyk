@@ -31,7 +31,7 @@
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>
 
 
-        <customControls:IsCompletedCC/>
+        <customControls:ChangableIconCC/>
         
         <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding ExtraOptionsButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 

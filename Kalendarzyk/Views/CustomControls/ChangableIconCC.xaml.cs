@@ -3,12 +3,12 @@ using System.Windows.Input;
 
 namespace Kalendarzyk.Views.CustomControls;
 
-public partial class IsCompletedCC : ContentView
+public partial class ChangableIconCC : ContentView
 {
 	public static readonly BindableProperty IconFontTextProperty = BindableProperty.Create(
 		nameof(IconFontText),
 		typeof(string),
-		typeof(IsCompletedCC));
+		typeof(ChangableIconCC));
 
 	public string IconFontText
 	{
@@ -19,7 +19,7 @@ public partial class IsCompletedCC : ContentView
 	public static readonly BindableProperty IsSelectedCommandProperty = BindableProperty.Create(
 		nameof(IsSelectedCommand),
 		typeof(ICommand),
-		typeof(IsCompletedCC));
+		typeof(ChangableIconCC));
 
 	public ICommand IsSelectedCommand
 	{
@@ -27,7 +27,7 @@ public partial class IsCompletedCC : ContentView
 		set { SetValue(IsSelectedCommandProperty, value); }
 	}
 
-	public IsCompletedCC()
+	public ChangableIconCC()
 	{
 		InitializeComponent();
 	}

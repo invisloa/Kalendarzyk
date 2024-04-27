@@ -167,7 +167,7 @@ namespace Kalendarzyk.ViewModels
 		private async Task OnAsyncSubmitQuickNoteCommand()
 		{
 
-/*			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, eventSubtype, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _isCompletedCCAdapter.IsCompleted);
+/*			_currentQuickNote = Factory.CreatePropperEvent(QuickNoteTitle, QuickNoteDescription, StartDateTime + StartExactTime, EndDateTime + EndExactTime, eventSubtype, DefaultMeasurementSelectorCCHelper.QuantityAmount, MicroTasksCCAdapter.MicroTasksOC, _ChangableIconCCAdapter.IsCompleted);
 
 			await _eventRepository.AddEventAsync(_currentQuickNote);
 			await Shell.Current.GoToAsync("..");
@@ -188,7 +188,7 @@ namespace Kalendarzyk.ViewModels
 				_currentQuickNote.EventType = _eventRepository.AllUserEventTypesList.Where(x => x.EventTypeName == PreferencesManager.GetSubTypeQuickNoteName()).First();
 				_currentQuickNote.StartDateTime = StartDateTime.Date + StartExactTime;
 				_currentQuickNote.EndDateTime = EndDateTime.Date + EndExactTime;
-				_currentQuickNote.IsCompleted = _extraOptionsSelectorHelperClass.IsCompletedCCAdapter.IsCompleted;
+				_currentQuickNote.IsCompleted = _extraOptionsSelectorHelperClass.ChangableIconCCAdapter.IsCompleted;
 
 
 

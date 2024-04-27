@@ -149,6 +149,9 @@
 	  <Compile Update="Views\CustomControls\Buttons\ClickableFontButtonCC.xaml.cs">
 	    <DependentUpon>ClickableFontButtonCC.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomControls\ChangableIconCC.xaml.cs">
+	    <DependentUpon>ChangableIconCC.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\CustomControls\OperationsBarCC.xaml.cs">
 	    <DependentUpon>OperationsBarCC.xaml</DependentUpon>
 	  </Compile>
@@ -228,7 +231,7 @@
 	  <MauiXaml Update="Views\CustomControls\ExtraOptionsSelectorCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\IsCompletedCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ChangableIconCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\IsNotificationCC.xaml">
