@@ -125,7 +125,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private async Task AddEventAsync()
 		{
-			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC ?? null); // TODO !!!!!add microtasks
+			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, ExtraOptionsHelperToChangeName.MicroTasksCCAdapter?.MicroTasksOC ?? null); // XXXX YYYYY  TO CHECK IF to list wont make error in ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList() TODO !!!!!add microtasks
 
 
 			// TODO In some day check why the lists are becoming different after adding first event
@@ -160,9 +160,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 			//THIS IS NOT BEING REFRESHED in the view!!! _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
 
-            _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
+            _selectedCurrentEvent.EventType.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
 			ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityValue);
-			_selectedCurrentEvent.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
+			_selectedCurrentEvent.EventType.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);
 		}
 		private async Task AsyncEditEventAndGoBack()

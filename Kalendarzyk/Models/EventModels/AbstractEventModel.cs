@@ -20,8 +20,6 @@ namespace Kalendarzyk.Models.EventModels
 		public List<DateTime> PostponeHistory { get; set; }
 		public TimeSpan DefaultPostponeTime { get; set; }
 		public TimeSpan ReminderTime { get; set; }
-		public QuantityModel QuantityAmount { get; set; }
-		public IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
 
 		// New property to store notification integer ID
 		public int? NotificationId { get; }
@@ -57,8 +55,8 @@ namespace Kalendarzyk.Models.EventModels
 			EventType = eventType;
 			IsCompleted = isCompleted;
 			WasShown = wasShown;
-			QuantityAmount = quantityAmount;
-			MicroTasksList = microTasksList;
+			EventType.QuantityAmount = quantityAmount;
+			EventType.MicroTasksList = microTasksList;
 			PostponeHistory = new List<DateTime>(); // default new list 
 			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : null;
 		}

@@ -15,8 +15,6 @@ namespace Kalendarzyk.Models.EventModels
 		DateTime EndDateTime { get; set; }
 		string Title { get; set; }
 		bool WasShown { get; set; }
-		public QuantityModel QuantityAmount { get; set; }
-		public IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
 
 		// New property to store notification integer ID
 		public int? NotificationId { get; }

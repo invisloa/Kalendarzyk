@@ -111,11 +111,11 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				IsEventValueType = true;
 				DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(_defaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, _defaultMeasurementSelectorCCHelper.QuantityValue);
-				if (eventToEdit.QuantityAmount != null && eventToEdit.QuantityAmount.Value != 0)
+				if (eventToEdit.EventType.QuantityAmount != null && eventToEdit.EventType.QuantityAmount.Value != 0)
 				{
 					OnIsEventValueTypeCommand(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
-					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == _eventToEdit.QuantityAmount.Unit).First();
-					DefaultMeasurementSelectorCCHelper.QuantityValue = _eventToEdit.QuantityAmount.Value;
+					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == _eventToEdit.EventType.QuantityAmount.Unit).First();
+					DefaultMeasurementSelectorCCHelper.QuantityValue = _eventToEdit.EventType.QuantityAmount.Value;
 				}
 				DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(_subEventType);
 			}
@@ -125,10 +125,10 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				IsEventMicroTasksType = true;
 				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
 
-				if (_eventToEdit.MicroTasksList != null && _eventToEdit.MicroTasksList.Count() > 0)
+				if (_eventToEdit.EventType.MicroTasksList != null && _eventToEdit.EventType.MicroTasksList.Count() > 0)
 				{
 					OnIsMicroTasksSelectedCommand(ExtraOptionsButtonsSelectors[0]); // TODO refactor this
-					MicroTasksCCAdapter.MicroTasksOC = _eventToEdit.MicroTasksList.ToObservableCollection();
+					MicroTasksCCAdapter.MicroTasksOC = _eventToEdit.EventType.MicroTasksList.ToObservableCollection();
 				}
 			}
 			SetPropperValueType();
@@ -198,8 +198,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			{
 				DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 				// TODO chcange this so it will look for types in similair families (kg, g, mg, etc...)
-				var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == selectedEventType.DefaultQuantityAmount.Unit); // TO CHECK!
-				DefaultMeasurementSelectorCCHelper.QuantityAmount = selectedEventType.DefaultQuantityAmount;
+				var measurementUnitsForSelectedType = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(unit => unit.TypeOfMeasurementUnit == selectedEventType.QuantityAmount.Unit); // TO CHECK!
+				DefaultMeasurementSelectorCCHelper.QuantityAmount = selectedEventType.QuantityAmount;
 
 				DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem>(measurementUnitsForSelectedType);
 				DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(selectedEventType);

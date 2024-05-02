@@ -15,9 +15,9 @@ namespace Kalendarzyk.Models.EventTypesModels
 
 		private bool _isValueType;
 		private bool _isMicroTaskType;
-		private List<MicroTaskModel> _microTasksList;
+		private IEnumerable<MicroTaskModel> _microTasksList;
 		private QuantityModel _quantityAmount;
-		public List<MicroTaskModel> MicroTasksList
+		public IEnumerable<MicroTaskModel> MicroTasksList
 		{
 			get => _microTasksList;
 			set
@@ -125,7 +125,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 				}
 			}
 		}
-		public QuantityModel DefaultQuantityAmount
+		public QuantityModel QuantityAmount
 		{
 			get => _quantityAmount;
 			set
@@ -148,7 +148,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 			BackgroundColor = eventTypeColor; // Initialize BackgroundColor as EventTypeColor upon object creation
 			if (quantity != null)
 			{
-				DefaultQuantityAmount = quantity;
+				QuantityAmount = quantity;
 				IsValueType = true;
 			}
 			if (microTasksList != null)

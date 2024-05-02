@@ -107,7 +107,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			{
 				if (userEventTypeModel.IsValueType)
 				{
-					SelectedMeasurementUnit = MeasurementUnitsOC.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == userEventTypeModel.DefaultQuantityAmount.Unit);
+					SelectedMeasurementUnit = MeasurementUnitsOC.FirstOrDefault(mu => mu.TypeOfMeasurementUnit == userEventTypeModel.QuantityAmount.Unit);
 					IsValueTypeSelected = true;
 				}
 			}

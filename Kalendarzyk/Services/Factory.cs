@@ -123,7 +123,7 @@ namespace Kalendarzyk.Services
 			return new SubTypeExtraOptionsViewModel(isEditMode);
 		}
 
-		internal static MicroTasksCCAdapterVM CreateNewMicroTasksCCAdapter(List<MicroTaskModel> listToAddMiroTasks)
+		internal static MicroTasksCCAdapterVM CreateNewMicroTasksCCAdapter(IEnumerable<MicroTaskModel> listToAddMiroTasks)
 		{
 			return new MicroTasksCCAdapterVM(listToAddMiroTasks);
 		}

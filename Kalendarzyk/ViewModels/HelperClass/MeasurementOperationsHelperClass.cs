@@ -72,10 +72,10 @@ namespace Kalendarzyk.ViewModels.HelperClass
 		{
 
 			// Perform operations if all events are the same type
-			TotalOfMeasurements = _eventsOrderedByDateList.Sum(x => x.QuantityAmount.Value);
-			AverageOfMeasurements = _eventsOrderedByDateList.Average(x => x.QuantityAmount.Value);
-			MaxOfMeasurements = _eventsOrderedByDateList.Max(x => x.QuantityAmount.Value);
-			MinOfMeasurements = _eventsOrderedByDateList.Min(x => x.QuantityAmount.Value);
+			TotalOfMeasurements = _eventsOrderedByDateList.Sum(x => x.EventType.QuantityAmount.Value);
+			AverageOfMeasurements = _eventsOrderedByDateList.Average(x => x.EventType.QuantityAmount.Value);
+			MaxOfMeasurements = _eventsOrderedByDateList.Max(x => x.EventType.QuantityAmount.Value);
+			MinOfMeasurements = _eventsOrderedByDateList.Min(x => x.EventType.QuantityAmount.Value);
 
 
 			// Calculate by Period (using the DateTime parameters)
@@ -101,7 +101,7 @@ namespace Kalendarzyk.ViewModels.HelperClass
 			else
 			{
 				var firstEvent = _eventsOrderedByDateList[0];
-				var firstEventUnit = firstEvent.QuantityAmount.Unit;
+				var firstEventUnit = firstEvent.EventType.QuantityAmount.Unit;
 				if (!measurementTypeMap.ContainsKey(firstEventUnit))
 				{
 					throw new Exception("Unsupported measurement unit.");
@@ -110,7 +110,7 @@ namespace Kalendarzyk.ViewModels.HelperClass
 
 				foreach (var item in _eventsOrderedByDateList)
 				{
-					if (!measurementTypeList.Contains(item.QuantityAmount.Unit))
+					if (!measurementTypeList.Contains(item.EventType.QuantityAmount.Unit))
 					{
 						// if any event has a different measurement type => false => dont do calculations
 						return false;
@@ -172,11 +172,11 @@ namespace Kalendarzyk.ViewModels.HelperClass
 			var currentPeriodDate = _eventsOrderedByDateList[0].StartDateTime.Date;
 			var datesWithExtremeValuesList = new List<DateTime>() { currentPeriodDate };
 			var lastPeriodNumber = getSpecifiedPeriodNumber(_eventsOrderedByDateList[0].StartDateTime.Date);
-			MeasurementUnit measurementUnit = _eventsOrderedByDateList[0].QuantityAmount.Unit;
+			MeasurementUnit measurementUnit = _eventsOrderedByDateList[0].EventType.QuantityAmount.Unit;
 
 			foreach (var item in _eventsOrderedByDateList)
 			{
-				if (item.QuantityAmount?.Value == null)
+				if (item.EventType.QuantityAmount?.Value == null)
 				{
 					throw new Exception(); // this should not happen
 				}
@@ -190,7 +190,7 @@ namespace Kalendarzyk.ViewModels.HelperClass
 					currentPeriodDate = item.StartDateTime.Date;
 				}
 
-				currentPeriodTotal += item.QuantityAmount.Value;
+				currentPeriodTotal += item.EventType.QuantityAmount.Value;
 			}
 
 			updateDelegate(ref currentPeriodTotal, ref extremeValueForPeriod, currentPeriodDate, datesWithExtremeValuesList, comparison);

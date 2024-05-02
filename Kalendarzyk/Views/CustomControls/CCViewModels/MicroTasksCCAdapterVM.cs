@@ -45,7 +45,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 
 
-		public MicroTasksCCAdapterVM(List<MicroTaskModel> listToAddMicroTasks)
+		public MicroTasksCCAdapterVM(IEnumerable<MicroTaskModel> listToAddMicroTasks)
 		{
 			InitializeCommon();
 			MicroTasksOC = new ObservableCollection<MicroTaskModel>(listToAddMicroTasks);
