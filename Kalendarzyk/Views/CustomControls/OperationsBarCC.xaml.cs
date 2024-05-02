@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Kalendarzyk.Views.CustomControls;
-
 public partial class OperationsBarCC : ContentView
 {
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -11,6 +10,24 @@ public partial class OperationsBarCC : ContentView
 	protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 	{
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	}
+
+	public static readonly BindableProperty IsEventTypesButtonisibleProperty = BindableProperty.Create(
+		nameof(IsEventTypesButtonisible),
+		typeof(bool),
+		typeof(OperationsBarCC),
+		false,
+		propertyChanged: OnIsEventTypesButtonisiblePropertyChanged);
+
+	private static void OnIsEventTypesButtonisiblePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		var control = (OperationsBarCC)bindable;
+		control.OnPropertyChanged(nameof(IsEventTypesButtonisible));
+	}
+	public bool IsEventTypesButtonisible
+	{
+		get => (bool)GetValue(IsEventTypesButtonisibleProperty);
+		set => SetValue(IsEventTypesButtonisibleProperty, value);
 	}
 
 	public static readonly BindableProperty IsDeleteButtonVisibleProperty = BindableProperty.Create(

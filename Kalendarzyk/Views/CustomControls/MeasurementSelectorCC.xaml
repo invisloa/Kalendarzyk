@@ -16,7 +16,6 @@
     <StackLayout
             VerticalOptions="Center" 
             HorizontalOptions="Center">
-        ExtraOptionsHelperToChangeName errror in add new sub type page but it may need kinda different extraoptions helper?? To check
         <StackLayout Orientation="Horizontal" >
             <Label Text="TYPE OF VALUE:"  VerticalOptions="Center" Margin="10"/>
             <Picker ItemsSource="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC}" 

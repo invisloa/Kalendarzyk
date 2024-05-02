@@ -17,7 +17,6 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
         <Border Stroke="{DynamicResource MainBackgroundDarkerColor}" StrokeThickness="1" 
                 StrokeShape="RoundRectangle 5,5,75,75"  HeightRequest="50" Grid.ColumnSpan="3">
             <Border.Shadow>
@@ -35,25 +34,20 @@
                     Margin="10"
                     FontSize="44"/>
             <customControls:ChangableIconCC  Grid.Column="0" HorizontalOptions="Start" 
+                IsVisible="{Binding IsEventTypesButtonisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                 IconFontText="{Binding EventTypesInfoButton.IconFontText}"
                 IsSelectedCommand="{Binding EventTypesInfoButton.IsSelectedCommand}"/>        
-            
             </StackLayout>
-
-
         <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
             <buttons:ClickableFontButtonCC         
                         IconText="share" 
                         SubmitCommand="{Binding AsyncShareEventButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  IconTextColor="Blue" 
                         IsVisible="{Binding IsShareButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  
                         Margin="10" FontSize="44"/>
-
             <buttons:ClickableFontButtonCC Grid.Column="2" HorizontalOptions="End" SubmitCommand="{Binding AsyncSaveButtonCommand, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}"  
                         IconTextColor="{Binding IsSaveButtonClickable,
                         Converter={StaticResource boolToColorConverter}, ConverterParameter='MainSaveButtonColor' , Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                         Margin="10" FontSize="44"/>
-
-
         </StackLayout>
     </Grid>
 </ContentView>

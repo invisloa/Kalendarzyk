@@ -9,7 +9,6 @@
             <customControls:OperationsBarCC IsDeleteButtonVisible="{Binding IsEdit}"
                                             IsSaveButtonClickable="{Binding CanSubmitTypeCommand}"
                                             IsShareButtonVisible="False" 
-                                            
                                             AsyncSaveButtonCommand="{Binding AsyncSubmitTypeCommand}"
                                             AsyncDeleteButtonCommand="{Binding AsyncDeleteSelectedEventTypeCommand}"
                                             />
