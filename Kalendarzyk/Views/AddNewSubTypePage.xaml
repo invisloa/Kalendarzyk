@@ -11,6 +11,7 @@
                                             IsShareButtonVisible="False" 
                                             AsyncSaveButtonCommand="{Binding AsyncSubmitTypeCommand}"
                                             AsyncDeleteButtonCommand="{Binding AsyncDeleteSelectedEventTypeCommand}"
+                                            IsEventTypesButtonisible="False"
                                             />
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="5">
                 <Grid.ColumnDefinitions>
