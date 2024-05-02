@@ -14,8 +14,17 @@ namespace Kalendarzyk.ViewModels
 {
 	public class AddNewSubTypePageViewModel : BaseViewModel
 	{
-		
-					private ChangableFontsIconAdapter _eventTypesInfoButton;
+
+		private ExtraOptionsSelectorHelperClass extraOptionsSelectorCC;
+		public ExtraOptionsSelectorHelperClass ExtraOptionsHelperToChangeName
+		{
+			get => extraOptionsSelectorCC;
+			set => extraOptionsSelectorCC = value;
+		}
+
+
+
+		private ChangableFontsIconAdapter _eventTypesInfoButton;
 		public ChangableFontsIconAdapter EventTypesInfoButton
 
 		{
@@ -155,6 +164,8 @@ namespace Kalendarzyk.ViewModels
 		private void InitializeCommon()
 		{
 			InitializeColorButtons();
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
+
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
 
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);

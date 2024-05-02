@@ -7,14 +7,13 @@
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="5" Spacing="5">
-            <!--<Button Text="TIMESPAN"  BackgroundColor="{Binding SubTypeExtraOptionsHelper.IsDefaultTimespanColor}" Command="{Binding SubTypeExtraOptionsHelper.IsDefaultTimespanSelectedCommand}"/>-->
-            <Button Text="VALUE"  BackgroundColor="{Binding SubTypeExtraOptionsHelper.IsValueTypeColor}" BorderColor="Red" BorderWidth="1" IsVisible="{Binding SelectedEventType.IsValueType}"/>
-            <Button Text="M-TASKS" BackgroundColor="{Binding SubTypeExtraOptionsHelper.IsMicroTasksListTypeColor}"  BorderColor="Red" BorderWidth="1" IsVisible="{Binding SelectedEventType.IsMicroTaskType}"/>
+            <Button Text="VALUE"  BackgroundColor="{Binding ExtraOptionsHelperToChangeName.IsValueTypeColor}" BorderColor="Red" BorderWidth="1" IsVisible="{Binding SelectedEventType.IsValueType}"/>
+            <Button Text="M-TASKS" BackgroundColor="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksListTypeColor}"  BorderColor="Red" BorderWidth="1" IsVisible="{Binding SelectedEventType.IsMicroTaskType}"/>
         </StackLayout>
 
-        <!--<customControls:DefaultEventTimespanCC IsVisible="{Binding SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected}"/>-->
-        <customControls:MeasurementSelectorCC IsVisible="{Binding SubTypeExtraOptionsHelper.IsValueTypeSelected}"/>
-        <customControls:MicroTasksListCC  IsVisible="{Binding SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected}"/>
+        <!--<customControls:DefaultEventTimespanCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsDefaultEventTimespanSelected}"/>-->
+        <customControls:MeasurementSelectorCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsValueTypeSelected}"/>
+        <customControls:MicroTasksListCC  IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTaskTypeSelected}"/>
 
     </StackLayout>
 </ContentView>
