@@ -14,12 +14,12 @@ namespace Kalendarzyk.ViewModels
 {
 	public class AddNewSubTypePageViewModel : BaseViewModel
 	{
-
-		private ExtraOptionsSelectorHelperClass extraOptionsSelectorCC;
-		public ExtraOptionsSelectorHelperClass ExtraOptionsHelperToChangeName
+		XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		private ExtraOptionsSubTypesHelperClass extraOptionsSubTypeHelper;
+		public ExtraOptionsSubTypesHelperClass ExtraOptionsSubTypeHelper
 		{
-			get => extraOptionsSelectorCC;
-			set => extraOptionsSelectorCC = value;
+			get => extraOptionsSubTypeHelper;
+			set => extraOptionsSubTypeHelper = value;
 		}
 
 
@@ -40,7 +40,7 @@ namespace Kalendarzyk.ViewModels
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
 		public MeasurementSelectorCCViewModel DefaultMeasurementSelectorCCHelper { get; set; } = Factory.CreateNewMeasurementSelectorCCHelperClass();
 		public MicroTasksCCAdapterVM MicroTasksCCAdapter { get; set; }
-		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }
+		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }XXXXXXXXXXXXXXXXXXXXXXXXXXXX DELETE THIS?? OR REFACTOR...???
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
@@ -154,7 +154,9 @@ namespace Kalendarzyk.ViewModels
 			ColorButtonsHelperClass.SelectedColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);
-			setIsVisibleForExtraControlsInEditMode();
+			/*	???? dont know if this is needed after refactoring extra options helper class
+			 * setIsVisibleForExtraControlsInEditMode();
+			*/
 			SubTypeExtraOptionsHelper.ValueTypeClickCommand = null;
 			AsyncDeleteSelectedEventTypeCommand = new AsyncRelayCommand(AsyncDeleteSelectedEventType, CanDeleteSelectedEventType);
 
@@ -164,10 +166,8 @@ namespace Kalendarzyk.ViewModels
 		private void InitializeCommon()
 		{
 			InitializeColorButtons();
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
-
+			ExtraOptionsSubTypeHelper = Factory.CreateNewExtraOptionsSubTypesHelperClass();
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
-
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;
 			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
@@ -182,12 +182,14 @@ namespace Kalendarzyk.ViewModels
 		{
 			AsyncSubmitTypeCommand.NotifyCanExecuteChanged();
 		}
+		/*	???? dont know if this is needed after refactoring extra options helper class
+		 *	 *
 		private void setIsVisibleForExtraControlsInEditMode()
 		{
 			SubTypeExtraOptionsHelper.IsValueTypeSelected = CurrentType.IsValueType;
 			SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected = CurrentType.IsMicroTaskType;
 			SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected = CurrentType.DefaultEventTimeSpan != TimeSpan.Zero;
-		}
+		}*/
 		#endregion
 
 

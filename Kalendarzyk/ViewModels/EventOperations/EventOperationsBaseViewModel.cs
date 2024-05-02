@@ -21,8 +21,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 	public abstract class EventOperationsBaseViewModel : BaseViewModel, IMainEventTypesCCViewModel
 	{
 
-		private ExtraOptionsSelectorHelperClass extraOptionsSelectorCC;
-		public ExtraOptionsSelectorHelperClass ExtraOptionsHelperToChangeName
+		private ExtraOptionsEventsHelperClass extraOptionsSelectorCC;
+		public ExtraOptionsEventsHelperClass ExtraOptionsHelperToChangeName
 		{
 			get => extraOptionsSelectorCC;
 			set => extraOptionsSelectorCC = value;

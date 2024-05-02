@@ -70,7 +70,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass();
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsEventHelperClass();
 			StartDateTime = selectedDate;
 			EndDateTime = selectedDate;
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AddEventAsync, CanExecuteSubmitCommand);
@@ -93,7 +93,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			_shareEventsService = Factory.CreateNewShareEventsService();
 
             // Set properties based on eventToEdit
-            ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSelectorHelperClass(eventToEdit);
+            ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsEventHelperClass(eventToEdit.EventType);
             OnUserEventTypeSelectedCommand(eventToEdit.EventType);
 
 			Title = _selectedCurrentEvent.Title;
@@ -127,8 +127,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			_selectedCurrentEvent = Factory.CreatePropperEvent(Title, Description, StartDateTime.Date + StartExactTime, EndDateTime.Date + EndExactTime, SelectedEventType, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount ??  null, ExtraOptionsHelperToChangeName.MicroTasksCCAdapter?.MicroTasksOC ?? null); // XXXX YYYYY  TO CHECK IF to list wont make error in ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList() TODO !!!!!add microtasks
 
-
-			// TODO In some day check why the lists are becoming different after adding first event
 			bool areSameList = ReferenceEquals(EventRepository.AllEventsList, _eventTimeConflictChecker.allEvents);
 			// create a new confilict checker to stop not same list issues
 			if (!areSameList)

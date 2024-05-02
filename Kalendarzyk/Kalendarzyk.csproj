@@ -155,10 +155,10 @@
 	  <Compile Update="Views\CustomControls\OperationsBarCC.xaml.cs">
 	    <DependentUpon>OperationsBarCC.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml.cs">
+	  <Compile Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_EventCC.xaml.cs">
 	    <DependentUpon>SubTypeExtraOptions_EventCC.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\CustomControls\SubTypeExtraOptions_TypesCC.xaml.cs">
+	  <Compile Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_TypesCC.xaml.cs">
 	    <DependentUpon>SubTypeExtraOptions_TypesCC.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\DailyEventsPage.xaml.cs">
@@ -228,7 +228,7 @@
 	  <MauiXaml Update="Views\CustomControls\ExpandableCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\ExtraOptionsSelectorCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\ExtraOptionsSelectorCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\ChangableIconCC.xaml">
@@ -243,10 +243,10 @@
 	  <MauiXaml Update="Views\CustomControls\MeasurementOutputCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\MeasurementSelectorCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\MeasurementSelectorCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\MicroTasksListCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\MicroTasksListCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\OperationsBarCC.xaml">
@@ -261,10 +261,10 @@
 	  <MauiXaml Update="Views\CustomControls\TodayAndSelectedDateCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\SubTypeExtraOptions_EventCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_EventCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\SubTypeExtraOptions_TypesCC.xaml">
+	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_TypesCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EventPage.xaml">

@@ -119,7 +119,7 @@ namespace Kalendarzyk.ViewModels
 			}
 		}
 		[ObservableProperty]
-		private ExtraOptionsSelectorHelperClass _extraOptionsSelectorHelperClass = Factory.CreateNewExtraOptionsSelectorHelperClass();
+		private ExtraOptionsEventsHelperClass _extraOptionsSelectorHelperClass = Factory.CreateNewExtraOptionsEventHelperClass();
 		#endregion
 
 		//ctor new quick note

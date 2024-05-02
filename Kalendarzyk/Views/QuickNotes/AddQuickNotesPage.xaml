@@ -10,7 +10,7 @@
              Shell.TabBarIsVisible="False"
              x:Name="AddQuickNotesPageName"
              >
-    <ContentPage.Resources>
+    <!--<ContentPage.Resources>
         <ResourceDictionary>
             <converters:BoolToColorConverter x:Key="boolToColorConverter" />
         </ResourceDictionary>
@@ -25,7 +25,7 @@
                                             AsyncDeleteButtonCommand="{Binding AsyncDeleteSelectedQuckNoteCommand}"
                                             AsyncShareEventButtonCommand="{Binding AsyncShareEventCommand}"
                                             />
-        <!-- Entry for new type name -->
+        --><!-- Entry for new type name --><!--
         <customControls:RoundEntryCC Grid.Column="1" Placeholder="...EVENT TITLE..." Text="{Binding QuickNoteTitle}" HorizontalOptions="Center"/>
 
         <customControls:RoundEntryCC Margin="10" Placeholder="...QUICK NOTE DESCRIPTION..."  Text="{Binding QuickNoteDescription}" HorizontalOptions="Center" MyWidthRequest="250"/>
@@ -35,15 +35,15 @@
         
         <customControls:SelectableButtonFlexLayoutCC ItemsSource="{Binding ExtraOptionsButtonsSelectors}"  AlignItems="Center" JustifyContent="Center" />
 
-        <!--MicroTasks CC-->
+        --><!--MicroTasks CC--><!--
         <customControls:MicroTasksListCC IsVisible="{Binding IsEventMicroTasksType}" />
         
-        <!--VALUE CC-->
+        --><!--VALUE CC--><!--
         <customControls:MeasurementSelectorCC IsVisible="{Binding IsQuickNoteValueType}"/>
 
 
         <customControls:DateStartEndCC IsVisible="{Binding IsQuickNoteDateSelected}"  />
         </VerticalStackLayout>
 
-    </ScrollView>
+    </ScrollView>-->
 </ContentPage>
