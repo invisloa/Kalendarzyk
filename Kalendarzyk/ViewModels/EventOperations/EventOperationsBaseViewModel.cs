@@ -344,6 +344,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 		protected void SetVisualsForSelectedSubType()
 		{
+			// set the color of the selected event type and set others colors to blacked out
 			foreach (var eventType in AllSubEventTypesOC)       // it sets colors in a different AllSubEventTypesOC then SelectedEventType is...
 			{
 				eventType.BackgroundColor = Color.FromRgba(255, 255, 255, 1);
@@ -351,8 +352,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			}
 			var SelectedEventType = AllSubEventTypesOC.FirstOrDefault(x => x.Equals(_selectedEventType));
 			SelectedEventType.BackgroundColor = SelectedEventType.EventTypeColor;
+			//--
+
 			SelectedEventType.IsSelectedToFilter = true;
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(AllSubEventTypesOC); // ??????
+			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(AllSubEventTypesOC); // ?????? this is done to trigger the property changed event
 			var maineventtypeviewmodel = MainEventTypesVisualsOC.Where(x => x.MainEventType.Equals(SelectedEventType.MainEventType)).FirstOrDefault();
 
 			_mainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(maineventtypeviewmodel);
@@ -414,12 +417,12 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		}
 
 		#endregion
-		protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEvent)
+		protected void OnUserEventTypeSelectedCommand(ISubEventTypeModel selectedEventType)
 		{
-			SelectedEventType = selectedEvent;
+			SelectedEventType = selectedEventType;
 			if (!IsEditMode)
 			{
-                ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEvent);
+                ExtraOptionsHelperToChangeName.OnEventTypeChanged(selectedEventType);
 
                 SetEndExactTimeAccordingToEventType();
 			}

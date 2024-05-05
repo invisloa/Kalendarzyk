@@ -23,14 +23,14 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		//ctor create mode
 		public ExtraOptionsEventsHelperClass()
 		{
-			InitializeCommon();
+			InitializeExtraOptionsButtons();
 		}
 		//ctor edit mode
 		public ExtraOptionsEventsHelperClass(ISubEventTypeModel subEventTypeModel)
 		{
 			SubEventType = subEventTypeModel;
 
-            InitializeCommon();
+            InitializeExtraOptionsButtons();
 
 			if (SubEventType.IsValueType)
 			{
@@ -60,22 +60,21 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			SetPropperValueType();
 
 		}
-		private void InitializeCommon() // TODO JO XXX REFACTOR THIS to be more modular
+		private void InitializeExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
 		{
-			if (ExtraOptionsButtonsSelectors.Count == 0)
-			{
 				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand), isEnabled: SubEventType?.IsMicroTaskType == true));
 				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueTypeCommand), isEnabled: SubEventType?.IsValueType == true));
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand)));
-			}
-			else
-			{
-                ExtraOptionsButtonsSelectors[0].IsEnabled = SubEventType?.IsMicroTaskType ?? true;
-                ExtraOptionsButtonsSelectors[0].IsSelected = ExtraOptionsButtonsSelectors[0].IsEnabled ? IsMicroTasksBtnSelected : false;
-                ExtraOptionsButtonsSelectors[1].IsEnabled = SubEventType?.IsValueType ?? true;
-                ExtraOptionsButtonsSelectors[1].IsSelected = ExtraOptionsButtonsSelectors[1].IsEnabled ? IsValueBtnSelected : false;
-                ExtraOptionsButtonsSelectors[2].IsSelected = IsDateBtnSelected;
-            }
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand), isEnabled: SubEventType != null));
+		}
+		private void ReloadExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
+		{
+
+			ExtraOptionsButtonsSelectors[0].IsEnabled = SubEventType?.IsMicroTaskType ?? true;
+			ExtraOptionsButtonsSelectors[0].IsSelected = ExtraOptionsButtonsSelectors[0].IsEnabled ? true : false;
+			ExtraOptionsButtonsSelectors[1].IsEnabled = SubEventType?.IsValueType ?? true;
+			ExtraOptionsButtonsSelectors[1].IsSelected = ExtraOptionsButtonsSelectors[1].IsEnabled ? true : false;
+			ExtraOptionsButtonsSelectors[2].IsEnabled = true;
+			ExtraOptionsButtonsSelectors[2].IsSelected = IsDateBtnSelected;
 		}
 
 
@@ -89,12 +88,23 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 		internal void OnEventTypeChanged(ISubEventTypeModel selectedEventType)	
 		{
+			if(selectedEventType == SubEventType)
+			{ 			
+				return;
+			}
 			SubEventType = selectedEventType;
-			InitializeCommon();
+			ReloadExtraOptionsButtons();
 			IsMicroTasksType = selectedEventType.IsMicroTaskType ? true : false;
 			if (IsMicroTasksType)
 			{
-				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(selectedEventType.MicroTasksList);
+				if (MicroTasksCCAdapter == null)
+				{
+					MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(selectedEventType.MicroTasksList);
+				}
+				else
+				{
+					MicroTasksCCAdapter.MicroTasksOC = selectedEventType.MicroTasksList.ToObservableCollection();
+				}
 			}
 
 
@@ -114,7 +124,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			{
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = null;
 			}
-
 		}
 	}
 }

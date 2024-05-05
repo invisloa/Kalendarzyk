@@ -14,8 +14,8 @@ namespace Kalendarzyk.ViewModels
 {
 	public class AddNewSubTypePageViewModel : BaseViewModel
 	{
-		XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		private ExtraOptionsSubTypesHelperClass extraOptionsSubTypeHelper;
+		
+		private ExtraOptionsSubTypesHelperClass extraOptionsSubTypeHelper;// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		public ExtraOptionsSubTypesHelperClass ExtraOptionsSubTypeHelper
 		{
 			get => extraOptionsSubTypeHelper;
@@ -40,7 +40,7 @@ namespace Kalendarzyk.ViewModels
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
 		public MeasurementSelectorCCViewModel DefaultMeasurementSelectorCCHelper { get; set; } = Factory.CreateNewMeasurementSelectorCCHelperClass();
 		public MicroTasksCCAdapterVM MicroTasksCCAdapter { get; set; }
-		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; }XXXXXXXXXXXXXXXXXXXXXXXXXXXX DELETE THIS?? OR REFACTOR...???
+		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; } //XXXXXXXXXXXXXXXXXXXXXXXXXXXX DELETE THIS?? OR REFACTOR...???
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
