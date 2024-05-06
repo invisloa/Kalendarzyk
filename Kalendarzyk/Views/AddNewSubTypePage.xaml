@@ -45,7 +45,7 @@
 
 
             <!--Possible Colors of events to choose-->
-            <customControls:ColorButtonsSelectorCC Margin="5"
+            <customControls:ColorButtonsSelectorCC Margin="5" IsVisible="{Binding ExtraOptionsHelperToChangeName.IsColorBtnSelected}"
                ColorButtonsSelectorHelper="{Binding ColorButtonsHelperClass}" />
 
 

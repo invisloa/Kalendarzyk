@@ -88,18 +88,23 @@ namespace Kalendarzyk.Views.CustomControls.ExtraOptionsCC.ExtraOptionsViewModels
 		private ISubEventTypeModel _subEventType;
 
 
-		protected void OnIsMicroTasksSelectedCommand(SelectableButtonViewModel clickedButton)
+		protected void OnIsMicroTasksSelected(SelectableButtonViewModel clickedButton)
 		{
-			IsMicroTasksBtnSelected = !clickedButton.IsSelected;
-			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
-
+			IsMicroTasksBtnSelected = IsMicroTasksType = UpdateButtonState(clickedButton);
 		}
-		protected void OnIsEventValueTypeCommand(SelectableButtonViewModel clickedButton)
+
+		protected void OnIsEventValueType(SelectableButtonViewModel clickedButton)
 		{
-			IsValueBtnSelected = !clickedButton.IsSelected;
-			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
-
+			IsValueBtnSelected = IsValueType = UpdateButtonState(clickedButton);
 		}
+
+		protected bool UpdateButtonState(SelectableButtonViewModel clickedButton)
+		{
+			bool newState = !clickedButton.IsSelected;
+			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
+			return newState;
+		}
+
 		protected void SetPropperValueType()
 		{
 			DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(SubEventType);

@@ -16,9 +16,17 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 {
 	 public partial class ExtraOptionsSubTypesHelperClass : ExtraOptionsBaseClass
 	{
+		[ObservableProperty]
+		private bool _isColorBtnSelected;
+
+		[ObservableProperty]
+		private Command _onIsColorBtnSelectedCommand;
+
+
 		//ctor create mode
 		public ExtraOptionsSubTypesHelperClass()
 		{
+			//SubEventType = Factory.CreateNewSubEventTypeModel();
 			InitializeCommon();
 		}
 		//ctor edit mode
@@ -36,7 +44,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
 				if (SubEventType.QuantityAmount != null && SubEventType.QuantityAmount.Value != 0)
 				{
-					OnIsEventValueTypeCommand(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
+					OnIsEventValueType(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
 					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == SubEventType.QuantityAmount.Unit).First();
 					DefaultMeasurementSelectorCCHelper.QuantityValue = SubEventType.QuantityAmount.Value;
 				}
@@ -50,7 +58,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 				if (SubEventType.MicroTasksList != null && SubEventType.MicroTasksList.Count() > 0)
 				{
-					OnIsMicroTasksSelectedCommand(ExtraOptionsButtonsSelectors[0]); // TODO refactor this
+					OnIsMicroTasksSelected(ExtraOptionsButtonsSelectors[0]); // TODO refactor this
 					MicroTasksCCAdapter.MicroTasksOC = SubEventType.MicroTasksList.ToObservableCollection();
 				}
 			}
@@ -61,8 +69,9 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			if (ExtraOptionsButtonsSelectors.Count == 0)
 			{
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand), isEnabled: true));
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueTypeCommand), isEnabled: true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks(D)", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelected), isEnabled: true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value(D)", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueType), isEnabled: true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("BG color", false, new RelayCommand<SelectableButtonViewModel>(OnColorBtnSelected), isEnabled: true));
 			}
 			else
 			{
@@ -74,6 +83,11 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				ExtraOptionsButtonsSelectors[1].IsEnabled = SubEventType?.IsValueType ?? true;
 				ExtraOptionsButtonsSelectors[1].IsSelected = ExtraOptionsButtonsSelectors[1].IsEnabled ? IsValueBtnSelected : false;
 			}
+		}
+		private void OnColorBtnSelected(SelectableButtonViewModel clickedButton)
+		{
+			IsColorBtnSelected = UpdateButtonState(clickedButton);
+
 		}
 
 	}

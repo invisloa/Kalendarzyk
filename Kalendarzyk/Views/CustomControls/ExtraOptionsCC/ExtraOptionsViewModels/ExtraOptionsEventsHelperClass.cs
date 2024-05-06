@@ -39,7 +39,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
 				if (SubEventType.QuantityAmount != null && SubEventType.QuantityAmount.Value != 0)
 				{
-					OnIsEventValueTypeCommand(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
+					OnIsEventValueType(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
 					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == SubEventType.QuantityAmount.Unit).First();
 					DefaultMeasurementSelectorCCHelper.QuantityValue = SubEventType.QuantityAmount.Value;
 				}
@@ -53,7 +53,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 				if (SubEventType.MicroTasksList != null && SubEventType.MicroTasksList.Count() > 0)
 				{
-					OnIsMicroTasksSelectedCommand(ExtraOptionsButtonsSelectors[0]); // TODO refactor this
+					OnIsMicroTasksSelected(ExtraOptionsButtonsSelectors[0]); // TODO refactor this
 					MicroTasksCCAdapter.MicroTasksOC = SubEventType.MicroTasksList.ToObservableCollection();
 				}
 			}
@@ -62,8 +62,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		}
 		private void InitializeExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
 		{
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelectedCommand), isEnabled: SubEventType?.IsMicroTaskType == true));
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueTypeCommand), isEnabled: SubEventType?.IsValueType == true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelected), isEnabled: SubEventType?.IsMicroTaskType == true));
+				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueType), isEnabled: SubEventType?.IsValueType == true));
 				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand), isEnabled: SubEventType != null));
 		}
 		private void ReloadExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
