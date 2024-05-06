@@ -88,14 +88,14 @@ namespace Kalendarzyk.Views.CustomControls.ExtraOptionsCC.ExtraOptionsViewModels
 		private ISubEventTypeModel _subEventType;
 
 
-		protected void OnIsMicroTasksSelected(SelectableButtonViewModel clickedButton)
+		protected virtual void OnIsMicroTasksSelected(SelectableButtonViewModel clickedButton)
 		{
-			IsMicroTasksBtnSelected = IsMicroTasksType = UpdateButtonState(clickedButton);
+			IsMicroTasksBtnSelected = UpdateButtonState(clickedButton);
 		}
 
-		protected void OnIsEventValueType(SelectableButtonViewModel clickedButton)
+		protected virtual void OnIsEventValueType(SelectableButtonViewModel clickedButton)
 		{
-			IsValueBtnSelected = IsValueType = UpdateButtonState(clickedButton);
+			IsValueBtnSelected = UpdateButtonState(clickedButton);
 		}
 
 		protected bool UpdateButtonState(SelectableButtonViewModel clickedButton)

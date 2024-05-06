@@ -88,5 +88,14 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			IsColorBtnSelected = UpdateButtonState(clickedButton);
 		}
+		protected override void OnIsMicroTasksSelected(SelectableButtonViewModel clickedButton)
+		{
+			IsMicroTasksBtnSelected = IsMicroTasksType = UpdateButtonState(clickedButton);
+		}
+
+		protected override void OnIsEventValueType(SelectableButtonViewModel clickedButton)
+		{
+			IsValueBtnSelected = IsValueType = UpdateButtonState(clickedButton);
+		}
 	}
 }
