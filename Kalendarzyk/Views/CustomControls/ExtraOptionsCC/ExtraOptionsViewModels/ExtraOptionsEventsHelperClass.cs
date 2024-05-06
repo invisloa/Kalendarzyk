@@ -70,9 +70,9 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 
 			ExtraOptionsButtonsSelectors[0].IsEnabled = SubEventType?.IsMicroTaskType ?? true;
-			ExtraOptionsButtonsSelectors[0].IsSelected = ExtraOptionsButtonsSelectors[0].IsEnabled ? true : false;
+			ExtraOptionsButtonsSelectors[0].IsSelected = IsMicroTasksBtnSelected;
 			ExtraOptionsButtonsSelectors[1].IsEnabled = SubEventType?.IsValueType ?? true;
-			ExtraOptionsButtonsSelectors[1].IsSelected = ExtraOptionsButtonsSelectors[1].IsEnabled ? true : false;
+			ExtraOptionsButtonsSelectors[1].IsSelected = IsValueBtnSelected;
 			ExtraOptionsButtonsSelectors[2].IsEnabled = true;
 			ExtraOptionsButtonsSelectors[2].IsSelected = IsDateBtnSelected;
 		}

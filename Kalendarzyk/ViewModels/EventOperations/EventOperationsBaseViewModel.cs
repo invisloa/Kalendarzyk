@@ -356,13 +356,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 			SelectedEventType.IsSelectedToFilter = true;
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(AllSubEventTypesOC); // ?????? this is done to trigger the property changed event
-			var maineventtypeviewmodel = MainEventTypesVisualsOC.Where(x => x.MainEventType.Equals(SelectedEventType.MainEventType)).FirstOrDefault();
-
-			_mainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(maineventtypeviewmodel);
-
-
+			var selectedMainEventType = MainEventTypesVisualsOC.Where(x => x.MainEventType.Equals(SelectedEventType.MainEventType)).FirstOrDefault();
+			_mainEventTypesCCHelper.MainEventTypeSelectedCommand.Execute(selectedMainEventType);
 			SelectedMainEventType = SelectedEventType.MainEventType;
-
 			OnPropertyChanged(nameof(MainEventTypesVisualsOC));
 
 		}

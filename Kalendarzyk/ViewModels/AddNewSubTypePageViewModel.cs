@@ -16,7 +16,7 @@ namespace Kalendarzyk.ViewModels
 	{
 		
 		private ExtraOptionsSubTypesHelperClass extraOptionsSubTypeHelper;// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		public ExtraOptionsSubTypesHelperClass ExtraOptionsSubTypeHelper
+		public ExtraOptionsSubTypesHelperClass ExtraOptionsHelperToChangeName
 		{
 			get => extraOptionsSubTypeHelper;
 			set => extraOptionsSubTypeHelper = value;
@@ -166,7 +166,7 @@ namespace Kalendarzyk.ViewModels
 		private void InitializeCommon()
 		{
 			InitializeColorButtons();
-			ExtraOptionsSubTypeHelper = Factory.CreateNewExtraOptionsSubTypesHelperClass();
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSubTypesHelperClass();
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;
