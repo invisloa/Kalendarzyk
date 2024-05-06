@@ -87,8 +87,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		private void OnColorBtnSelected(SelectableButtonViewModel clickedButton)
 		{
 			IsColorBtnSelected = UpdateButtonState(clickedButton);
-
 		}
-
 	}
 }
