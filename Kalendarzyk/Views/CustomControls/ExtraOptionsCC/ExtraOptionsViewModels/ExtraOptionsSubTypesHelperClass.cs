@@ -35,14 +35,12 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			SubEventType = subEventTypeModel;
 
 			InitializeCommon();
-
+			ExtraOptionsButtonsSelectors[1].IsEnabled = false;
 
 			if (SubEventType.IsValueType)
 			{
 				IsValueType = true;
 				ExtraOptionsButtonsSelectors[1].ButtonCommand = null;
-				ExtraOptionsButtonsSelectors[1].IsEnabled = false;
-
 				DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
 				if (SubEventType.QuantityAmount != null )
@@ -95,6 +93,10 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		}
 		protected override void OnIsMicroTasksSelected(SelectableButtonViewModel clickedButton)
 		{
+			if(MicroTasksCCAdapter == null)
+			{
+				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
+			}
 			IsMicroTasksBtnSelected = IsMicroTasksType = UpdateButtonState(clickedButton);
 		}
 

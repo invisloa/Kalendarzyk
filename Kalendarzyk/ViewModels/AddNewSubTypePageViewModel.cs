@@ -223,12 +223,14 @@ namespace Kalendarzyk.ViewModels
 					_currentType.MainEventType = SelectedMainEventType;
 					_currentType.EventTypeName = TypeName;
 					_currentType.EventTypeColor = ColorButtonsHelperClass.SelectedColor;
+					if(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.IsValueTypeSelected)
 					_currentType.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
 					_currentType.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC;
 
-					SetExtraUserControlsValues(_currentType);
 					await _eventRepository.UpdateSubEventTypeAsync(_currentType);
-					await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
+					await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation+
+//					SetExtraUserControlsValues(_currentType);
+
 				}
 			}
 			else
