@@ -220,7 +220,7 @@ namespace Kalendarzyk.ViewModels
 			await repository.AddMainEventTypeAsync(quickNoteMainType);
 			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, PreferencesManager.GetSubTypeQuickNoteName(), Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
 			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
-			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel, new QuantityModel(MeasurementUnit.Money, 0));
+			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel, new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
 			await repository.AddEventAsync(qNoteEvent);
 		}
 		private async Task ResetToDefaultData() // it checks for the events before the events are imported so when there are any events added they will be deleted

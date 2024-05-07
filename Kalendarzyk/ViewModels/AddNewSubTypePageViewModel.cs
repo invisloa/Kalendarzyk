@@ -247,12 +247,6 @@ namespace Kalendarzyk.ViewModels
 			}
 		}
 
-
-
-		//private void GoToAllSubTypesPage()
-		//{
-		//	Application.Current.MainPage.Navigation.PushAsync(new AllSubTypesPage());
-		//}
 		private void InitializeColorButtons() //TODO ! also to extract as a separate custom control
 		{
 			ButtonsColorsInitializerHelperClass buttonsColorsInitializerHelperClass = new ButtonsColorsInitializerHelperClass();
