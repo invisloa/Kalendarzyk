@@ -40,12 +40,17 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			if (SubEventType.IsValueType)
 			{
 				IsValueType = true;
+				ExtraOptionsButtonsSelectors[1].ButtonCommand = null;
+				ExtraOptionsButtonsSelectors[1].IsEnabled = false;
+
 				DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
 				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
-				if (SubEventType.QuantityAmount != null && SubEventType.QuantityAmount.Value != 0)
+				if (SubEventType.QuantityAmount != null )
 				{
 					OnIsEventValueType(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
-					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == SubEventType.QuantityAmount.Unit).First();
+					var unitToSelect = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == SubEventType.QuantityAmount.Unit).First();
+					DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit = unitToSelect;
+					DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = new ObservableCollection<MeasurementUnitItem> { unitToSelect };		// TODO JO REFACTOR THIS, ONLY TEMPORARY - NO TIME :(
 					DefaultMeasurementSelectorCCHelper.QuantityValue = SubEventType.QuantityAmount.Value;
 				}
 				DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(SubEventType);

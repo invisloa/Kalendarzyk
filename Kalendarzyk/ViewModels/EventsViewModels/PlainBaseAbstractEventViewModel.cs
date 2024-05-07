@@ -172,20 +172,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			// Clear existing items in the EventsToShowList
 			EventsToShowList.Clear();
 			EventsToShowList = new ObservableCollection<IGeneralEventModel>(filteredEvents);
-			// TODO NOW XXXXX events dont get changes when edited!!!
-			/*			// Add filtered items to the EventsToShowList
-						foreach (var eventItem in filteredEvents)
-						{
 
-							try
-							{
-								EventsToShowList.Add(eventItem);
-							}
-							catch (Exception ex)
-							{
-								string error = ex.Message;
-							}
-						}*/
 		}
 		private void GoToAddNewSubTypePage()
 		{

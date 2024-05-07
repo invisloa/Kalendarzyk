@@ -38,15 +38,11 @@ namespace Kalendarzyk.ViewModels
 		// TODO ! CHANGE THE BELOW CLASS TO VIEW MODEL 
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC; set => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC = value; }
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
-		public MeasurementSelectorCCViewModel DefaultMeasurementSelectorCCHelper { get; set; } = Factory.CreateNewMeasurementSelectorCCHelperClass();
-		public MicroTasksCCAdapterVM MicroTasksCCAdapter { get; set; }
-		public ISubTypeExtraOptionsViewModel SubTypeExtraOptionsHelper { get; set; } //XXXXXXXXXXXXXXXXXXXXXXXXXXXX DELETE THIS?? OR REFACTOR...???
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
 		private ISubEventTypeModel _currentType;   // if null => add new type, else => edit type
 		private string _typeName;
 		private IEventRepository _eventRepository;
-		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
 		private IColorButtonsSelectorHelperClass _colorButtonsHelperClass = Factory.CreateNewIColorButtonsHelperClass(startingColor: Colors.Red);
 		public IColorButtonsSelectorHelperClass ColorButtonsHelperClass { get => _colorButtonsHelperClass; }
 
@@ -132,11 +128,12 @@ namespace Kalendarzyk.ViewModels
 		public AddNewSubTypePageViewModel()
 		{
 			_eventRepository = Factory.GetEventRepository();
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSubTypesHelperClass();
+
 			InitializeCommon();
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelectedCommand);
 			DefaultEventTimespanCCHelper.SelectedUnitIndex = 0; // minutes
 			DefaultEventTimespanCCHelper.DurationValue = 30;
-			MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(microTasksList);
 		}
 
 		// constructor for edit mode
@@ -145,32 +142,25 @@ namespace Kalendarzyk.ViewModels
 			_eventRepository = Factory.GetEventRepository();
 			CurrentType = currentType;
 			InitializeCommon();
-			if (currentType.IsMicroTaskType)
-			{
-				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(currentType.MicroTasksList);
-			}
+			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSubTypesHelperClass(CurrentType);
+
 			OnMainEventTypeSelectedCommand(new MainEventTypeViewModel(currentType.MainEventType));  // pass some new main event type view model not the one that is on the list!!!
 																									//MainEventTypesCCHelper.SelectedMainEventType = currentType.MainEventType;
 			ColorButtonsHelperClass.SelectedColor = currentType.EventTypeColor;
 			TypeName = currentType.EventTypeName;
 			DefaultEventTimespanCCHelper.SetControlsValues(currentType.DefaultEventTimeSpan);
-			/*	???? dont know if this is needed after refactoring extra options helper class
-			 * setIsVisibleForExtraControlsInEditMode();
-			*/
-			SubTypeExtraOptionsHelper.ValueTypeClickCommand = null;
+
 			AsyncDeleteSelectedEventTypeCommand = new AsyncRelayCommand(AsyncDeleteSelectedEventType, CanDeleteSelectedEventType);
 
-			// set proper visuals for an edited event type ??
 		}
 
 		private void InitializeCommon()
 		{
 			InitializeColorButtons();
-			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSubTypesHelperClass();
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
 			bool isEditMode = CurrentType != null;
-			SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
+			//SubTypeExtraOptionsHelper = Factory.CreateNewSubTypeExtraOptionsHelperClass(isEditMode);
 			//GoToAllSubTypesPageCommand = new RelayCommand(GoToAllSubTypesPage);
 			AsyncSubmitTypeCommand = new AsyncRelayCommand(AsyncSubmitType, CanExecuteAsyncSubmitTypeCommand);
 			_mainEventTypesCCHelper.MainEventTypeChanged += OnMainEventTypeChanged;
@@ -233,6 +223,9 @@ namespace Kalendarzyk.ViewModels
 					_currentType.MainEventType = SelectedMainEventType;
 					_currentType.EventTypeName = TypeName;
 					_currentType.EventTypeColor = ColorButtonsHelperClass.SelectedColor;
+					_currentType.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
+					_currentType.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC;
+
 					SetExtraUserControlsValues(_currentType);
 					await _eventRepository.UpdateSubEventTypeAsync(_currentType);
 					await Shell.Current.GoToAsync("//AllSubTypesPage"); // TODO Navigation
@@ -242,10 +235,10 @@ namespace Kalendarzyk.ViewModels
 			{
 				if (await CanAddNewType())
 				{
-					var timespan = SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDuration() : TimeSpan.Zero;
-					var quantityAmount = SubTypeExtraOptionsHelper.IsValueTypeSelected ? DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
-					var microTasks = SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected ? new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC) : null;
-					var newSubType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, ColorButtonsHelperClass.SelectedColor, timespan, quantityAmount, microTasks);
+					//var timespan = SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected ? DefaultEventTimespanCCHelper.GetDuration() : TimeSpan.Zero;
+					var quantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.IsValueTypeSelected ? ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount : null;
+					var microTasks = ExtraOptionsHelperToChangeName.IsMicroTasksType ? new List<MicroTaskModel>(ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC) : null;
+					var newSubType = Factory.CreateNewEventType(MainEventTypesCCHelper.SelectedMainEventType, TypeName, ColorButtonsHelperClass.SelectedColor, TimeSpan.FromHours(1), quantityAmount, microTasks);
 					await _eventRepository.AddSubEventTypeAsync(newSubType);
 					TypeName = string.Empty;
 				}
@@ -273,18 +266,18 @@ namespace Kalendarzyk.ViewModels
 			{
 				return;
 			}
-			if (SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected)
+/*			if (SubTypeExtraOptionsHelper.IsDefaultEventTimespanSelected)
 			{
 				_currentType.DefaultEventTimeSpan = DefaultEventTimespanCCHelper.GetDuration();
-			}
+			}*/
 			else
 			{
 				_currentType.DefaultEventTimeSpan = TimeSpan.Zero;
 			}
-			if (SubTypeExtraOptionsHelper.IsMicroTaskTypeSelected)
+			if (ExtraOptionsHelperToChangeName.IsMicroTasksType)
 			{
 				_currentType.IsMicroTaskType = true;
-				_currentType.MicroTasksList = new List<MicroTaskModel>(MicroTasksCCAdapter.MicroTasksOC);
+				_currentType.MicroTasksList = new List<MicroTaskModel>(ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC);
 			}
 			else
 			{
