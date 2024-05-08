@@ -37,18 +37,13 @@
             <customControls:ExtraOptionsSelectorCC  />
 
             <!--MOVE THOSE 3 TO ExtraOptionsSelectorCC-->
-            <!--MicroTasks CC-->
-            <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}" />
-
             <!--VALUE CC-->
             <customControls:MeasurementSelectorCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsValueBtnSelected}"/>
-
-
+            <!--MicroTasks CC-->
+            <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}" />
             <!--Possible Colors of events to choose-->
             <customControls:ColorButtonsSelectorCC Margin="5" IsVisible="{Binding ExtraOptionsHelperToChangeName.IsColorBtnSelected}"
                ColorButtonsSelectorHelper="{Binding ColorButtonsHelperClass}" />
-
-
             <!--Down of the screen buttons-->
 
         </StackLayout>

@@ -155,12 +155,6 @@
 	  <Compile Update="Views\CustomControls\OperationsBarCC.xaml.cs">
 	    <DependentUpon>OperationsBarCC.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_EventCC.xaml.cs">
-	    <DependentUpon>SubTypeExtraOptions_EventCC.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_TypesCC.xaml.cs">
-	    <DependentUpon>SubTypeExtraOptions_TypesCC.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\DailyEventsPage.xaml.cs">
 	    <DependentUpon>DailyEventsPage.xaml</DependentUpon>
 	  </Compile>
@@ -259,12 +253,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomControls\TodayAndSelectedDateCC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_EventCC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomControls\ExtraOptionsCC\SubTypeExtraOptions_TypesCC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EventPage.xaml">
