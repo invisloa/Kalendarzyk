@@ -100,7 +100,8 @@ namespace Kalendarzyk.Services
 		}
 		public static ILocalDataEncryptionService CreateNewLocalDataEncryptionService()
 		{
-			return new AdvancedEncryptionStandardService();
+			//return new AdvancedEncryptionStandardService();
+			return new DummyEncryptionService();
 		}
 
 		public static IMainEventTypesCCViewModel CreateNewIMainEventTypeViewModelClass(List<IMainEventType> mainEventTypes)

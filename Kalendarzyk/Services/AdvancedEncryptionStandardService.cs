@@ -52,4 +52,17 @@ namespace Kalendarzyk.Services
 			return srDecrypt.ReadToEnd();
 		}
 	}
+
+	public class DummyEncryptionService : ILocalDataEncryptionService
+	{
+		public string EncryptString(string plainText)
+		{
+			return plainText;
+		}
+
+		public string DecryptString(string cipherText)
+		{
+			return cipherText;
+		}
+	}
 }

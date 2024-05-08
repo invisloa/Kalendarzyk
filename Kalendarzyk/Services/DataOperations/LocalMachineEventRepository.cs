@@ -164,9 +164,9 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public async Task InitializeAsync()
 	{
-		AllEventsList = await GetEventsListAsync();                         // TO CHECK -  ConfigureAwait
-		AllUserEventTypesList = await GetSubEventTypesListAsync();          // TO CHECK -  ConfigureAwait
 		AllMainEventTypesList = await GetMainEventTypesListAsync();         // TO CHECK -  ConfigureAwait
+		AllUserEventTypesList = await GetSubEventTypesListAsync();          // TO CHECK -  ConfigureAwait
+		AllEventsList = await GetEventsListAsync();                         // TO CHECK -  ConfigureAwait
 	}
 	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
 	{

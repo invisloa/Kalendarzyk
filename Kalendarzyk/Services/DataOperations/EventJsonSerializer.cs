@@ -18,11 +18,6 @@ namespace Kalendarzyk.Services.DataOperations
 			{
 				TypeNameHandling = TypeNameHandling.All
 			};
-			_settingsAuto = new JsonSerializerSettings
-			{
-				TypeNameHandling = TypeNameHandling.Auto
-			};
-
 		}
 
 

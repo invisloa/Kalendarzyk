@@ -158,7 +158,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 			//THIS IS NOT BEING REFRESHED in the view!!! _selectedCurrentEvent.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
 
-            _selectedCurrentEvent.EventType.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.MicroTasksOC.ToList();
+            _selectedCurrentEvent.EventType.MicroTasksList = ExtraOptionsHelperToChangeName.MicroTasksCCAdapter?.MicroTasksOC.ToList();
 			ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityValue);
 			_selectedCurrentEvent.EventType.QuantityAmount = ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.QuantityAmount;
 			await EventRepository.UpdateEventAsync(_selectedCurrentEvent);
