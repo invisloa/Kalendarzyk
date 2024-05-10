@@ -16,12 +16,6 @@ public class LocalMachineEventRepository : IEventRepository
 	IFileSelectorService _fileSelectorService = Factory.CreateNewFileSelectorService();
 	IUserNotifier userNotifier = Factory.CreateNewUserNotifier();
 	// File Paths generation code
-	#region File Paths generation code
-
-	public event Action OnEventListChanged;
-	public event Action OnMainEventTypesListChanged;    // TODO - implement
-	public event Action OnUserEventTypeListChanged;
-	#endregion
 
 	//CTOR
 	public LocalMachineEventRepository()
@@ -40,7 +34,6 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			if (_allEventsList == value) { return; }
 			_allEventsList = value;
-			OnEventListChanged?.Invoke();
 		}
 	}
 	private List<IMainEventType> _allMainEventTypesList = new List<IMainEventType>();
@@ -54,7 +47,6 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			if (_allMainEventTypesList == value) { return; }
 			_allMainEventTypesList = value;
-			OnMainEventTypesListChanged?.Invoke();
 		}
 	}
 	public async Task AddMainEventTypeAsync(IMainEventType mainEventTypeToAdd)
@@ -86,35 +78,29 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			AllMainEventTypesList.Add(mainEventTypeToAdd);
 		}
-		OnMainEventTypesListChanged?.Invoke();
 		await SaveMainEventTypesListAsync();
 	}
 	public async Task AddEventAsync(IGeneralEventModel eventToAdd)
 	{
 		AllEventsList.Add(eventToAdd);
 		await SaveEventsListAsync();
-		OnEventListChanged?.Invoke();
 	}
 	public async Task ClearAllEventsListAsync()
 	{
 		AllEventsList.Clear();
 		await SaveEventsListAsync();
-		OnEventListChanged?.Invoke();
-
 	}
 	public async Task ClearAllSubEventTypesAsync()
 	{
 		await ClearAllEventsListAsync();
 		AllUserEventTypesList.Clear();
 		await SaveSubEventTypesListAsync();
-		OnUserEventTypeListChanged?.Invoke();
 	}
 	public async Task ClearAllMainEventTypesAsync()
 	{
 
 		AllMainEventTypesList.Clear();
 		await SaveMainEventTypesListAsync();
-		OnMainEventTypesListChanged?.Invoke();
 	}
 	public async Task<List<IGeneralEventModel>> GetEventsListAsync()
 	{
@@ -159,7 +145,6 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			if (_allUserEventTypesList == value) { return; }
 			_allUserEventTypesList = value;
-			OnUserEventTypeListChanged?.Invoke();
 		}
 	}
 	public async Task InitializeAsync()
@@ -199,24 +184,20 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		AllEventsList.Remove(eventToDelete);
 		await SaveEventsListAsync();
-		OnEventListChanged?.Invoke();
 	}
 	public async Task DeleteFromMainEventTypesListAsync(IMainEventType mainEventTypeToDelete)
 	{
 		AllMainEventTypesList.Remove(mainEventTypeToDelete);
 		await SaveMainEventTypesListAsync();
-		OnMainEventTypesListChanged?.Invoke();
 	}
 	public async Task DeleteFromSubEventTypesListAsync(ISubEventTypeModel eventTypeToDelete)
 	{
 		AllUserEventTypesList.Remove(eventTypeToDelete);
 		await SaveSubEventTypesListAsync();
-		OnUserEventTypeListChanged?.Invoke();
 	}
 	public async Task AddSubEventTypeAsync(ISubEventTypeModel eventTypeToAdd)
 	{
 		AllUserEventTypesList.Add(eventTypeToAdd);
-		OnUserEventTypeListChanged?.Invoke();
 		await SaveSubEventTypesListAsync();
 	}
 	public async Task UpdateEventAsync(IGeneralEventModel eventToUpdate)
@@ -245,12 +226,10 @@ public class LocalMachineEventRepository : IEventRepository
 			await Task.CompletedTask;
 		}
 		await SaveSubEventTypesListAsync();
-		OnUserEventTypeListChanged?.Invoke();
 	}
 	public async Task UpdateMainEventTypeAsync(IMainEventType eventTypeToUpdate)
 	{
 		await SaveMainEventTypesListAsync();
-		OnMainEventTypesListChanged?.Invoke();
 	}
 	public Task<ISubEventTypeModel> GetSubEventTypeAsync(ISubEventTypeModel eventTypeToSelect)
 	{

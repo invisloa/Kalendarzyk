@@ -60,8 +60,6 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 			_eventRepository = Factory.GetEventRepository();
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
-			_eventRepository.OnEventListChanged += UpdateAllEventList;
-			_eventRepository.OnUserEventTypeListChanged += UpdateAllEventTypesList;
 			EditSelectedTypeCommand = new RelayCommand<ISubEventTypeModel>(EditSelectedType);
 		}
 
@@ -69,10 +67,6 @@ namespace Kalendarzyk.ViewModels.TypesViewModels
 
 		#region Public Methods
 
-		public void UpdateAllEventList()
-		{
-			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
-		}
 
 		public void UpdateAllEventTypesList()
 		{
