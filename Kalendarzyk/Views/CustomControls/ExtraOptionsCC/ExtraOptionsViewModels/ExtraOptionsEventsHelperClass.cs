@@ -62,17 +62,17 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		}
 		private void InitializeExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
 		{
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelected), isEnabled: SubEventType?.IsMicroTaskType == true));
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueType), isEnabled: SubEventType?.IsValueType == true));
-				ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand), isEnabled: SubEventType != null));
+			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelected), isEnabled: SubEventType?.IsMicroTaskType == true));
+			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueType), isEnabled: SubEventType?.IsValueType == true));
+
+			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand), isEnabled: SubEventType != null));
 		}
 		private void ReloadExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
 		{
-
-			ExtraOptionsButtonsSelectors[0].IsEnabled = SubEventType?.IsMicroTaskType ?? true;
-			ExtraOptionsButtonsSelectors[0].IsSelected = IsMicroTasksBtnSelected;
 			ExtraOptionsButtonsSelectors[1].IsEnabled = SubEventType?.IsValueType ?? true;
 			ExtraOptionsButtonsSelectors[1].IsSelected = IsValueBtnSelected;
+			ExtraOptionsButtonsSelectors[0].IsEnabled = SubEventType?.IsMicroTaskType ?? true;
+			ExtraOptionsButtonsSelectors[0].IsSelected = IsMicroTasksBtnSelected;
 			ExtraOptionsButtonsSelectors[2].IsEnabled = true;
 			ExtraOptionsButtonsSelectors[2].IsSelected = IsDateBtnSelected;
 		}

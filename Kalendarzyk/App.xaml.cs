@@ -11,7 +11,7 @@ namespace Kalendarzyk
 		{
 			//PreferencesManager.SetNotificationID(0);
 			_repository = Factory.GetEventRepository();
-			// vvv _repository.InitializeAsync();
+			_repository.InitializeAsync();
 			InitializeComponent();
 			if (IsFirstLaunch())
 			{

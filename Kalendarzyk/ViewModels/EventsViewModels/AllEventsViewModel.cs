@@ -151,7 +151,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		public AllEventsViewModel(ISubEventTypeModel eventType) : base()
 		{
 			InitializeCommon();
-
 			var allTempTypes = new List<ISubEventTypeModel>();
 			foreach (var item in AllSubEventTypesOC)
 			{
