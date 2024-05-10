@@ -2,20 +2,6 @@
 using Kalendarzyk.Models.EventTypesModels;
 using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using Kalendarzyk.Services;
-After:
-using Kalendarzyk.Views;
-*/
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using Kalendarzyk.Services;
-After:
-using Kalendarzyk.Views;
-*/
 using Kalendarzyk.Views;
 using System.Collections.ObjectModel;
 
@@ -97,8 +83,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			_eventRepository = Factory.GetEventRepository();
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
-			_eventRepository.OnEventListChanged += UpdateAllEventList;
-			_eventRepository.OnUserEventTypeListChanged += UpdateAllEventTypesList;
 			if (Application.Current.Resources.TryGetValue("MainEventDeselectedBackgroundColor", out var retrievedColor))
 			{
 				_deselectedUserEventTypeColor = (Color)retrievedColor;
@@ -115,16 +99,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		#endregion
 
 		#region Public Methods
-		public void UpdateAllEventList()        // TO CHECK HOW TO CHANGE THIS
-		{
-			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
-		}
-
-		public void UpdateAllEventTypesList()   // TO CHECK HOW TO CHANGE THIS
-		{
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
-		}
-
 		public abstract void BindDataToScheduleList();
 		#endregion
 

@@ -5,8 +5,6 @@ namespace Kalendarzyk.Services.DataOperations
 {
 	public interface IEventRepository
 	{
-		public event Action OnEventListChanged;
-		public event Action OnUserEventTypeListChanged;
 		Task AddEventAsync(IGeneralEventModel eventToAdd);
 		Task AddSubEventTypeAsync(ISubEventTypeModel eventTypeToAdd);
 		Task AddMainEventTypeAsync(IMainEventType eventTypeToAdd);

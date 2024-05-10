@@ -164,9 +164,9 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public async Task InitializeAsync()
 	{
-		AllMainEventTypesList = await GetMainEventTypesListAsync();         // TO CHECK -  ConfigureAwait
-		AllUserEventTypesList = await GetSubEventTypesListAsync();          // TO CHECK -  ConfigureAwait
-		AllEventsList = await GetEventsListAsync();                         // TO CHECK -  ConfigureAwait
+		AllMainEventTypesList = await GetMainEventTypesListAsync(); 
+		AllUserEventTypesList = await GetSubEventTypesListAsync();
+		AllEventsList = await GetEventsListAsync();
 	}
 	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
 	{
@@ -188,16 +188,12 @@ public class LocalMachineEventRepository : IEventRepository
 	{
 		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
 		await _fileStorageService.WriteFileAsync(_localFilePathService.SubEventsTypesFilePath, jsonString);
-		// TO CHECK OnUserEventTypeListChanged?.Invoke();
 	}
 	public async Task SaveMainEventTypesListAsync()
 	{
-		/*		var settings = JsonSerializerSettings_Auto;
-				var jsonString = JsonConvert.SerializeObject(AllMainEventTypesList, settings);
-				await File.WriteAllTextAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);*/
+
 		var jsonString = _eventJsonSerializer.SerializeMainEventTypesToJson(AllMainEventTypesList);
 		await _fileStorageService.WriteFileAsync(_localFilePathService.MainEventsTypesFilePath, jsonString);
-		// TO CHECK OnMainEventTypesListChanged?.Invoke();
 	}
 	public async Task DeleteFromEventsListAsync(IGeneralEventModel eventToDelete)
 	{
@@ -223,14 +219,12 @@ public class LocalMachineEventRepository : IEventRepository
 		OnUserEventTypeListChanged?.Invoke();
 		await SaveSubEventTypesListAsync();
 	}
-	public async Task UpdateEventAsync(IGeneralEventModel eventToUpdate)   // TO TEST
+	public async Task UpdateEventAsync(IGeneralEventModel eventToUpdate)
 	{
 		var updatedEvent = AllEventsList.FirstOrDefault(e => e.Id == eventToUpdate.Id);
 		if (updatedEvent != null)
 		{
 			updatedEvent = eventToUpdate;
-
-			// TO CHECK
 			await SaveEventsListAsync();
 		}
 		else
@@ -270,27 +264,17 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 	public List<IGeneralEventModel> DeepCopyAllEventsList()
 	{
-		/*		var settings = JsonSerializerSettings_Auto;
-				var serialized = JsonConvert.SerializeObject(_allEventsList, settings);
-				return JsonConvert.DeserializeObject<List<IGeneralEventModel>>(serialized, settings);
-		*/
 		var jsonString = _eventJsonSerializer.SerializeEventsToJson(AllEventsList);
 		return _eventJsonSerializer.DeserializeEventsFromJson(jsonString);
 	}
 	public List<ISubEventTypeModel> DeepCopySubEventTypesList()
 	{
-		/*		var settings = JsonSerializerSettings_Auto;
-				var serialized = JsonConvert.SerializeObject(_allUserEventTypesList, settings);
-				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(serialized, settings);
-		*/
+
 		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
 		return _eventJsonSerializer.DeserializeSubEventTypesFromJson(jsonString);
 	}
 	public List<IMainEventType> DeepCopyMainEventTypesList()
 	{
-		/*		var settings = JsonSerializerSettings_Auto;
-				var serialized = JsonConvert.SerializeObject(_allMainEventTypesList, settings);
-				return JsonConvert.DeserializeObject<List<IMainEventType>>(serialized, settings);*/
 		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
 		return _eventJsonSerializer.DeserializeMainEventTypesFromJson(jsonString);
 	}
@@ -482,32 +466,10 @@ public class LocalMachineEventRepository : IEventRepository
 		await ImportEventsFromJson(jsonData);
 	}
 
-	//private static readonly JsonSerializerSettings JsonSerializerSettings_Auto = new JsonSerializerSettings
-	//{
-	//	TypeNameHandling = TypeNameHandling.Auto
-	//};
-	//private static readonly JsonSerializerSettings JsonSerializerSettings_All = new JsonSerializerSettings
-	//{
-	//	TypeNameHandling = TypeNameHandling.All
-	//};
-
-	// if eventsToSaveList is null then all events will be saved
 	public async Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSaveList = null)
 	{
 		try
 		{
-			/*			var encryptedString = SerializeEventsToJson(eventsToSaveList); // Create the jsonString with encryption
-						using var stream = new MemoryStream(Encoding.UTF8.GetBytes(encryptedString)); // Use UTF8 Encoding
-
-						var fileSaverResult = await FileSaver.Default.SaveAsync("EventsList.json", stream, CancellationToken.None);
-						if (fileSaverResult.IsSuccessful)
-						{
-							await Toast.Make($"The file was saved successfully to location: {fileSaverResult.FilePath}").Show(CancellationToken.None);
-						}
-						else
-						{
-							await Toast.Make($"The file was not saved successfully with error: {fileSaverResult.Exception.Message}").Show(CancellationToken.None);
-						}*/
 			var encryptedString = SerializeAllEventsDataToJson(eventsToSaveList); // Create the jsonString with encryption
 			await _fileStorageService.WriteFileAsync(_localFilePathService.EventsFilePath, encryptedString);
 			await userNotifier.ShowMessageAsync($"The file was saved successfully to location: {_localFilePathService.EventsFilePath}", CancellationToken.None);
