@@ -79,7 +79,7 @@ namespace Kalendarzyk.Services
 		public EventModel Build()
 		{
 			// Perform any final validation
-			return new EventModel(title, description, startTime, endTime, eventType, isCompleted, postponeTime, wasShown, quantityAmount, _microTasksList, guid, notificationID);
+			return new EventModel(title, description, startTime, endTime, eventType, isCompleted, postponeTime, wasShown, guid, notificationID);
 		}
 	}
 }

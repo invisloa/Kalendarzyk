@@ -43,8 +43,7 @@ namespace Kalendarzyk.Models.EventModels
 
 		// TO Consider postpone time and maybe some other extra options for advanced event adding mode??
 		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,
-								bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, QuantityModel quantityAmount = null,
-								IEnumerable<MicroTaskModel> microTasksList = null, Guid? id = null, int? notificationID = null, bool usesNotification = false)
+								bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, Guid? id = null, int? notificationID = null, bool usesNotification = false)
 		{
 			ReminderTime = postponeTime ?? _defaulteventRemindertime;
 			Id = id ?? Guid.NewGuid();
@@ -55,8 +54,7 @@ namespace Kalendarzyk.Models.EventModels
 			EventType = eventType;
 			IsCompleted = isCompleted;
 			WasShown = wasShown;
-			EventType.QuantityAmount = quantityAmount;
-			EventType.MicroTasksList = microTasksList;
+
 			PostponeHistory = new List<DateTime>(); // default new list 
 			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : null;
 		}

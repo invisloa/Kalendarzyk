@@ -1,21 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using System.Threading.Tasks;
-using Kalendarzyk.Models.EventTypesModels;
-After:
-using System.Threading.Tasks;
-*/
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using System.Threading.Tasks;
-using Kalendarzyk.Models.EventTypesModels;
-After:
-using System.Threading.Tasks;
-*/
-
 
 namespace Kalendarzyk.Models.EventModels
 {

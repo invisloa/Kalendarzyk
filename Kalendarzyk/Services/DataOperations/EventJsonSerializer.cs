@@ -99,7 +99,7 @@ namespace Kalendarzyk.Services.DataOperations
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(decryptedString, _settingsAuto);
+				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(decryptedString, _settingsAll);
 			}
 			catch (Exception)
 			{
@@ -111,7 +111,7 @@ namespace Kalendarzyk.Services.DataOperations
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				var deserializedMainEventTypes = JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAuto);
+				var deserializedMainEventTypes = JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAll);
 				return deserializedMainEventTypes;
 			}
 			catch (Exception)
@@ -126,12 +126,12 @@ namespace Kalendarzyk.Services.DataOperations
 		}
 		public string SerializeSubEventTypesToJson(List<ISubEventTypeModel> subEventTypesToSaveList)
 		{
-			var jsonString = JsonConvert.SerializeObject(subEventTypesToSaveList, _settingsAuto);
+			var jsonString = JsonConvert.SerializeObject(subEventTypesToSaveList, _settingsAll);
 			return _aesService.EncryptString(jsonString);
 		}
 		public string SerializeMainEventTypesToJson(List<IMainEventType> mainEventTypesToSaveList)
 		{
-			var jsonString = JsonConvert.SerializeObject(mainEventTypesToSaveList, _settingsAuto);
+			var jsonString = JsonConvert.SerializeObject(mainEventTypesToSaveList, _settingsAll);
 			return _aesService.EncryptString(jsonString);
 		}
 	}

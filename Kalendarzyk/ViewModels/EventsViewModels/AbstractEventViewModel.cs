@@ -1,22 +1,4 @@
 ﻿using Kalendarzyk.Views;
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
-Before:
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-After:
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-*/
-
-/* Unmerged change from project 'Kalendarzyk (net8.0-android34.0)'
-Before:
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-After:
-using Kalendarzyk.Views.CustomControls.CCInterfaces;
-using Kalendarzyk.Views.CustomControls.CCViewModels;
-*/
 using Kalendarzyk.Views.CustomControls.CCInterfaces;
 
 namespace Kalendarzyk.ViewModels.EventsViewModels
@@ -43,7 +25,6 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 					_currentSelectedDate = value;
 					OnPropertyChanged();
 					BindDataToScheduleList();
-					//DatePickerDateSelectedCommand.Execute(_currentSelectedDate); // TODO: check if this is the right way to do it
 				}
 			}
 		}
