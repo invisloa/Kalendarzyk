@@ -15,7 +15,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		private const int BorderSize = 10;
 
 		// Fields
-		private readonly List<IMainEventType> _mainEventTypesList;
+		private readonly ObservableCollection<IMainEventType> _mainEventTypesList;
 		private readonly Dictionary<IMainEventType, MainEventTypeViewModel> _eventVisualDetails;
 		private IMainEventType _selectedMainEventType;
 		private IMainTypeVisualModel _selectedVisualElement;
@@ -48,7 +48,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		public event Action<IMainEventType> MainEventTypeChanged;
 
 		// Constructor
-		public MainEventTypesSelectorCCViewModel(List<IMainEventType> mainEventTypesList)
+		public MainEventTypesSelectorCCViewModel(ObservableCollection<IMainEventType> mainEventTypesList)
 		{
 			_mainEventTypesList = mainEventTypesList ?? throw new ArgumentNullException(nameof(mainEventTypesList));
 			_eventVisualDetails = new Dictionary<IMainEventType, MainEventTypeViewModel>();

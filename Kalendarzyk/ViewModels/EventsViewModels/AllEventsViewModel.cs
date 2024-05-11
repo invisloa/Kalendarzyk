@@ -14,6 +14,7 @@ After:
 using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Models.EventModels;
 */
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
@@ -31,7 +32,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		//MainEventTypesCC implementation
 		#region MainEventTypesCC implementation
 		protected IMainEventTypesCCViewModel _mainEventTypesCCHelper;
-		protected List<ISubEventTypeModel> _allSubTypesForVisuals;
+		protected ObservableCollection<ISubEventTypeModel> _allSubTypesForVisuals;
 
 		public IMainEventType SelectedMainEventType
 		{
@@ -49,9 +50,9 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(tempFilteredEventTypes);
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
-		private List<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
+		private ObservableCollection<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
 		{
-			return _allSubTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
+			return _allSubTypesForVisuals.ToList().FindAll(x => x.MainEventType.Equals(value)).ToObservableCollection();
 		}
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC
 		{
@@ -142,7 +143,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		public AllEventsViewModel() : base()
 		{
 			InitializeCommon();
-			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			_allSubTypesForVisuals = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelected);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 		}
@@ -151,7 +152,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		public AllEventsViewModel(ISubEventTypeModel eventType) : base()
 		{
 			InitializeCommon();
-			var allTempTypes = new List<ISubEventTypeModel>();
+			var allTempTypes = new ObservableCollection<ISubEventTypeModel>();
 			foreach (var item in AllSubEventTypesOC)
 			{
 				allTempTypes.Add(item);
@@ -188,7 +189,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		{
 			try
 			{
-				_eventRepository.AllEventsList.RemoveAll(item => EventsToShowList.Contains(item));
+				_eventRepository.AllEventsList.ToList().RemoveAll(item => EventsToShowList.Contains(item));
 				AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 				await EventRepository.SaveEventsListAsync();
 			}
@@ -235,7 +236,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		}
 		private async Task OnSaveSelectedEventsAndTypesCommand()
 		{
-			await _eventRepository.SaveEventsAndTypesToFile(new List<IGeneralEventModel>(EventsToShowList));
+			await _eventRepository.SaveEventsAndTypesToFile(new ObservableCollection<IGeneralEventModel>(EventsToShowList));
 		}
 		public AsyncRelayCommand TestButtonCommand2 { get; set; }
 

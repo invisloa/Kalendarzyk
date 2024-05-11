@@ -350,9 +350,9 @@ namespace Kalendarzyk.ViewModels
 		private async Task DeleteMainEventType()
 		{
 			// Perform the operation to delete all events of the event type.
-			_eventRepository.AllEventsList.RemoveAll(x => x.EventType.MainEventType.Equals(_currentMainType));
+			_eventRepository.AllEventsList.ToList().RemoveAll(x => x.EventType.MainEventType.Equals(_currentMainType));
 			await _eventRepository.SaveEventsListAsync();
-			_eventRepository.AllUserEventTypesList.RemoveAll(x => x.MainEventType.Equals(_currentMainType));
+			_eventRepository.AllUserEventTypesList.ToList().RemoveAll(x => x.MainEventType.Equals(_currentMainType));
 			await _eventRepository.SaveSubEventTypesListAsync();
 			_eventRepository.AllMainEventTypesList.Remove(_currentMainType);
 			await _eventRepository.SaveMainEventTypesListAsync();

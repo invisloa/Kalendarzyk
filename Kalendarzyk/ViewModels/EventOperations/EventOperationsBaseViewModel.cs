@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Mvvm.Input;
 using Kalendarzyk.Helpers;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
@@ -43,7 +44,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
-			_allSubTypesForVisuals = new List<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
+			_allSubTypesForVisuals = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
 			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
@@ -75,7 +76,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
 		protected AsyncRelayCommand _asyncSubmitEventCommand;
 		protected Color _mainEventTypeBackgroundColor;
-		protected List<ISubEventTypeModel> _allSubTypesForVisuals;
+		protected ObservableCollection<ISubEventTypeModel> _allSubTypesForVisuals;
 		protected ObservableCollection<ISubEventTypeModel> _eventTypesOC;
 		protected ObservableCollection<IGeneralEventModel> _allEventsListOC;
 		protected ISubEventTypeModel _selectedEventType;
@@ -137,9 +138,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
 		}
 
-		private List<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
+		private ObservableCollection<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
 		{
-			var x = _allSubTypesForVisuals.FindAll(x => x.MainEventType.Equals(value));
+			var x = _allSubTypesForVisuals.ToList().FindAll(x => x.MainEventType.Equals(value)).ToObservableCollection();
 			return x;
 		}
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC

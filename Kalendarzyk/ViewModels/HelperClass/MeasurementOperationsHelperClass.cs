@@ -1,4 +1,5 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.ViewModels.HelperClass.ExtensionsMethods;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -43,11 +44,11 @@ namespace Kalendarzyk.ViewModels.HelperClass
 		private List<MeasurementUnit> TimeTypeMeasurements { get; set; }
 		private List<MeasurementUnit> TemperatureTypeMeasurements { get; set; }
 		private ObservableCollection<IGeneralEventModel> _eventsToShowOC { get; set; }
-		private List<IGeneralEventModel> _eventsOrderedByDateList
+		private ObservableCollection<IGeneralEventModel> _eventsOrderedByDateList
 		{
 			get
 			{
-				return _eventsToShowOC.OrderBy(e => e.StartDateTime).ToList();
+				return _eventsToShowOC.OrderBy(e => e.StartDateTime).ToObservableCollection();
 			}
 		}
 

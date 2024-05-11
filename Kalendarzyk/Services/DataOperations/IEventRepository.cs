@@ -1,5 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
+using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.Services.DataOperations
 {
@@ -22,21 +23,21 @@ namespace Kalendarzyk.Services.DataOperations
 
 		Task<ISubEventTypeModel> GetSubEventTypeAsync(ISubEventTypeModel eventTypeToSelect);
 		Task<IMainEventType> GetMainEventTypeAsync(IMainEventType eventTypeToSelect);
-		string SerializeAllEventsDataToJson(List<IGeneralEventModel> eventsToSaveList);
+		string SerializeAllEventsDataToJson(ObservableCollection<IGeneralEventModel> eventsToSaveList);
 		Task ClearAllEventsListAsync();
 		Task ClearAllSubEventTypesAsync();
 		Task ClearAllMainEventTypesAsync();
 
-		List<IGeneralEventModel> AllEventsList { get; }
-		List<ISubEventTypeModel> AllUserEventTypesList { get; }
-		List<IMainEventType> AllMainEventTypesList { get; }
-		List<IGeneralEventModel> DeepCopyAllEventsList();
-		List<ISubEventTypeModel> DeepCopySubEventTypesList();
-		List<IMainEventType> DeepCopyMainEventTypesList();
-		Task<List<IGeneralEventModel>> GetEventsListAsync();
-		Task<List<ISubEventTypeModel>> GetSubEventTypesListAsync();
-		Task<List<IMainEventType>> GetMainEventTypesListAsync();
-		Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSave = null);
+		ObservableCollection<IGeneralEventModel> AllEventsList { get; }
+		ObservableCollection<ISubEventTypeModel> AllUserEventTypesList { get; }
+		ObservableCollection<IMainEventType> AllMainEventTypesList { get; }
+		ObservableCollection<IGeneralEventModel> DeepCopyAllEventsList();
+		ObservableCollection<ISubEventTypeModel> DeepCopySubEventTypesList();
+		ObservableCollection<IMainEventType> DeepCopyMainEventTypesList();
+		Task<ObservableCollection<IGeneralEventModel>> GetEventsListAsync();
+		Task<ObservableCollection<ISubEventTypeModel>> GetSubEventTypesListAsync();
+		Task<ObservableCollection<IMainEventType>> GetMainEventTypesListAsync();
+		Task SaveEventsAndTypesToFile(ObservableCollection<IGeneralEventModel> eventsToSave = null);
 		Task LoadEventsAndTypesFromFile();
 		Task InitializeAsync();
 		Task ImportEventsFromJson(string jsonData);

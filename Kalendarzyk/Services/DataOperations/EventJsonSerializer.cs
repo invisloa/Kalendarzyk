@@ -1,6 +1,8 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace Kalendarzyk.Services.DataOperations
 {
@@ -22,10 +24,10 @@ namespace Kalendarzyk.Services.DataOperations
 
 
 		public string SerializeAllDataToJson(
-			List<IGeneralEventModel> eventsToSaveList,
-			List<IGeneralEventModel> allEventsList,
-			List<ISubEventTypeModel> allUserEventTypesList,
-			List<IMainEventType> allMainEventTypesList)
+			ObservableCollection<IGeneralEventModel> eventsToSaveList,
+				ObservableCollection<IGeneralEventModel> allEventsList,
+			ObservableCollection<ISubEventTypeModel> allUserEventTypesList,
+			ObservableCollection<IMainEventType> allMainEventTypesList)
 		{
 			var eventsAndTypesToSave = BuildEventsAndTypesForJson(
 				eventsToSaveList,
@@ -38,10 +40,10 @@ namespace Kalendarzyk.Services.DataOperations
 		}
 
 		private EventsAndTypesForJson BuildEventsAndTypesForJson(
-			List<IGeneralEventModel> eventsToSaveList,
-			List<IGeneralEventModel> allEventsList,
-			List<ISubEventTypeModel> allUserEventTypesList,
-			List<IMainEventType> allMainEventTypesList)
+			ObservableCollection<IGeneralEventModel> eventsToSaveList,
+			ObservableCollection<IGeneralEventModel> allEventsList,
+			ObservableCollection<ISubEventTypeModel> allUserEventTypesList,
+			ObservableCollection<IMainEventType> allMainEventTypesList)
 		{
 			if (eventsToSaveList == null)
 			{
@@ -64,8 +66,8 @@ namespace Kalendarzyk.Services.DataOperations
 			return new EventsAndTypesForJson
 			{
 				Events = eventsToSaveList,
-				UserEventTypes = subTypesToSave.ToList(),
-				MainEventTypes = mainTypesToSave.ToList()
+				UserEventTypes = subTypesToSave.ToObservableCollection(),
+				MainEventTypes = mainTypesToSave.ToObservableCollection()
 			};
 		}
 		public EventsAndTypesForJson DeserializeEventsAllInfo(string jsonString)
@@ -80,12 +82,12 @@ namespace Kalendarzyk.Services.DataOperations
 				return null;
 			}
 		}
-		public List<IGeneralEventModel> DeserializeEventsFromJson(string jsonString)
+		public ObservableCollection<IGeneralEventModel> DeserializeEventsFromJson(string jsonString)
 		{
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				var deserializedEvents = JsonConvert.DeserializeObject<List<IGeneralEventModel>>(decryptedString, _settingsAll);
+				var deserializedEvents = JsonConvert.DeserializeObject<ObservableCollection<IGeneralEventModel>>(decryptedString, _settingsAll);
 				return deserializedEvents;
 			}
 			catch (Exception)
@@ -94,24 +96,24 @@ namespace Kalendarzyk.Services.DataOperations
 			}
 		}
 
-		public List<ISubEventTypeModel> DeserializeSubEventTypesFromJson(string jsonString)
+		public ObservableCollection<ISubEventTypeModel> DeserializeSubEventTypesFromJson(string jsonString)
 		{
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<List<ISubEventTypeModel>>(decryptedString, _settingsAll);
+				return JsonConvert.DeserializeObject<ObservableCollection<ISubEventTypeModel>>(decryptedString, _settingsAll);
 			}
 			catch (Exception)
 			{
 				return null;
 			}
 		}
-		public List<IMainEventType> DeserializeMainEventTypesFromJson(string jsonString)
+		public ObservableCollection<IMainEventType> DeserializeMainEventTypesFromJson(string jsonString)
 		{
 			try
 			{
 				var decryptedString = _aesService.DecryptString(jsonString);
-				var deserializedMainEventTypes = JsonConvert.DeserializeObject<List<IMainEventType>>(decryptedString, _settingsAll);
+				var deserializedMainEventTypes = JsonConvert.DeserializeObject<ObservableCollection<IMainEventType>>(decryptedString, _settingsAll);
 				return deserializedMainEventTypes;
 			}
 			catch (Exception)
@@ -119,17 +121,17 @@ namespace Kalendarzyk.Services.DataOperations
 				return null;
 			}
 		}
-		public string SerializeEventsToJson(List<IGeneralEventModel> eventsToSaveList)
+		public string SerializeEventsToJson(ObservableCollection<IGeneralEventModel> eventsToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(eventsToSaveList, _settingsAll);
 			return _aesService.EncryptString(jsonString);
 		}
-		public string SerializeSubEventTypesToJson(List<ISubEventTypeModel> subEventTypesToSaveList)
+		public string SerializeSubEventTypesToJson(ObservableCollection<ISubEventTypeModel> subEventTypesToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(subEventTypesToSaveList, _settingsAll);
 			return _aesService.EncryptString(jsonString);
 		}
-		public string SerializeMainEventTypesToJson(List<IMainEventType> mainEventTypesToSaveList)
+		public string SerializeMainEventTypesToJson(ObservableCollection<IMainEventType> mainEventTypesToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(mainEventTypesToSaveList, _settingsAll);
 			return _aesService.EncryptString(jsonString);
@@ -137,8 +139,8 @@ namespace Kalendarzyk.Services.DataOperations
 	}
 	public class EventsAndTypesForJson
 	{
-		public List<IGeneralEventModel> Events { get; set; }
-		public List<ISubEventTypeModel> UserEventTypes { get; set; }
-		public List<IMainEventType> MainEventTypes { get; set; }
+		public ObservableCollection<IGeneralEventModel> Events { get; set; }
+		public ObservableCollection<ISubEventTypeModel> UserEventTypes { get; set; }
+		public ObservableCollection<IMainEventType> MainEventTypes { get; set; }
 	}
 }

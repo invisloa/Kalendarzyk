@@ -1,9 +1,11 @@
 ﻿namespace Kalendarzyk.Views.CustomControls
 {
+	using CommunityToolkit.Maui.Core.Extensions;
 	using Kalendarzyk.Models.EventModels;
 	using Microsoft.Maui.Graphics;
 	using Microsoft.Maui.Layouts;
 	using System;
+	using System.Collections.ObjectModel;
 	using System.Linq;
 	using static Kalendarzyk.App;
 
@@ -143,7 +145,7 @@
 			};
 			stackLayout.Children.Add(dateLabel);
 
-			var dayEvents = EventsToShowList.Where(e => e.StartDateTime.Date == new DateTime(CurrentSelectedDate.Year, CurrentSelectedDate.Month, dayNumber)).ToList();
+			var dayEvents = EventsToShowList.Where(e => e.StartDateTime.Date == new DateTime(CurrentSelectedDate.Year, CurrentSelectedDate.Month, dayNumber)).ToObservableCollection();
 			if (dayEvents.Count > 0)
 			{
 				var eventStackLayout = GenerateEventStackLayout(dayEvents, dayNumber);
@@ -153,7 +155,7 @@
 			dateFrame.Content = stackLayout;
 			return dateFrame;
 		}
-		private StackLayout GenerateEventStackLayout(List<IGeneralEventModel> dayEvents, int dayNumber)
+		private StackLayout GenerateEventStackLayout(ObservableCollection<IGeneralEventModel> dayEvents, int dayNumber)
 		{
 			var stackLayout = new StackLayout();
 			if (dayEvents.Count > _LimitMoreLabbelText)
@@ -173,7 +175,7 @@
 			}
 			return stackLayout;
 		}
-		private StackLayout GenerateMultipleEventFrames(List<IGeneralEventModel> dayEvents)
+		private StackLayout GenerateMultipleEventFrames(ObservableCollection<IGeneralEventModel> dayEvents)
 		{
 			var eventItemsStackLayout = new StackLayout
 			{
@@ -236,7 +238,7 @@
 
 			return eventItemsStackLayout;
 		}
-		private FlexLayout GenerateMultiIconsEventLabel(List<IGeneralEventModel> dayEvents)
+		private FlexLayout GenerateMultiIconsEventLabel(ObservableCollection<IGeneralEventModel> dayEvents)
 		{
 			var flexItemLayout = new FlexLayout
 			{

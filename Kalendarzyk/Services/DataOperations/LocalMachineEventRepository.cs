@@ -1,4 +1,5 @@
 ﻿
+using CommunityToolkit.Maui.Core.Extensions;
 using Kalendarzyk;
 using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
@@ -6,6 +7,7 @@ using Kalendarzyk.Services;
 using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.Services.Notifier;
 using Kalendarzyk.Views;
+using System.Collections.ObjectModel;
 
 public class LocalMachineEventRepository : IEventRepository
 {
@@ -23,8 +25,8 @@ public class LocalMachineEventRepository : IEventRepository
 	}
 
 	#region Events Repository
-	private List<IGeneralEventModel> _allEventsList = new List<IGeneralEventModel>();
-	public List<IGeneralEventModel> AllEventsList
+	private ObservableCollection<IGeneralEventModel> _allEventsList = new ObservableCollection<IGeneralEventModel>();
+	public ObservableCollection<IGeneralEventModel> AllEventsList
 	{
 		get
 		{
@@ -36,8 +38,8 @@ public class LocalMachineEventRepository : IEventRepository
 			_allEventsList = value;
 		}
 	}
-	private List<IMainEventType> _allMainEventTypesList = new List<IMainEventType>();
-	public List<IMainEventType> AllMainEventTypesList
+	private ObservableCollection<IMainEventType> _allMainEventTypesList = new ObservableCollection<IMainEventType>();
+	public ObservableCollection<IMainEventType> AllMainEventTypesList
 	{
 		get
 		{
@@ -102,10 +104,10 @@ public class LocalMachineEventRepository : IEventRepository
 		AllMainEventTypesList.Clear();
 		await SaveMainEventTypesListAsync();
 	}
-	public async Task<List<IGeneralEventModel>> GetEventsListAsync()
+	public async Task<ObservableCollection<IGeneralEventModel>> GetEventsListAsync()
 	{
 		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.EventsFilePath);
-		AllEventsList = _eventJsonSerializer.DeserializeEventsFromJson(jsonString) ?? new List<IGeneralEventModel>();
+		AllEventsList = _eventJsonSerializer.DeserializeEventsFromJson(jsonString) ?? new ObservableCollection<IGeneralEventModel>();
 		return AllEventsList;
 	}
 	public async Task SaveEventsListAsync()
@@ -114,7 +116,7 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			if (AllEventsList.Count > 0)
 			{
-				AllEventsList = AllEventsList.OrderBy(e => e.StartDateTime).ToList();
+				AllEventsList = AllEventsList.OrderBy(e => e.StartDateTime).ToObservableCollection();
 			}
 			var jsonString = _eventJsonSerializer.SerializeEventsToJson(AllEventsList);
 			await _fileStorageService.WriteFileAsync(_localFilePathService.EventsFilePath, jsonString);
@@ -134,8 +136,8 @@ public class LocalMachineEventRepository : IEventRepository
 
 	// SubTypes Repository
 	#region SubTypes Repository
-	private List<ISubEventTypeModel> _allUserEventTypesList = new List<ISubEventTypeModel>();
-	public List<ISubEventTypeModel> AllUserEventTypesList
+	private ObservableCollection<ISubEventTypeModel> _allUserEventTypesList = new ObservableCollection<ISubEventTypeModel>();
+	public ObservableCollection<ISubEventTypeModel> AllUserEventTypesList
 	{
 		get
 		{
@@ -153,19 +155,19 @@ public class LocalMachineEventRepository : IEventRepository
 		AllUserEventTypesList = await GetSubEventTypesListAsync();
 		AllEventsList = await GetEventsListAsync();
 	}
-	public async Task<List<IMainEventType>> GetMainEventTypesListAsync()
+	public async Task<ObservableCollection<IMainEventType>> GetMainEventTypesListAsync()
 	{
 		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.MainEventsTypesFilePath);
 		var deserializedMainEventTypes = _eventJsonSerializer.DeserializeMainEventTypesFromJson(jsonString);
-		AllMainEventTypesList = deserializedMainEventTypes ?? new List<IMainEventType>();
+		AllMainEventTypesList = deserializedMainEventTypes ?? new ObservableCollection<IMainEventType>();
 		return AllMainEventTypesList;
 	}
-	public async Task<List<ISubEventTypeModel>> GetSubEventTypesListAsync()
+	public async Task<ObservableCollection<ISubEventTypeModel>> GetSubEventTypesListAsync()
 	{
 
 		var jsonString = await _fileStorageService.ReadFileAsync(_localFilePathService.SubEventsTypesFilePath);
 		var deserializedSubEventTypes = _eventJsonSerializer.DeserializeSubEventTypesFromJson(jsonString);
-		AllUserEventTypesList = deserializedSubEventTypes ?? new List<ISubEventTypeModel>();
+		AllUserEventTypesList = deserializedSubEventTypes ?? new ObservableCollection<ISubEventTypeModel>();
 		return AllUserEventTypesList;
 	}
 
@@ -241,18 +243,18 @@ public class LocalMachineEventRepository : IEventRepository
 		var selectedEventType = AllMainEventTypesList.FirstOrDefault(e => e.Equals(eventTypeToSelect));
 		return Task.FromResult(selectedEventType);
 	}
-	public List<IGeneralEventModel> DeepCopyAllEventsList()
+	public ObservableCollection<IGeneralEventModel> DeepCopyAllEventsList()
 	{
 		var jsonString = _eventJsonSerializer.SerializeEventsToJson(AllEventsList);
 		return _eventJsonSerializer.DeserializeEventsFromJson(jsonString);
 	}
-	public List<ISubEventTypeModel> DeepCopySubEventTypesList()
+	public ObservableCollection<ISubEventTypeModel> DeepCopySubEventTypesList()
 	{
 
 		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
 		return _eventJsonSerializer.DeserializeSubEventTypesFromJson(jsonString);
 	}
-	public List<IMainEventType> DeepCopyMainEventTypesList()
+	public ObservableCollection<IMainEventType> DeepCopyMainEventTypesList()
 	{
 		var jsonString = _eventJsonSerializer.SerializeSubEventTypesToJson(AllUserEventTypesList);
 		return _eventJsonSerializer.DeserializeMainEventTypesFromJson(jsonString);
@@ -262,7 +264,7 @@ public class LocalMachineEventRepository : IEventRepository
 	#region FILE SAVE AND LOAD
 
 	// Method for creating JSON string from events data it uses the EventsAndTypesForJson class because interface types cannot be newed up
-	public string SerializeAllEventsDataToJson(List<IGeneralEventModel> eventsToSaveList)
+	public string SerializeAllEventsDataToJson(ObservableCollection<IGeneralEventModel> eventsToSaveList)
 	{
 		return _eventJsonSerializer.SerializeAllDataToJson(eventsToSaveList, AllEventsList, AllUserEventTypesList, AllMainEventTypesList);
 	}
@@ -445,7 +447,7 @@ public class LocalMachineEventRepository : IEventRepository
 		await ImportEventsFromJson(jsonData);
 	}
 
-	public async Task SaveEventsAndTypesToFile(List<IGeneralEventModel> eventsToSaveList = null)
+	public async Task SaveEventsAndTypesToFile(ObservableCollection<IGeneralEventModel> eventsToSaveList = null)
 	{
 		try
 		{

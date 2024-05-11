@@ -1,4 +1,5 @@
-﻿using Kalendarzyk.Models.EventModels;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
 using
 /* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
@@ -47,11 +48,11 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 				.Select(x => x.EventTypeName)
 				.ToHashSet();
 
-			List<IGeneralEventModel> filteredEvents = AllEventsListOC
+			ObservableCollection<IGeneralEventModel> filteredEvents = AllEventsListOC
 				.Where(x => selectedToFilterEventTypes.Contains(x.EventType.ToString()) &&
 							x.StartDateTime.Date == startDate.Date &&
 							x.EndDateTime.Date <= endDate.Date)
-				.ToList();
+				.ToObservableCollection();
 
 			// Clear existing items in the EventsToShowList
 			EventsToShowList.Clear();

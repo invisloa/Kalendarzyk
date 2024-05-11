@@ -1,5 +1,6 @@
 ﻿using Kalendarzyk.Models.EventModels;
 using Kalendarzyk.Models.EventTypesModels;
+using System.Collections.ObjectModel;
 /* Unmerged change from project 'Kalendarzyk (net8.0-maccatalyst)'
 Before:
 using Kalendarzyk.Helpers;
@@ -74,9 +75,9 @@ namespace Kalendarzyk.Helpers
 			return false;
 		}
 		// todo changed for testing
-		public List<IGeneralEventModel> allEvents { get; set; }
+		public ObservableCollection<IGeneralEventModel> allEvents { get; set; }
 
-		public EventTimeConflictChecker(List<IGeneralEventModel> allEventsList)
+		public EventTimeConflictChecker(ObservableCollection<IGeneralEventModel> allEventsList)
 		{
 			this.allEvents = allEventsList;
 		}

@@ -194,7 +194,7 @@ namespace Kalendarzyk.ViewModels
 				{
 					case "Delete all associated events":
 						// Perform the operation to delete all events of the event type.
-						_eventRepository.AllEventsList.RemoveAll(x => x.EventType.Equals(_currentType.EventTypeName));
+						_eventRepository.AllEventsList.ToList().RemoveAll(x => x.EventType.Equals(_currentType.EventTypeName));
 						await _eventRepository.SaveEventsListAsync();
 						await _eventRepository.DeleteFromSubEventTypesListAsync(_currentType);
 						// TODO make a confirmation message

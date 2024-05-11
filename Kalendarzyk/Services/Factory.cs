@@ -71,7 +71,7 @@ namespace Kalendarzyk.Services
 			return new DummyEncryptionService();
 		}
 
-		public static IMainEventTypesCCViewModel CreateNewIMainEventTypeViewModelClass(List<IMainEventType> mainEventTypes)
+		public static IMainEventTypesCCViewModel CreateNewIMainEventTypeViewModelClass(ObservableCollection<IMainEventType> mainEventTypes)
 		{
 			return new MainEventTypesSelectorCCViewModel(mainEventTypes);
 		}
@@ -106,7 +106,7 @@ namespace Kalendarzyk.Services
 			return new MainEventType(mainTypeName, iconForMainEventType);
 		}
 
-		internal static IEventTimeConflictChecker CreateNewEventTimeConflictChecker(List<IGeneralEventModel> allEventsList)
+		internal static IEventTimeConflictChecker CreateNewEventTimeConflictChecker(ObservableCollection<IGeneralEventModel> allEventsList)
 		{
 			return new EventTimeConflictChecker(allEventsList);
 		}
