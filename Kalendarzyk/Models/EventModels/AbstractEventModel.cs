@@ -8,7 +8,6 @@ namespace Kalendarzyk.Models.EventModels
 	public abstract class AbstractEventModel : IGeneralEventModel
 	{
 		private TimeSpan _defaulteventRemindertime = TimeSpan.FromHours(24);
-		private const int _alphaColorDivisor = 20;
 		public Guid Id { get; }
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
@@ -31,12 +30,6 @@ namespace Kalendarzyk.Models.EventModels
 			get
 			{
 				Color color = EventType.EventTypeColor;
-
-				// Apply the completed color adjustment if necessary
-				if (IsCompleted)
-				{
-					color = IsCompleteColorAdapt(color);
-				}
 				return color;
 			}
 		}
@@ -58,10 +51,5 @@ namespace Kalendarzyk.Models.EventModels
 			PostponeHistory = new List<DateTime>(); // default new list 
 			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : null;
 		}
-		private Color IsCompleteColorAdapt(Color color)
-		{
-			return Color.FromRgba(color.Red, color.Green, color.Blue, color.Alpha / _alphaColorDivisor);
-		}
-
 	}
 }

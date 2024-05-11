@@ -19,6 +19,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		private RelayCommand<IGeneralEventModel> _goToEditEventCommand;
 		private RelayCommand _goToAddNewSubTypePageCommand;
 
+
 		protected Color _deselectedUserEventTypeColor;
 		#endregion
 
@@ -108,9 +109,11 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		{
 			OnEventsToShowListUpdated?.Invoke();
 		}
+
 		#endregion
 
 		#region Private Methods
+
 		protected virtual void OnUserEventTypeSelected(ISubEventTypeModel eventSubType)
 		{
 			eventSubType.IsSelectedToFilter = !eventSubType.IsSelectedToFilter;
