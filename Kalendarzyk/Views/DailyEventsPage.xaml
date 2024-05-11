@@ -7,9 +7,15 @@
              xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"
              xmlns:type_models="clr-namespace:Kalendarzyk.Models.EventTypesModels;assembly=Kalendarzyk"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
              x:DataType="local:DailyEventsViewModel"
              x:Class="Kalendarzyk.Views.DailyEventsPage"
              Title="Daily events list">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsCompletedEventConverter x:Key="isCompletedEventConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid BackgroundColor="{DynamicResource MainBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -58,7 +64,7 @@
                             </Grid>
                         </Grid>
 
-                        <Frame BackgroundColor="{Binding EventVisibleColor}"
+                        <Frame BackgroundColor="{Binding EventVisibleColor, Converter={StaticResource isCompletedEventConverter}, ConverterParameter={Binding IsCompleted}}"
                                 Grid.Column="1"
                                 >
                             <Frame.GestureRecognizers>

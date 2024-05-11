@@ -6,11 +6,16 @@
              xmlns:local="clr-namespace:Kalendarzyk.ViewModels.EventsViewModels"
              xmlns:type_models="clr-namespace:Kalendarzyk.Models.EventTypesModels;assembly=Kalendarzyk"
              x:DataType="local:AllEventsViewModel"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              Title="View All Events"
              BackgroundColor="{DynamicResource MainBackgroundColor}" 
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsCompletedEventConverter x:Key="isCompletedEventConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid Padding="10" RowSpacing="10">
 
@@ -73,7 +78,7 @@
                         <!-- Updated Frame styling with modern borders and shadow effects -->
                         <Frame Grid.RowSpan="2" Padding="10"
                                CornerRadius="10"
-                               BackgroundColor="{Binding EventVisibleColor}"
+                               BackgroundColor="{Binding EventVisibleColor, Converter={StaticResource isCompletedEventConverter}, ConverterParameter={Binding IsCompleted}}"
                                HasShadow="True">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.GoToEditEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"

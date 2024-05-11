@@ -18,29 +18,27 @@ namespace Kalendarzyk.Helpers.Converters
 		{
 			try
 			{
-				if (value is bool isTrue && isTrue)
+
+				if (parameter != null && value != null)
 				{
-					if (parameter != null)
+					if (parameter is bool isTrue && isTrue)
 					{
 
-						if (parameter is Color color)
-							return IsCompleteColorAdapt(parameter as Color);
+						if (value is Color color)
+							return IsCompleteColorAdapt(value as Color);
 						else
 						{
 
 							return Colors.Black;
 						}
-
 					}
-					else
-					{
-						return (Color)Application.Current.Resources["MainMicroTaskBackgroundColor"];
-					}
+					return null;
 				}
 				else
 				{
-					return (Color)Application.Current.Resources["DeselectedBackgroundColor"];
+					return (Color)Application.Current.Resources["MainMicroTaskBackgroundColor"];
 				}
+
 			}
 			catch (Exception ex)
 			{

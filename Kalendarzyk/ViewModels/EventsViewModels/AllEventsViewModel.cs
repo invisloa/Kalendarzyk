@@ -189,9 +189,18 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		{
 			try
 			{
-				_eventRepository.AllEventsList.ToList().RemoveAll(item => EventsToShowList.Contains(item));
+
+				//_eventRepository.AllEventsList.ToList().RemoveAll(item => EventsToShowList.Contains(item));
+				//AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
+				//await EventRepository.SaveEventsListAsync();
+
+				foreach (var item in EventsToShowList)
+				{
+					await EventRepository.DeleteFromEventsListAsync(item);
+				}
 				AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
-				await EventRepository.SaveEventsListAsync();
+				BindDataToScheduleList();
+
 			}
 			catch (Exception ex)
 			{
