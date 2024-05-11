@@ -78,7 +78,7 @@
                         <!-- Updated Frame styling with modern borders and shadow effects -->
                         <Frame Grid.RowSpan="2" Padding="10"
                                CornerRadius="10"
-                               BackgroundColor="{Binding EventVisibleColor, Converter={StaticResource isCompletedEventConverter}, ConverterParameter={Binding IsCompleted}}"
+                               BackgroundColor="{Binding EventType.BackgroundColor}"
                                HasShadow="True">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.GoToEditEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"

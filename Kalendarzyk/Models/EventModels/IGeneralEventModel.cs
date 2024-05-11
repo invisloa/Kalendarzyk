@@ -6,7 +6,6 @@ namespace Kalendarzyk.Models.EventModels
 	{
 		string Description { get; set; }
 		ISubEventTypeModel EventType { get; set; }
-		Color EventVisibleColor { get; }
 		Guid Id { get; }
 		bool IsCompleted { get; set; }
 		List<DateTime> PostponeHistory { get; set; }

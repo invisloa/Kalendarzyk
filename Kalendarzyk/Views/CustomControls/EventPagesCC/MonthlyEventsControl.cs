@@ -1,6 +1,7 @@
 ﻿namespace Kalendarzyk.Views.CustomControls
 {
 	using CommunityToolkit.Maui.Core.Extensions;
+	using Kalendarzyk.Helpers.Converters;
 	using Kalendarzyk.Models.EventModels;
 	using Microsoft.Maui.Graphics;
 	using Microsoft.Maui.Layouts;
@@ -228,7 +229,7 @@
 
 				var eventFrame = new Frame
 				{
-					BackgroundColor = eventItem.EventVisibleColor,
+					BackgroundColor = IsCompletedEventConverter.IsCompleteColorAdapt(eventItem.EventType.BackgroundColor),
 					Content = grid,
 					Padding = 2,
 					HasShadow = false,
@@ -286,7 +287,7 @@
 
 				var eventFrame = new Frame
 				{
-					BackgroundColor = eventItem.EventVisibleColor,
+					BackgroundColor = IsCompletedEventConverter.IsCompleteColorAdapt(eventItem.EventType.BackgroundColor),
 					Content = grid,
 					Padding = 0,
 					HasShadow = false,

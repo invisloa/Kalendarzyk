@@ -64,8 +64,8 @@
                             </Grid>
                         </Grid>
 
-                        <Frame BackgroundColor="{Binding EventVisibleColor, Converter={StaticResource isCompletedEventConverter}, ConverterParameter={Binding IsCompleted}}"
-                                Grid.Column="1"
+                        <Frame BackgroundColor="{Binding EventType.BackgroundColor}"
+                            Grid.Column="1"
                                 >
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.GoToEditEventCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"

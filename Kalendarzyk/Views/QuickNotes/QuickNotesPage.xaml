@@ -88,7 +88,7 @@
                                    />
                                 </Grid>
                             </Grid>
-                            <Frame BackgroundColor="{Binding EventVisibleColor}"
+                        <Frame BackgroundColor="{Binding EventType.BackgroundColor}"
                                 Grid.Column="1"
                                 >
                                 <Frame.GestureRecognizers>

@@ -24,16 +24,6 @@ namespace Kalendarzyk.Models.EventModels
 		public int? NotificationId { get; }
 		private INotificationIDGenerator _notificationIDGenerator => Factory.CreateNotificationIDGenerator();
 
-		[JsonIgnore]
-		public Color EventVisibleColor
-		{
-			get
-			{
-				Color color = EventType.EventTypeColor;
-				return color;
-			}
-		}
-
 		// TO Consider postpone time and maybe some other extra options for advanced event adding mode??
 		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,
 								bool isCompleted = false, TimeSpan? postponeTime = null, bool wasShown = false, Guid? id = null, int? notificationID = null, bool usesNotification = false)

@@ -9,8 +9,8 @@ namespace Kalendarzyk.Helpers.Converters
 {
 	internal class IsCompletedEventConverter : IValueConverter
 	{
-		private const int _alphaColorDivisor = 20;
-		private Color IsCompleteColorAdapt(Color color)
+		private const int _alphaColorDivisor = 2;
+		public static Color IsCompleteColorAdapt(Color color)
 		{
 			return Color.FromRgba(color.Red, color.Green, color.Blue, color.Alpha / _alphaColorDivisor);
 		}
@@ -18,6 +18,7 @@ namespace Kalendarzyk.Helpers.Converters
 		{
 			try
 			{
+				bool isCompleted = (bool)parameter;
 
 				if (parameter != null && value != null)
 				{

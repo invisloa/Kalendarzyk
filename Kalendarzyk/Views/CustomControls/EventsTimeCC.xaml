@@ -6,7 +6,7 @@
     <!-- Outer Grid for layout -->
     <Grid Grid.Column="0" VerticalOptions="Center">
         <!-- Inner Grid with custom styling and background color -->
-        <Grid Grid.Column="0" VerticalOptions="Center" BackgroundColor="{Binding EventVisibleColor}">
+        <Grid Grid.Column="0" VerticalOptions="Center" BackgroundColor="{Binding EventType.BackgroundColor}">
             <!-- Label to display the day of the month -->
             <Label Text="{Binding StartDateTime, StringFormat='{0:dd/MM}'}" FontSize="17" Margin="5, -3, 0, 0" FontAttributes="Bold"/>
             <!-- Label to display the year -->
