@@ -15,7 +15,5 @@ namespace Kalendarzyk.Models.EventModels
 		string Title { get; set; }
 		bool WasShown { get; set; }
 
-		// New property to store notification integer ID
-		public int? NotificationId { get; }
 	}
 }

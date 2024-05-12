@@ -20,9 +20,6 @@ namespace Kalendarzyk.Models.EventModels
 		public TimeSpan DefaultPostponeTime { get; set; }
 		public TimeSpan ReminderTime { get; set; }
 
-		// New property to store notification integer ID
-		public int? NotificationId { get; }
-		private INotificationIDGenerator _notificationIDGenerator => Factory.CreateNotificationIDGenerator();
 
 		// TO Consider postpone time and maybe some other extra options for advanced event adding mode??
 		public AbstractEventModel(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,
@@ -39,7 +36,6 @@ namespace Kalendarzyk.Models.EventModels
 			WasShown = wasShown;
 
 			PostponeHistory = new List<DateTime>(); // default new list 
-			NotificationId = usesNotification ? (notificationID ?? _notificationIDGenerator.GetNextUniqueId()) : null;
 		}
 	}
 }
