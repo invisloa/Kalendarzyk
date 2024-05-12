@@ -12,9 +12,14 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <Tab Title="Favorites">
             <ShellContent
+                Title="QuickNotes"
+                ContentTemplate="{DataTemplate local:FavoritePage}"
+                Route="Faasdasd" />
+            <ShellContent
                 Title="Daily"
                 ContentTemplate="{DataTemplate local:DailyEventsPage}"
                 Route="Daily Events" />
+
         </Tab>
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">

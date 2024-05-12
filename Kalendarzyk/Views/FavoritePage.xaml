@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
+             x:Class="Kalendarzyk.Views.FavoritePage"
+             xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
+             xmlns:models="clr-namespace:Kalendarzyk.Models.EventModels"
+             x:Name="root"
+             Title="{Binding PageTitle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="boolToColorConverter" />
+            <converters:IsCompleteToColorConverter x:Key="isCompleteToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <!-- Replace StackLayout with Grid -->
+    <Grid Padding="10" Background="{DynamicResource MainBackgroundColor}">
+        <!-- Define the rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- For Buttons -->
+            <RowDefinition Height="*" />
+            <!-- For CollectionView -->
+        </Grid.RowDefinitions>
+
+        <!-- Grid for Entry and Button -->
+        <Grid Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Column="0" Text="-" HorizontalOptions="End" 
+                BorderColor="Red" BorderWidth="2"
+                BackgroundColor="{Binding IsSelectedDeleteMode, 
+                Converter={StaticResource boolToColorConverter}, 
+                ConverterParameter=Dangerous}"
+                CornerRadius="10" Command="{Binding ToggleDeleteModeCommand}"
+                Margin="0,0,10,0" MinimumWidthRequest="40"/>
+
+            <Label  Grid.Column="1" VerticalOptions="Start" VerticalTextAlignment="Start" HorizontalOptions="End" HorizontalTextAlignment="Start"
+                    Text="search" 
+                    TextColor="{StaticResource MainButtonBackgroundColor}"
+                    FontSize="20"
+                    FontFamily="GoogleMaterialFont"
+                    />
+
+            <customControls:RoundEntryCC Grid.Column="1" Placeholder="Search..." Text="{Binding SearchBoxText}" HorizontalOptions="Center"  BackgroundColor="Transparent"/>
+
+
+
+            <Button
+                Style="{DynamicResource MyCustomButtonStyle}"
+                Grid.Column="2" HorizontalOptions="Start"  Text="+"  
+                CornerRadius="10" Command="{Binding GoToAddEventCommand}"
+                Margin="10,0,0,0" MinimumWidthRequest="40"
+                />
+        </Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"  Grid.Row="1" />
+
+        <customControls:EventsCollectionListCC Grid.Row="1" Margin="10" Padding="10"/>
+
+    </Grid>
+</ContentPage>
