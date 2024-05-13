@@ -30,19 +30,19 @@ public partial class OperationsBarCC : ContentView
 		set => SetValue(IsEventTypesButtonisibleProperty, value);
 	}
 
-	public static readonly BindableProperty IsCompleteButtonisibleProperty = BindableProperty.Create(
-	nameof(IsCompleteButtonisible),
+	public static readonly BindableProperty IsCompletedButtonVisibleProperty = BindableProperty.Create(
+	nameof(IsCompletedButtonVisible),
 	typeof(bool),
 	typeof(OperationsBarCC),
 	false,
-	propertyChanged: OnIsCompleteButtonisiblePropertyChanged);
+	propertyChanged: OnIsCompletedButtonisiblePropertyChanged);
 
-	private static void OnIsCompleteButtonisiblePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+	private static void OnIsCompletedButtonisiblePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 	{
 		var control = (OperationsBarCC)bindable;
-		control.OnPropertyChanged(nameof(IsCompleteButtonisible));
+		control.OnPropertyChanged(nameof(IsCompletedButtonVisible));
 	}
-	public bool IsCompleteButtonisible
+	public bool IsCompletedButtonVisible
 	{
 		get => (bool)GetValue(IsEventTypesButtonisibleProperty);
 		set => SetValue(IsEventTypesButtonisibleProperty, value);

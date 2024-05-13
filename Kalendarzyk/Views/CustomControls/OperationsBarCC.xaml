@@ -38,7 +38,7 @@
                 IconFontText="{Binding EventTypesInfoButton.IconFontText}"
                 IsSelectedCommand="{Binding EventTypesInfoButton.IsSelectedCommand}"/>
             <customControls:ChangableIconCC  Grid.Column="0" HorizontalOptions="Start" 
-                IsVisible="{Binding IsCompletedButtonisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
+                IsVisible="{Binding IsCompletedButtonVisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                 IconFontText="{Binding IsCompletedButton.IconFontText}"
                 IsSelectedCommand="{Binding IsCompletedButton.IsSelectedCommand}"
                                              IconTextColor="BlanchedAlmond"/>
