@@ -68,7 +68,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(DateTime selectedDate)
 			: base()
 		{
-
+			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(IsCompletedButton.IsSelected, "check_box", "check_box_outline_blank");
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
 			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsEventHelperClass();
 			StartDateTime = selectedDate;
@@ -84,7 +84,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			
 			_selectedCurrentEvent = eventToEdit;
-			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(false, "info", "info_outline");
 
 			_asyncSubmitEventCommand = new AsyncRelayCommand(AsyncEditEventAndGoBack, CanExecuteSubmitCommand);
 			AsyncDeleteEventCommand = new AsyncRelayCommand(AsyncDeleteSelectedEvent);
@@ -103,7 +102,10 @@ namespace Kalendarzyk.ViewModels.EventOperations
 			SelectedMainEventType = _selectedCurrentEvent.EventType.MainEventType;
 			SelectedEventType = _selectedCurrentEvent.EventType;
 
-			IsCompletedButton.IsSelected = _selectedCurrentEvent.IsCompleted;
+			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(_selectedCurrentEvent.IsCompleted, "check_box", "check_box_outline_blank");
+			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(false, "info", "info_outline");
+
+
 			FilterAllSubEventTypesOCByMainEventType(SelectedMainEventType); // CANNOT CHANGE MAIN EVENT TYPE
 
 

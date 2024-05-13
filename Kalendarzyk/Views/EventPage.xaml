@@ -25,6 +25,7 @@
                                             AsyncSaveButtonCommand="{Binding AsyncSubmitEventCommand}"
                                             AsyncDeleteButtonCommand="{Binding AsyncDeleteEventCommand}"
                                             AsyncShareEventButtonCommand="{Binding AsyncShareEventCommand}"
+                                            
                                             IsCompleteButtonisible="True"
                                             />
             
