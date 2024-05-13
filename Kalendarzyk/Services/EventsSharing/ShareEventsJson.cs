@@ -52,7 +52,7 @@ namespace Kalendarzyk.Services.EventsSharing
 			try
 			{
 
-				_eventRepository.ImportEventsFromJson(jsonString);
+				await _eventRepository.ImportEventsFromJson(jsonString);
 
 				// Assuming your MainPage is a NavigationPage
 				if (Application.Current.MainPage is NavigationPage navigationPage)

@@ -21,7 +21,7 @@
             <Picker ItemsSource="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC}" 
                         ItemDisplayBinding="{Binding DisplayName}"
                         SelectedItem="{Binding ExtraOptionsHelperToChangeName.DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit, Mode=TwoWay}" 
-                        MinimumWidthRequest="200" BackgroundColor="{DynamicResource MainButtonBackgroundColor}"
+                        MinimumWidthRequest="200"
                         HorizontalTextAlignment="Center" TextColor="{DynamicResource MainTextColor}"
                     />
         </StackLayout >

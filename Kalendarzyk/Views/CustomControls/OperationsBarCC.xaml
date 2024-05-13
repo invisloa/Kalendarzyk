@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:buttons="clr-namespace:Kalendarzyk.Views.CustomControls.Buttons"
              xmlns:converters="clr-namespace:Kalendarzyk.Helpers.Converters"
-             xmlns:local="Kalendarzyk.Views.CustomControls.OperationsBarCC"
+             xmlns:local="clr-namespace:Kalendarzyk.Views.CustomControls"
              xmlns:customControls="clr-namespace:Kalendarzyk.Views.CustomControls"
              x:Class="Kalendarzyk.Views.CustomControls.OperationsBarCC">
     <ContentView.Resources>
@@ -36,8 +36,19 @@
             <customControls:ChangableIconCC  Grid.Column="0" HorizontalOptions="Start" 
                 IsVisible="{Binding IsEventTypesButtonisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
                 IconFontText="{Binding EventTypesInfoButton.IconFontText}"
-                IsSelectedCommand="{Binding EventTypesInfoButton.IsSelectedCommand}"/>        
-            </StackLayout>
+                IsSelectedCommand="{Binding EventTypesInfoButton.IsSelectedCommand}"/>
+            <customControls:ChangableIconCC  Grid.Column="0" HorizontalOptions="Start" 
+                IsVisible="{Binding IsCompletedButtonisible, Source={RelativeSource AncestorType={x:Type local:OperationsBarCC}}}" 
+                IconFontText="{Binding IsCompletedButton.IconFontText}"
+                IsSelectedCommand="{Binding IsCompletedButton.IsSelectedCommand}"
+                                             IconTextColor="BlanchedAlmond"/>
+
+
+
+
+            <!--<customControls:IsNotificationCC/>-->
+
+        </StackLayout>
         <StackLayout  Grid.Column="2" Orientation="Horizontal" HorizontalOptions="End" >
             <buttons:ClickableFontButtonCC         
                         IconText="share" 

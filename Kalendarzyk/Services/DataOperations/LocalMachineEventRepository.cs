@@ -385,7 +385,7 @@ public class LocalMachineEventRepository : IEventRepository
 		{
 			try
 			{
-				Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
+				await Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
 
 			}
 			catch (Exception ex)
@@ -412,7 +412,7 @@ public class LocalMachineEventRepository : IEventRepository
 					AllEventsList.Add(eventItem);
 					break;
 				case "Edit":
-					Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
+					await Application.Current.MainPage.Navigation.PushAsync(new EventPage(eventItem));
 					break;
 				case "Skip":
 					// Do nothing, just skip.

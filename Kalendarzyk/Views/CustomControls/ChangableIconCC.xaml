@@ -8,6 +8,6 @@
     <buttons:ClickableFontButtonCC         
         IconText="{Binding IconFontText, Source={x:Reference this}}"
         SubmitCommand="{Binding IsSelectedCommand, Source={x:Reference this}}" 
-        IconTextColor="Blue" 
+        IconTextColor="{Binding IconTextColor, Source={x:Reference this}}" 
         Margin="10" FontSize="44"/>
 </ContentView>

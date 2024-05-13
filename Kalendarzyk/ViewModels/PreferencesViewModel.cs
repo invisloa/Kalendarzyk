@@ -169,7 +169,7 @@ namespace Kalendarzyk.ViewModels
 			{
 				return _goToLanguageSelectionPage ?? (_goToLanguageSelectionPage = new AsyncRelayCommand(async () =>
 				{
-					Application.Current.MainPage.Navigation.PushAsync(new FirstRunPage());
+					await Application.Current.MainPage.Navigation.PushAsync(new FirstRunPage());
 				}));
 			}
 		}

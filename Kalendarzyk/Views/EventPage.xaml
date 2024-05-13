@@ -25,6 +25,7 @@
                                             AsyncSaveButtonCommand="{Binding AsyncSubmitEventCommand}"
                                             AsyncDeleteButtonCommand="{Binding AsyncDeleteEventCommand}"
                                             AsyncShareEventButtonCommand="{Binding AsyncShareEventCommand}"
+                                            IsCompleteButtonisible="True"
                                             />
             
             
@@ -45,22 +46,15 @@
 
             <!--MOVE THOSE 3 TO ExtraOptionsSelectorCC-->
 
-
-            <!--VALUE CC-->
-            <customControls:MeasurementSelectorCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsValueBtnSelected}"/>
             <!--MicroTasks CC-->
-            <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}" />
+            <customControls:MicroTasksListCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsMicroTasksBtnSelected}"  Margin="10"/>
+            <!--VALUE CC-->
+            <customControls:MeasurementSelectorCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsValueBtnSelected}"  Margin="10"/>
             <!--Dates CC-->
-            <customControls:DateStartEndCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsDateBtnSelected}"  />
+            <customControls:DateStartEndCC IsVisible="{Binding ExtraOptionsHelperToChangeName.IsDateBtnSelected}"  Margin="10" />
 
 
-            <!--IsComplete Frame-->
-            <customControls:ChangableIconCC 
-                IconFontText="{Binding IsCompletedButton.IconFontText}"
-                IsSelectedCommand="{Binding IsCompletedButton.IsSelectedCommand}"/>
 
-
-            <!--<customControls:IsNotificationCC/>-->
         </StackLayout>
 
     </ScrollView>

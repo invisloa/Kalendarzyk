@@ -94,12 +94,12 @@ namespace Kalendarzyk.ViewModels.QuickNotes
 		}
 		private async Task OnEditSelectedQuickNoteCommand(IGeneralEventModel quickNote)
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new AddQuickNotesPage(_eventRepository, quickNote));
+				await Application.Current.MainPage.Navigation.PushAsync(new AddQuickNotesPage(_eventRepository, quickNote));
 		}
 
 		private async Task GoToAddQuickNote()
 		{
-			Application.Current.MainPage.Navigation.PushAsync(new AddQuickNotesPage());
+			await Application.Current.MainPage.Navigation.PushAsync(new AddQuickNotesPage());
 		}
 		private void SearchQuickNotes()
 		{
