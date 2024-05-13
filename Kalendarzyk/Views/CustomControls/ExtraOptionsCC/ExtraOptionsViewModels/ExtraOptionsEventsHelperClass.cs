@@ -44,6 +44,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 					DefaultMeasurementSelectorCCHelper.QuantityValue = SubEventType.QuantityAmount.Value;
 				}
 				DefaultMeasurementSelectorCCHelper.SelectPropperMeasurementData(SubEventType);
+				DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC = DefaultMeasurementSelectorCCHelper.MeasurementUnitsOC.Where(x => x.TypeOfMeasurementUnit == SubEventType.QuantityAmount.Unit).ToObservableCollection();
+
 			}
 
 			if (SubEventType.IsMicroTaskType)
@@ -64,7 +66,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Micro Tasks", false, new RelayCommand<SelectableButtonViewModel>(OnIsMicroTasksSelected), isEnabled: SubEventType?.IsMicroTaskType == true));
 			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("Value", false, new RelayCommand<SelectableButtonViewModel>(OnIsEventValueType), isEnabled: SubEventType?.IsValueType == true));
-
 			ExtraOptionsButtonsSelectors.Add(new SelectableButtonViewModel("DATE", false, new RelayCommand<SelectableButtonViewModel>(OnIsDateControlsSelectedCommand), isEnabled: SubEventType != null));
 		}
 		private void ReloadExtraOptionsButtons() // TODO JO XXX REFACTOR THIS to be more modular
@@ -83,8 +84,6 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			IsDateBtnSelected = !clickedButton.IsSelected;
 			SelectableButtonViewModel.MultiButtonSelection(clickedButton);
 		}
-
-
 
 		internal void OnEventTypeChanged(ISubEventTypeModel selectedEventType)	
 		{
