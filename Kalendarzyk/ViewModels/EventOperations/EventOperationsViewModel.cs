@@ -68,7 +68,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		public EventOperationsViewModel(DateTime selectedDate)
 			: base()
 		{
-			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(IsCompletedButton.IsSelected, "check_box", "check_box_outline_blank");
+			IsCompletedButton = Factory.CreateNewChangableFontsIconAdapter(false, "check_box", "check_box_outline_blank");
 			EventTypesInfoButton = Factory.CreateNewChangableFontsIconAdapter(true, "info", "info_outline");
 			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsEventHelperClass();
 			StartDateTime = selectedDate;
