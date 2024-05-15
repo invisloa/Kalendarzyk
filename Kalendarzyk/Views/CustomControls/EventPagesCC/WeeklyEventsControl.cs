@@ -229,38 +229,35 @@
 		{
 			if (hourlyEvents.Any())
 			{
-				//Add events to the grid as buttons
 				var eventsCount = hourlyEvents.Count();
 				if (eventsCount > _displayEventsLimit)
 				{
-					Children.Add(GenerateMoreButton(eventsCount, dayOfWeek));
+					var moreButton = GenerateMoreButton(eventsCount, dayOfWeek);
+					// Set the correct row and column for the "More" button
+					Grid.SetRow(moreButton, dayOfWeek + 1); // Offset by 1 to account for the header row
+					Grid.SetColumn(moreButton, 1); // Adjust column index as necessary
+
+					Children.Add(moreButton);
 				}
 				else
 				{
-					var StackLayoutitem = new StackLayout();
-
+					var stackLayout = new StackLayout();
 					foreach (var eventModel in hourlyEvents)
 					{
 						var eventFrame = DrawEventFrame(eventModel);
-
-						Grid.SetRow(StackLayoutitem, dayOfWeek + 1); // Offset by 1 to account for the header row
-						var calculatedEventTime = eventModel.StartDateTime.Hour + 2 - _hoursSpanFrom;
-						var columnForEvent = calculatedEventTime < 0 ? 1 : calculatedEventTime;
-						Grid.SetColumn(StackLayoutitem, columnForEvent); // Offset by 2 to account for the day labels column and "before" column
-																											 //var eventTime = eventModel.EndDateTime.Hour - eventModel.StartDateTime.Hour;
-																											 //if (eventTime > 1)
-																											 //{
-																											 //	Grid.SetColumnSpan(StackLayoutitem, eventTime);
-																											 //}
-						StackLayoutitem.Add(eventFrame);
-
+						stackLayout.Children.Add(eventFrame);
 					}
-					Children.Add(StackLayoutitem);
 
+					// Set the correct row and column for the stack layout
+					Grid.SetRow(stackLayout, dayOfWeek + 1); // Offset by 1 to account for the header row
+					var calculatedEventTime = _hoursSpanFrom > 0 ? 1 : 0;
+					Grid.SetColumn(stackLayout, calculatedEventTime); // Adjust column index as necessary
+
+					Children.Add(stackLayout);
 				}
 			}
 		}
-		private Label GenerateMoreButton(int dayEventsCount, int dayOfWeek)     // Consider if use this at all or just set no limit for number of events??
+		private Frame GenerateMoreButton(int dayEventsCount, int dayOfWeek)
 		{
 			var moreLabel = new Label
 			{
@@ -268,7 +265,9 @@
 				FontAttributes = FontAttributes.Italic,
 				Text = $"... {dayEventsCount} ...",
 				TextColor = _eventTextColor,
-				BackgroundColor = _moreEventsLabelColor
+				BackgroundColor = _moreEventsLabelColor,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center,
 			};
 			var tapGestureRecognizerForMoreEvents = new TapGestureRecognizer
 			{
@@ -276,46 +275,52 @@
 				CommandParameter = CurrentSelectedDate.AddDays(dayOfWeek - (int)CurrentSelectedDate.DayOfWeek)
 			};
 			moreLabel.GestureRecognizers.Add(tapGestureRecognizerForMoreEvents);
-			return moreLabel;
+
+			var moreButtonFrame = new Frame
+			{
+				Content = moreLabel,
+				Padding = 0,
+				BackgroundColor = Colors.Transparent,
+				BorderColor = Colors.Transparent
+			};
+
+			return moreButtonFrame;
 		}
-		private void GenerateEventFrames() // to make the events span across multiple hours maybe try to use new grid placed above the main grid?? todo in the future
+		private void GenerateEventFrames()
 		{
 			// Create frames for each hour and day
 			for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++)
 			{
 				// FOR BEFORE SPAN COLUMN
-				var frame = DrawHourFrame(-1, dayOfWeek); // Adjust hour for CreateEventFrame
+				var frame = DrawHourFrame(-1, dayOfWeek);
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-				Grid.SetColumn(frame, -1 + 2); // Offset by 2 to account for the day labels column and "before" column
+				Grid.SetColumn(frame, 1); // Column for before span
 
 				Children.Add(frame);
 
 				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));
 				AddEventsToGrid(eventsInBeforeSpan, dayOfWeek);
 
-
-
 				// For normal hours span Columns
 				for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
 				{
-					frame = DrawHourFrame(hour, dayOfWeek); // Adjust hour for CreateEventFrame
+					frame = DrawHourFrame(hour, dayOfWeek);
 					Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Offset by 2 to account for the day labels column and "before" column
+					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Adjust column index
+
 					Children.Add(frame);
-					//Add events for Normal span
 					var eventsInHour = GetHourEvents(hour, CalculateFrameDate(dayOfWeek));
 					AddEventsToGrid(eventsInHour, dayOfWeek);
 				}
 
 				// FOR AFTER SPAN COLUMN
-				frame = DrawHourFrame(-2, dayOfWeek); // Adjust hour for CreateEventFrame
+				frame = DrawHourFrame(-2, dayOfWeek);
 				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Offset by 2 to account for the day labels column and "before" column
+				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Column for after span
+
 				Children.Add(frame);
-				//Addevents for after span
 				var eventsInAfterSpan = GetHourEvents(-2, CalculateFrameDate(dayOfWeek));
 				AddEventsToGrid(eventsInAfterSpan, dayOfWeek);
-
 			}
 		}
 
