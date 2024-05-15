@@ -31,6 +31,7 @@ public partial class DailyEventsPage : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
+		(BindingContext as DailyEventsViewModel).AllEventsListOC = (BindingContext as DailyEventsViewModel).EventRepository.AllEventsList;    //TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
 		(BindingContext as DailyEventsViewModel).OnAppearing();
 	}
 

@@ -1,4 +1,5 @@
 using Kalendarzyk.Helpers;
+using Kalendarzyk.Services.DataOperations;
 using Kalendarzyk.ViewModels.EventsViewModels;
 
 
@@ -29,6 +30,7 @@ namespace Kalendarzyk.Views
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
+			(BindingContext as WeeklyEventsViewModel).AllEventsListOC = (BindingContext as WeeklyEventsViewModel).EventRepository.AllEventsList;	//TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
 			(BindingContext as WeeklyEventsViewModel).BindDataToScheduleList();
 		}
 	}

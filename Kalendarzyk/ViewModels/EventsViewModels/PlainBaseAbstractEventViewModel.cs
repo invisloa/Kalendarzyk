@@ -83,8 +83,8 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 		public PlainBaseAbstractEventViewModel()
 		{
 			_eventRepository = Factory.GetEventRepository();
-			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.AllUserEventTypesList);
+			AllEventsListOC = _eventRepository.AllEventsList;
+			AllSubEventTypesOC = _eventRepository.AllUserEventTypesList;
 			if (Application.Current.Resources.TryGetValue("MainEventDeselectedBackgroundColor", out var retrievedColor))
 			{
 				_deselectedUserEventTypeColor = (Color)retrievedColor;

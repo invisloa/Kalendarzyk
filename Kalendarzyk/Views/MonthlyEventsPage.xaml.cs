@@ -25,6 +25,8 @@ public partial class MonthlyEventsPage : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
+		(BindingContext as WeeklyEventsViewModel).AllEventsListOC = (BindingContext as WeeklyEventsViewModel).EventRepository.AllEventsList;    //TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
+
 		(BindingContext as MonthlyEventsViewModel).BindDataToScheduleList();
 	}
 

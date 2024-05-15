@@ -198,7 +198,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 				{
 					await EventRepository.DeleteFromEventsListAsync(item);
 				}
-				AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
+				AllEventsListOC = _eventRepository.AllEventsList;
 				BindDataToScheduleList();
 
 			}
@@ -212,7 +212,7 @@ namespace Kalendarzyk.ViewModels.EventsViewModels
 			try
 			{
 				_eventRepository.AllEventsList.Clear();
-				AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
+				AllEventsListOC = _eventRepository.AllEventsList;
 				await EventRepository.SaveEventsListAsync();
 
 			}

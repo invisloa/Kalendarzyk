@@ -39,6 +39,8 @@ public partial class AllEventsPage : ContentPage
 	protected override void OnAppearing()
 	{
 		var viewModel = BindingContext as AllEventsViewModel;
+		viewModel.AllEventsListOC = viewModel.EventRepository.AllEventsList;    //TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
+
 		base.OnAppearing();
 		viewModel.OnAppearing();
 	}

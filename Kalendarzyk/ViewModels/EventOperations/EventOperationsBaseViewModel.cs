@@ -44,9 +44,9 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
-			_allSubTypesForVisuals = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(_eventRepository.DeepCopySubEventTypesList());
-			AllEventsListOC = new ObservableCollection<IGeneralEventModel>(_eventRepository.AllEventsList);
+			_allSubTypesForVisuals = _eventRepository.DeepCopySubEventTypesList();
+			AllSubEventTypesOC = _eventRepository.DeepCopySubEventTypesList();
+			AllEventsListOC = _eventRepository.AllEventsList;
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
 			SelectUserEventTypeCommand = new RelayCommand<ISubEventTypeModel>(OnUserEventTypeSelectedCommand);
 			_eventTimeConflictChecker = Factory.CreateNewEventTimeConflictChecker(_eventRepository.AllEventsList);
