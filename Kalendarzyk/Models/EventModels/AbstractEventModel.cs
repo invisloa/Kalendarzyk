@@ -17,7 +17,6 @@ namespace Kalendarzyk.Models.EventModels
 		public virtual bool IsCompleted { get; set; }
 		public ISubEventTypeModel EventType { get; set; }
 		public List<DateTime> PostponeHistory { get; set; }
-		public TimeSpan DefaultPostponeTime { get; set; }
 		public TimeSpan ReminderTime { get; set; }
 
 
@@ -34,7 +33,6 @@ namespace Kalendarzyk.Models.EventModels
 			EventType = eventType;
 			IsCompleted = isCompleted;
 			WasShown = wasShown;
-
 			PostponeHistory = new List<DateTime>(); // default new list 
 		}
 	}

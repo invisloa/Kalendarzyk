@@ -11,7 +11,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 		Color BackgroundColor { get; set; } // color that is currently shown (isCompleted color adjustment)
 		string EventTypeColorString { get; set; }   // needed for json serialization
 		string EventTypeName { get; set; }
-		bool IsSelectedToFilter { get; set; }
+		bool IsSelectedToFilter { get; set; }		//  TODO XXXX YYYY Refactor this->  delete and move this to a viewmodel!!!
 		QuantityModel QuantityAmount { get; set; }
 		IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
 		public TimeSpan DefaultEventTimeSpan { get; set; }  // default event time for the event type
