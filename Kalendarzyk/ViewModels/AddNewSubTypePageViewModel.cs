@@ -36,7 +36,7 @@ namespace Kalendarzyk.ViewModels
 			}
 		}
 		// TODO ! CHANGE THE BELOW CLASS TO VIEW MODEL 
-		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC; set => ((IMainEventTypesCCViewModel)_mainEventTypesCCHelper).MainEventTypesVisualsOC = value; }
+		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get; set ; }
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;

@@ -44,7 +44,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		{
 			_eventRepository = Factory.GetEventRepository();
 			_mainEventTypesCCHelper = Factory.CreateNewIMainEventTypeViewModelClass(_eventRepository.AllMainEventTypesList);
-			_allSubTypesForVisuals = _eventRepository.DeepCopySubEventTypesList();
 			AllSubEventTypesOC = _eventRepository.DeepCopySubEventTypesList();
 			AllEventsListOC = _eventRepository.AllEventsList;
 			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelected);
@@ -74,7 +73,6 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		protected TimeSpan _endExactTime = DateTime.Now.TimeOfDay;
 		protected AsyncRelayCommand _asyncSubmitEventCommand;
 		protected Color _mainEventTypeBackgroundColor;
-		protected ObservableCollection<ISubEventTypeModel> _allSubTypesForVisuals;
 		protected ObservableCollection<ISubEventTypeModel> _eventTypesOC;
 		protected ObservableCollection<IGeneralEventModel> _allEventsListOC;
 		protected ISubEventTypeModel _selectedEventType;
@@ -130,16 +128,8 @@ namespace Kalendarzyk.ViewModels.EventOperations
 
 		private void FilterAllSubEventTypesOCByMainEventType(IMainEventType value)
 		{
-			var tempFilteredEventTypes = FilterSubTypesForVisuals(value);
-
-			AllSubEventTypesOC = new ObservableCollection<ISubEventTypeModel>(tempFilteredEventTypes);
+			AllSubEventTypesOC = _eventRepository.AllUserEventTypesList.Where(x => x.MainEventType.Equals(value)).ToObservableCollection();
 			OnPropertyChanged(nameof(AllSubEventTypesOC));
-		}
-
-		private ObservableCollection<ISubEventTypeModel> FilterSubTypesForVisuals(IMainEventType value)
-		{
-			var x = _allSubTypesForVisuals.ToList().FindAll(x => x.MainEventType.Equals(value)).ToObservableCollection();
-			return x;
 		}
 		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC
 		{
