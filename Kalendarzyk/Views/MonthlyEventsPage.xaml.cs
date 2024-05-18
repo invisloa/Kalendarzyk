@@ -1,36 +1,42 @@
 using Kalendarzyk.Helpers;
 using Kalendarzyk.ViewModels.EventsViewModels;
 
-namespace Kalendarzyk.Views;
-
-public partial class MonthlyEventsPage : ContentPage
+namespace Kalendarzyk.Views
 {
-	public MonthlyEventsPage()
+	public partial class MonthlyEventsPage : ContentPage
 	{
-		InitializeComponent();
-		var viewModel = ServiceHelper.GetService<MonthlyEventsViewModel>();
-		BindingContext = viewModel;
+		private MonthlyEventsViewModel viewModel;
 
-		// geterate new grid everytime the list of events to show is updated (e.g. when user adds new event)
-		viewModel.OnEventsToShowListUpdated += () =>
+		public MonthlyEventsPage()
 		{
-			monthlyEventsControl.GenerateGrid();
-		};
-	}
-	protected override void OnDisappearing()
-	{
-		base.OnDisappearing();
-		(BindingContext as MonthlyEventsViewModel).OnEventsToShowListUpdated -= monthlyEventsControl.GenerateGrid;
-	}
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-		(BindingContext as WeeklyEventsViewModel).AllEventsListOC = (BindingContext as WeeklyEventsViewModel).EventRepository.AllEventsList;    //TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
+			InitializeComponent();
+			viewModel = ServiceHelper.GetService<MonthlyEventsViewModel>();
+			BindingContext = viewModel;
 
-		(BindingContext as MonthlyEventsViewModel).BindDataToScheduleList();
+			// Generate new grid every time the list of events to show is updated (e.g. when user adds new event)
+			viewModel.OnEventsToShowListUpdated += () =>
+			{
+				monthlyEventsControl.GenerateGrid();
+			};
+		}
+
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+			if (viewModel != null)
+			{
+				viewModel.OnEventsToShowListUpdated -= monthlyEventsControl.GenerateGrid;
+			}
+		}
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			if (viewModel != null)
+			{
+				viewModel.AllEventsListOC = viewModel.EventRepository.AllEventsList; // TEMP FIX TODO: ALL events list didn't update after adding new event (but only for a second time and +)
+				viewModel.BindDataToScheduleList();
+			}
+		}
 	}
-
-
 }
-
-

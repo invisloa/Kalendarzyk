@@ -36,7 +36,7 @@ namespace Kalendarzyk.ViewModels
 			}
 		}
 		// TODO ! CHANGE THE BELOW CLASS TO VIEW MODEL 
-		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get; set ; }
+		public ObservableCollection<MainEventTypeViewModel> MainEventTypesVisualsOC { get => _mainEventTypesCCHelper.MainEventTypesVisualsOC; set => _mainEventTypesCCHelper.MainEventTypesVisualsOC = value; }
 		public DefaultTimespanCCViewModel DefaultEventTimespanCCHelper { get; set; } = Factory.CreateNewDefaultEventTimespanCCHelperClass();
 		#region Fields
 		private IMainEventTypesCCViewModel _mainEventTypesCCHelper;
@@ -131,7 +131,7 @@ namespace Kalendarzyk.ViewModels
 			ExtraOptionsHelperToChangeName = Factory.CreateNewExtraOptionsSubTypesHelperClass();
 
 			InitializeCommon();
-			MainEventTypeSelectedCommand = new RelayCommand<MainEventTypeViewModel>(OnMainEventTypeSelectedCommand);
+			MainEventTypeSelectedCommand = MainEventTypesCCHelper.MainEventTypeSelectedCommand;
 			DefaultEventTimespanCCHelper.SelectedUnitIndex = 0; // minutes
 			DefaultEventTimespanCCHelper.DurationValue = 30;
 		}
