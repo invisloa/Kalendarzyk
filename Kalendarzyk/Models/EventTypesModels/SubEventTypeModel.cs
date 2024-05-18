@@ -138,7 +138,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 			}
 		}
 
-		public SubEventTypeModel(IMainEventType mainEventType, string eventTypeName, Color eventTypeColor, TimeSpan defaultEventTime, QuantityModel quantity = null, List<MicroTaskModel> microTasksList = null, bool isSelectedToFilter = true)
+		public SubEventTypeModel(IMainEventType mainEventType, string eventTypeName, Color eventTypeColor, TimeSpan defaultEventTime, QuantityModel quantity = null, IEnumerable<MicroTaskModel> microTasksList = null, bool isSelectedToFilter = true)
 		{
 			MainEventType = mainEventType;
 			IsSelectedToFilter = isSelectedToFilter;

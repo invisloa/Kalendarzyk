@@ -16,13 +16,11 @@ namespace Kalendarzyk.Services
 		private bool isCompleted = false;
 		private TimeSpan? postponeTime = null;
 		private bool wasShown = false;
-		private QuantityModel quantityAmount = null;
-		private IEnumerable<MicroTaskModel> _microTasksList = null;
 		private int? notificationID = null;
 		private Guid? guid = null;
 
 
-		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType, bool isCompleted, TimeSpan? postponeTime, bool wasShown, int? notificationID)
+		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,  bool isCompleted, TimeSpan? postponeTime, bool wasShown, int? notificationID, QuantityModel eventQuantity = null, IEnumerable<MicroTaskModel> microTasks = null)
 		{
 			// Validate Required Parameters Here
 			if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Title must not be empty", nameof(title));
@@ -32,7 +30,7 @@ namespace Kalendarzyk.Services
 			this.description = description;
 			this.startTime = startTime;
 			this.endTime = endTime;
-			this.eventType = eventType;
+			this.eventType = Factory.CreateNewEventType(eventType.MainEventType, eventType.EventTypeName, eventType.EventTypeColor, eventType.DefaultEventTimeSpan, eventQuantity, microTasks);
 			this.isCompleted = isCompleted;
 			if (postponeTime.HasValue)
 				this.postponeTime = postponeTime.Value;
@@ -60,17 +58,7 @@ namespace Kalendarzyk.Services
 			return this;
 		}
 
-		public EventModelBuilder SetQuantityAmount(QuantityModel quantityAmount)
-		{
-			this.quantityAmount = quantityAmount;
-			return this;
-		}
 
-		public EventModelBuilder SetMicroTasksList(IEnumerable<MicroTaskModel> microTasksList)
-		{
-			_microTasksList = microTasksList;
-			return this;
-		}
 		public int? SetNotificationID(int? notificationID)
 		{
 			this.notificationID = notificationID;
