@@ -110,11 +110,13 @@
 				var dateFrame = CreateDateFrame(day, firstDayOfWeek);
 				int gridRow = (firstDayOfWeek + day - 1) / 7 + 1;
 				int gridColumn = (firstDayOfWeek + day - 1) % 7;
+				Console.WriteLine($"Day: {day}, GridRow: {gridRow}, GridColumn: {gridColumn}"); // Add this line
 				Grid.SetRow(dateFrame, gridRow);
 				Grid.SetColumn(dateFrame, gridColumn);
 				Children.Add(dateFrame);
 			}
 		}
+
 
 		private Frame CreateDateFrame(int dayNumber, int firstDayOfWeek)
 		{

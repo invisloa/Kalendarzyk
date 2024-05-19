@@ -13,8 +13,8 @@
 
 			ApplyEventsDatesFilter(startOfMonth, endOfMonth);
 
-			OnOnEventsToShowListUpdated(); // invoke event to update customControl
-
+/*			OnOnEventsToShowListUpdated(); // invoke event to update customControl
+*/
 		}
 	}
 }

@@ -225,7 +225,7 @@
 			}
 			return EventsToShowList.Where(e => e.StartDateTime.Date == date && e.StartDateTime.Hour == hour);
 		}
-		private void AddEventsToGrid(IEnumerable<IGeneralEventModel> hourlyEvents, int dayOfWeek)
+		private void AddEventsToGrid(IEnumerable<IGeneralEventModel> hourlyEvents, int dayOfWeek, int columnIndex)
 		{
 			if (hourlyEvents.Any())
 			{
@@ -235,7 +235,7 @@
 					var moreButton = GenerateMoreButton(eventsCount, dayOfWeek);
 					// Set the correct row and column for the "More" button
 					Grid.SetRow(moreButton, dayOfWeek + 1); // Offset by 1 to account for the header row
-					Grid.SetColumn(moreButton, 1); // Adjust column index as necessary
+					Grid.SetColumn(moreButton, columnIndex); // Adjust column index as necessary
 
 					Children.Add(moreButton);
 				}
@@ -250,11 +250,48 @@
 
 					// Set the correct row and column for the stack layout
 					Grid.SetRow(stackLayout, dayOfWeek + 1); // Offset by 1 to account for the header row
-					var calculatedEventTime = _hoursSpanFrom > 0 ? 1 : 0;
-					Grid.SetColumn(stackLayout, calculatedEventTime); // Adjust column index as necessary
+					Grid.SetColumn(stackLayout, columnIndex); // Use provided column index
 
 					Children.Add(stackLayout);
 				}
+			}
+		}
+
+		private void GenerateEventFrames()
+		{
+			// Create frames for each hour and day
+			for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++)
+			{
+				// FOR BEFORE SPAN COLUMN
+				var frame = DrawHourFrame(-1, dayOfWeek);
+				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
+				Grid.SetColumn(frame, 1); // Column for before span
+
+				Children.Add(frame);
+
+				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));
+				AddEventsToGrid(eventsInBeforeSpan, dayOfWeek, 1); // Pass column index for before span
+
+				// For normal hours span Columns
+				for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
+				{
+					frame = DrawHourFrame(hour, dayOfWeek);
+					Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
+					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Adjust column index
+
+					Children.Add(frame);
+					var eventsInHour = GetHourEvents(hour, CalculateFrameDate(dayOfWeek));
+					AddEventsToGrid(eventsInHour, dayOfWeek, hour + 2 - _hoursSpanFrom); // Pass correct column index
+				}
+
+				// FOR AFTER SPAN COLUMN
+				frame = DrawHourFrame(-2, dayOfWeek);
+				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
+				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Column for after span
+
+				Children.Add(frame);
+				var eventsInAfterSpan = GetHourEvents(-2, CalculateFrameDate(dayOfWeek));
+				AddEventsToGrid(eventsInAfterSpan, dayOfWeek, _hoursSpanTo - _hoursSpanFrom + 3); // Pass column index for after span
 			}
 		}
 		private Frame GenerateMoreButton(int dayEventsCount, int dayOfWeek)
@@ -285,43 +322,6 @@
 			};
 
 			return moreButtonFrame;
-		}
-		private void GenerateEventFrames()
-		{
-			// Create frames for each hour and day
-			for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++)
-			{
-				// FOR BEFORE SPAN COLUMN
-				var frame = DrawHourFrame(-1, dayOfWeek);
-				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-				Grid.SetColumn(frame, 1); // Column for before span
-
-				Children.Add(frame);
-
-				var eventsInBeforeSpan = GetHourEvents(-1, CalculateFrameDate(dayOfWeek));
-				AddEventsToGrid(eventsInBeforeSpan, dayOfWeek);
-
-				// For normal hours span Columns
-				for (int hour = _hoursSpanFrom; hour <= _hoursSpanTo; hour++)
-				{
-					frame = DrawHourFrame(hour, dayOfWeek);
-					Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-					Grid.SetColumn(frame, hour + 2 - _hoursSpanFrom); // Adjust column index
-
-					Children.Add(frame);
-					var eventsInHour = GetHourEvents(hour, CalculateFrameDate(dayOfWeek));
-					AddEventsToGrid(eventsInHour, dayOfWeek);
-				}
-
-				// FOR AFTER SPAN COLUMN
-				frame = DrawHourFrame(-2, dayOfWeek);
-				Grid.SetRow(frame, dayOfWeek + 1); // Offset by 1 to account for the header row
-				Grid.SetColumn(frame, _hoursSpanTo - _hoursSpanFrom + 3); // Column for after span
-
-				Children.Add(frame);
-				var eventsInAfterSpan = GetHourEvents(-2, CalculateFrameDate(dayOfWeek));
-				AddEventsToGrid(eventsInAfterSpan, dayOfWeek);
-			}
 		}
 
 		private DateTime CalculateFrameDate(int dayOfWeek)

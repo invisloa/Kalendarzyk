@@ -14,20 +14,20 @@ namespace Kalendarzyk.Views
 			BindingContext = viewModel;
 
 			// Generate new grid every time the list of events to show is updated (e.g. when user adds new event)
-			viewModel.OnEventsToShowListUpdated += () =>
+/*			viewModel.OnEventsToShowListUpdated += () =>
 			{
 				monthlyEventsControl.GenerateGrid();
-			};
+			};*/
 		}
 
-		protected override void OnDisappearing()
+/*		protected override void OnDisappearing()
 		{
 			base.OnDisappearing();
 			if (viewModel != null)
 			{
 				viewModel.OnEventsToShowListUpdated -= monthlyEventsControl.GenerateGrid;
 			}
-		}
+		}*/
 
 		protected override void OnAppearing()
 		{
@@ -36,6 +36,8 @@ namespace Kalendarzyk.Views
 			{
 				viewModel.AllEventsListOC = viewModel.EventRepository.AllEventsList; // TEMP FIX TODO: ALL events list didn't update after adding new event (but only for a second time and +)
 				viewModel.BindDataToScheduleList();
+				monthlyEventsControl.GenerateGrid();
+
 			}
 		}
 	}
