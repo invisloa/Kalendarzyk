@@ -9,7 +9,6 @@ namespace Kalendarzyk.Services.DataOperations
 	public class EventJsonSerializer : IEventJsonSerializer
 	{
 		private readonly JsonSerializerSettings _settingsAll;
-		private readonly JsonSerializerSettings _settingsAuto;
 		private readonly ILocalDataEncryptionService _aesService;
 
 
@@ -36,7 +35,8 @@ namespace Kalendarzyk.Services.DataOperations
 				allMainEventTypesList);
 
 			var jsonString = JsonConvert.SerializeObject(eventsAndTypesToSave, _settingsAll);
-			return _aesService.EncryptString(jsonString);
+			//return _aesService.EncryptString(jsonString);
+			return jsonString;
 		}
 
 		private EventsAndTypesForJson BuildEventsAndTypesForJson(
@@ -74,8 +74,8 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			try
 			{
-				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<EventsAndTypesForJson>(decryptedString, _settingsAll);
+				//var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<EventsAndTypesForJson>(jsonString, _settingsAll);
 			}
 			catch (Exception)
 			{
@@ -86,8 +86,8 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			try
 			{
-				var decryptedString = _aesService.DecryptString(jsonString);
-				var deserializedEvents = JsonConvert.DeserializeObject<ObservableCollection<IGeneralEventModel>>(decryptedString, _settingsAll);
+				//var decryptedString = _aesService.DecryptString(jsonString);
+				var deserializedEvents = JsonConvert.DeserializeObject<ObservableCollection<IGeneralEventModel>>(jsonString, _settingsAll);
 				return deserializedEvents;
 			}
 			catch (Exception)
@@ -100,8 +100,8 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			try
 			{
-				var decryptedString = _aesService.DecryptString(jsonString);
-				return JsonConvert.DeserializeObject<ObservableCollection<ISubEventTypeModel>>(decryptedString, _settingsAll);
+				//var decryptedString = _aesService.DecryptString(jsonString);
+				return JsonConvert.DeserializeObject<ObservableCollection<ISubEventTypeModel>>(jsonString, _settingsAll);
 			}
 			catch (Exception)
 			{
@@ -112,8 +112,8 @@ namespace Kalendarzyk.Services.DataOperations
 		{
 			try
 			{
-				var decryptedString = _aesService.DecryptString(jsonString);
-				var deserializedMainEventTypes = JsonConvert.DeserializeObject<ObservableCollection<IMainEventType>>(decryptedString, _settingsAll);
+				//var decryptedString = _aesService.DecryptString(jsonString);
+				var deserializedMainEventTypes = JsonConvert.DeserializeObject<ObservableCollection<IMainEventType>>(jsonString, _settingsAll);
 				return deserializedMainEventTypes;
 			}
 			catch (Exception)
@@ -124,17 +124,20 @@ namespace Kalendarzyk.Services.DataOperations
 		public string SerializeEventsToJson(ObservableCollection<IGeneralEventModel> eventsToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(eventsToSaveList, _settingsAll);
-			return _aesService.EncryptString(jsonString);
+			//return _aesService.EncryptString(jsonString);
+			return jsonString;
 		}
 		public string SerializeSubEventTypesToJson(ObservableCollection<ISubEventTypeModel> subEventTypesToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(subEventTypesToSaveList, _settingsAll);
-			return _aesService.EncryptString(jsonString);
+			//return _aesService.EncryptString(jsonString);
+			return jsonString;
 		}
 		public string SerializeMainEventTypesToJson(ObservableCollection<IMainEventType> mainEventTypesToSaveList)
 		{
 			var jsonString = JsonConvert.SerializeObject(mainEventTypesToSaveList, _settingsAll);
-			return _aesService.EncryptString(jsonString);
+			//return _aesService.EncryptString(jsonString);
+			return jsonString;
 		}
 	}
 	public class EventsAndTypesForJson
