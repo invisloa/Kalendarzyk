@@ -13,25 +13,27 @@ namespace Kalendarzyk.Views
 		{
 			InitializeComponent();
 			BindingContext = viewModel;
-			viewModel.OnEventsToShowListUpdated += () =>
+/*			viewModel.OnEventsToShowListUpdated += () =>
 			{
 				weeklyEventsControl.GenerateGrid();
-			};
+			};*/
 		}
 		public WeeklyEventsPage(DateTime goToDate) : this()
 		{
 			viewModel.CurrentSelectedDate = goToDate;
 		}
-		protected override void OnDisappearing()
+/*		protected override void OnDisappearing()
 		{
 			base.OnDisappearing();
 			(BindingContext as WeeklyEventsViewModel).OnEventsToShowListUpdated -= weeklyEventsControl.GenerateGrid;
 		}
-		protected override void OnAppearing()
+*/		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			(BindingContext as WeeklyEventsViewModel).AllEventsListOC = (BindingContext as WeeklyEventsViewModel).EventRepository.AllEventsList;	//TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
-			(BindingContext as WeeklyEventsViewModel).BindDataToScheduleList();
+			viewModel.AllEventsListOC = viewModel.EventRepository.AllEventsList;    //TEMP FIX TODO  ALL events list didnt update after adding new event (but only for a second time and +)
+			viewModel.BindDataToScheduleList();
+			weeklyEventsControl.GenerateGrid();
+
 		}
 	}
 

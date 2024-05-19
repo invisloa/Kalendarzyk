@@ -161,9 +161,6 @@
 	  <Compile Update="Views\MonthlyEventsPage.xaml.cs">
 	    <DependentUpon>MonthlyEventsPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\WeeklyEventsPage.xaml.cs">
-	    <DependentUpon>WeeklyEventsPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -283,9 +280,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MonthlyEventsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\WeeklyEventsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\WelcomePage.xaml">

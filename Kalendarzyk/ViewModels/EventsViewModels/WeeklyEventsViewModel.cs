@@ -13,7 +13,7 @@
 			ApplyEventsDatesFilter(startOfWeek, endOfWeek);
 
 			// event that will fire generate grid in weeksView
-			OnOnEventsToShowListUpdated(); // invoke event to update customControl
+			// OnOnEventsToShowListUpdated(); // invoke event to update customControl
 
 		}
 	}
