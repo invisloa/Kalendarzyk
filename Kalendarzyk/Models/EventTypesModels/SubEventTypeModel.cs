@@ -15,9 +15,9 @@ namespace Kalendarzyk.Models.EventTypesModels
 
 		private bool _isValueType;
 		private bool _isMicroTaskType;
-		private IEnumerable<MicroTaskModel> _microTasksList;
-		private QuantityModel _quantityAmount;
-		public IEnumerable<MicroTaskModel> MicroTasksList
+		private IEnumerable<MicroTask> _microTasksList;
+		private Quantity _quantityAmount;
+		public IEnumerable<MicroTask> MicroTasksList
 		{
 			get => _microTasksList;
 			set
@@ -125,7 +125,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 				}
 			}
 		}
-		public QuantityModel QuantityAmount
+		public Quantity QuantityAmount
 		{
 			get => _quantityAmount;
 			set
@@ -138,7 +138,7 @@ namespace Kalendarzyk.Models.EventTypesModels
 			}
 		}
 
-		public SubEventTypeModel(IMainEventType mainEventType, string eventTypeName, Color eventTypeColor, TimeSpan defaultEventTime, QuantityModel quantity = null, IEnumerable<MicroTaskModel> microTasksList = null, bool isSelectedToFilter = true)
+		public SubEventTypeModel(IMainEventType mainEventType, string eventTypeName, Color eventTypeColor, TimeSpan defaultEventTime, Quantity quantity = null, IEnumerable<MicroTask> microTasksList = null, bool isSelectedToFilter = true)
 		{
 			MainEventType = mainEventType;
 			IsSelectedToFilter = isSelectedToFilter;

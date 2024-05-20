@@ -55,7 +55,7 @@ namespace Kalendarzyk.ViewModels.EventOperations
 		#region Fields
 		// Language
 		private int _fontSize = 20;
-		List<MicroTaskModel> microTasksList = new List<MicroTaskModel>();
+		List<MicroTask> microTasksList = new List<MicroTask>();
 		protected IEventTimeConflictChecker _eventTimeConflictChecker;
 		private ChangableFontsIconAdapter _eventTypesInfoButton;
 		private ChangableFontsIconAdapter _isCompletedButton;

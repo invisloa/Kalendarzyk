@@ -12,7 +12,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 	{
 		private ObservableCollection<MeasurementUnitItem> _measurementUnitsOC;
 		private MeasurementUnitItem _selectedMeasurementUnit;
-		private QuantityModel _eventQuantityAmount;
+		private Quantity _eventQuantityAmount;
 		private bool _isValueTypeSelected;
 
 		private RelayCommand<MeasurementUnitItem> _measurementUnitSelectedCommand;
@@ -26,7 +26,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		{
 			_measurementUnitSelectedCommand = new RelayCommand<MeasurementUnitItem>(OnMeasurementUnitSelected);
 			_selectedMeasurementUnit = MeasurementUnitsOC[0];   //default value- Currency
-			_eventQuantityAmount = new QuantityModel(_selectedMeasurementUnit.TypeOfMeasurementUnit, 0);
+			_eventQuantityAmount = new Quantity(_selectedMeasurementUnit.TypeOfMeasurementUnit, 0);
 		}
 		public ObservableCollection<MeasurementUnitItem> MeasurementUnitsOC     // TO CHECK IF THIS IS NEEDED MAYBE REMOVE !!!
 		{
@@ -67,7 +67,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 			}
 		}
-		public QuantityModel QuantityAmount
+		public Quantity QuantityAmount
 		{
 			get => _eventQuantityAmount;
 			set

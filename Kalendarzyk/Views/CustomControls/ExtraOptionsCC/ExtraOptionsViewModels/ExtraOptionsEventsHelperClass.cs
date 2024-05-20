@@ -36,7 +36,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			{
 				IsValueType = true;
 				DefaultMeasurementSelectorCCHelper = Factory.CreateNewMeasurementSelectorCCHelperClass();
-				DefaultMeasurementSelectorCCHelper.QuantityAmount = new QuantityModel(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
+				DefaultMeasurementSelectorCCHelper.QuantityAmount = new Quantity(DefaultMeasurementSelectorCCHelper.SelectedMeasurementUnit.TypeOfMeasurementUnit, DefaultMeasurementSelectorCCHelper.QuantityValue);
 				if (SubEventType.QuantityAmount != null && SubEventType.QuantityAmount.Value != 0)
 				{
 					OnIsEventValueType(ExtraOptionsButtonsSelectors[1]); // TODO refactor this
@@ -51,7 +51,7 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			if (SubEventType.IsMicroTaskType)
 			{
 				IsMicroTasksType = true;
-				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTaskModel>());
+				MicroTasksCCAdapter = Factory.CreateNewMicroTasksCCAdapter(new List<MicroTask>());
 
 				if (SubEventType.MicroTasksList != null && SubEventType.MicroTasksList.Count() > 0)
 				{

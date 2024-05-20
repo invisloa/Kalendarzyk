@@ -2,42 +2,15 @@
 
 namespace Kalendarzyk.Models.EventModels
 {
-	public class MicroTaskModel : BaseViewModel
+	public class MicroTask
 	{
-		private string _title;
-		private bool _isCompleted;
+		public string Title { get; set; }
+		public bool IsCompleted { get; set; }
 
-		public string MicroTaskTitle
+		public MicroTask(string title, bool isCompleted = false)
 		{
-			get => _title;
-			set
-			{
-				if (_title == value)
-				{
-					return;
-				}
-				_title = value;
-				OnPropertyChanged();
-			}
+			Title = title;
+			IsCompleted = isCompleted;
 		}
-		public bool IsMicroTaskCompleted
-		{
-			get => _isCompleted;
-			set
-			{
-				if (_isCompleted == value)
-				{
-					return;
-				}
-				_isCompleted = value;
-				OnPropertyChanged();
-			}
-		}
-		public MicroTaskModel(string title, bool isCompleted = false)
-		{
-			MicroTaskTitle = title;
-			IsMicroTaskCompleted = isCompleted;
-		}
-
 	}
 }

@@ -12,8 +12,8 @@ namespace Kalendarzyk.Models.EventTypesModels
 		string EventTypeColorString { get; set; }   // needed for json serialization
 		string EventTypeName { get; set; }
 		bool IsSelectedToFilter { get; set; }       //  TODO XXXX YYYY Refactor this->  delete and move this to a viewmodel!!! this could be made similair to mainevent types which are using "MainEventTypeViewModel"
-		QuantityModel QuantityAmount { get; set; }
-		IEnumerable<MicroTaskModel> MicroTasksList { get; set; }
+		Quantity QuantityAmount { get; set; }
+		IEnumerable<MicroTask> MicroTasksList { get; set; }
 		public TimeSpan DefaultEventTimeSpan { get; set; }  // default event time for the event type
 		string ToString();
 		new bool Equals(ISubEventTypeModel other);  // to check if the event type is already in the list

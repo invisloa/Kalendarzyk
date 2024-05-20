@@ -50,8 +50,8 @@
                 JustifyContent="Center">
             <BindableLayout.ItemTemplate>
                 <DataTemplate>
-                    <Button Text="{Binding MicroTaskTitle}" 
-                        BackgroundColor="{Binding IsMicroTaskCompleted, Converter={StaticResource isCompleteToColorConverter}}"
+                    <Button Text="{Binding Title}" 
+                        BackgroundColor="{Binding IsCompleted, Converter={StaticResource isCompleteToColorConverter}}"
                         Margin="5"
                         BorderColor="{Binding Path=BindingContext.ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.IsSelectedDeleteMode,  Source={x:Reference root}, Converter={StaticResource boolToColorConverter}}"
                         Command="{Binding Path=BindingContext.ExtraOptionsHelperToChangeName.MicroTasksCCAdapter.CurrentCommand, Source={x:Reference root}}"

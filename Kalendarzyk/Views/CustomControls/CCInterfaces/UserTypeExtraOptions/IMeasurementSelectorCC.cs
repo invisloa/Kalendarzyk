@@ -14,7 +14,7 @@ namespace Kalendarzyk.Views.CustomControls.CCInterfaces.SubTypeExtraOptions
 		ObservableCollection<MeasurementUnitItem> MeasurementUnitsOC { get; set; }
 		RelayCommand<MeasurementUnitItem> MeasurementUnitSelectedCommand { get; set; }
 		MeasurementUnitItem SelectedMeasurementUnit { get; set; }
-		QuantityModel QuantityAmount { get; set; }
+		Quantity QuantityAmount { get; set; }
 		public string QuantityValueText { get; set; }
 		public decimal QuantityValue { get; set; }
 		void SelectPropperMeasurementData(ISubEventTypeModel userEventTypeModel);

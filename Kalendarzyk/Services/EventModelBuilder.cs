@@ -20,7 +20,7 @@ namespace Kalendarzyk.Services
 		private Guid? guid = null;
 
 
-		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,  bool isCompleted, TimeSpan? postponeTime, bool wasShown, int? notificationID, QuantityModel eventQuantity = null, IEnumerable<MicroTaskModel> microTasks = null)
+		public EventModelBuilder(string title, string description, DateTime startTime, DateTime endTime, ISubEventTypeModel eventType,  bool isCompleted, TimeSpan? postponeTime, bool wasShown, int? notificationID, Quantity eventQuantity = null, IEnumerable<MicroTask> microTasks = null)
 		{
 			// Validate Required Parameters Here
 			if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Title must not be empty", nameof(title));

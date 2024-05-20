@@ -218,9 +218,9 @@ namespace Kalendarzyk.ViewModels
 			IMainTypeVisualModel quickNoteVisualModel = new IconModel(IconFont.Quickreply, Colors.Red, Colors.AntiqueWhite);
 			IMainEventType quickNoteMainType = new MainEventType(PreferencesManager.GetMainTypeQuickNoteName(), quickNoteVisualModel);
 			await repository.AddMainEventTypeAsync(quickNoteMainType);
-			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, PreferencesManager.GetSubTypeQuickNoteName(), Colors.Red, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
+			ISubEventTypeModel qNoteSubTypeModel = Factory.CreateNewEventType(quickNoteMainType, PreferencesManager.GetSubTypeQuickNoteName(), Colors.Red, TimeSpan.FromSeconds(0), new Quantity(MeasurementUnit.Money, 0), new List<MicroTask>());
 			await repository.AddSubEventTypeAsync(qNoteSubTypeModel);
-			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel, new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel>());
+			var qNoteEvent = Factory.CreatePropperEvent("My first quick note", "My greates description :)", DateTime.Now, DateTime.Now, qNoteSubTypeModel, new Quantity(MeasurementUnit.Money, 0), new List<MicroTask>());
 			await repository.AddEventAsync(qNoteEvent);
 		}
 		private async Task ResetToDefaultData() // it checks for the events before the events are imported so when there are any events added they will be deleted
@@ -253,9 +253,9 @@ namespace Kalendarzyk.ViewModels
 
 
 
-			ISubEventTypeModel oilSubEventType = Factory.CreateNewEventType(mainEventType, "Paliwo", Colors.Blue, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 100));
-			ISubEventTypeModel mechaniciansSubEventType = Factory.CreateNewEventType(mainEventType, "Naprawy", Colors.DarkRed, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0));
-			ISubEventTypeModel shoppingSubEventType = Factory.CreateNewEventType(homeMTType, "Spożywcze", Colors.MediumPurple, TimeSpan.FromSeconds(0), new QuantityModel(MeasurementUnit.Money, 0), new List<MicroTaskModel> { new MicroTaskModel("Mleko"), new MicroTaskModel("Chleb") });
+			ISubEventTypeModel oilSubEventType = Factory.CreateNewEventType(mainEventType, "Paliwo", Colors.Blue, TimeSpan.FromSeconds(0), new Quantity(MeasurementUnit.Money, 100));
+			ISubEventTypeModel mechaniciansSubEventType = Factory.CreateNewEventType(mainEventType, "Naprawy", Colors.DarkRed, TimeSpan.FromSeconds(0), new Quantity(MeasurementUnit.Money, 0));
+			ISubEventTypeModel shoppingSubEventType = Factory.CreateNewEventType(homeMTType, "Spożywcze", Colors.MediumPurple, TimeSpan.FromSeconds(0), new Quantity(MeasurementUnit.Money, 0), new List<MicroTask> { new MicroTask("Mleko"), new MicroTask("Chleb") });
 			ISubEventTypeModel examsSubEventType = new SubEventTypeModel(birthdaysMType, "Studia", Colors.DarkCyan, TimeSpan.FromSeconds(0));
 
 			await _eventRepository.AddSubEventTypeAsync(oilSubEventType);
@@ -263,9 +263,9 @@ namespace Kalendarzyk.ViewModels
 			await _eventRepository.AddSubEventTypeAsync(shoppingSubEventType);
 			await _eventRepository.AddSubEventTypeAsync(examsSubEventType);
 
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now - TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new QuantityModel(MeasurementUnit.Money, 150)));
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Maserati", "Olej", DateTime.Now - TimeSpan.FromDays(2), DateTime.Now - TimeSpan.FromDays(2) + TimeSpan.FromHours(1), mechaniciansSubEventType, new QuantityModel(MeasurementUnit.Money, 500)));
-			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Lidl", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType, new QuantityModel(MeasurementUnit.Money, 115), new List<MicroTaskModel> { new MicroTaskModel("Mleko"), new MicroTaskModel("Chleb"), new MicroTaskModel("Jabłka"), new MicroTaskModel("Pomidory"), new MicroTaskModel("Lasagne"), new MicroTaskModel("Ser"), }));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Jaguar", "25l", DateTime.Now - TimeSpan.FromDays(3), DateTime.Now - TimeSpan.FromDays(3), oilSubEventType, new Quantity(MeasurementUnit.Money, 150)));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Maserati", "Olej", DateTime.Now - TimeSpan.FromDays(2), DateTime.Now - TimeSpan.FromDays(2) + TimeSpan.FromHours(1), mechaniciansSubEventType, new Quantity(MeasurementUnit.Money, 500)));
+			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Lidl", "", DateTime.Now, DateTime.Now.AddHours(1), shoppingSubEventType, new Quantity(MeasurementUnit.Money, 115), new List<MicroTask> { new MicroTask("Mleko"), new MicroTask("Chleb"), new MicroTask("Jabłka"), new MicroTask("Pomidory"), new MicroTask("Lasagne"), new MicroTask("Ser"), }));
 			await _eventRepository.AddEventAsync(Factory.CreatePropperEvent("Matematyka", "Integrals", DateTime.Now + TimeSpan.FromDays(7), DateTime.Now + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(60), examsSubEventType));
 
 		}

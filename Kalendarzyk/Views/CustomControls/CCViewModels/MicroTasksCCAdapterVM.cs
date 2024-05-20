@@ -19,8 +19,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 			}
 		}
 
-		private MicroTaskModel _currentMicroTask;
-		public MicroTaskModel CurrentMicroTask
+		private MicroTask _currentMicroTask;
+		public MicroTask CurrentMicroTask
 		{
 			get => _currentMicroTask;
 			set
@@ -45,10 +45,10 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 
 
 
-		public MicroTasksCCAdapterVM(IEnumerable<MicroTaskModel> listToAddMicroTasks)
+		public MicroTasksCCAdapterVM(IEnumerable<MicroTask> listToAddMicroTasks)
 		{
-			InitializeCommon();
-			MicroTasksOC = new ObservableCollection<MicroTaskModel>(listToAddMicroTasks);
+				InitializeCommon();
+				MicroTasksOC = new ObservableCollection<MicroTask>(listToAddMicroTasks);
 			AddMicroTaskEventCommand = new RelayCommand(AddMicroTaskEvent, CanAddMicroTaskEvent);
 		}
 		public RelayCommand ToggleDeleteModeCommand { get; set; }
@@ -68,12 +68,12 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				OnPropertyChanged();
 			}
 		}
-		public RelayCommand<MicroTaskModel> DeleteMicroTaskCommand { get; set; }
+		public RelayCommand<MicroTask> DeleteMicroTaskCommand { get; set; }
 		private void InitializeCommon()
 		{
-			SelectMicroTaskCommand = new RelayCommand<MicroTaskModel>(OnMicroTaskSelected);
+			SelectMicroTaskCommand = new RelayCommand<MicroTask>(OnMicroTaskSelected);
 			ToggleDeleteModeCommand = new RelayCommand(OnToggleDeleteMode);
-			DeleteMicroTaskCommand = new RelayCommand<MicroTaskModel>(OnDeleteMicroTaskCommand);
+			DeleteMicroTaskCommand = new RelayCommand<MicroTask>(OnDeleteMicroTaskCommand);
 			CurrentCommand = SelectMicroTaskCommand; // Set the default command
 		}
 		private string _microTaskToAddName;
@@ -90,13 +90,13 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 		}
 		public RelayCommand AddMicroTaskEventCommand { get; set; }
 
-		private void OnDeleteMicroTaskCommand(MicroTaskModel microTask)
+		private void OnDeleteMicroTaskCommand(MicroTask microTask)
 		{
 			MicroTasksOC.Remove(microTask);
 		}
 		public void AddMicroTaskEvent()
 		{
-			MicroTasksOC.Add(new MicroTaskModel(MicroTaskToAddName));
+			MicroTasksOC.Add(new MicroTask(MicroTaskToAddName));
 			MicroTaskToAddName = "";
 		}
 		public bool CanAddMicroTaskEvent() => !string.IsNullOrWhiteSpace(MicroTaskToAddName);
@@ -113,8 +113,8 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				_allMicroTasksCompleted = value;
 			}
 		}
-		private ObservableCollection<MicroTaskModel> _microTasksOC;
-		public ObservableCollection<MicroTaskModel> MicroTasksOC
+		private ObservableCollection<MicroTask> _microTasksOC;
+		public ObservableCollection<MicroTask> MicroTasksOC
 		{
 			get => _microTasksOC;
 			set
@@ -126,10 +126,10 @@ namespace Kalendarzyk.Views.CustomControls.CCViewModels
 				}
 			}
 		}
-		public RelayCommand<MicroTaskModel> SelectMicroTaskCommand { get; set; }
-		private void OnMicroTaskSelected(MicroTaskModel clickedMicrotask)
+		public RelayCommand<MicroTask> SelectMicroTaskCommand { get; set; }
+		private void OnMicroTaskSelected(MicroTask clickedMicrotask)
 		{
-			clickedMicrotask.IsMicroTaskCompleted = !clickedMicrotask.IsMicroTaskCompleted;
+			clickedMicrotask.IsCompleted = !clickedMicrotask.IsCompleted;
 		}
 	}
 }
